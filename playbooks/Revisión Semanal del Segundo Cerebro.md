@@ -64,5 +64,6 @@ Recuperar control del sistema, evitar acumulación y asegurar que el conocimient
 - [[Uso Diario por Voz con WhisperFlow]]
 - [[Mapa del Sistema de Agentes]]
 - [[El Arquitecto del Segundo Cerebro Autónomo]]
+- [[Revisión Semanal Completa de la Bóveda y Repositorios]]
 
 #playbook

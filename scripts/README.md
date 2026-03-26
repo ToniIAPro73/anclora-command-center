@@ -21,6 +21,27 @@ powershell -ExecutionPolicy Bypass -File .\scripts\sync-skills.ps1 -Clean
 
 La fuente canónica de skills del repositorio es `.codex/skills/`. La carpeta `.claude/skills/` se considera una capa de compatibilidad.
 
+## `start-weekly-review.ps1`
+
+Prepara la revisión semanal completa con baja fricción.
+
+### Qué hace
+
+- crea la nota diaria del día si no existe
+- añade los bloques `## 🧹 Mantenimiento de Bóveda` y `## 🐙 Estado Semanal de Repositorios`
+- sincroniza skills antes de empezar
+- deja lista la sesión para ejecutar el playbook semanal
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\start-weekly-review.ps1
+```
+
+### Recomendación
+
+Úsalo cada viernes a las 15:00 como punto de entrada para la revisión semanal completa.
+
 ## Relacionado
 
 - [[AGENTS]]

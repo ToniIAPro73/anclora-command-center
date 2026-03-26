@@ -178,6 +178,8 @@
   },
   "active": "3651e798f4375bd6",
   "lastOpenFiles": [
+    "scripts/start-weekly-review.ps1",
+    "playbooks/Revisión Semanal Completa de la Bóveda y Repositorios.md",
     "daily-notes/2026-03-26.md",
     "resources/moc-de-negocio.md",
     "personas/Toni.md",
@@ -205,8 +207,6 @@
     "sistemas/El Arquitecto del Segundo Cerebro Autónomo.md",
     "playbooks/Manual de Instalación y Configuración de Claude Code.md",
     "playbooks/Automatización de Sistemas de Contenido con Obsidian y Claude Code.md",
-    "resources/Manual de Claude Code y Ecosistema de Desarrollo Obsidian.md",
-    "resources/Guía Maestra de Comandos y Hooks para Claude Code.md",
     "sistemas",
     "playbooks",
     "resources",

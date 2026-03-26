@@ -15,8 +15,13 @@ Beneficio: Reduce la fricción al pasar ideas rápidas a la base de datos.
 
 Beneficio: Actualiza todas las habilidades (skills) del agente con la última versión del repo.
 
+* **Inicio de Revisión Semanal**: powershell -ExecutionPolicy Bypass -File .\scripts\start-weekly-review.ps1
+
+Beneficio: Prepara automáticamente la nota diaria, sincroniza skills y deja lista la sesión de mantenimiento semanal.
+
 ## Relacionado
 
 - [[Mapa del Sistema de Agentes]]
 - [[Rutina Diaria del Segundo Cerebro]]
 - [[Revisión Semanal del Segundo Cerebro]]
+- [[Revisión Semanal Completa de la Bóveda y Repositorios]]
