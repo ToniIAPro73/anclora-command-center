@@ -19,7 +19,7 @@ related:
 
 ## 📋 Descripción
 
-Proyecto de asesoria fiscal y laboral orientado a uso personal y contexto de pluriactividad dentro del ecosistema Anclora.
+Proyecto de asesoria fiscal, laboral y de mercado inmobiliario orientado a uso personal y contexto de pluriactividad dentro del ecosistema Anclora.
 
 ## 🏁 Resultado esperado
 
@@ -33,21 +33,29 @@ Contar con una capacidad de asesoria util, clara y contextualizada para decision
 
 ## 📍 Estado actual
 
-- Situación actual: proyecto identificado dentro del ecosistema.
-- Último avance relevante: consolidacion inicial en la boveda.
-- Principal riesgo o bloqueo: falta de delimitacion funcional exacta.
+- Situación actual: proyecto activo con base tecnica real en GitHub y una propuesta ya concreta de asesoria para autonomos en pluriactividad.
+- Último avance relevante: el README confirma stack con Next.js 15, React 19, Supabase PostgreSQL + pgvector y motores de IA; los commits recientes muestran trabajo en branding, logo y UI.
+- Principal riesgo o bloqueo: la nota seguia siendo demasiado abstracta frente al avance real del repositorio.
 
 ## 📌 Decisiones clave
 
 | Fecha | Decisión | Contexto |
 |-------|----------|----------|
 | 2026-03-26 | Se consolida como proyecto activo de asesoria personal. | Debe cubrir fiscalidad y laboralidad asociadas a pluriactividad. |
+| 2026-03-26 | Se amplía el marco funcional hacia mercado inmobiliario y asistencia con IA. | El README del repositorio ya lo presenta como aplicacion de asesoria fiscal, laboral y mercado inmobiliario. |
+
+## 🧱 Arquitectura técnica real
+
+- Aplicacion construida con Next.js 15 y React 19.
+- Base de datos en Supabase PostgreSQL con `pgvector`.
+- Capa de IA apoyada en Anthropic Claude y Ollama Mistral.
+- La actividad reciente en GitHub refleja trabajo visible en branding y flujos de interfaz.
 
 ## ⏭️ Próximos pasos
 
-- [ ] Definir casos de uso prioritarios.
-- [ ] Delimitar alcance entre consulta, automatizacion y memoria de contexto.
-- [ ] Conectar decisiones relevantes con [[personas/Toni|Toni]].
+- [ ] Priorizar casos de uso reales sobre la arquitectura ya disponible.
+- [ ] Delimitar alcance entre consulta, automatizacion, memoria de contexto y soporte a mercado inmobiliario.
+- [ ] Documentar en la boveda los flujos de branding y UI detectados en los commits recientes.
 
 ## 🚧 Bloqueos
 
@@ -56,6 +64,7 @@ Contar con una capacidad de asesoria util, clara y contextualizada para decision
 ## 🧠 Aprendizajes
 
 - El valor del proyecto depende de contexto personal preciso y continuidad.
+- La base tecnica ya existe; ahora la brecha principal es de documentacion funcional dentro de la boveda.
 
 ## 🛠️ Sistemas y playbooks relacionados
 

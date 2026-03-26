@@ -178,6 +178,8 @@
   },
   "active": "3651e798f4375bd6",
   "lastOpenFiles": [
+    "playbooks/flujo-comercial-inteligente.md",
+    "resources/mapa-stakeholders.md",
     "scripts/unregister-weekly-review-task.ps1",
     "scripts/register-weekly-review-task.ps1",
     "scripts/start-weekly-review.ps1",
@@ -208,11 +210,9 @@
     "sistemas/Sistema CPR_ Gestión Eficiente de Contexto en Claude Code.md",
     "sistemas/El Arquitecto del Segundo Cerebro Autónomo.md",
     "playbooks/Manual de Instalación y Configuración de Claude Code.md",
-    "playbooks/Automatización de Sistemas de Contenido con Obsidian y Claude Code.md",
     "sistemas",
     "playbooks",
     "resources",
-    "templates",
-    "inbox"
+    "templates"
   ]
 }

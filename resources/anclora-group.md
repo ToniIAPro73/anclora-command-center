@@ -15,6 +15,8 @@ related:
   - "[[Anclora Content Generator AI]]"
   - "[[Anclora Advisor AI]]"
   - "[[Anclora Impulso]]"
+  - "[[Flujo Comercial Inteligente Anclora]]"
+  - "[[Mapa de Stakeholders de Anclora Group]]"
   - "[[MOC de Negocio]]"
   - "[[personas/Toni|Toni]]"
 ---
@@ -53,6 +55,7 @@ Es el hub corporativo del ecosistema. Su arquitectura permite un control granula
 - [[Anclora Content Generator AI]]: Motor editorial de inteligencia de contenido.
 - [[Anclora Advisor AI]]: Asesoria fiscal y laboral para uso personal y pluriactividad.
 - [[Anclora Impulso]]: Ecosistema Health and Fitness centrado en nutricion e IA.
+- [[Flujo Comercial Inteligente Anclora]]: Playbook de integracion entre datos, contenido, pipeline y partnerships.
 
 ## Contactos Clave
 
@@ -60,10 +63,13 @@ Es el hub corporativo del ecosistema. Su arquitectura permite un control granula
 > Toda persona vinculada al ecosistema debe residir en `personas/`.
 
 - Arquitecto Jefe: [[personas/Toni|Toni]]
+- Mapa canónico de actores: [[Mapa de Stakeholders de Anclora Group]]
 
 ## Relacionado
 
 - [[MOC de Negocio]]
+- [[Flujo Comercial Inteligente Anclora]]
+- [[Mapa de Stakeholders de Anclora Group]]
 - [[Mapa del Sistema de Agentes]]
 - [[El Arquitecto del Segundo Cerebro Autónomo]]
 
