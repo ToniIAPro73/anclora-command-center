@@ -6,6 +6,7 @@
       {
         "id": "af4daebfd4cf0b83",
         "type": "tabs",
+        "dimension": 19.966442953020135,
         "children": [
           {
             "id": "577b9b3d257862bd",
@@ -22,6 +23,7 @@
       {
         "id": "f8b25ff99184a3fc",
         "type": "tabs",
+        "dimension": 80.03355704697987,
         "children": [
           {
             "id": "9de0031ca8b1ada7",
@@ -192,8 +194,14 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "577b9b3d257862bd",
+  "active": "9de0031ca8b1ada7",
   "lastOpenFiles": [
+    "sistemas/README.md",
+    "sistemas",
+    "playbooks/README.md",
+    "playbooks",
+    "templates/comparativa.md",
+    "templates/playbook.md",
     "research/Guía Maestra de Comandos y Hooks para Claude Code.md",
     "research/Automatización de Sistemas de Contenido con Obsidian y Claude Code.md",
     "research/Sistema CPR_ Gestión Eficiente de Contexto en Claude Code.md",
