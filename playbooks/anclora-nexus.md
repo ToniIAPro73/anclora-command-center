@@ -7,6 +7,7 @@ estado: activo
 herramientas: [crm, pipeline, trazabilidad]
 repo: https://github.com/ToniIAPro73/Anclora-Nexus.git
 use_case: pipeline-management
+arquitecto_jefe: "[[personas/Toni|Toni]]"
 tags: [playbook, anclora, operations]
 related:
   - "[[Anclora Group]]"

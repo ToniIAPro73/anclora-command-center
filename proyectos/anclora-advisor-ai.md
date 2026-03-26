@@ -7,6 +7,7 @@ resultado_esperado: Consolidar una capa de asesoria fiscal y laboral util para u
 area: personal-advisory
 repo: https://github.com/ToniIAPro73/Anclora-Advisor-AI.git
 scope: personal-advisory
+arquitecto_jefe: "[[personas/Toni|Toni]]"
 tags: [proyecto, anclora, advisory]
 related:
   - "[[Anclora Group]]"

@@ -7,6 +7,7 @@ resultado_esperado: Consolidar un ecosistema Health and Fitness apoyado en nutri
 area: health-tech
 repo: https://github.com/ToniIAPro73/Anclora-Impulso.git
 vertical: health-tech
+arquitecto_jefe: "[[personas/Toni|Toni]]"
 tags: [proyecto, anclora, health-tech]
 related:
   - "[[Anclora Group]]"

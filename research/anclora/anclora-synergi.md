@@ -7,6 +7,7 @@ tipo: partnership-platform
 estado: pendiente
 estado_validacion: no_validado
 repo: https://github.com/ToniIAPro73/anclora-synergi.git
+arquitecto_jefe: "[[personas/Toni|Toni]]"
 tags: [research, anclora, partnerships]
 related:
   - "[[Anclora Group]]"

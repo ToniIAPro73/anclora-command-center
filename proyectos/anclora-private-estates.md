@@ -7,6 +7,7 @@ resultado_esperado: Consolidar el vertical inmobiliario premium como matriz oper
 area: luxury-real-estate
 repo: https://github.com/ToniIAPro73/Anclora-Private-Estates.git
 vertical: luxury-real-estate
+arquitecto_jefe: "[[personas/Toni|Toni]]"
 tags: [proyecto, anclora, real-estate]
 related:
   - "[[Anclora Group]]"

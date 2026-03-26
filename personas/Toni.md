@@ -1,6 +1,6 @@
 ---
 title: Toni
-rol: Estrategia y arquitectura
+rol: Arquitecto Jefe
 organizacion: Anclora Group
 email:
 telefono:
@@ -18,7 +18,7 @@ related:
 
 ## Contexto
 
-Figura central vinculada a estrategia, arquitectura y cohesion del ecosistema Anclora Group.
+Figura central vinculada a estrategia, arquitectura y cohesion del ecosistema Anclora Group. Actua como Arquitecto Jefe del ecosistema.
 
 ## 📞 Contacto
 
@@ -26,13 +26,13 @@ Figura central vinculada a estrategia, arquitectura y cohesion del ecosistema An
 - **Teléfono**:
 - **LinkedIn**:
 - **Organización**: Anclora Group
-- **Rol**: Estrategia y arquitectura
+- **Rol**: Arquitecto Jefe
 
 ## 💬 Conversaciones clave
 
 | Fecha | Tema | Notas |
 |-------|------|-------|
-| 2026-03-26 | Consolidacion del ecosistema Anclora en la boveda | Se define a Toni como nodo relacional clave para estrategia y arquitectura. |
+| 2026-03-26 | Consolidacion del ecosistema Anclora en la boveda | Se define a Toni como nodo relacional clave y Arquitecto Jefe del ecosistema. |
 
 ## 🎯 Oportunidades y seguimiento
 

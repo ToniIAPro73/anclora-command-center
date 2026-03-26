@@ -7,6 +7,7 @@ tipo: analytics-platform
 estado: pendiente
 estado_validacion: no_validado
 repo: https://github.com/ToniIAPro73/anclora-data-lab.git
+arquitecto_jefe: "[[personas/Toni|Toni]]"
 tags: [research, anclora, analytics]
 related:
   - "[[Anclora Group]]"

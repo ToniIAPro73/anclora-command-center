@@ -3,6 +3,8 @@ title: Anclora Group
 repo: https://github.com/ToniIAPro73/Anclora-Group.git
 type: corporate-hub
 status: active
+verticals: [Real Estate, AI, Health]
+arquitecto_jefe: "[[personas/Toni|Toni]]"
 tags: [resource, anclora, corporate-hub]
 related:
   - "[[Anclora Private Estates]]"
@@ -12,16 +14,34 @@ related:
   - "[[Anclora Content Generator AI]]"
   - "[[Anclora Advisor AI]]"
   - "[[Anclora Impulso]]"
+  - "[[MOC de Negocio]]"
   - "[[personas/Toni|Toni]]"
 ---
 
 # Anclora Group
 
-Entorno corporativo unificado para la gestion de aplicaciones, equipos y herramientas estrategicas con control por rol.
+Es el nucleo gravitatorio y entorno corporativo unificado desde el cual se organiza el acceso interno a aplicaciones, equipos y herramientas estrategicas.
 
-## Estructura de Anclora Group
+## ¿Qué es Anclora Group?
 
-Anclora Group actua como hub corporativo del ecosistema. Su funcion es dar contexto comun, memoria organizativa y trazabilidad entre verticales, aplicaciones y operaciones.
+Es el hub corporativo del ecosistema. Su arquitectura permite un control granular por rol y una trazabilidad total de las operaciones entre verticales, inteligencia, herramientas y memoria relacional.
+
+## ¿Por qué importa?
+
+### Valor Estratégico
+
+- **Unificación de Datos**: actua como puente entre el vertical inmobiliario premium y los motores de inteligencia, evitando silos de informacion.
+- **Escalabilidad de Aplicaciones**: permite que herramientas como [[Anclora Nexus]] o [[Anclora Synergi]] compartan una logica de negocio comun.
+- **Multiplicador de IA**: integra generadores de contenido y asesores inteligentes directamente en el flujo de trabajo operativo.
+- **Gobierno Corporativo**: centraliza la propiedad de activos, repositorios y conocimiento canonico de la marca.
+
+## Mapa del Ecosistema
+
+- Puerta de Enlace Inmobiliaria: [[Anclora Private Estates]]
+- Inteligencia y Datos: [[Anclora Data Lab]] | [[Anclora Content Generator AI]]
+- Gestión de Partners: [[Anclora Synergi]]
+- Motor Operativo: [[Anclora Nexus]]
+- Verticales de Valor Personal: [[Anclora Advisor AI]] | [[Anclora Impulso]]
 
 ## Ecosistema de Aplicaciones
 
@@ -38,10 +58,11 @@ Anclora Group actua como hub corporativo del ecosistema. Su funcion es dar conte
 > [!note] Memoria relacional
 > Toda persona vinculada al ecosistema debe residir en `personas/`.
 
-- Estrategia y arquitectura: [[personas/Toni|Toni]]
+- Arquitecto Jefe: [[personas/Toni|Toni]]
 
 ## Relacionado
 
+- [[MOC de Negocio]]
 - [[Mapa del Sistema de Agentes]]
 - [[El Arquitecto del Segundo Cerebro Autónomo]]
 

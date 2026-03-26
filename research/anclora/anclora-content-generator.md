@@ -7,6 +7,7 @@ tipo: content-intelligence
 estado: pendiente
 estado_validacion: no_validado
 repo: https://github.com/ToniIAPro73/anclora-content-generator-ai.git
+arquitecto_jefe: "[[personas/Toni|Toni]]"
 tags: [research, anclora, content]
 related:
   - "[[Anclora Group]]"
