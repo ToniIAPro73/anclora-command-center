@@ -1,56 +1,67 @@
 ---
 title: Marta Vidal
-rol: Broker de lujo / Relationship manager
-organizacion: Vidal Estates Advisory
-email:
-telefono:
-ubicacion: Barcelona
-estado_relacion: prospecto
-tipo_contacto: perfil-semilla
-tags: [persona, anclora, broker, luxury]
+type: persona
+tags: [persona, partner, synergi, anclora, broker, luxury]
+status: prospecto
+company: Vidal Estates Advisory
+role: Broker de lujo / Relationship manager
+location: Barcelona
+influence_level: alto
+onboarding_date:
+github_user:
+contact_channel: LinkedIn
+trust_level: perfil-semilla
 related:
   - "[[Anclora Group]]"
   - "[[Anclora Private Estates]]"
   - "[[Anclora Nexus]]"
   - "[[Anclora Content Generator AI]]"
+  - "[[Anclora Synergi]]"
   - "[[personas/Toni|Toni]]"
 ---
 
-# Marta Vidal
+# Partner: Marta Vidal
 
-## Contexto
+## 📋 Perfil Ejecutivo
 
-Perfil semilla de intermediacion comercial para real estate premium. Representa a la persona que puede convertir contenido, argumentos de valor y trazabilidad en relaciones de confianza con clientes de alto nivel.
+> [!abstract] Resumen
+> Perfil semilla de intermediacion comercial para real estate premium. Representa a la persona que puede convertir contenido, argumentos de valor y trazabilidad en relaciones de confianza con clientes de alto nivel.
 
-## 📞 Contacto
+- Especialidad: Brokerage de lujo, gestion relacional y conversion consultiva.
+- Punto de contacto principal: LinkedIn.
+- Nivel de confianza/Vetting: perfil semilla aun no evaluado dentro del proceso de admision de Synergi.
 
-- **Email**:
-- **Teléfono**:
-- **LinkedIn**:
-- **Organización**: Vidal Estates Advisory
-- **Rol**: Broker de lujo / Relationship manager
+## 🤝 Relación con Anclora Synergi
 
-## 💬 Conversaciones clave
+### Estado en la Plataforma
 
-| Fecha | Tema | Notas |
-|-------|------|-------|
-| 2026-03-26 | Alta como perfil semilla | Se crea como perfil comercial para conectar discurso editorial, pipeline y relacion con cliente premium. |
+- [ ] Invitación enviada
+- [ ] Workspace activado
+- [ ] Acuerdo de confidencialidad firmado
 
-## 🎯 Oportunidades y seguimiento
+### Valor para el Ecosistema
 
-- Próximo paso: validar que mensajes y materiales aceleran mas la confianza en captacion premium.
-- Tema pendiente: conectar su operativa con [[Anclora Nexus]] y con la produccion de activos de [[Anclora Content Generator AI]].
-- Cómo puedo aportar valor: dotarla de narrativa, informacion y seguimiento coherente para mover oportunidades de alto valor.
+- ¿Qué aporta a Anclora?
+  Capacidad de intermediacion, confianza comercial y lectura directa de objeciones o motivadores del cliente premium.
+- ¿Qué consume de Anclora?
+  Argumentarios de [[Anclora Content Generator AI]], seguimiento en [[Anclora Nexus]] y coordinacion privada con [[Anclora Synergi]].
 
-## 🤝 Proyectos relacionados
+## 🎙️ Registro de Conversaciones
 
-- [[Anclora Group]]
-- [[Anclora Private Estates]]
-- [[Anclora Nexus]]
-- [[Anclora Content Generator AI]]
+> [!quote] Bitácora de Interacciones
+> Listar de más reciente a más antigua.
 
-## Notas adicionales
+- 2026-03-26: Alta como perfil semilla. Se crea como perfil comercial para conectar discurso editorial, pipeline y relacion con cliente premium.
 
-Este nodo ayuda a que el sistema no piense solo en producto y datos, sino tambien en la capa humana de venta consultiva.
+## 🚀 Oportunidades y Sinergias
 
-#persona #anclora
+- Siguiente Acción: validar que mensajes y materiales aceleran mas la confianza en captacion premium.
+- Proyectos Relacionados:
+  [[Anclora Nexus]]
+  [[Anclora Content Generator AI]]
+
+## 💡 Notas de Contexto Personal
+
+Probablemente responda mejor a mensajes con tono premium, muy claros y con utilidad comercial inmediata. Conviene evitar tecnicismos si no se traducen en ventaja concreta para cliente o partner.
+
+#persona #synergi-partner

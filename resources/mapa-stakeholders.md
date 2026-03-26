@@ -11,6 +11,7 @@ related:
   - "[[Anclora Private Estates]]"
   - "[[Anclora Synergi]]"
   - "[[Anclora Nexus]]"
+  - "[[Arquitectura de Integración Anclora]]"
   - "[[Lucia Serrano]]"
   - "[[Javier Ortega]]"
   - "[[Marta Vidal]]"
@@ -71,6 +72,7 @@ Mapa canónico de actores clave del ecosistema Anclora Group. Su función es evi
 - [[Anclora Private Estates]]
 - [[Anclora Synergi]]
 - [[Anclora Nexus]]
+- [[Arquitectura de Integración Anclora]]
 - [[Lucia Serrano]]
 - [[Javier Ortega]]
 - [[Marta Vidal]]

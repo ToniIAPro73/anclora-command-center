@@ -1,13 +1,16 @@
 ---
 title: Javier Ortega
-rol: Developer inmobiliario / Partner de producto
-organizacion: Ortega Developments
-email:
-telefono:
-ubicacion: Costa del Sol
-estado_relacion: prospecto
-tipo_contacto: perfil-semilla
-tags: [persona, anclora, real-estate, partnerships]
+type: persona
+tags: [persona, partner, synergi, anclora, real-estate]
+status: prospecto
+company: Ortega Developments
+role: Developer inmobiliario / Partner de producto
+location: Costa del Sol
+influence_level: alto
+onboarding_date:
+github_user:
+contact_channel: Email
+trust_level: perfil-semilla
 related:
   - "[[Anclora Group]]"
   - "[[Anclora Private Estates]]"
@@ -16,41 +19,48 @@ related:
   - "[[personas/Toni|Toni]]"
 ---
 
-# Javier Ortega
+# Partner: Javier Ortega
 
-## Contexto
+## 📋 Perfil Ejecutivo
 
-Perfil semilla de partner orientado a desarrollo y colaboraciones inmobiliarias premium. Es el tipo de contacto que necesita tanto visibilidad comercial como un entorno privado de coordinacion.
+> [!abstract] Resumen
+> Perfil semilla de partner orientado a desarrollo y colaboraciones inmobiliarias premium. Es el tipo de contacto que necesita tanto visibilidad comercial como un entorno privado de coordinacion.
 
-## 📞 Contacto
+- Especialidad: Desarrollo inmobiliario, coinversion y coordinacion de producto premium.
+- Punto de contacto principal: Email.
+- Nivel de confianza/Vetting: perfil semilla pendiente de validacion y admision en workspace privado.
 
-- **Email**:
-- **Teléfono**:
-- **LinkedIn**:
-- **Organización**: Ortega Developments
-- **Rol**: Developer inmobiliario / Partner de producto
+## 🤝 Relación con Anclora Synergi
 
-## 💬 Conversaciones clave
+### Estado en la Plataforma
 
-| Fecha | Tema | Notas |
-|-------|------|-------|
-| 2026-03-26 | Alta como perfil semilla | Se crea para modelar la capa de partnership entre [[Anclora Private Estates]], [[Anclora Synergi]] y [[Anclora Nexus]]. |
+- [ ] Invitación enviada
+- [ ] Workspace activado
+- [ ] Acuerdo de confidencialidad firmado
 
-## 🎯 Oportunidades y seguimiento
+### Valor para el Ecosistema
 
-- Próximo paso: definir una oferta clara de colaboracion y trazabilidad de pipeline.
-- Tema pendiente: entender si prioriza visibilidad comercial, coinversion o captacion de demanda.
-- Cómo puedo aportar valor: coordinar oportunidades, contenidos y seguimiento comercial sin perder contexto.
+- ¿Qué aporta a Anclora?
+  Capacidad de desarrollo, validacion de colaboraciones y potencial de coinversion o producto compartido.
+- ¿Qué consume de Anclora?
+  Trazabilidad en [[Anclora Nexus]], coordinacion privada en [[Anclora Synergi]] y visibilidad comercial desde [[Anclora Private Estates]].
 
-## 🤝 Proyectos relacionados
+## 🎙️ Registro de Conversaciones
 
-- [[Anclora Group]]
-- [[Anclora Private Estates]]
-- [[Anclora Synergi]]
-- [[Anclora Nexus]]
+> [!quote] Bitácora de Interacciones
+> Listar de más reciente a más antigua.
 
-## Notas adicionales
+- 2026-03-26: Alta como perfil semilla. Se crea para modelar la capa de partnership entre [[Anclora Private Estates]], [[Anclora Synergi]] y [[Anclora Nexus]].
 
-Nodo relacional semilla para probar el flujo completo lead -> partner -> workspace privado.
+## 🚀 Oportunidades y Sinergias
 
-#persona #anclora
+- Siguiente Acción: definir una oferta clara de colaboracion y trazabilidad de pipeline para potencial partner de desarrollo.
+- Proyectos Relacionados:
+  [[Anclora Private Estates]]
+  [[Anclora Nexus]]
+
+## 💡 Notas de Contexto Personal
+
+Es un perfil al que hay que hablarle en terminos de proceso, visibilidad y seguridad operativa. Conviene mostrarle que el sistema evita improvisacion y deja memoria compartida de cada oportunidad.
+
+#persona #synergi-partner

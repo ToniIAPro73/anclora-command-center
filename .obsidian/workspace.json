@@ -178,6 +178,7 @@
   },
   "active": "3651e798f4375bd6",
   "lastOpenFiles": [
+    "templates/partner-synergi.md",
     "sistemas/Arquitectura de Integración Anclora.md",
     "playbooks/Borrador de Email de Captación Synergi.md",
     "personas/Marta Vidal.md",
@@ -207,7 +208,6 @@
     "playbooks/Revisión Semanal del Segundo Cerebro.md",
     "playbooks/Rutina Diaria del Segundo Cerebro.md",
     "sistemas/Mapa del Sistema de Agentes.md",
-    "scripts/README.md",
     "scripts/sync-skills.ps1",
     "scripts",
     "sistemas",
