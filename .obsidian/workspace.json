@@ -178,6 +178,9 @@
   },
   "active": "3651e798f4375bd6",
   "lastOpenFiles": [
+    "scripts/README.md",
+    "scripts/sync-skills.ps1",
+    "scripts",
     "AGENTS.md",
     "research/README.md",
     "sistemas/Sistema CPR_ Gestión Eficiente de Contexto en Claude Code.md",
@@ -205,14 +208,11 @@
     "Bienvenido.md",
     "templates/persona.md",
     "templates/research.md",
-    "templates/proyecto.md",
     "resources",
     "templates",
     "inbox",
     "ideas",
     "personas",
-    "research",
-    "proyectos",
-    "daily-notes"
+    "research"
   ]
 }

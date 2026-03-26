@@ -60,7 +60,11 @@ La bóveda debe comportarse como un sistema de conocimiento vivo, no como un arc
 * `resources/`: manuales consolidados, cheatsheets y guías de consulta frecuente.
 
 ## Skills locales
-Este repo tiene dos capas de skills:
+Este repo tiene dos capas visibles de skills, pero una sola fuente de verdad:
+
+* La carpeta canónica es `.codex/skills/`.
+* La carpeta `.claude/skills/` se considera una capa de compatibilidad para otras herramientas o agentes.
+* Si hay divergencia entre ambas, prevalece `.codex/skills/`.
 
 ### Skills de workflow para agentes OpenAI/Codex
 Ubicadas en `.codex/skills/`:
@@ -82,6 +86,7 @@ Ubicadas en `.codex/skills/`:
 * Para auditoría y mantenimiento incremental, priorizar `obsidian-vault-gardener`.
 * Usar `obsidian-markdown`, `obsidian-cli`, `json-canvas`, `obsidian-bases` y `defuddle` como skills de soporte técnico.
 * Si una skill no se descubre automáticamente, inspeccionar manualmente su `SKILL.md`.
+* Si se necesita compatibilidad con `.claude/skills/`, sincronizarla desde `.codex/skills/` en lugar de editar ambas a mano.
 
 ## Convenciones por tipo de nota
 * **Daily note**: foco, agenda, notas, decisiones, completado, ideas, referencias.

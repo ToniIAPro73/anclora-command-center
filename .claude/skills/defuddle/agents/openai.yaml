@@ -1,0 +1,3 @@
+display_name: Defuddle
+short_description: Turn web pages into clean markdown suitable for the vault.
+default_prompt: Extract the useful content from a web page, preserve provenance, and convert it into clean markdown for note capture or reference.
