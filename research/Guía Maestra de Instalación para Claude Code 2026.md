@@ -1,5 +1,11 @@
 **Guía de instalación paso a paso para Claude Code (2026)**
 
+## Notas relacionadas
+
+* Para una guía paralela de instalación y configuración, ver [[Manual de Instalación y Configuración de Claude Code]].
+* Después de instalar, continuar con [[Guía Maestra de Comandos y Hooks para Claude Code]].
+* Para entender cómo encaja Claude Code dentro de la bóveda, ver [[Manual de Claude Code y Ecosistema de Desarrollo Obsidian]].
+
 ### Requisitos Mínimos del Sistema
 
 Para poder instalar y ejecutar Claude Code, tu sistema debe cumplir con los siguientes requisitos previos 1:

@@ -1,3 +1,10 @@
+## Notas relacionadas
+
+* Esta nota aterriza operativamente los principios de [[El Arquitecto del Segundo Cerebro Autónomo]].
+* Para los métodos de integración del vault con Claude Code, ver [[Sinergia Digital_ Métodos de Integración entre Claude Code y Obsidian]].
+* Para comandos y automatizaciones reutilizables, ver [[Guía Maestra de Comandos y Hooks para Claude Code]].
+* Para plugins y ecosistema dentro de Obsidian, ver [[Manual de Claude Code y Ecosistema de Desarrollo Obsidian]].
+
 **Flujo de trabajo secuencial para automatizar un sistema de contenido**
 
 1. **Estructuración del Vault para accesibilidad de la IA:** El primer paso es establecer una jerarquía de carpetas lógica en Obsidian, típicamente usando tres carpetas principales: *01\_Inspiration* (para referencias y desgloses de IA), *02\_Production* (para guiones activos y storyboards) y *03\_Systems* (para guías de estilo y bibliotecas de prompts) 1\.  

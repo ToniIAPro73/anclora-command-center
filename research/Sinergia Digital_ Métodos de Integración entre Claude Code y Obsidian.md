@@ -1,3 +1,10 @@
+## Notas relacionadas
+
+* Esta nota es una comparativa técnica complementaria a [[Manual de Claude Code y Ecosistema de Desarrollo Obsidian]].
+* Se apoya en la visión de arquitectura de [[El Arquitecto del Segundo Cerebro Autónomo]].
+* Tiene aplicación práctica en [[Automatización de Sistemas de Contenido con Obsidian y Claude Code]].
+* La instalación base de Claude Code está documentada en [[Guía Maestra de Instalación para Claude Code 2026]].
+
 A continuación, se presenta una tabla comparativa de los métodos de integración entre Claude Code y Obsidian, destacando su dificultad de configuración y sus beneficios principales según la guía de integración de Starmorph y la documentación de la comunidad:  
 Método de Integración,Dificultad de Configuración (Según Starmorph),Beneficio Principal  
 1\. Symlinks (Enlaces Simbólicos),La más simple: Se configura con un solo comando en la terminal 1.,"Búsqueda unificada en múltiples repositorios: Permite a los desarrolladores tener acceso de lectura a toda su base de conocimientos (archivos CLAUDE.md, planes y habilidades) desde una bóveda dedicada, evitando que los repositorios de código reales se llenen de archivos y carpetas basura de Obsidian (como .obsidian/) 1, 2."  

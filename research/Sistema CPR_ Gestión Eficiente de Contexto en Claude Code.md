@@ -1,3 +1,9 @@
+## Notas relacionadas
+
+* Esta nota desarrolla un problema central planteado en [[El Arquitecto del Segundo Cerebro Autónomo]].
+* Se relaciona con [[Guía Maestra de Comandos y Hooks para Claude Code]] por el uso de `/resume`, compactación y memoria operativa.
+* Puede convertirse en un principio o playbook dentro de `sistemas/` o `playbooks/` si lo adoptas como flujo estable.
+
 El sistema **CPR (Compress, Preserve, Resume)**, documentado en el repositorio de Elia Alberti, es un conjunto de tres habilidades (skills) personalizadas para Claude Code diseñadas específicamente para resolver el problema de la pérdida de contexto y gestionar eficientemente la memoria (y el consumo de tokens) al integrar la IA con bóvedas de Obsidian 1-4. Su objetivo es evitar que el usuario tenga que explicar su proyecto desde cero en cada nueva sesión 3, 5\.  
 Para gestionar el límite de tokens en un cerebro digital, estos comandos configuran un flujo de trabajo cíclico:
 

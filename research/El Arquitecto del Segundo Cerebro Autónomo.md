@@ -1,3 +1,10 @@
+## Notas relacionadas
+
+* Esta nota se conecta directamente con [[Sistema CPR_ Gestión Eficiente de Contexto en Claude Code]] por el problema de memoria y continuidad.
+* Para la capa de integración concreta entre Obsidian y Claude Code, ver [[Sinergia Digital_ Métodos de Integración entre Claude Code y Obsidian]].
+* Para una visión más práctica del ecosistema de herramientas y plugins, ver [[Manual de Claude Code y Ecosistema de Desarrollo Obsidian]].
+* Para aplicar estos principios a procesos repetibles, ver [[Automatización de Sistemas de Contenido con Obsidian y Claude Code]].
+
 Según el documento "Architecting the Autonomous Second Brain", la convergencia de la gestión de conocimiento y la inteligencia artificial ha transformado las bóvedas de notas estáticas en un "sistema operativo de conocimiento activo" 1\.  
 **Principios del '2026 Knowledge OS Ecosystem'**El éxito de este ecosistema se fundamenta en tres principios no negociables que se alinean a la perfección con las exigencias de la IA agéntica 2:
 

@@ -1,3 +1,10 @@
+## Notas relacionadas
+
+* Complementa [[Guía Maestra de Instalación para Claude Code 2026]] y [[Manual de Instalación y Configuración de Claude Code]].
+* Se cruza con [[Guía Maestra de Comandos y Hooks para Claude Code]] en la parte operativa de Claude Code.
+* Para comparar arquitecturas de integración con la bóveda, ver [[Sinergia Digital_ Métodos de Integración entre Claude Code y Obsidian]].
+* Para la visión de sistema completo, ver [[El Arquitecto del Segundo Cerebro Autónomo]].
+
 ### 💻 Comandos de Terminal (CLI) de Claude Code
 
 * **claude**: Inicia la sesión interactiva local (REPL) dentro del directorio de tu proyecto 1, 2\.  
@@ -34,4 +41,3 @@ Para utilizar Obsidian como bóveda de desarrollo sin ensuciar la interfaz con a
 
 * **Claudian**: Incrusta a Claude Code directamente en la interfaz de Obsidian (como un chat en la barra lateral) con modos de permiso (YOLO/Safe/Plan) integrados, para quienes no quieren salir de su editor Markdown 26, 28\.  
 * **obsidian-claude-code-mcp**: Un servidor puente MCP que permite a Claude Code descubrir tus bóvedas a través de WebSocket, otorgándole capacidad de búsqueda y lectura directa sin necesidad de usar tu bóveda como directorio de trabajo activo en la terminal 26, 29, 30\.
-
