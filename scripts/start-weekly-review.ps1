@@ -4,6 +4,36 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+function Send-ReviewNotification {
+    param(
+        [string]$Title,
+        [string]$Message
+    )
+
+    try {
+        [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] | Out-Null
+        [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime] | Out-Null
+
+        $xml = New-Object Windows.Data.Xml.Dom.XmlDocument
+        $xml.LoadXml(@"
+<toast>
+  <visual>
+    <binding template="ToastGeneric">
+      <text>$Title</text>
+      <text>$Message</text>
+    </binding>
+  </visual>
+</toast>
+"@)
+
+        $toast = [Windows.UI.Notifications.ToastNotification]::new($xml)
+        $notifier = [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier("Anclora Weekly Review")
+        $notifier.Show($toast)
+    } catch {
+        Write-Output "Notification unavailable: $Message"
+    }
+}
+
 $repoRoot = Split-Path -Parent $PSScriptRoot
 Set-Location $repoRoot
 
@@ -72,3 +102,7 @@ if ($content -notmatch '## 🧹 Mantenimiento de Bóveda') {
 Write-Output "Weekly review prepared in: $dailyPath"
 Write-Output "Suggested playbook: [[Revisión Semanal Completa de la Bóveda y Repositorios]]"
 Write-Output "Recommended schedule: every Friday at 15:00"
+
+Send-ReviewNotification `
+    -Title "Anclora Weekly Review" `
+    -Message "La revisión semanal ya está preparada en $Date."

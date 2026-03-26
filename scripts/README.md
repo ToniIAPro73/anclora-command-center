@@ -31,6 +31,7 @@ Prepara la revisión semanal completa con baja fricción.
 - añade los bloques `## 🧹 Mantenimiento de Bóveda` y `## 🐙 Estado Semanal de Repositorios`
 - sincroniza skills antes de empezar
 - deja lista la sesión para ejecutar el playbook semanal
+- intenta mostrar una notificación ligera de Windows al terminar
 
 ### Comando
 
