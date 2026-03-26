@@ -1,5 +1,6 @@
 ---
 title: Anclora Impulso
+aliases: [Anclora Impulso]
 status: activo
 fecha_inicio: 2026-03-26
 fecha_objetivo:

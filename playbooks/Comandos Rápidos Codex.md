@@ -14,3 +14,9 @@ Beneficio: Reduce la fricción al pasar ideas rápidas a la base de datos.
 * **Sincronización Total**: ./scripts/sync-skills.ps1
 
 Beneficio: Actualiza todas las habilidades (skills) del agente con la última versión del repo.
+
+## Relacionado
+
+- [[Mapa del Sistema de Agentes]]
+- [[Rutina Diaria del Segundo Cerebro]]
+- [[Revisión Semanal del Segundo Cerebro]]

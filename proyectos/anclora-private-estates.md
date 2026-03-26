@@ -1,5 +1,6 @@
 ---
 title: Anclora Private Estates
+aliases: [Anclora Private Estates]
 status: activo
 fecha_inicio: 2026-03-26
 fecha_objetivo:

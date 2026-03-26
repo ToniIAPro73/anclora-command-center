@@ -1,5 +1,6 @@
 ---
 title: Anclora Nexus
+aliases: [Anclora Nexus]
 objetivo: Centralizar pipeline, CRM y trazabilidad comercial del ecosistema Anclora.
 ambito: pipeline-management
 frecuencia: recurrente

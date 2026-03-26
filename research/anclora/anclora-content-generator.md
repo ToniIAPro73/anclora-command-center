@@ -1,5 +1,6 @@
 ---
 title: Anclora Content Generator AI
+aliases: [Anclora Content Generator AI]
 fuente: ecosistema Anclora
 fecha: 2026-03-26
 relevancia: alta

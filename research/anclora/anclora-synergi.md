@@ -1,5 +1,6 @@
 ---
 title: Anclora Synergi
+aliases: [Anclora Synergi]
 fuente: ecosistema Anclora
 fecha: 2026-03-26
 relevancia: alta

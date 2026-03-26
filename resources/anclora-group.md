@@ -1,5 +1,6 @@
 ---
 title: Anclora Group
+aliases: [Anclora Group]
 repo: https://github.com/ToniIAPro73/Anclora-Group.git
 type: corporate-hub
 status: active

@@ -1,5 +1,6 @@
 ---
 title: Anclora Advisor AI
+aliases: [Anclora Advisor AI]
 status: activo
 fecha_inicio: 2026-03-26
 fecha_objetivo:

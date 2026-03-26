@@ -1,5 +1,6 @@
 ---
 title: MOC de Negocio
+aliases: [MOC de Negocio]
 type: business-moc
 status: active
 arquitecto_jefe: "[[personas/Toni|Toni]]"
