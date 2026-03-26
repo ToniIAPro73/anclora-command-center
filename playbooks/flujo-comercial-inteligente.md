@@ -14,6 +14,8 @@ related:
   - "[[Anclora Content Generator AI]]"
   - "[[Anclora Nexus]]"
   - "[[Anclora Synergi]]"
+  - "[[Borrador de Email de Captación Synergi]]"
+  - "[[Arquitectura de Integración Anclora]]"
   - "[[personas/Toni|Toni]]"
 ---
 
@@ -71,6 +73,8 @@ Este playbook describe la integracion de datos y contenido para el vertical inmo
 - [[Anclora Content Generator AI]]
 - [[Anclora Nexus]]
 - [[Anclora Synergi]]
+- [[Borrador de Email de Captación Synergi]]
+- [[Arquitectura de Integración Anclora]]
 - [[personas/Toni|Toni]]
 
 #playbook #anclora
