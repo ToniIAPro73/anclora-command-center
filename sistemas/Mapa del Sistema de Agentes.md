@@ -59,5 +59,8 @@ Este sistema no sustituye el propósito original del segundo cerebro; lo amplía
 - [[AGENTS]]
 - [[CLAUDE]]
 - [[scripts/README]]
+- [[Rutina Diaria del Segundo Cerebro]]
+- [[Revisión Semanal del Segundo Cerebro]]
+- [[Consolidación Mensual del Segundo Cerebro]]
 - [[Sistema CPR_ Gestión Eficiente de Contexto en Claude Code]]
 - [[El Arquitecto del Segundo Cerebro Autónomo]]
