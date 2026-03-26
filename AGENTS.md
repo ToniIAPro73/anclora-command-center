@@ -101,3 +101,8 @@ Ubicadas en `.codex/skills/`:
 * Vaciar `inbox/` con regularidad.
 * Si una nota crece demasiado, dividirla en subnotas conectadas.
 * Mantener el sistema simple: menos estructura, pero mejor enlazada.
+
+## Relacionado
+* [[Mapa del Sistema de Agentes]]
+* [[CLAUDE]]
+* [[scripts/README]]

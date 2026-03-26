@@ -20,3 +20,9 @@ powershell -ExecutionPolicy Bypass -File .\scripts\sync-skills.ps1 -Clean
 ### Nota
 
 La fuente canónica de skills del repositorio es `.codex/skills/`. La carpeta `.claude/skills/` se considera una capa de compatibilidad.
+
+## Relacionado
+
+- [[AGENTS]]
+- [[CLAUDE]]
+- [[Mapa del Sistema de Agentes]]
