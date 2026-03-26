@@ -1,0 +1,3 @@
+display_name: Obsidian CLI
+short_description: Interact with the vault safely through the Obsidian CLI.
+default_prompt: Use the Obsidian CLI to inspect, create, update, or audit notes while keeping changes safe and intentional.

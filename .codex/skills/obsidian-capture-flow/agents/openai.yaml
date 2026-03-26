@@ -1,0 +1,3 @@
+display_name: Obsidian Capture Flow
+short_description: Convert rough inputs into clean inbox, daily, or resource notes.
+default_prompt: Turn the user's raw material into an Obsidian-ready capture note with minimal but useful structure.

@@ -1,0 +1,3 @@
+display_name: Obsidian Vault Gardener
+short_description: Review and tidy a vault with low-risk, incremental improvements.
+default_prompt: Audit the vault, identify the highest-value cleanups, and apply only safe, incremental improvements.

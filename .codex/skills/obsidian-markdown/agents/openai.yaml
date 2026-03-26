@@ -1,0 +1,3 @@
+display_name: Obsidian Markdown
+short_description: Write or refactor vault-ready markdown with correct wikilinks, frontmatter, and Obsidian syntax.
+default_prompt: Draft or edit Obsidian markdown that is clean, well linked, and syntactically correct without over-structuring the note.
