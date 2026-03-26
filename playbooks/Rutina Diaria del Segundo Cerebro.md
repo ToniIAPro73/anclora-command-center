@@ -58,5 +58,6 @@ Usar la bóveda cada día como apoyo real para decidir, capturar y cerrar el tra
 - [[scripts/README]]
 - [[Mapa del Sistema de Agentes]]
 - [[Sistema CPR_ Gestión Eficiente de Contexto en Claude Code]]
+- [[Uso Diario por Voz con WhisperFlow]]
 
 #playbook

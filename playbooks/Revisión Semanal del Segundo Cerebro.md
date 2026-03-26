@@ -61,6 +61,7 @@ Recuperar control del sistema, evitar acumulación y asegurar que el conocimient
 ## 🔗 Relacionado
 
 - [[Rutina Diaria del Segundo Cerebro]]
+- [[Uso Diario por Voz con WhisperFlow]]
 - [[Mapa del Sistema de Agentes]]
 - [[El Arquitecto del Segundo Cerebro Autónomo]]
 
