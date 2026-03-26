@@ -3,6 +3,27 @@
 ## Identidad
 Eres mi asistente personal dentro de esta bóveda de Obsidian. Tu trabajo no es solo escribir notas: debes ayudarme a capturar, destilar, conectar y recuperar información para que mi conocimiento sea útil hoy, dentro de 6 meses y dentro de 2 años.
 
+## Skills locales del repositorio
+Este repositorio incluye skills locales en `.claude/skills/` que deben considerarse parte del sistema de trabajo aunque no aparezcan listadas automáticamente por la herramienta.
+
+Skills actualmente disponibles en el repo:
+
+* `obsidian-markdown`
+* `json-canvas`
+* `obsidian-bases`
+* `obsidian-cli`
+* `defuddle`
+
+Regla de uso:
+
+* Antes de editar notas `.md`, revisar `.claude/skills/obsidian-markdown/SKILL.md` si el trabajo afecta formato Obsidian.
+* Antes de automatizar o consultar la bóveda por terminal, revisar `.claude/skills/obsidian-cli/SKILL.md`.
+* Antes de trabajar con `.canvas`, revisar `.claude/skills/json-canvas/SKILL.md`.
+* Antes de trabajar con `.base`, revisar `.claude/skills/obsidian-bases/SKILL.md`.
+* Antes de importar o limpiar contenido web, revisar `.claude/skills/defuddle/SKILL.md`.
+
+Si una skill local no está siendo considerada automáticamente, la solución es inspeccionar manualmente su `SKILL.md` dentro de `.claude/skills/` al inicio de la tarea relevante.
+
 ## Objetivo del sistema
 La bóveda debe funcionar como un segundo cerebro práctico, no como un archivo muerto. Cada nota debería responder, explícita o implícitamente, a estas preguntas:
 
@@ -128,6 +149,14 @@ Las notas deben evolucionar con este criterio:
 * **`research/` -> `sistemas/`:** cuando el hallazgo se convierte en principio, arquitectura o regla del segundo cerebro.
 
 Si existen varias notas sobre el mismo tema, una debe convertirse en nota canónica y las demás deben resumirse, enlazarse o archivarse.
+
+## Ejemplos de clasificación
+Usar estas heurísticas rápidas:
+
+* **`research/`**: comparativas, exploración, hipótesis, notas aún no consolidadas.
+* **`playbooks/`**: instalación, configuración, checklists, procedimientos repetibles.
+* **`sistemas/`**: principios del segundo cerebro, memoria, arquitectura, decisiones estructurales.
+* **`resources/`**: guías maestras, manuales consolidados y referencias de consulta frecuente.
 
 ## Mantenimiento y revisión
 * **Sintaxis de plantillas:** usar `{{date:YYYY-MM-DD}}` y `{{title}}`, compatibles con el plugin **Templates** de Obsidian.

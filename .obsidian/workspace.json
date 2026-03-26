@@ -178,6 +178,15 @@
   },
   "active": "3651e798f4375bd6",
   "lastOpenFiles": [
+    "research/README.md",
+    "sistemas/Sistema CPR_ Gestión Eficiente de Contexto en Claude Code.md",
+    "sistemas/El Arquitecto del Segundo Cerebro Autónomo.md",
+    "playbooks/Manual de Instalación y Configuración de Claude Code.md",
+    "playbooks/Automatización de Sistemas de Contenido con Obsidian y Claude Code.md",
+    "resources/Manual de Claude Code y Ecosistema de Desarrollo Obsidian.md",
+    "resources/Guía Maestra de Comandos y Hooks para Claude Code.md",
+    "resources/Guía Maestra de Instalación para Claude Code 2026.md",
+    "resources/README.md",
     "sistemas/README.md",
     "sistemas",
     "playbooks/README.md",
@@ -204,7 +213,6 @@
     "personas",
     "research",
     "proyectos",
-    "daily-notes",
-    "CLAUDE.md"
+    "daily-notes"
   ]
 }
