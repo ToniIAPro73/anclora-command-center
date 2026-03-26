@@ -19,6 +19,10 @@ Beneficio: Actualiza todas las habilidades (skills) del agente con la última ve
 
 Beneficio: Prepara automáticamente la nota diaria, sincroniza skills y deja lista la sesión de mantenimiento semanal.
 
+* **Registrar Revisión Semanal Automática**: powershell -ExecutionPolicy Bypass -File .\scripts\register-weekly-review-task.ps1
+
+Beneficio: Programa la revisión semanal para que arranque sola cada viernes a las 15:00.
+
 ## Relacionado
 
 - [[Mapa del Sistema de Agentes]]

@@ -42,6 +42,38 @@ powershell -ExecutionPolicy Bypass -File .\scripts\start-weekly-review.ps1
 
 Úsalo cada viernes a las 15:00 como punto de entrada para la revisión semanal completa.
 
+## `register-weekly-review-task.ps1`
+
+Registra una tarea programada de Windows para lanzar la revisión semanal automáticamente.
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\register-weekly-review-task.ps1
+```
+
+### Comportamiento por defecto
+
+- nombre de tarea: `Anclora Weekly Review`
+- día: viernes
+- hora: `15:00`
+
+### Parámetros opcionales
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\register-weekly-review-task.ps1 -TaskName "Mi Revision" -Day Friday -Time 15:00
+```
+
+## `unregister-weekly-review-task.ps1`
+
+Elimina la tarea programada si quieres dejar de usar la automatización.
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\unregister-weekly-review-task.ps1
+```
+
 ## Relacionado
 
 - [[AGENTS]]

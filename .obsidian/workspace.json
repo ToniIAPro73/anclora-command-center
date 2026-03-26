@@ -178,6 +178,8 @@
   },
   "active": "3651e798f4375bd6",
   "lastOpenFiles": [
+    "scripts/unregister-weekly-review-task.ps1",
+    "scripts/register-weekly-review-task.ps1",
     "scripts/start-weekly-review.ps1",
     "playbooks/Revisión Semanal Completa de la Bóveda y Repositorios.md",
     "daily-notes/2026-03-26.md",
@@ -211,8 +213,6 @@
     "playbooks",
     "resources",
     "templates",
-    "inbox",
-    "ideas",
-    "personas"
+    "inbox"
   ]
 }
