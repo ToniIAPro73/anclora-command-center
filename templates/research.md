@@ -3,9 +3,12 @@ title: {{title}}
 fuente:
 fecha: {{date:YYYY-MM-DD}}
 relevancia: alta
+tipo: concepto
 estado: pendiente
+estado_validacion: no_validado
 tags: [research]
 related: []
+fuentes: []
 ---
 
 # {{title}}
@@ -39,6 +42,12 @@ Resume en 3-5 frases la idea principal y el contexto.
 - Dato clave:
 - Cita o concepto útil:
 - Duda abierta:
+
+## ✅ Estado de validación
+
+- Qué he comprobado personalmente:
+- Qué sigo asumiendo:
+- Qué decisión puedo tomar con esto:
 
 ## 🔗 Relacionado
 

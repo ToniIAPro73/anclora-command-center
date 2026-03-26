@@ -28,12 +28,14 @@ Se respetará esta organización de directorios:
 | :--- | :--- |
 | **daily-notes/** | Registro diario, braindumps, tareas, decisiones rápidas y observaciones |
 | **proyectos/** | Un archivo `.md` por cada proyecto activo o relevante |
-| **research/** | Ideas investigadas, resúmenes de contenido, herramientas y aprendizajes |
+| **research/** | Investigación en bruto o semidestilada: ideas, resúmenes, hallazgos, herramientas y exploración |
+| **playbooks/** | Procedimientos reutilizables, checklists, recetas operativas y flujos paso a paso |
+| **sistemas/** | Notas de arquitectura, principios, diseño del segundo cerebro y decisiones estructurales del sistema |
 | **personas/** | Contactos clave, historial, contexto relacional y oportunidades |
 | **ideas/** | Ideas aún no convertidas en proyecto o investigación formal |
 | **inbox/** | Captura rápida e información pendiente de procesar |
 | **templates/** | Plantillas reutilizables para estandarizar notas |
-| **resources/** | Referencias estables, cheatsheets, documentación o material de apoyo |
+| **resources/** | Referencias estables, cheatsheets, documentación consolidada o material de apoyo canónico |
 
 ## Convenciones de Obsidian
 * **Enlaces internos:** usar siempre `[[doble corchete]]` para enlazar notas de la bóveda.
@@ -50,6 +52,8 @@ Toda nota nueva o editada debería cumplir, cuando aplique, estas reglas:
 * Incluir al menos un enlace relevante en `related` o en el cuerpo si existe relación real.
 * Diferenciar hechos, interpretación y próximos pasos.
 * Evitar duplicar información si ya existe una nota canónica.
+* Si la nota contiene instrucciones ejecutables o repetibles, considerar si pertenece mejor a `playbooks/`.
+* Si la nota define reglas permanentes del sistema, considerar si pertenece mejor a `sistemas/`.
 
 ## Convenciones por tipo de nota
 
@@ -73,23 +77,57 @@ Debe servir como centro operativo del proyecto.
 Debe convertir información externa en conocimiento reutilizable.
 
 * **Título:** tema, herramienta, pregunta o recurso investigado.
-* **Metadata mínima:** fuente, fecha, relevancia y estado de procesamiento.
+* **Metadata mínima:** fuente, fecha, relevancia, tipo y estado de procesamiento.
 * **Secciones clave:** pregunta o motivo, resumen, insights, implicaciones, aplicación práctica y relacionado.
 * **Criterio:** evitar copiar información sin destilar. La nota debe reflejar qué entendí y cómo podría usarlo.
 
-### 4. Persona (`persona.md`)
+### 4. Playbook (`playbook.md`)
+Debe convertir conocimiento en ejecución repetible.
+
+* **Título:** nombre del flujo, proceso o procedimiento.
+* **Metadata mínima:** objetivo, ámbito, frecuencia, estado y herramientas implicadas.
+* **Secciones clave:** objetivo, cuándo usarlo, precondiciones, pasos, validación, riesgos y relacionado.
+* **Criterio:** cualquier proceso que espere repetir o delegar debe acabar aquí, no perdido dentro de una investigación.
+
+### 5. Comparativa (`comparativa.md`)
+Debe ayudar a decidir entre opciones reales.
+
+* **Título:** decisión o problema a comparar.
+* **Metadata mínima:** tema, estado de decisión y criterio principal.
+* **Secciones clave:** problema, opciones, criterios, evaluación, recomendación, decisión y relacionado.
+* **Criterio:** si una nota contrasta alternativas, conviene capturar la recomendación y la decisión final explícitamente.
+
+### 6. Persona (`persona.md`)
 Debe preservar contexto relacional y memoria conversacional útil.
 
 * **Contenido mínimo:** quién es, relación, contexto, conversaciones relevantes, oportunidades pendientes y proyectos relacionados.
 * **Criterio:** una nota de persona debe ayudarme a retomar una relación con contexto suficiente sin depender de mi memoria.
+
+### 7. Sistema (`sistemas/`)
+Las notas de `sistemas/` recogen arquitectura, principios y decisiones del propio segundo cerebro.
+
+* **Contenido mínimo:** problema de diseño, principio, decisión, tradeoffs y efectos sobre la bóveda.
+* **Criterio:** si una nota explica cómo debe funcionar el sistema, no debería vivir mezclada con notas de investigación.
 
 ## Criterios de enlazado
 Usa estos patrones siempre que existan:
 
 * Una **daily note** enlaza a proyectos activos, personas con las que hablé e investigaciones consultadas ese día.
 * Una **investigación** enlaza al proyecto donde puede aplicarse.
+* Un **playbook** enlaza a la investigación o sistema del que nace.
 * Un **proyecto** enlaza a las investigaciones, personas y notas diarias relevantes.
 * Una **persona** enlaza a proyectos compartidos, reuniones, decisiones y seguimientos.
+* Una nota de **sistema** enlaza a plantillas, playbooks o proyectos que afecta.
+
+## Regla de promoción de notas
+Las notas deben evolucionar con este criterio:
+
+* **`inbox/` -> `research/`:** cuando una captura ya tiene contexto mínimo y una pregunta clara.
+* **`research/` -> `playbooks/`:** cuando el conocimiento ya puede ejecutarse de forma repetible.
+* **`research/` o `playbooks/` -> `resources/`:** cuando el contenido ya es referencia estable y canónica.
+* **`research/` -> `sistemas/`:** cuando el hallazgo se convierte en principio, arquitectura o regla del segundo cerebro.
+
+Si existen varias notas sobre el mismo tema, una debe convertirse en nota canónica y las demás deben resumirse, enlazarse o archivarse.
 
 ## Mantenimiento y revisión
 * **Sintaxis de plantillas:** usar `{{date:YYYY-MM-DD}}` y `{{title}}`, compatibles con el plugin **Templates** de Obsidian.

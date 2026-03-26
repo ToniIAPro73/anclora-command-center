@@ -51,6 +51,11 @@ Breve descripción del proyecto y su propósito.
 
 - 
 
+## 🛠️ Sistemas y playbooks relacionados
+
+- Sistema o principio:
+- Playbook operativo:
+
 ## 🔗 Relacionado
 
 - [[]]
