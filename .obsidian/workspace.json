@@ -11,14 +11,10 @@
             "id": "577b9b3d257862bd",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Bienvenido.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Bienvenido"
+              "title": "Nueva pestaña"
             }
           }
         ]
@@ -110,7 +106,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Bienvenido.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -120,7 +115,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Enlaces entrantes de Bienvenido"
+              "title": "Enlaces entrantes"
             }
           },
           {
@@ -129,12 +124,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Bienvenido.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Enlaces salientes de Bienvenido"
+              "title": "Enlaces salientes"
             }
           },
           {
@@ -172,13 +166,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Bienvenido.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Esquema de Bienvenido"
+              "title": "Esquema"
             }
           }
         ]
@@ -201,6 +194,7 @@
   },
   "active": "577b9b3d257862bd",
   "lastOpenFiles": [
+    "Bienvenido.md",
     "templates/persona.md",
     "templates/research.md",
     "templates/proyecto.md",
@@ -213,7 +207,6 @@
     "research",
     "proyectos",
     "daily-notes",
-    "CLAUDE.md",
-    "Bienvenido.md"
+    "CLAUDE.md"
   ]
 }
