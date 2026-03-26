@@ -11,6 +11,9 @@ related:
   - "[[Anclora Private Estates]]"
   - "[[Anclora Synergi]]"
   - "[[Anclora Nexus]]"
+  - "[[Lucia Serrano]]"
+  - "[[Javier Ortega]]"
+  - "[[Marta Vidal]]"
   - "[[personas/Toni|Toni]]"
 ---
 
@@ -35,12 +38,21 @@ Mapa canónico de actores clave del ecosistema Anclora Group. Su función es evi
   Identidad técnica: `Antonio Ballesterosa` / `ToniIAPro73`.
   Ámbitos: [[Anclora Group]], [[Anclora Private Estates]], [[Anclora Nexus]], [[Anclora Advisor AI]], [[Anclora Impulso]].
 
+### Partners y perfiles comerciales semilla
+
+- [[Lucia Serrano]]
+  Contexto: perfil de family office para validar acceso premium, inteligencia territorial y onboarding privado en [[Anclora Synergi]].
+- [[Javier Ortega]]
+  Contexto: partner de desarrollo inmobiliario para modelar colaboracion, pipeline y coordinacion privada entre [[Anclora Private Estates]], [[Anclora Synergi]] y [[Anclora Nexus]].
+- [[Marta Vidal]]
+  Contexto: perfil de broker de lujo para conectar narrativa comercial, contenido y conversion en el vertical premium.
+
 ## Stakeholders pendientes de documentar
 
-- Partner inmobiliario principal de [[Anclora Private Estates]]
-- Responsable comercial u operador de pipeline para [[Anclora Nexus]]
-- Primer perfil de partnership para [[Anclora Synergi]]
+- Primer stakeholder real validado en sustitucion de cada perfil semilla
+- Responsable comercial u operador efectivo de pipeline para [[Anclora Nexus]]
 - Colaboradores técnicos o autores recurrentes distintos de [[personas/Toni|Toni]]
+- Clientes reales o family offices con conversacion ya iniciada
 
 ## Señales para crear nuevas notas de persona
 
@@ -59,6 +71,9 @@ Mapa canónico de actores clave del ecosistema Anclora Group. Su función es evi
 - [[Anclora Private Estates]]
 - [[Anclora Synergi]]
 - [[Anclora Nexus]]
+- [[Lucia Serrano]]
+- [[Javier Ortega]]
+- [[Marta Vidal]]
 - [[personas/Toni|Toni]]
 
 #resource #anclora

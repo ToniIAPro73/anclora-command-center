@@ -17,6 +17,7 @@ related:
   - "[[Anclora Impulso]]"
   - "[[Flujo Comercial Inteligente Anclora]]"
   - "[[Mapa de Stakeholders de Anclora Group]]"
+  - "[[Arquitectura de Integración Anclora]]"
   - "[[MOC de Negocio]]"
   - "[[personas/Toni|Toni]]"
 ---
@@ -56,6 +57,7 @@ Es el hub corporativo del ecosistema. Su arquitectura permite un control granula
 - [[Anclora Advisor AI]]: Asesoria fiscal y laboral para uso personal y pluriactividad.
 - [[Anclora Impulso]]: Ecosistema Health and Fitness centrado en nutricion e IA.
 - [[Flujo Comercial Inteligente Anclora]]: Playbook de integracion entre datos, contenido, pipeline y partnerships.
+- [[Arquitectura de Integración Anclora]]: Recorrido extremo a extremo del dato, desde insight hasta venta o colaboracion.
 
 ## Contactos Clave
 
@@ -64,11 +66,13 @@ Es el hub corporativo del ecosistema. Su arquitectura permite un control granula
 
 - Arquitecto Jefe: [[personas/Toni|Toni]]
 - Mapa canónico de actores: [[Mapa de Stakeholders de Anclora Group]]
+- Stakeholders semilla: [[Lucia Serrano]], [[Javier Ortega]], [[Marta Vidal]]
 
 ## Relacionado
 
 - [[MOC de Negocio]]
 - [[Flujo Comercial Inteligente Anclora]]
+- [[Arquitectura de Integración Anclora]]
 - [[Mapa de Stakeholders de Anclora Group]]
 - [[Mapa del Sistema de Agentes]]
 - [[El Arquitecto del Segundo Cerebro Autónomo]]
