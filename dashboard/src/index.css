@@ -37,6 +37,10 @@ html[data-theme='light'] body {
   background: #e6e2fb;
 }
 
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
 a {
   color: inherit;
 }

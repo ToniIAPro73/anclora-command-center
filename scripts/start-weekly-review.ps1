@@ -111,7 +111,7 @@ $resultBlock = @(
     '',
     "- Última ejecución automática: $runTimestamp",
     '- Estado: preparación completada correctamente',
-    '- Acciones ejecutadas: sincronización de skills, validación/creación de daily note, preparación de bloques semanales',
+    '- Acciones ejecutadas: sincronización de skills, validación/creación de daily note y preparación de bloques semanales',
     '- Playbook sugerido: [[Revisión Semanal Completa de la Bóveda y Repositorios]]'
 ) -join "`r`n"
 
