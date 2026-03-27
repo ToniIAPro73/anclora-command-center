@@ -74,6 +74,12 @@ Prohibido el uso de datos ficticios.
 - Cada pieza conecta con una siguiente accion comercial
 - Existen piezas distintas para TOFU, MOFU y BOFU
 
+## Estado de implementabilidad
+
+- Esta estrategia es util ya para contenido y posicionamiento.
+- La medicion completa de su impacto comercial todavia depende de una capa de automatizacion no desplegada.
+- La traduccion operativa futura debe seguir [[Arquitectura Implementable de Automatización Anclora]].
+
 ## 🔗 Relacionado
 
 - [[Prospección Avanzada con Nexus]]
@@ -82,6 +88,7 @@ Prohibido el uso de datos ficticios.
 - [[Anclora Nexus]]
 - [[Funnel de Captación Inmobiliaria con IA]]
 - [[Captación Inmobiliaria con IA - insights NotebookLM]]
+- [[Arquitectura Implementable de Automatización Anclora]]
 - [[personas/Toni|Toni]]
 
 #playbook #anclora

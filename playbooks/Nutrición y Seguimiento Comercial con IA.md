@@ -88,6 +88,7 @@ Mensajes:
 ## Triggers
 
 - entrada por landing o WhatsApp
+- entrada por consulta detectada desde [[Inmovilla]] o señal priorizada desde [[StateFox]]
 - respuesta a formulario o preguntas de calificacion
 - cambio de temperatura
 - clic en activo o recurso clave
@@ -126,7 +127,26 @@ El asesor debe recibir un resumen corto y accionable:
 
 - usar contenido de [[Estrategia de Autoridad IA Inmobiliaria]] como biblioteca de nurturing
 - ligar cada secuencia al embudo de [[Funnel de Captación Inmobiliaria con IA]]
+- usar [[Inmovilla]] y [[StateFox]] para que los mensajes hablen de activos, zonas y comparativas reales
 - usar [[Anclora Command Center]] para ver cuellos de botella por temperatura
+
+## Estado de implementabilidad
+
+### Ya util hoy
+
+- escribir secuencias por temperatura
+- definir triggers y salidas
+- preparar contenido rompe-objeciones
+
+### No desplegado aun
+
+- triggers automaticos
+- cambio automatico de temperatura
+- mensajes automáticos salientes
+
+### Dependencia probable
+
+- `n8n` para orquestar secuencias y handoffs
 
 ## Validacion
 
@@ -141,3 +161,4 @@ El asesor debe recibir un resumen corto y accionable:
 - [[Funnel de Captación Inmobiliaria con IA]]
 - [[Anclora Nexus]]
 - [[Anclora Command Center]]
+- [[Arquitectura Implementable de Automatización Anclora]]

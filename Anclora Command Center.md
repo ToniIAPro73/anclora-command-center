@@ -19,6 +19,7 @@ related:
   - "[[CRM Inmobiliario con IA]]"
   - "[[Nutrición y Seguimiento Comercial con IA]]"
   - "[[Reportes Automáticos para Inmobiliarias]]"
+  - "[[Arquitectura Implementable de Automatización Anclora]]"
   - "[[Arquitectura de Integración Anclora]]"
   - "[[Mapa de Stakeholders de Anclora Group]]"
   - "[[Jorge Cifre]]"
@@ -108,13 +109,26 @@ related:
 - CRM con IA: [[CRM Inmobiliario con IA]]
 - Nutricion comercial: [[Nutrición y Seguimiento Comercial con IA]]
 - Reportes automaticos: [[Reportes Automáticos para Inmobiliarias]]
+- Arquitectura implementable: [[Arquitectura Implementable de Automatización Anclora]]
 
 ## 🎯 Próximas Decisiones
 
 - Decidir qué partner deja de ser “semilla” y pasa a onboarding real en [[Anclora Synergi]].
 - Convertir insights de [[Anclora Data Lab]] en un activo comercial medible dentro de [[Anclora Nexus]].
 - Traducir la logica de CRM y nurturing con IA a vistas reales dentro de [[Anclora Nexus]] y [[Coda]].
+- Decidir si `n8n` sera el orquestador oficial de automatizacion de Anclora.
 - Mantener sincronizadas las notas de proyectos con sus README y actividad reciente en GitHub.
+
+## 🧱 Estado de Automatización
+
+> [!warning] Realidad actual
+> La capa de automatizacion de Anclora aun no esta desplegada. Las notas de CRM, nurturing y reporting deben leerse como arquitectura objetivo y no como sistema ya implementado.
+
+- Fuentes reales ya disponibles: [[Inmovilla]] y [[StateFox]]
+- Superficies ya disponibles: [[Coda]] y [[Slack]]
+- Nucleo a consolidar: [[Anclora Nexus]]
+- Orquestador a decidir: `n8n`
+- Nota de referencia tecnica: [[Arquitectura Implementable de Automatización Anclora]]
 
 ## 📬 Activos de Comunicación
 

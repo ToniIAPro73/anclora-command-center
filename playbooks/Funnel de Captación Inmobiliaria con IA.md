@@ -83,13 +83,29 @@ KPIs:
 - Todo lead debe registrarse en CRM o sistema equivalente.
 
 ## Aplicación directa en Anclora
-- [[Anclora Nexus]] como capa de seguimiento por etapa.
+- [[Anclora Nexus]] como modelo objetivo de seguimiento por etapa.
 - [[Estrategia de Autoridad IA Inmobiliaria]] como motor de contenido.
 - [[Anclora Command Center]] como panel de foco y métricas.
+- [[Arquitectura Implementable de Automatización Anclora]] como criterio de realidad tecnica.
+
+## Estado de implementabilidad
+
+### Ya util sin automatizacion
+
+- definir mensajes por etapa
+- crear lead magnets
+- conectar contenido con CTA
+- ordenar KPIs por fase
+
+### Depende de n8n u otra orquestacion real
+
+- clasificacion automatica
+- routing de leads
+- handoff automatico
+- reporting automatico del funnel
 
 ## Validación
 - Existe al menos una landing y un lead magnet activos.
 - Hay contenido distinto por TOFU, MOFU y BOFU.
 - Los leads están clasificados por temperatura.
 - Se mide negocio, no métricas de ego.
-
