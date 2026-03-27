@@ -13,6 +13,7 @@ related:
   - "[[Prospección Avanzada con Nexus]]"
   - "[[Lead Magnets Inmobiliarios para SW Mallorca]]"
   - "[[Mapa de Objeciones de Captación Inmobiliaria]]"
+  - "[[ICP Comprador Premium SW Mallorca]]"
   - "[[Plan Maestro de Marca Personal e Ingesta Comercial]]"
 ---
 
@@ -92,6 +93,10 @@ Te ayudo a encontrar mejor, antes y con más criterio.
 
 No solo busco propiedades: reduzco ruido, comparo señales del mercado y te ayudo a decidir con más precisión.
 
+Perfil de referencia:
+
+- [[ICP Comprador Premium SW Mallorca]]
+
 ### Vendedor premium
 
 Te ayudo a posicionar y defender mejor tu activo.
@@ -160,4 +165,5 @@ Usar esta nota como referencia canónica para:
 - [[Prospección Avanzada con Nexus]]
 - [[Lead Magnets Inmobiliarios para SW Mallorca]]
 - [[Mapa de Objeciones de Captación Inmobiliaria]]
+- [[ICP Comprador Premium SW Mallorca]]
 - [[Plan Maestro de Marca Personal e Ingesta Comercial]]

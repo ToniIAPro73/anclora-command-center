@@ -13,6 +13,8 @@ related:
   - "[[Inmovilla]]"
   - "[[Prospección Avanzada con Nexus]]"
   - "[[personas/Toni|Toni]]"
+  - "[[ICP Comprador Premium SW Mallorca]]"
+  - "[[Propuesta de Valor de Toni - Real Estate + IA]]"
 ---
 
 # Estrategia de Autoridad IA Inmobiliaria
@@ -50,6 +52,16 @@ Prohibido el uso de datos ficticios.
 - ROI vacacional vs tradicional
 - zonas del SW con mayor proyeccion
 - historias reales de decision y cambio de vida
+
+## ICP prioritario
+
+El perfil principal para esta estrategia es:
+
+- [[ICP Comprador Premium SW Mallorca]]
+
+La propuesta que debe sostener cada pieza es:
+
+- [[Propuesta de Valor de Toni - Real Estate + IA]]
 
 ## Hooks que si merecen repetirse
 
@@ -99,6 +111,8 @@ Prohibido el uso de datos ficticios.
 - [[Lead Magnets Inmobiliarios para SW Mallorca]]
 - [[Mapa de Objeciones de Captación Inmobiliaria]]
 - [[Arquitectura Implementable de Automatización Anclora]]
+- [[ICP Comprador Premium SW Mallorca]]
+- [[Propuesta de Valor de Toni - Real Estate + IA]]
 - [[personas/Toni|Toni]]
 
 #playbook #anclora

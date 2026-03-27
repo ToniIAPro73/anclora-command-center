@@ -74,7 +74,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "dbf35fb1336ff9d2",
@@ -178,6 +179,7 @@
   },
   "active": "a463ad71d480de80",
   "lastOpenFiles": [
+    "resources/ICP Comprador Premium SW Mallorca.md",
     "resources/Propuesta de Valor de Toni - Real Estate + IA.md",
     "sistemas/Plan Maestro de Marca Personal e Ingesta Comercial.md",
     "scripts/sync-command-center-dashboard.ps1",
@@ -218,7 +220,6 @@
     "dashboard/node_modules/path-exists/readme.md",
     "dashboard/node_modules/parent-module/readme.md",
     "dashboard/node_modules/p-locate/readme.md",
-    "dashboard/node_modules/p-limit/readme.md",
     "dashboard/dist/icons.svg",
     "dashboard/dist/favicon.svg",
     "dashboard/src/assets/vite.svg",
