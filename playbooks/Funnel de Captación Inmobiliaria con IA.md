@@ -9,6 +9,8 @@ related:
   - "[[Anclora Command Center]]"
   - "[[Anclora Nexus]]"
   - "[[Estrategia de Autoridad IA Inmobiliaria]]"
+  - "[[Mensajes de Captación para LinkedIn y WhatsApp]]"
+  - "[[Captación Multicanal - Instagram, Facebook y Cold Email]]"
 ---
 
 # Funnel de Captación Inmobiliaria con IA
@@ -91,6 +93,8 @@ KPIs:
 - [[Arquitectura Implementable de Automatización Anclora]] como criterio de realidad tecnica.
 - [[Lead Magnets Inmobiliarios para SW Mallorca]] como biblioteca de activos MOFU.
 - [[Ofertas de Captación Inmobiliaria con IA]] como capa de mensaje por ICP.
+- [[Mensajes de Captación para LinkedIn y WhatsApp]] como capa de apertura conversacional.
+- [[Captación Multicanal - Instagram, Facebook y Cold Email]] como mapa operativo por canal.
 
 ## Estado de implementabilidad
 
@@ -113,3 +117,13 @@ KPIs:
 - Hay contenido distinto por TOFU, MOFU y BOFU.
 - Los leads están clasificados por temperatura.
 - Se mide negocio, no métricas de ego.
+
+## Relacionado
+
+- [[Captación Inmobiliaria con IA - insights NotebookLM]]
+- [[Estrategia de Marketing 6 Pasos (Inmobiliarias)]]
+- [[Anclora Command Center]]
+- [[Anclora Nexus]]
+- [[Estrategia de Autoridad IA Inmobiliaria]]
+- [[Mensajes de Captación para LinkedIn y WhatsApp]]
+- [[Captación Multicanal - Instagram, Facebook y Cold Email]]
