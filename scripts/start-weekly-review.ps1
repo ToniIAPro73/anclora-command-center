@@ -39,9 +39,15 @@ Set-Location $repoRoot
 
 $dailyDir = Join-Path $repoRoot "daily-notes"
 $dailyPath = Join-Path $dailyDir "$Date.md"
+$logDir = Join-Path $repoRoot "logs"
+$logPath = Join-Path $logDir "weekly-review.log"
 
 if (-not (Test-Path $dailyDir)) {
     New-Item -ItemType Directory -Force $dailyDir | Out-Null
+}
+
+if (-not (Test-Path $logDir)) {
+    New-Item -ItemType Directory -Force $logDir | Out-Null
 }
 
 if (-not (Test-Path $dailyPath)) {
@@ -99,9 +105,36 @@ if ($content -notmatch '## 🧹 Mantenimiento de Bóveda') {
 
 & powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'sync-skills.ps1')
 
+$runTimestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+$resultBlock = @(
+    '## 🤖 Resultado de tarea automática',
+    '',
+    "- Última ejecución automática: $runTimestamp",
+    '- Estado: preparación completada correctamente',
+    '- Acciones ejecutadas: sincronización de skills, validación/creación de daily note, preparación de bloques semanales',
+    '- Playbook sugerido: [[Revisión Semanal Completa de la Bóveda y Repositorios]]'
+) -join "`r`n"
+
+$updatedContent = Get-Content -Raw $dailyPath
+
+if ($updatedContent -match '(?ms)^## 🤖 Resultado de tarea automática\s*.*?(?=^## |\z)') {
+    $updatedContent = [regex]::Replace(
+        $updatedContent,
+        '(?ms)^## 🤖 Resultado de tarea automática\s*.*?(?=^## |\z)',
+        $resultBlock + "`r`n`r`n"
+    )
+} else {
+    $updatedContent = $updatedContent.TrimEnd() + "`r`n`r`n" + $resultBlock + "`r`n"
+}
+
+Set-Content -LiteralPath $dailyPath -Value $updatedContent
+
+Add-Content -LiteralPath $logPath -Value "[$runTimestamp] Weekly review prepared for $Date"
+
 Write-Output "Weekly review prepared in: $dailyPath"
 Write-Output "Suggested playbook: [[Revisión Semanal Completa de la Bóveda y Repositorios]]"
 Write-Output "Recommended schedule: every Friday at 15:00"
+Write-Output "Run log written to: $logPath"
 
 Send-ReviewNotification `
     -Title "Anclora Weekly Review" `
