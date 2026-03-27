@@ -40,12 +40,160 @@ const data = vaultData as {
     monitorAlerts: string[]
     quickActions: string[]
   }
+  commandCenterLocales: Record<'es' | 'en' | 'de', {
+    executivePulse: string[]
+    partnerRadar: { name: string; influence: string; summary: string }[]
+    stack: LabelValue[]
+    route: string[]
+    projects: Record<string, string>[]
+    activity: { repo: string; pushedAt: string }[]
+    synergies: string[]
+    decisions: string[]
+    communicationAssets: string[]
+    swObjective: string[]
+    monitorCoverage: { label: string; value: string } | null
+    monitorAlerts: string[]
+    quickActions: string[]
+  }>
   group: { meta: Record<string, unknown> }
   partners: Partner[]
+  partnersLocales: Record<'es' | 'en' | 'de', Partner[]>
 }
+
+const uiMessages = {
+  es: {
+    backToGroup: 'VOLVER A ANCLORA GROUP',
+    brandLine: 'Control operativo del ecosistema',
+    topbarThemeAria: 'Selector de tema',
+    topbarLanguageAria: 'Selector de idioma',
+    themeDark: 'Tema oscuro',
+    themeLight: 'Tema claro',
+    themeSystem: 'Tema del sistema',
+    heroEyebrow: 'Superficie operativa de Anclora Group',
+    heroTitle: 'Anclora Command Center',
+    heroLedePrefix: 'Dashboard operativo conectado a la bóveda. El contenido se genera desde',
+    heroLedeSuffix: 'y notas relacionadas para mantener una única fuente de verdad.',
+    focusLabel: 'Foco',
+    syncLabel: 'Última sincronización',
+    executivePulse: 'Pulso Ejecutivo',
+    paletteEyebrow: 'Paleta del sistema',
+    paletteTitle: 'Interfaz premium en tiempo real',
+    partnersEyebrow: 'Partners',
+    partnersTitle: 'Radar de Influencia',
+    roleLabel: 'Rol',
+    locationLabel: 'Ubicación',
+    statusLabel: 'Estado',
+    channelLabel: 'Canal',
+    stackEyebrow: 'Mallorca / eXp',
+    stackTitle: 'Stack Operativo',
+    routeTitle: 'Ruta Operativa',
+    pipelineEyebrow: 'Pipeline',
+    pipelineTitle: 'Aplicaciones Activas',
+    prospectingEyebrow: 'Prospección',
+    prospectingTitle: 'Monitor SW Mallorca',
+    alertsTitle: 'Alertas Nexus',
+    objectiveTitle: 'Objetivo operativo',
+    githubEyebrow: 'GitHub',
+    githubTitle: 'Actividad Reciente',
+    activationEyebrow: 'Activación',
+    activationTitle: 'Playbooks y Acciones',
+    synergiesTitle: 'Sinergias',
+    decisionsTitle: 'Próximas decisiones',
+    communicationTitle: 'Activos de comunicación',
+    quickActionsTitle: 'Acciones rápidas',
+  },
+  en: {
+    backToGroup: 'BACK TO ANCLORA GROUP',
+    brandLine: 'Operational control for the ecosystem',
+    topbarThemeAria: 'Theme switcher',
+    topbarLanguageAria: 'Language switcher',
+    themeDark: 'Dark theme',
+    themeLight: 'Light theme',
+    themeSystem: 'System theme',
+    heroEyebrow: 'Anclora Group operating surface',
+    heroTitle: 'Anclora Command Center',
+    heroLedePrefix: 'Operational dashboard connected to the vault. Content is generated from',
+    heroLedeSuffix: 'and related notes to keep a single source of truth.',
+    focusLabel: 'Focus',
+    syncLabel: 'Last sync',
+    executivePulse: 'Executive Pulse',
+    paletteEyebrow: 'System palette',
+    paletteTitle: 'Premium interface in real time',
+    partnersEyebrow: 'Partners',
+    partnersTitle: 'Influence Radar',
+    roleLabel: 'Role',
+    locationLabel: 'Location',
+    statusLabel: 'Status',
+    channelLabel: 'Channel',
+    stackEyebrow: 'Mallorca / eXp',
+    stackTitle: 'Operating Stack',
+    routeTitle: 'Operating Route',
+    pipelineEyebrow: 'Pipeline',
+    pipelineTitle: 'Active Applications',
+    prospectingEyebrow: 'Prospecting',
+    prospectingTitle: 'SW Mallorca Monitor',
+    alertsTitle: 'Nexus Alerts',
+    objectiveTitle: 'Operating objective',
+    githubEyebrow: 'GitHub',
+    githubTitle: 'Recent Activity',
+    activationEyebrow: 'Activation',
+    activationTitle: 'Playbooks and Actions',
+    synergiesTitle: 'Synergies',
+    decisionsTitle: 'Next decisions',
+    communicationTitle: 'Communication assets',
+    quickActionsTitle: 'Quick actions',
+  },
+  de: {
+    backToGroup: 'ZURÜCK ZU ANCLORA GROUP',
+    brandLine: 'Operative Kontrolle des Ökosystems',
+    topbarThemeAria: 'Themenauswahl',
+    topbarLanguageAria: 'Sprachauswahl',
+    themeDark: 'Dunkles Thema',
+    themeLight: 'Helles Thema',
+    themeSystem: 'Systemthema',
+    heroEyebrow: 'Operative Oberfläche von Anclora Group',
+    heroTitle: 'Anclora Command Center',
+    heroLedePrefix: 'Operatives Dashboard, verbunden mit dem Vault. Der Inhalt wird aus',
+    heroLedeSuffix: 'und verwandten Notizen erzeugt, um eine einzige Quelle der Wahrheit zu halten.',
+    focusLabel: 'Fokus',
+    syncLabel: 'Letzte Synchronisierung',
+    executivePulse: 'Operativer Puls',
+    paletteEyebrow: 'Systempalette',
+    paletteTitle: 'Premium-Oberfläche in Echtzeit',
+    partnersEyebrow: 'Partner',
+    partnersTitle: 'Einflussradar',
+    roleLabel: 'Rolle',
+    locationLabel: 'Standort',
+    statusLabel: 'Status',
+    channelLabel: 'Kanal',
+    stackEyebrow: 'Mallorca / eXp',
+    stackTitle: 'Operativer Stack',
+    routeTitle: 'Operative Route',
+    pipelineEyebrow: 'Pipeline',
+    pipelineTitle: 'Aktive Anwendungen',
+    prospectingEyebrow: 'Akquise',
+    prospectingTitle: 'SW-Mallorca-Monitor',
+    alertsTitle: 'Nexus-Warnungen',
+    objectiveTitle: 'Operatives Ziel',
+    githubEyebrow: 'GitHub',
+    githubTitle: 'Letzte Aktivität',
+    activationEyebrow: 'Aktivierung',
+    activationTitle: 'Playbooks und Aktionen',
+    synergiesTitle: 'Synergien',
+    decisionsTitle: 'Nächste Entscheidungen',
+    communicationTitle: 'Kommunikationsassets',
+    quickActionsTitle: 'Schnellaktionen',
+  },
+} as const
 
 function stripWikilinks(text: string) {
   return text.replace(/\[\[([^\]|]+)\|?([^\]]+)?\]\]/g, (_, target: string, label?: string) => label || target)
+}
+
+function localizeFocus(value: string, language: 'es' | 'en' | 'de') {
+  if (language === 'en') return value.replaceAll('Suroeste de Mallorca', 'Southwest Mallorca')
+  if (language === 'de') return value.replaceAll('Suroeste de Mallorca', 'Südwesten Mallorcas')
+  return value
 }
 
 function Panel({
@@ -143,6 +291,9 @@ function App() {
   }, [theme])
 
   const locale = language === 'de' ? 'de-DE' : language === 'en' ? 'en-GB' : 'es-ES'
+  const t = uiMessages[language]
+  const commandCenter = data.commandCenterLocales[language] ?? data.commandCenter
+  const partners = data.partnersLocales[language] ?? data.partners
   const generatedAt = new Date(data.generatedAt).toLocaleString(locale, {
     dateStyle: 'long',
     timeStyle: 'short',
@@ -157,7 +308,7 @@ function App() {
           target="_blank"
           rel="noreferrer"
         >
-          VOLVER A ANCLORA GROUP
+          {t.backToGroup}
         </a>
 
         <div className="topbar__brand">
@@ -168,16 +319,16 @@ function App() {
           />
           <div>
             <p className="topbar__brand-name">ANCLORA COMMAND CENTER</p>
-            <p className="topbar__brand-line">Control operativo del ecosistema</p>
+            <p className="topbar__brand-line">{t.brandLine}</p>
           </div>
         </div>
 
         <div className="topbar__controls">
-          <div className="topbar__toggle-group" aria-label="Theme switcher">
+          <div className="topbar__toggle-group" aria-label={t.topbarThemeAria}>
             {([
-              { value: 'dark', label: 'Tema oscuro', icon: MoonIcon },
-              { value: 'light', label: 'Tema claro', icon: SunIcon },
-              { value: 'system', label: 'Tema del sistema', icon: ScreenIcon },
+              { value: 'dark', label: t.themeDark, icon: MoonIcon },
+              { value: 'light', label: t.themeLight, icon: SunIcon },
+              { value: 'system', label: t.themeSystem, icon: ScreenIcon },
             ] as const).map((item) => {
               const Icon = item.icon
               return (
@@ -195,7 +346,7 @@ function App() {
             })}
           </div>
 
-          <div className="topbar__toggle-group" aria-label="Language switcher">
+          <div className="topbar__toggle-group" aria-label={t.topbarLanguageAria}>
             {(['es', 'en', 'de'] as const).map((item) => (
               <button
                 key={item}
@@ -212,30 +363,30 @@ function App() {
 
       <header className="hero">
         <div className="hero__copy">
-          <p className="hero__eyebrow">Anclora Group Operating Surface</p>
-          <h1>Anclora Command Center</h1>
+          <p className="hero__eyebrow">{t.heroEyebrow}</p>
+          <h1>{t.heroTitle}</h1>
           <p className="hero__lede">
-            Dashboard operativo conectado a la bóveda. El contenido se genera desde{' '}
-            <span>Anclora Command Center.md</span> y notas relacionadas para mantener una única fuente de verdad.
+            {t.heroLedePrefix}{' '}
+            <span>Anclora Command Center.md</span> {t.heroLedeSuffix}
           </p>
           <div className="hero__meta">
-            <span>Foco: {String(data.group.meta.territorio_foco ?? 'Suroeste de Mallorca')}</span>
-            <span>Última sincronización: {generatedAt}</span>
+            <span>{t.focusLabel}: {localizeFocus(String(data.group.meta.territorio_foco ?? 'Suroeste de Mallorca'), language)}</span>
+            <span>{t.syncLabel}: {generatedAt}</span>
           </div>
         </div>
         <div className="hero__aside">
           <aside className="hero__signal">
-            <p className="hero__signal-label">Pulso Ejecutivo</p>
+            <p className="hero__signal-label">{t.executivePulse}</p>
             <ul>
-              {data.commandCenter.executivePulse.map((item) => (
+              {commandCenter.executivePulse.map((item) => (
                 <li key={item}>{stripWikilinks(item)}</li>
               ))}
             </ul>
           </aside>
           <section className="hero__palette">
             <div className="hero__palette-copy">
-              <p className="hero__signal-label">System Palette</p>
-              <h2>Premium dark interface</h2>
+              <p className="hero__signal-label">{t.paletteEyebrow}</p>
+              <h2>{t.paletteTitle}</h2>
             </div>
             <img
               className="hero__palette-image"
@@ -247,10 +398,10 @@ function App() {
       </header>
 
       <section className="grid grid--top">
-        <Panel eyebrow="Partners" title="Radar de Influencia" accent="signal">
+        <Panel eyebrow={t.partnersEyebrow} title={t.partnersTitle} accent="signal">
           <div className="partner-grid">
-            {data.commandCenter.partnerRadar.map((partner) => {
-              const profile = data.partners.find((item) => item.title === partner.name)
+            {commandCenter.partnerRadar.map((partner) => {
+              const profile = partners.find((item) => item.title === partner.name)
               return (
                 <article className="partner-card" key={partner.name}>
                   <div className="partner-card__header">
@@ -264,19 +415,19 @@ function App() {
                   {profile ? (
                     <dl className="partner-card__meta">
                       <div>
-                        <dt>Rol</dt>
+                        <dt>{t.roleLabel}</dt>
                         <dd>{profile.role}</dd>
                       </div>
                       <div>
-                        <dt>Ubicación</dt>
+                        <dt>{t.locationLabel}</dt>
                         <dd>{profile.location}</dd>
                       </div>
                       <div>
-                        <dt>Estado</dt>
+                        <dt>{t.statusLabel}</dt>
                         <dd>{profile.status}</dd>
                       </div>
                       <div>
-                        <dt>Canal</dt>
+                        <dt>{t.channelLabel}</dt>
                         <dd>{profile.contactChannel}</dd>
                       </div>
                     </dl>
@@ -287,9 +438,9 @@ function App() {
           </div>
         </Panel>
 
-        <Panel eyebrow="Mallorca / eXp" title="Stack Operativo">
+        <Panel eyebrow={t.stackEyebrow} title={t.stackTitle}>
           <div className="stack-list">
-            {data.commandCenter.stack.map((item) => (
+            {commandCenter.stack.map((item) => (
               <div className="stack-item" key={item.label}>
                 <span>{item.label}</span>
                 <strong>{stripWikilinks(item.value)}</strong>
@@ -297,9 +448,9 @@ function App() {
             ))}
           </div>
           <div className="route">
-            <h3>Ruta Operativa</h3>
+            <h3>{t.routeTitle}</h3>
             <ol>
-              {data.commandCenter.route.map((step) => (
+              {commandCenter.route.map((step) => (
                 <li key={step}>{stripWikilinks(step)}</li>
               ))}
             </ol>
@@ -308,21 +459,21 @@ function App() {
       </section>
 
       <section className="grid grid--middle">
-        <Panel eyebrow="Pipeline" title="Aplicaciones Activas">
+        <Panel eyebrow={t.pipelineEyebrow} title={t.pipelineTitle}>
           <div className="table-wrap">
             <table>
               <thead>
                 <tr>
-                  {Object.keys(data.commandCenter.projects[0] ?? {}).map((header) => (
+                  {Object.keys(commandCenter.projects[0] ?? {}).map((header) => (
                     <th key={header}>{header}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {data.commandCenter.projects.map((row) => (
-                  <tr key={row.Nodo}>
+                {commandCenter.projects.map((row, index) => (
+                  <tr key={Object.values(row)[0] ?? index}>
                     {Object.entries(row).map(([key, value]) => (
-                      <td key={`${row.Nodo}-${key}`}>{stripWikilinks(value)}</td>
+                      <td key={`${Object.values(row)[0] ?? index}-${key}`}>{stripWikilinks(value)}</td>
                     ))}
                   </tr>
                 ))}
@@ -331,20 +482,20 @@ function App() {
           </div>
         </Panel>
 
-        <Panel eyebrow="Prospección" title="Monitor SW Mallorca" accent="warning">
+        <Panel eyebrow={t.prospectingEyebrow} title={t.prospectingTitle} accent="warning">
           <div className="coverage">
-            <span className="coverage__value">{data.commandCenter.monitorCoverage?.value ?? '--'}</span>
-            <p>{stripWikilinks(data.commandCenter.monitorCoverage?.label ?? '')}</p>
+            <span className="coverage__value">{commandCenter.monitorCoverage?.value ?? '--'}</span>
+            <p>{stripWikilinks(commandCenter.monitorCoverage?.label ?? '')}</p>
           </div>
-          <h3>Alertas Nexus</h3>
+          <h3>{t.alertsTitle}</h3>
           <ul className="signal-list">
-            {data.commandCenter.monitorAlerts.map((alert) => (
+            {commandCenter.monitorAlerts.map((alert) => (
               <li key={alert}>{stripWikilinks(alert)}</li>
             ))}
           </ul>
-          <h3>Objetivo operativo</h3>
+          <h3>{t.objectiveTitle}</h3>
           <ul className="signal-list">
-            {data.commandCenter.swObjective.map((item) => (
+            {commandCenter.swObjective.map((item) => (
               <li key={item}>{stripWikilinks(item)}</li>
             ))}
           </ul>
@@ -352,9 +503,9 @@ function App() {
       </section>
 
       <section className="grid grid--bottom">
-        <Panel eyebrow="GitHub" title="Actividad Reciente">
+        <Panel eyebrow={t.githubEyebrow} title={t.githubTitle}>
           <div className="activity-list">
-            {data.commandCenter.activity.map((item) => (
+            {commandCenter.activity.map((item) => (
               <article className="activity-item" key={item.repo}>
                 <p>{item.repo}</p>
                 <strong>{item.pushedAt}</strong>
@@ -363,36 +514,36 @@ function App() {
           </div>
         </Panel>
 
-        <Panel eyebrow="Activación" title="Playbooks y Acciones">
+        <Panel eyebrow={t.activationEyebrow} title={t.activationTitle}>
           <div className="lists">
             <div>
-              <h3>Sinergias</h3>
+              <h3>{t.synergiesTitle}</h3>
               <ul>
-                {data.commandCenter.synergies.map((item) => (
+                {commandCenter.synergies.map((item) => (
                   <li key={item}>{stripWikilinks(item)}</li>
                 ))}
               </ul>
             </div>
             <div>
-              <h3>Próximas decisiones</h3>
+              <h3>{t.decisionsTitle}</h3>
               <ul>
-                {data.commandCenter.decisions.map((item) => (
+                {commandCenter.decisions.map((item) => (
                   <li key={item}>{stripWikilinks(item)}</li>
                 ))}
               </ul>
             </div>
             <div>
-              <h3>Activos de comunicación</h3>
+              <h3>{t.communicationTitle}</h3>
               <ul>
-                {data.commandCenter.communicationAssets.map((item) => (
+                {commandCenter.communicationAssets.map((item) => (
                   <li key={item}>{stripWikilinks(item)}</li>
                 ))}
               </ul>
             </div>
             <div>
-              <h3>Acciones rápidas</h3>
+              <h3>{t.quickActionsTitle}</h3>
               <ul>
-                {data.commandCenter.quickActions.map((item) => (
+                {commandCenter.quickActions.map((item) => (
                   <li key={item}>{stripWikilinks(item)}</li>
                 ))}
               </ul>

@@ -9,6 +9,14 @@
   color: #ece7ff;
 }
 
+html[data-theme='light'] .dashboard-shell {
+  background:
+    radial-gradient(circle at top left, rgba(95, 168, 255, 0.18), transparent 26%),
+    radial-gradient(circle at top right, rgba(138, 124, 255, 0.14), transparent 28%),
+    linear-gradient(180deg, #f4f1ff 0%, #e7e2fb 100%);
+  color: #201a31;
+}
+
 .topbar {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -118,6 +126,37 @@
   color: #13081d;
 }
 
+html[data-theme='light'] .topbar {
+  border-color: rgba(108, 99, 255, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86) 0%, rgba(243, 238, 255, 0.94) 100%);
+  box-shadow:
+    0 26px 64px rgba(89, 76, 145, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+html[data-theme='light'] .topbar__backlink,
+html[data-theme='light'] .topbar__brand-name {
+  color: #241b3b;
+}
+
+html[data-theme='light'] .topbar__brand-line {
+  color: rgba(45, 35, 74, 0.72);
+}
+
+html[data-theme='light'] .topbar__toggle-group {
+  background: rgba(108, 99, 255, 0.04);
+  border-color: rgba(108, 99, 255, 0.14);
+}
+
+html[data-theme='light'] .topbar__toggle-group button {
+  color: rgba(36, 27, 59, 0.56);
+}
+
+html[data-theme='light'] .topbar__toggle-group button:hover {
+  color: #241b3b;
+}
+
 .hero {
   display: grid;
   grid-template-columns: 1.55fr 1fr;
@@ -135,6 +174,18 @@
   box-shadow:
     0 26px 70px rgba(4, 5, 13, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+html[data-theme='light'] .hero__copy,
+html[data-theme='light'] .hero__signal,
+html[data-theme='light'] .hero__palette,
+html[data-theme='light'] .panel {
+  border-color: rgba(108, 99, 255, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(245, 241, 255, 0.9));
+  box-shadow:
+    0 20px 54px rgba(92, 80, 140, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.62);
 }
 
 .hero__copy {
@@ -175,12 +226,27 @@
   color: rgba(214, 205, 255, 0.68);
 }
 
+html[data-theme='light'] .hero__eyebrow,
+html[data-theme='light'] .panel__eyebrow,
+html[data-theme='light'] .hero__signal-label {
+  color: rgba(70, 58, 113, 0.68);
+}
+
 .hero h1 {
   margin: 0;
   font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
   font-size: clamp(2.7rem, 5vw, 4.9rem);
   line-height: 0.94;
   letter-spacing: -0.05em;
+}
+
+html[data-theme='light'] .hero h1,
+html[data-theme='light'] .panel__title,
+html[data-theme='light'] .route h3,
+html[data-theme='light'] .lists h3,
+html[data-theme='light'] .panel h3,
+html[data-theme='light'] .hero__palette-copy h2 {
+  color: #241b3b;
 }
 
 .hero__lede {
@@ -193,9 +259,17 @@
   z-index: 1;
 }
 
+html[data-theme='light'] .hero__lede {
+  color: rgba(39, 30, 65, 0.82);
+}
+
 .hero__lede span {
   color: #eae8ff;
   font-weight: 700;
+}
+
+html[data-theme='light'] .hero__lede span {
+  color: #3d2f6d;
 }
 
 .hero__meta {
@@ -222,12 +296,22 @@
   border: 1px solid rgba(138, 124, 255, 0.18);
 }
 
+html[data-theme='light'] .hero__meta span {
+  background: linear-gradient(90deg, rgba(95, 168, 255, 0.12), rgba(138, 124, 255, 0.12));
+  color: #2a2046;
+  border-color: rgba(108, 99, 255, 0.14);
+}
+
 .hero__signal ul {
   margin: 0;
   padding-left: 18px;
   display: grid;
   gap: 14px;
   color: rgba(242, 240, 255, 0.88);
+}
+
+html[data-theme='light'] .hero__signal ul {
+  color: rgba(36, 27, 59, 0.82);
 }
 
 .grid {
@@ -284,6 +368,13 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
+html[data-theme='light'] .partner-card,
+html[data-theme='light'] .activity-item,
+html[data-theme='light'] .stack-item {
+  border-color: rgba(108, 99, 255, 0.1);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(243, 238, 255, 0.82));
+}
+
 .partner-card {
   padding: 18px;
 }
@@ -301,15 +392,39 @@
   color: #f7f4ff;
 }
 
+html[data-theme='light'] .partner-card__name,
+html[data-theme='light'] .partner-card__meta dd,
+html[data-theme='light'] .stack-item strong,
+html[data-theme='light'] .activity-item strong {
+  color: #241b3b;
+}
+
 .partner-card__company {
   margin: 6px 0 0;
   color: rgba(205, 198, 235, 0.66);
+}
+
+html[data-theme='light'] .partner-card__company,
+html[data-theme='light'] .stack-item span,
+html[data-theme='light'] th,
+html[data-theme='light'] .partner-card__meta dt {
+  color: rgba(63, 49, 101, 0.62);
 }
 
 .partner-card__summary {
   margin: 14px 0 16px;
   line-height: 1.6;
   color: rgba(230, 224, 255, 0.76);
+}
+
+html[data-theme='light'] .partner-card__summary,
+html[data-theme='light'] td,
+html[data-theme='light'] .activity-item p,
+html[data-theme='light'] .lists li,
+html[data-theme='light'] .route li,
+html[data-theme='light'] .signal-list li,
+html[data-theme='light'] .coverage p {
+  color: rgba(37, 28, 60, 0.8);
 }
 
 .partner-card__meta {
@@ -339,12 +454,22 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.pill--clave {
+html[data-theme='light'] .pill {
+  background: rgba(108, 99, 255, 0.08);
+  color: #2a2046;
+  border-color: rgba(108, 99, 255, 0.1);
+}
+
+.pill--clave,
+.pill--key,
+.pill--zentral {
   background: linear-gradient(90deg, rgba(138, 124, 255, 0.22), rgba(234, 232, 245, 0.16));
   color: #f5f1ff;
 }
 
-.pill--alto {
+.pill--alto,
+.pill--high,
+.pill--hoch {
   background: linear-gradient(90deg, rgba(95, 168, 255, 0.22), rgba(108, 99, 255, 0.18));
   color: #edf6ff;
 }
@@ -378,6 +503,12 @@
   margin-top: 18px;
   padding-top: 18px;
   border-top: 1px solid rgba(234, 232, 245, 0.08);
+}
+
+html[data-theme='light'] .route,
+html[data-theme='light'] th,
+html[data-theme='light'] td {
+  border-color: rgba(108, 99, 255, 0.09);
 }
 
 .route h3,
@@ -441,6 +572,11 @@ td {
   text-shadow: 0 0 24px rgba(138, 124, 255, 0.34);
 }
 
+html[data-theme='light'] .coverage__value {
+  color: #3a2d68;
+  text-shadow: 0 0 22px rgba(138, 124, 255, 0.18);
+}
+
 .lists {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -478,6 +614,13 @@ td {
   box-shadow:
     0 18px 40px rgba(8, 8, 18, 0.38),
     0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+html[data-theme='light'] .hero__palette-image {
+  border-color: rgba(108, 99, 255, 0.12);
+  box-shadow:
+    0 16px 30px rgba(95, 84, 145, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.55);
 }
 
 @media (max-width: 1100px) {
