@@ -6,12 +6,14 @@ import { spawn } from 'node:child_process'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const dashboardRoot = path.resolve(__dirname, '..')
 const vaultRoot = path.resolve(dashboardRoot, '..')
+const preferredPort = 5173
+const cleanupPorts = [5173, 5174]
 
 const syncCommand = ['node', ['./scripts/sync-vault-data.mjs']]
 const viteCommand =
   process.platform === 'win32'
-    ? ['npm.cmd', ['run', 'dev:vite', '--', '--host', '127.0.0.1']]
-    : ['npm', ['run', 'dev:vite', '--', '--host', '127.0.0.1']]
+    ? ['npm.cmd', ['run', 'dev:vite', '--', '--host', '127.0.0.1', '--port', String(preferredPort), '--strictPort']]
+    : ['npm', ['run', 'dev:vite', '--', '--host', '127.0.0.1', '--port', String(preferredPort), '--strictPort']]
 
 const watchedPaths = [
   path.join(vaultRoot, 'Anclora Command Center.md'),
@@ -40,7 +42,88 @@ function runSync() {
   })
 }
 
+function runCommand(command, args, options = {}) {
+  return new Promise((resolve, reject) => {
+    const child = spawn(command, args, {
+      cwd: dashboardRoot,
+      stdio: options.stdio ?? 'pipe',
+      shell: options.shell ?? false,
+    })
+
+    let stdout = ''
+    let stderr = ''
+
+    child.stdout?.on('data', (chunk) => {
+      stdout += chunk.toString()
+    })
+
+    child.stderr?.on('data', (chunk) => {
+      stderr += chunk.toString()
+    })
+
+    child.on('error', reject)
+    child.on('exit', (code) => {
+      if (code === 0) {
+        resolve({ stdout, stderr })
+        return
+      }
+      reject(new Error(stderr || stdout || `Command failed with exit code ${code}`))
+    })
+  })
+}
+
+async function cleanupPreferredPorts() {
+  if (process.platform === 'win32') {
+    for (const port of cleanupPorts) {
+      try {
+        const result = await runCommand(
+          'cmd.exe',
+          ['/d', '/s', '/c', `netstat -ano -p tcp | findstr :${port}`],
+          { shell: false },
+        )
+
+        const pids = Array.from(
+          new Set(
+            result.stdout
+              .split(/\r?\n/)
+              .map((line) => line.trim())
+              .filter(Boolean)
+              .map((line) => line.split(/\s+/).pop())
+              .filter(Boolean),
+          ),
+        )
+
+        for (const pid of pids) {
+          try {
+            await runCommand('taskkill', ['/PID', pid, '/F', '/T'], { shell: false })
+            process.stdout.write(`Killed PID ${pid} on port ${port}\n`)
+          } catch {
+            // Ignore taskkill failures for processes that exit between checks.
+          }
+        }
+      } catch {
+        // Ignore ports that are already free.
+      }
+    }
+    return
+  }
+
+  for (const port of cleanupPorts) {
+    try {
+      const result = await runCommand('bash', ['-lc', `lsof -ti tcp:${port} | xargs -r kill -9`], {
+        shell: false,
+      })
+      if (result.stdout.trim()) {
+        process.stdout.write(result.stdout)
+      }
+    } catch {
+      // Ignore if lsof is unavailable or no process is bound.
+    }
+  }
+}
+
 async function start() {
+  await cleanupPreferredPorts()
   await runSync()
 
   const vite = spawn(viteCommand[0], viteCommand[1], {
