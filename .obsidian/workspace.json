@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "f8b25ff99184a3fc",
+        "id": "5d368ee4e8fbcad0",
         "type": "tabs",
         "children": [
           {
-            "id": "9de0031ca8b1ada7",
+            "id": "9ed0dccc8b840385",
             "type": "leaf",
             "state": {
               "type": "graph",
@@ -176,9 +176,21 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "3651e798f4375bd6",
+  "active": "9ed0dccc8b840385",
   "lastOpenFiles": [
+    "sistemas/OPERATIONAL_PHASE_ANCLORA.md",
     "templates/partner-synergi.md",
+    "templates/daily-note.md",
+    "templates/comparativa.md",
+    "templates/research.md",
+    "templates/proyecto.md",
+    "templates/playbook.md",
+    "templates/persona.md",
+    "resources/anclora-group.md",
+    "sistemas/Sistema CPR_ Gestión Eficiente de Contexto en Claude Code.md",
+    "sistemas/README.md",
+    "sistemas/Mapa del Sistema de Agentes.md",
+    "sistemas/El Arquitecto del Segundo Cerebro Autónomo.md",
     "sistemas/Arquitectura de Integración Anclora.md",
     "playbooks/Borrador de Email de Captación Synergi.md",
     "personas/Marta Vidal.md",
@@ -195,19 +207,7 @@
     "personas/Toni.md",
     "proyectos/anclora-impulso.md",
     "proyectos/anclora-advisor-ai.md",
-    "playbooks/anclora-nexus.md",
-    "research/anclora/anclora-synergi.md",
-    "research/anclora/anclora-data-lab.md",
-    "research/anclora/anclora-content-generator.md",
     "research/anclora",
-    "proyectos/anclora-private-estates.md",
-    "resources/anclora-group.md",
-    "playbooks/Comandos Rápidos Codex.md",
-    "playbooks/Uso Diario por Voz con WhisperFlow.md",
-    "playbooks/Consolidación Mensual del Segundo Cerebro.md",
-    "playbooks/Revisión Semanal del Segundo Cerebro.md",
-    "playbooks/Rutina Diaria del Segundo Cerebro.md",
-    "sistemas/Mapa del Sistema de Agentes.md",
     "scripts/sync-skills.ps1",
     "scripts",
     "sistemas",
