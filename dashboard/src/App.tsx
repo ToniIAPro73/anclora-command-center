@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import vaultData from './generated/vault-data.json'
 import './App.css'
 
@@ -67,27 +68,147 @@ function Panel({
   )
 }
 
+function MoonIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M15.5 3.5a8 8 0 1 0 5 14.2A8.5 8.5 0 0 1 15.5 3.5Z"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+    </svg>
+  )
+}
+
+function SunIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="M12 2.5v2.2M12 19.3v2.2M4.7 4.7l1.6 1.6M17.7 17.7l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.7 19.3l1.6-1.6M17.7 6.3l1.6-1.6"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="1.8"
+      />
+    </svg>
+  )
+}
+
+function ScreenIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7A2.5 2.5 0 0 1 17.5 16h-11A2.5 2.5 0 0 1 4 13.5v-7ZM9 20h6"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+    </svg>
+  )
+}
+
 function App() {
-  const generatedAt = new Date(data.generatedAt).toLocaleString('es-ES', {
+  const [theme, setTheme] = useState<'dark' | 'light' | 'system'>(() => {
+    if (typeof window === 'undefined') return 'dark'
+    const storedTheme = window.localStorage.getItem('anclora-command-center-theme')
+    return storedTheme === 'light' || storedTheme === 'system' ? storedTheme : 'dark'
+  })
+  const [language, setLanguage] = useState<'es' | 'en' | 'de'>('es')
+
+  useEffect(() => {
+    const root = document.documentElement
+    const resolveTheme = () =>
+      theme === 'system'
+        ? (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+        : theme
+
+    root.dataset.theme = resolveTheme()
+    window.localStorage.setItem('anclora-command-center-theme', theme)
+
+    if (theme !== 'system') return
+
+    const media = window.matchMedia('(prefers-color-scheme: light)')
+    const onChange = () => {
+      root.dataset.theme = media.matches ? 'light' : 'dark'
+    }
+
+    media.addEventListener('change', onChange)
+    return () => media.removeEventListener('change', onChange)
+  }, [theme])
+
+  const locale = language === 'de' ? 'de-DE' : language === 'en' ? 'en-GB' : 'es-ES'
+  const generatedAt = new Date(data.generatedAt).toLocaleString(locale, {
     dateStyle: 'long',
     timeStyle: 'short',
   })
 
   return (
     <main className="dashboard-shell">
+      <header className="topbar">
+        <a className="topbar__backlink" href="#dashboard-root">
+          VOLVER A ANCLORA GROUP
+        </a>
+
+        <div className="topbar__brand">
+          <img
+            className="topbar__brand-logo"
+            src="/brand/logo-anclora-command-center.png"
+            alt="Logo Anclora Command Center"
+          />
+          <div>
+            <p className="topbar__brand-name">ANCLORA COMMAND CENTER</p>
+            <p className="topbar__brand-line">Control operativo del ecosistema</p>
+          </div>
+        </div>
+
+        <div className="topbar__controls">
+          <div className="topbar__toggle-group" aria-label="Theme switcher">
+            {([
+              { value: 'dark', label: 'Tema oscuro', icon: MoonIcon },
+              { value: 'light', label: 'Tema claro', icon: SunIcon },
+              { value: 'system', label: 'Tema del sistema', icon: ScreenIcon },
+            ] as const).map((item) => {
+              const Icon = item.icon
+              return (
+                <button
+                  key={item.value}
+                  type="button"
+                  className={item.value === theme ? 'is-active' : ''}
+                  onClick={() => setTheme(item.value)}
+                  aria-label={item.label}
+                  title={item.label}
+                >
+                  <Icon />
+                </button>
+              )
+            })}
+          </div>
+
+          <div className="topbar__toggle-group" aria-label="Language switcher">
+            {(['es', 'en', 'de'] as const).map((item) => (
+              <button
+                key={item}
+                type="button"
+                className={item === language ? 'is-active' : ''}
+                onClick={() => setLanguage(item)}
+              >
+                {item.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        </div>
+      </header>
+
       <header className="hero">
         <div className="hero__copy">
-          <div className="hero__brandline">
-            <img
-              className="hero__brand-mark"
-              src="/brand/logo-anclora-command-center.png"
-              alt="Logo Anclora Command Center"
-            />
-            <div>
-              <p className="hero__eyebrow">Anclora Group Operating Surface</p>
-              <h1>Anclora Command Center</h1>
-            </div>
-          </div>
+          <p className="hero__eyebrow">Anclora Group Operating Surface</p>
+          <h1>Anclora Command Center</h1>
           <p className="hero__lede">
             Dashboard operativo conectado a la bóveda. El contenido se genera desde{' '}
             <span>Anclora Command Center.md</span> y notas relacionadas para mantener una única fuente de verdad.
