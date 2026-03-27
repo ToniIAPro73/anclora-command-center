@@ -54,6 +54,8 @@ Lead magnets sugeridos para Anclora:
 - checklist para comprar en SW Mallorca
 - comparativa ciudad vs costa o barrio cerrado
 - calculadora de rentabilidad o coste de vida
+- reporte de zonas high-ticket con mayor revalorizacion
+- auditoria para vender una casa mas rapido
 
 KPIs:
 - CPL
@@ -87,6 +89,8 @@ KPIs:
 - [[Estrategia de Autoridad IA Inmobiliaria]] como motor de contenido.
 - [[Anclora Command Center]] como panel de foco y métricas.
 - [[Arquitectura Implementable de Automatización Anclora]] como criterio de realidad tecnica.
+- [[Lead Magnets Inmobiliarios para SW Mallorca]] como biblioteca de activos MOFU.
+- [[Ofertas de Captación Inmobiliaria con IA]] como capa de mensaje por ICP.
 
 ## Estado de implementabilidad
 

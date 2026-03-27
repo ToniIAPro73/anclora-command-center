@@ -43,6 +43,14 @@ Prohibido el uso de datos ficticios.
 - Tours narrados con voz en off
 - Preguntas y respuestas en formato podcast o clip corto
 
+## Temas que merecen series fijas
+
+- errores que hacen perder dinero al propietario
+- costes ocultos para comprador extranjero
+- ROI vacacional vs tradicional
+- zonas del SW con mayor proyeccion
+- historias reales de decision y cambio de vida
+
 ## Hooks que si merecen repetirse
 
 - Pregunta directa al dolor: "¿Estas pagando ciudad con precio de calidad de vida?"
@@ -88,6 +96,8 @@ Prohibido el uso de datos ficticios.
 - [[Anclora Nexus]]
 - [[Funnel de Captación Inmobiliaria con IA]]
 - [[Captación Inmobiliaria con IA - insights NotebookLM]]
+- [[Lead Magnets Inmobiliarios para SW Mallorca]]
+- [[Mapa de Objeciones de Captación Inmobiliaria]]
 - [[Arquitectura Implementable de Automatización Anclora]]
 - [[personas/Toni|Toni]]
 
