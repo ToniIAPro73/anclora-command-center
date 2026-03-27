@@ -16,6 +16,8 @@ related:
 ## Resumen
 Las fuentes del cuaderno apuntan a una idea central: la autoridad inmobiliaria no se construye mostrando propiedades, sino resolviendo contextos de vida y decisiones de inversión con contenido específico, datos reales y un funnel medible.
 
+Esta nota debe leerse como benchmark de captacion y no como implementacion literal del stack de Anclora.
+
 ## Hallazgos clave
 
 ### 1. El contenido que convierte no es catálogo
@@ -59,8 +61,27 @@ Todos los caminos deben llevar a una landing page con un activo gratuito y un si
 
 ## Aplicación a Anclora
 - [[Estrategia de Autoridad IA Inmobiliaria]] debe incorporar hooks y formatos más concretos.
-- [[Anclora Nexus]] debe medir comentarios, conversaciones iniciadas, leads cualificados, citas y cierres, no solo alcance.
+- [[Anclora Nexus]] deberia terminar midiendo comentarios, conversaciones iniciadas, leads cualificados, citas y cierres, no solo alcance.
 - [[Anclora Command Center]] puede reflejar el funnel real por etapa y canal.
+
+## Estado de implementabilidad
+
+### Valido hoy
+
+- hooks
+- formatos
+- propuesta de valor por ICP
+- estructura TOFU, MOFU y BOFU
+
+### No validado todavia en el stack
+
+- trazabilidad automatica del funnel
+- medicion automatica por canal
+- sincronizacion directa con CRM
+
+### Relacionado
+
+- [[Arquitectura Implementable de Automatización Anclora]]
 
 ## Mejoras propuestas
 - Reemplazar contenido genérico por series fijas por ICP.
@@ -69,4 +90,3 @@ Todos los caminos deben llevar a una landing page con un activo gratuito y un si
 
 ## Próxima acción
 - Convertir estos hallazgos en un playbook táctico de funnel y en una librería de hooks para SW Mallorca.
-

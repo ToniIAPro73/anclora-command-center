@@ -105,10 +105,15 @@ Revision:
 
 ## Aplicacion directa en Anclora
 - Conectar mensajes con [[Estrategia de Autoridad IA Inmobiliaria]].
-- Medir conversion con los flujos de [[Prospeccion Avanzada con Nexus]].
+- Medir conversion con los flujos de [[Prospección Avanzada con Nexus]] cuando exista una capa operativa real.
 - Reportar en [[Anclora Command Center]] (objetivos, canales, KPIs).
 - Integrar el recorrido completo en [[Funnel de Captación Inmobiliaria con IA]].
 - Basar decisiones de captacion en [[Captación Inmobiliaria con IA - insights NotebookLM]].
+- Validar arquitectura real con [[Arquitectura Implementable de Automatización Anclora]].
+
+## Nota de realidad operacional
+
+Este playbook describe una estrategia de marketing valida, pero no implica que hoy exista ya la automatizacion necesaria para ejecutarla extremo a extremo dentro del stack Anclora.
 
 ## Checklist de implementacion
 - [ ] Objetivo SMART definido

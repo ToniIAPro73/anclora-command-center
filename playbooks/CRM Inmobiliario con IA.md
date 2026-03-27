@@ -28,10 +28,34 @@ Construir un sistema comercial donde la captura, clasificacion, seguimiento y tr
 ## Arquitectura recomendada
 
 - Entrada omnicanal: formularios, portales, WhatsApp, contenido, referidos.
+- Señal de mercado y contexto: [[Inmovilla]] y [[StateFox]].
 - Capa de IA: recoge datos, clasifica, resume y dispara acciones.
 - Base central: [[Anclora Nexus]] como memoria de pipeline y estado comercial.
 - Capa operativa: [[Coda]] para vistas, seguimiento y control.
 - Coordinacion: [[Slack]] para alertas, handoff y bloqueos.
+
+## Nota de adaptacion
+
+Este playbook no adopta el stack literal del material fuente de NotebookLM. Las ideas son validas, pero aqui quedan adaptadas a herramientas del ecosistema Anclora y a su capa inmobiliaria real.
+
+## Estado de implementabilidad
+
+### Ya definible hoy
+
+- campos
+- etapas
+- criterios de scoring
+- reglas de handoff
+
+### Aun no desplegado
+
+- captura automatica
+- clasificacion persistente
+- sincronizacion entre herramientas
+
+### Dependencia probable
+
+- `n8n` como orquestador de eventos y automatizaciones
 
 ## Campos minimos por lead
 
@@ -55,6 +79,15 @@ Construir un sistema comercial donde la captura, clasificacion, seguimiento y tr
 5. Se activa nutricion o handoff segun el caso.
 6. El asesor recibe un resumen estructurado cuando el lead ya esta listo para avanzar.
 7. El pipeline se actualiza en [[Anclora Nexus]] y se coordina en [[Coda]] y [[Slack]].
+
+## Entradas recomendadas para scoring
+
+- canal de origen
+- zona de interes
+- tipo de activo
+- urgencia
+- presupuesto
+- señal de encaje detectada en [[Inmovilla]] o [[StateFox]]
 
 ## Reglas de operacion
 
@@ -100,3 +133,4 @@ El resumen al asesor debe incluir:
 - [[Reportes Automáticos para Inmobiliarias]]
 - [[Anclora Nexus]]
 - [[Anclora Command Center]]
+- [[Arquitectura Implementable de Automatización Anclora]]

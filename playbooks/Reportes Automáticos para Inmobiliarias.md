@@ -108,6 +108,7 @@ Objetivo:
 
 ## Implementacion en Anclora
 
+- [[Inmovilla]] y [[StateFox]] aportan contexto de demanda, activos y zonas
 - [[Anclora Nexus]] consolida el estado del pipeline
 - [[Anclora Command Center]] resume el pulso ejecutivo
 - [[Coda]] puede servir como superficie de lectura para el equipo
@@ -118,6 +119,24 @@ Objetivo:
 - Cada reporte debe tener un dueño claro.
 - No mezclar metricas de ego con metricas de negocio.
 - Todo numero debe responder a una decision posible.
+
+## Estado de implementabilidad
+
+### Ya util hoy
+
+- definir plantillas de reportes
+- decidir metricas por rol
+- preparar lecturas manuales o semimanuales
+
+### No desplegado aun
+
+- reportes automaticos programados
+- consolidacion automatica de fuentes
+- distribucion automatica por canal interno
+
+### Dependencia probable
+
+- `n8n` para consolidar datos y disparar reportes
 
 ## Validacion
 
@@ -131,3 +150,4 @@ Objetivo:
 - [[Operativa Inmobiliaria con IA - insights NotebookLM]]
 - [[Anclora Nexus]]
 - [[Anclora Command Center]]
+- [[Arquitectura Implementable de Automatización Anclora]]
