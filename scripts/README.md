@@ -29,6 +29,8 @@ Prepara la revisión semanal completa con baja fricción.
 
 - crea la nota diaria del día si no existe
 - añade los bloques `## 🧹 Mantenimiento de Bóveda` y `## 🐙 Estado Semanal de Repositorios`
+- actualiza un bloque visible `## 🤖 Resultado de tarea automática` dentro de la daily note
+- escribe un rastro técnico en `logs/weekly-review.log`
 - sincroniza skills antes de empezar
 - deja lista la sesión para ejecutar el playbook semanal
 - intenta mostrar una notificación ligera de Windows al terminar
