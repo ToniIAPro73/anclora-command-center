@@ -28,6 +28,8 @@ related:
   - "[[Mapa de Stakeholders de Anclora Group]]"
   - "[[Plan Maestro de Marca Personal e Ingesta Comercial]]"
   - "[[Propuesta de Valor de Toni - Real Estate + IA]]"
+  - "[[Pruebas de Autoridad y Casos Reales]]"
+  - "[[Bio y Pitch de Toni - Real Estate + IA]]"
 ---
 
 # Toni
@@ -85,6 +87,8 @@ Su posicionamiento profesional es dual: consultor IT senior en CGI y agente asoc
 - [[Mapa de Stakeholders de Anclora Group]]
 - [[Plan Maestro de Marca Personal e Ingesta Comercial]]
 - [[Propuesta de Valor de Toni - Real Estate + IA]]
+- [[Pruebas de Autoridad y Casos Reales]]
+- [[Bio y Pitch de Toni - Real Estate + IA]]
 
 ## Notas adicionales
 

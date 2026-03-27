@@ -15,6 +15,7 @@ related:
   - "[[Mapa de Objeciones de Captación Inmobiliaria]]"
   - "[[ICP Comprador Premium SW Mallorca]]"
   - "[[Pruebas de Autoridad y Casos Reales]]"
+  - "[[Bio y Pitch de Toni - Real Estate + IA]]"
   - "[[Plan Maestro de Marca Personal e Ingesta Comercial]]"
 ---
 
@@ -158,6 +159,10 @@ Usar esta nota como referencia canónica para:
 - mensajes de captación
 - landings y lead magnets
 
+La traducción operativa de este mensaje vive en:
+
+- [[Bio y Pitch de Toni - Real Estate + IA]]
+
 ## Relacionado
 
 - [[personas/Toni|Toni]]
@@ -169,4 +174,5 @@ Usar esta nota como referencia canónica para:
 - [[Mapa de Objeciones de Captación Inmobiliaria]]
 - [[ICP Comprador Premium SW Mallorca]]
 - [[Pruebas de Autoridad y Casos Reales]]
+- [[Bio y Pitch de Toni - Real Estate + IA]]
 - [[Plan Maestro de Marca Personal e Ingesta Comercial]]

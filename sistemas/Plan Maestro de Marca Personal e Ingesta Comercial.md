@@ -17,6 +17,7 @@ related:
   - "[[Captación Inmobiliaria con IA - insights NotebookLM]]"
   - "[[Operativa Inmobiliaria con IA - insights NotebookLM]]"
   - "[[Mapa de Stakeholders de Anclora Group]]"
+  - "[[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]"
 ---
 
 # Plan Maestro de Marca Personal e Ingesta Comercial
@@ -40,6 +41,7 @@ El problema no es falta de ideas. El problema es de **gravedad narrativa**:
 - la capa de captación ya existe, pero todavía no domina al resto del sistema
 - varios repositorios del ecosistema son reales y activos, pero algunos no impulsan directamente la marca personal inmobiliaria
 - falta una política de ingesta orientada a convertir hechos del mercado, objeciones y pruebas reales en activos comerciales reutilizables
+- falta un plan explícito de activación entre contenido, CTA, Nexus y automatizaciones útiles
 
 ## Lectura del estado actual
 
@@ -149,10 +151,15 @@ Notas que deberían existir cuanto antes:
 - `resources/ICP Comprador Premium SW Mallorca.md`
 - `resources/ICP Vendedor Premium SW Mallorca.md`
 - `resources/Pruebas de Autoridad y Casos Reales.md`
+- `resources/Bio y Pitch de Toni - Real Estate + IA.md`
 
 Objetivo:
 
 - que la bóveda pueda responder sin ambigüedad a “qué vendes”, “a quién”, “por qué tú” y “con qué pruebas”
+
+La capa de activación entre contenido, CTA y operación queda desarrollada en:
+
+- [[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]
 
 ### Prioridad 2. Crear una biblioteca comercial reutilizable
 
@@ -314,6 +321,10 @@ Crear inmediatamente estas tres notas:
 - `resources/ICP Comprador Premium SW Mallorca.md`
 - `resources/Pruebas de Autoridad y Casos Reales.md`
 
+Y, como traducción comercial inmediata:
+
+- `resources/Bio y Pitch de Toni - Real Estate + IA.md`
+
 Y después revisar [[Anclora Command Center]] para que el dashboard ejecutivo refleje también:
 
 - propuesta de valor
@@ -331,3 +342,4 @@ Y después revisar [[Anclora Command Center]] para que el dashboard ejecutivo re
 - [[Funnel de Captación Inmobiliaria con IA]]
 - [[Lead Magnets Inmobiliarios para SW Mallorca]]
 - [[Mapa de Objeciones de Captación Inmobiliaria]]
+- [[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]
