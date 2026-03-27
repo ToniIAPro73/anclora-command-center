@@ -77,8 +77,17 @@ function App() {
     <main className="dashboard-shell">
       <header className="hero">
         <div className="hero__copy">
-          <p className="hero__eyebrow">Anclora Group Operating Surface</p>
-          <h1>Anclora Command Center</h1>
+          <div className="hero__brandline">
+            <img
+              className="hero__brand-mark"
+              src="/brand/logo-anclora-command-center.png"
+              alt="Logo Anclora Command Center"
+            />
+            <div>
+              <p className="hero__eyebrow">Anclora Group Operating Surface</p>
+              <h1>Anclora Command Center</h1>
+            </div>
+          </div>
           <p className="hero__lede">
             Dashboard operativo conectado a la bóveda. El contenido se genera desde{' '}
             <span>Anclora Command Center.md</span> y notas relacionadas para mantener una única fuente de verdad.
@@ -88,14 +97,27 @@ function App() {
             <span>Última sincronización: {generatedAt}</span>
           </div>
         </div>
-        <aside className="hero__signal">
-          <p className="hero__signal-label">Pulso Ejecutivo</p>
-          <ul>
-            {data.commandCenter.executivePulse.map((item) => (
-              <li key={item}>{stripWikilinks(item)}</li>
-            ))}
-          </ul>
-        </aside>
+        <div className="hero__aside">
+          <aside className="hero__signal">
+            <p className="hero__signal-label">Pulso Ejecutivo</p>
+            <ul>
+              {data.commandCenter.executivePulse.map((item) => (
+                <li key={item}>{stripWikilinks(item)}</li>
+              ))}
+            </ul>
+          </aside>
+          <section className="hero__palette">
+            <div className="hero__palette-copy">
+              <p className="hero__signal-label">System Palette</p>
+              <h2>Premium dark interface</h2>
+            </div>
+            <img
+              className="hero__palette-image"
+              src="/brand/paleta-anclora-command-center.png"
+              alt="Paleta visual de Anclora Command Center"
+            />
+          </section>
+        </div>
       </header>
 
       <section className="grid grid--top">
