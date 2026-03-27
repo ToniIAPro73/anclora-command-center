@@ -96,6 +96,19 @@ related:
 - Coordinación operativa: [[Coda]] + [[Slack]]
 - Playbook principal: [[Prospección Avanzada con Nexus]]
 
+## 📡 Monitor de Prospección SW
+
+> [!warning] Lógica de negocio
+> Este bloque es un monitor operativo orientativo. Hasta que entren datos reales automatizados desde [[StateFox]] y [[Anclora Nexus]], debe leerse como estructura de seguimiento y no como dato de mercado confirmado del día.
+
+- % de zona SW analizada en [[StateFox]]: `35%` estimado de cobertura inicial
+
+### Alertas Nexus
+
+- Santa Ponsa: movimiento alto por combinación de demanda premium y rotación visible
+- Port d'Andratx: oportunidades de alto valor que requieren filtrado fino y seguimiento rápido
+- Bendinat / Costa d'en Blanes: zona sensible para detectar activos infravalorados con narrativa de precisión y confianza
+
 ## 🛠️ Acciones Rápidas
 
 - Crear o actualizar partner usando [[partner-synergi]]
