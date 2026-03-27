@@ -7,6 +7,7 @@ priority: alta
 tags: [automatizacion, nexus, content-generator, n8n, captacion, plan]
 related:
   - "[[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]"
+  - "[[Comparativa de Arquitectura para Automatizaciones Anclora]]"
   - "[[Anclora Nexus]]"
   - "[[Anclora Content Generator AI]]"
   - "[[Funnel de Captación Inmobiliaria con IA]]"
@@ -221,9 +222,14 @@ Elegir uno de estos tres flujos y bajar su implementación a nivel de:
 - checkpoint humano
 - métrica de éxito
 
+El criterio para decidir la arquitectura adecuada vive en:
+
+- [[Comparativa de Arquitectura para Automatizaciones Anclora]]
+
 ## Relacionado
 
 - [[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]
+- [[Comparativa de Arquitectura para Automatizaciones Anclora]]
 - [[Anclora Nexus]]
 - [[Anclora Content Generator AI]]
 - [[Funnel de Captación Inmobiliaria con IA]]
