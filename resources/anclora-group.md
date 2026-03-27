@@ -93,9 +93,11 @@ En la capa inmobiliaria, el posicionamiento operativo actual combina tecnologia,
 - [[MOC de Negocio]]
 - [[Prospección Avanzada con Nexus]]
 - [[Estrategia de Autoridad IA Inmobiliaria]]
+- [[Propuesta de Valor de Toni - Real Estate + IA]]
 - [[Flujo Comercial Inteligente Anclora]]
 - [[Arquitectura de Integración Anclora]]
 - [[Mapa de Stakeholders de Anclora Group]]
+- [[Plan Maestro de Marca Personal e Ingesta Comercial]]
 - [[Mapa del Sistema de Agentes]]
 - [[El Arquitecto del Segundo Cerebro Autónomo]]
 
