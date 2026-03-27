@@ -294,7 +294,9 @@ La prioridad es `más sistema comercial con menos fricción`.
 
 ## Próxima acción
 
-Crear una nota táctica con los **3 primeros flujos a implementar** y, si procede, traducirlos después a `n8n` o a las capacidades ya presentes en [[Anclora Nexus]].
+La bajada táctica inmediata de esta estrategia vive en:
+
+- [[Primeros 3 Flujos de Automatización Anclora]]
 
 ## Relacionado
 
@@ -305,3 +307,4 @@ Crear una nota táctica con los **3 primeros flujos a implementar** y, si proced
 - [[Mensajes de Captación para LinkedIn y WhatsApp]]
 - [[Captación Multicanal - Instagram, Facebook y Cold Email]]
 - [[Anclora Command Center]]
+- [[Primeros 3 Flujos de Automatización Anclora]]
