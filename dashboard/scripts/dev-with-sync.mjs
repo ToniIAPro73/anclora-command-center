@@ -46,6 +46,11 @@ async function start() {
   const vite = spawn(viteCommand[0], viteCommand[1], {
     cwd: dashboardRoot,
     stdio: 'inherit',
+    shell: process.platform === 'win32',
+  })
+
+  vite.on('error', (error) => {
+    process.stderr.write(`Vite failed to start: ${error.message}\n`)
   })
 
   let timer = null
@@ -60,12 +65,25 @@ async function start() {
 
   const watchers = watchedPaths
     .filter((target) => fs.existsSync(target))
-    .map((target) =>
-      fs.watch(target, { recursive: fs.statSync(target).isDirectory() }, (_eventType, filename) => {
-        if (!filename) return
+    .map((target) => {
+      const stats = fs.statSync(target)
+      if (stats.isDirectory()) {
+        return fs.watch(target, (_eventType, filename) => {
+          if (!filename) return
+          scheduleSync()
+        })
+      }
+
+      fs.watchFile(target, { interval: 500 }, () => {
         scheduleSync()
-      }),
-    )
+      })
+
+      return {
+        close() {
+          fs.unwatchFile(target)
+        },
+      }
+    })
 
   const close = () => {
     watchers.forEach((watcher) => watcher.close())

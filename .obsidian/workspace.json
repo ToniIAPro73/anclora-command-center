@@ -178,6 +178,7 @@
   },
   "active": "3651e798f4375bd6",
   "lastOpenFiles": [
+    "package-lock.json",
     "dashboard/README.txt",
     "dashboard/dist/assets/index-Ns6rMRtE.js",
     "dashboard/dist/index.html",
@@ -190,7 +191,6 @@
     "dashboard/src/generated/vault-data.json",
     "dashboard/src/generated",
     "dashboard/scripts/sync-vault-data.mjs",
-    "dashboard/scripts/dev-with-sync.mjs",
     "dashboard/node_modules/ajv/lib/dotjs/README.md",
     "dashboard/node_modules/zod-validation-error/README.v3.md",
     "dashboard/node_modules/@oxc-project/types/README.md",
