@@ -16,6 +16,9 @@ related:
   - "[[Flujo Comercial Inteligente Anclora]]"
   - "[[Prospección Avanzada con Nexus]]"
   - "[[Estrategia de Autoridad IA Inmobiliaria]]"
+  - "[[CRM Inmobiliario con IA]]"
+  - "[[Nutrición y Seguimiento Comercial con IA]]"
+  - "[[Reportes Automáticos para Inmobiliarias]]"
   - "[[Arquitectura de Integración Anclora]]"
   - "[[Mapa de Stakeholders de Anclora Group]]"
   - "[[Jorge Cifre]]"
@@ -102,11 +105,15 @@ related:
 - Autoridad inmobiliaria: [[Estrategia de Autoridad IA Inmobiliaria]]
 - Funnel de captacion: [[Funnel de Captación Inmobiliaria con IA]]
 - Research de captacion: [[Captación Inmobiliaria con IA - insights NotebookLM]]
+- CRM con IA: [[CRM Inmobiliario con IA]]
+- Nutricion comercial: [[Nutrición y Seguimiento Comercial con IA]]
+- Reportes automaticos: [[Reportes Automáticos para Inmobiliarias]]
 
 ## 🎯 Próximas Decisiones
 
 - Decidir qué partner deja de ser “semilla” y pasa a onboarding real en [[Anclora Synergi]].
 - Convertir insights de [[Anclora Data Lab]] en un activo comercial medible dentro de [[Anclora Nexus]].
+- Traducir la logica de CRM y nurturing con IA a vistas reales dentro de [[Anclora Nexus]] y [[Coda]].
 - Mantener sincronizadas las notas de proyectos con sus README y actividad reciente en GitHub.
 
 ## 📬 Activos de Comunicación
