@@ -9,9 +9,16 @@ related:
   - "[[Anclora Private Estates]]"
   - "[[Anclora Nexus]]"
   - "[[Anclora Synergi]]"
+  - "[[Slack]]"
+  - "[[Inmovilla]]"
+  - "[[StateFox]]"
+  - "[[Coda]]"
   - "[[Flujo Comercial Inteligente Anclora]]"
+  - "[[Prospección Avanzada con Nexus]]"
+  - "[[Estrategia de Autoridad IA Inmobiliaria]]"
   - "[[Arquitectura de Integración Anclora]]"
   - "[[Mapa de Stakeholders de Anclora Group]]"
+  - "[[Jorge Cifre]]"
   - "[[Lucia Serrano]]"
   - "[[Javier Ortega]]"
   - "[[Marta Vidal]]"
@@ -30,6 +37,14 @@ related:
 - [[Lucia Serrano]]: `clave` | family office con potencial de capital patrimonial y validacion premium.
 - [[Javier Ortega]]: `alto` | partner de desarrollo y producto con posible coinversion o colaboracion inmobiliaria.
 - [[Marta Vidal]]: `alto` | broker de lujo orientada a conversion consultiva y confianza comercial.
+- [[Jorge Cifre]]: `clave` | alianza territorial activa para cobertura NE + SW Mallorca sin competencia interna.
+
+## 🌍 eXp Global + Stack Operativo
+
+- Comunicación y coordinación: [[Slack]]
+- Captación y datos de mercado: [[Inmovilla]]
+- Análisis territorial y señales: [[StateFox]]
+- Gestión de pipeline y contexto: [[Coda]]
 
 ## 🏗️ Proyectos y Aplicaciones Activas
 
@@ -63,12 +78,23 @@ related:
 - Arquitectura de extremo a extremo: [[Arquitectura de Integración Anclora]]
 - Mapa relacional: [[Mapa de Stakeholders de Anclora Group]]
 - Borrador comercial activo: [[Borrador de Email de Captación Synergi]]
+- Autoridad inmobiliaria: [[Estrategia de Autoridad IA Inmobiliaria]]
 
 ## 🎯 Próximas Decisiones
 
 - Decidir qué partner deja de ser “semilla” y pasa a onboarding real en [[Anclora Synergi]].
 - Convertir insights de [[Anclora Data Lab]] en un activo comercial medible dentro de [[Anclora Nexus]].
 - Mantener sincronizadas las notas de proyectos con sus README y actividad reciente en GitHub.
+
+## 📍 Objetivo SW Mallorca
+
+> [!tip] Seguimiento de prospección en Nexus
+> Priorizar oportunidades donde la ventaja competitiva venga de detectar, filtrar y explicar mejor el mercado del suroeste de Mallorca que el resto de agentes generalistas.
+
+- Fuente de captación: [[Inmovilla]] + [[StateFox]]
+- Motor de análisis: [[Anclora Nexus]]
+- Coordinación operativa: [[Coda]] + [[Slack]]
+- Playbook principal: [[Prospección Avanzada con Nexus]]
 
 ## 🛠️ Acciones Rápidas
 
