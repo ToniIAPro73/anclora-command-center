@@ -12,6 +12,7 @@ related:
   - "[[Anclora Synergi]]"
   - "[[Anclora Nexus]]"
   - "[[Arquitectura de Integración Anclora]]"
+  - "[[Iván Aliado]]"
   - "[[Elena Ejemplo]]"
   - "[[Marco Modelo]]"
   - "[[Nora Muestra]]"
@@ -48,6 +49,11 @@ Mapa canónico de actores clave del ecosistema Anclora Group. Su función es evi
 - [[Nora Muestra]]
   Contexto: perfil de broker de lujo para conectar narrativa comercial, contenido y conversion en el vertical premium.
 
+### Alianzas territoriales activas
+
+- [[Iván Aliado]]
+  Contexto: alianza estratégica para el noreste de Mallorca, complementaria al foco de Toni en el suroeste, con propuesta de cobertura total de la isla usando tecnología compartida.
+
 ## Stakeholders pendientes de documentar
 
 - Primer stakeholder real validado en sustitucion de cada perfil semilla
@@ -73,6 +79,7 @@ Mapa canónico de actores clave del ecosistema Anclora Group. Su función es evi
 - [[Anclora Synergi]]
 - [[Anclora Nexus]]
 - [[Arquitectura de Integración Anclora]]
+- [[Iván Aliado]]
 - [[Elena Ejemplo]]
 - [[Marco Modelo]]
 - [[Nora Muestra]]
