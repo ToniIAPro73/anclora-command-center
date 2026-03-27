@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "5d368ee4e8fbcad0",
+        "id": "b1b70a1044d551f4",
         "type": "tabs",
         "children": [
           {
-            "id": "9ed0dccc8b840385",
+            "id": "a463ad71d480de80",
             "type": "leaf",
             "state": {
               "type": "graph",
@@ -176,8 +176,9 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "9ed0dccc8b840385",
+  "active": "a463ad71d480de80",
   "lastOpenFiles": [
+    "Anclora Command Center.md",
     "ideas/post-linkedin-autoridad.md",
     "ideas/propuesta-colaboracion-jorge.md",
     "playbooks/Estrategia de Autoridad IA Inmobiliaria.md",
@@ -187,7 +188,6 @@
     "resources/Inmovilla.md",
     "resources/Slack.md",
     "personas/jorge-cifre.md",
-    "Anclora Command Center.md",
     "sistemas/OPERATIONAL_PHASE_ANCLORA.md",
     "templates/partner-synergi.md",
     "templates/daily-note.md",

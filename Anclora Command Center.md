@@ -29,6 +29,19 @@ related:
 > [!meta] Estado del Ecosistema
 > Este panel centraliza la inteligencia de [[Anclora Group]], cruzando proyectos, partners, arquitectura y actividad reciente de desarrollo.
 
+> [!summary] Navegación rápida
+> [[Anclora Group]] · [[Anclora Nexus]] · [[Prospección Avanzada con Nexus]] · [[Estrategia de Autoridad IA Inmobiliaria]] · [[Mapa de Stakeholders de Anclora Group]] · [[Borrador de Email de Captación Synergi]]
+
+## ⚡ Pulso Ejecutivo
+
+> [!tip] Lectura de 30 segundos
+> Si solo vas a mirar una cosa, mira este bloque.
+
+- Foco territorial: **Suroeste de Mallorca**
+- Alianza clave de isla: [[Jorge Cifre]] para eje **NE + SW**
+- Stack operativo: [[Inmovilla]] + [[StateFox]] + [[Anclora Nexus]] + [[Coda]] + [[Slack]]
+- Prioridad inmediata: convertir prospección real en confianza comercial y partnerships activos
+
 ## 💎 Radar de Partners
 
 > [!info] Foco actual
@@ -45,6 +58,14 @@ related:
 - Captación y datos de mercado: [[Inmovilla]]
 - Análisis territorial y señales: [[StateFox]]
 - Gestión de pipeline y contexto: [[Coda]]
+
+## 🧭 Ruta Operativa
+
+- Detectar oportunidades con [[Inmovilla]] y [[StateFox]]
+- Filtrar y priorizar en [[Anclora Nexus]]
+- Coordinar seguimiento en [[Coda]] y [[Slack]]
+- Convertir insight en autoridad con [[Estrategia de Autoridad IA Inmobiliaria]]
+- Activar colaboración y cobertura territorial con [[Jorge Cifre]] y [[Anclora Synergi]]
 
 ## 🏗️ Proyectos y Aplicaciones Activas
 
@@ -86,6 +107,12 @@ related:
 - Convertir insights de [[Anclora Data Lab]] en un activo comercial medible dentro de [[Anclora Nexus]].
 - Mantener sincronizadas las notas de proyectos con sus README y actividad reciente en GitHub.
 
+## 📬 Activos de Comunicación
+
+- Propuesta de colaboración: [[propuesta-colaboracion-jorge]]
+- Borrador de autoridad para LinkedIn: [[post-linkedin-autoridad]]
+- Borrador comercial activo: [[Borrador de Email de Captación Synergi]]
+
 ## 📍 Objetivo SW Mallorca
 
 > [!tip] Seguimiento de prospección en Nexus
@@ -112,6 +139,9 @@ related:
 ## 🛠️ Acciones Rápidas
 
 - Crear o actualizar partner usando [[partner-synergi]]
+- Abrir activo comercial en [[Borrador de Email de Captación Synergi]]
+- Revisar propuesta territorial en [[propuesta-colaboracion-jorge]]
+- Revisar borrador público en [[post-linkedin-autoridad]]
 - Revisar el flujo comercial en [[Flujo Comercial Inteligente Anclora]]
 - Revisar la arquitectura en [[Arquitectura de Integración Anclora]]
 - Capturar avances del dia en [[Rutina Diaria del Segundo Cerebro]]
