@@ -6,31 +6,49 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$repoRoot = Split-Path -Parent $PSScriptRoot
 $startScript = Join-Path $PSScriptRoot "start-weekly-review.ps1"
 
 if (-not (Test-Path $startScript)) {
     throw "Start script not found: $startScript"
 }
 
-$action = New-ScheduledTaskAction `
-    -Execute "powershell.exe" `
-    -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$startScript`""
+$dayMap = @{
+    "Monday"    = "MON"
+    "Tuesday"   = "TUE"
+    "Wednesday" = "WED"
+    "Thursday"  = "THU"
+    "Friday"    = "FRI"
+    "Saturday"  = "SAT"
+    "Sunday"    = "SUN"
+}
 
-$trigger = New-ScheduledTaskTrigger -Weekly -DaysOfWeek $Day -At $Time
+if (-not $dayMap.ContainsKey($Day)) {
+    throw "Day must be one of: $($dayMap.Keys -join ', ')"
+}
 
-$settings = New-ScheduledTaskSettingsSet `
-    -StartWhenAvailable `
-    -AllowStartIfOnBatteries `
-    -DontStopIfGoingOnBatteries
+if ($Time -notmatch '^\d{2}:\d{2}$') {
+    throw "Time must be in HH:mm format."
+}
 
-Register-ScheduledTask `
-    -TaskName $TaskName `
-    -Action $action `
-    -Trigger $trigger `
-    -Settings $settings `
-    -Description "Launch the weekly Obsidian and repository review workflow for the Anclora vault." `
-    -Force | Out-Null
+$dayCode = $dayMap[$Day]
+$taskCommand = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$startScript`""
+
+schtasks.exe /Delete /TN $TaskName /F | Out-Null 2>$null
+
+$createArgs = @(
+    "/Create",
+    "/TN", $TaskName,
+    "/TR", $taskCommand,
+    "/SC", "WEEKLY",
+    "/D", $dayCode,
+    "/ST", $Time,
+    "/F"
+)
+
+$createResult = & schtasks.exe @createArgs 2>&1
+if ($LASTEXITCODE -ne 0) {
+    throw ($createResult -join [Environment]::NewLine)
+}
 
 Write-Output "Scheduled task registered: $TaskName"
 Write-Output "Schedule: $Day at $Time"
