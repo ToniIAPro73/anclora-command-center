@@ -151,7 +151,12 @@ function App() {
   return (
     <main className="dashboard-shell">
       <header className="topbar">
-        <a className="topbar__backlink" href="#dashboard-root">
+        <a
+          className="topbar__backlink"
+          href="https://anclora-group.vercel.app/workspace"
+          target="_blank"
+          rel="noreferrer"
+        >
           VOLVER A ANCLORA GROUP
         </a>
 
