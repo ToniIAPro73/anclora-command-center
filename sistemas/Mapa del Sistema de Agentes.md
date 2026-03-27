@@ -54,6 +54,14 @@ Este sistema no sustituye el propósito original del segundo cerebro; lo amplía
 - [[CLAUDE]] permite seguir siendo compatible con Claude Code.
 - Las skills canónicas en `.codex/skills/` permiten que otros agentes trabajen con la misma lógica.
 
+## Superficie visual
+
+El repositorio incluye una app técnica en `dashboard/` para visualizar `Anclora Command Center` como dashboard real.
+
+- Esa carpeta se considera infraestructura, no conocimiento canónico.
+- Por eso su documentación interna se mantiene en archivos no markdown para no introducir nodos sueltos en el grafo de Obsidian.
+- La fuente editorial sigue siendo [[Anclora Command Center]] y las notas relacionadas de la bóveda.
+
 ## Relacionado
 
 - [[AGENTS]]

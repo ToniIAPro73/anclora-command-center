@@ -1,0 +1,885 @@
+{
+  "generatedAt": "2026-03-27T12:48:02.047Z",
+  "vaultRoot": "C:\\Users\\antonio.ballesterosa\\Desktop\\Proyectos\\Boveda-Anclora",
+  "commandCenter": {
+    "meta": {
+      "title": "Anclora Command Center",
+      "type": "resource",
+      "status": "activo",
+      "scope": "dashboard-operativo",
+      "tags": [
+        "dashboard",
+        "anclora",
+        "management"
+      ],
+      "related": [
+        "[[Anclora Group]]",
+        "[[Anclora Private Estates]]",
+        "[[Anclora Nexus]]",
+        "[[Anclora Synergi]]",
+        "[[Slack]]",
+        "[[Inmovilla]]",
+        "[[StateFox]]",
+        "[[Coda]]",
+        "[[Flujo Comercial Inteligente Anclora]]",
+        "[[Prospección Avanzada con Nexus]]",
+        "[[Estrategia de Autoridad IA Inmobiliaria]]",
+        "[[Arquitectura de Integración Anclora]]",
+        "[[Mapa de Stakeholders de Anclora Group]]",
+        "[[Jorge Cifre]]",
+        "[[Lucia Serrano]]",
+        "[[Javier Ortega]]",
+        "[[Marta Vidal]]"
+      ]
+    },
+    "body": "\n# Anclora Command Center\n\n> [!meta] Estado del Ecosistema\n> Este panel centraliza la inteligencia de [[Anclora Group]], cruzando proyectos, partners, arquitectura y actividad reciente de desarrollo.\n\n> [!summary] Navegación rápida\n> [[Anclora Group]] · [[Anclora Nexus]] · [[Prospección Avanzada con Nexus]] · [[Estrategia de Autoridad IA Inmobiliaria]] · [[Mapa de Stakeholders de Anclora Group]] · [[Borrador de Email de Captación Synergi]]\n\n## ⚡ Pulso Ejecutivo\n\n> [!tip] Lectura de 30 segundos\n> Si solo vas a mirar una cosa, mira este bloque.\n\n- Foco territorial: **Suroeste de Mallorca**\n- Alianza clave de isla: [[Jorge Cifre]] para eje **NE + SW**\n- Stack operativo: [[Inmovilla]] + [[StateFox]] + [[Anclora Nexus]] + [[Coda]] + [[Slack]]\n- Prioridad inmediata: convertir prospección real en confianza comercial y partnerships activos\n\n## 💎 Radar de Partners\n\n> [!info] Foco actual\n> Partners con `influence_level: alto` o `influence_level: clave`, priorizados para Synergi y para el vertical premium.\n\n- [[Lucia Serrano]]: `clave` | family office con potencial de capital patrimonial y validacion premium.\n- [[Javier Ortega]]: `alto` | partner de desarrollo y producto con posible coinversion o colaboracion inmobiliaria.\n- [[Marta Vidal]]: `alto` | broker de lujo orientada a conversion consultiva y confianza comercial.\n- [[Jorge Cifre]]: `clave` | alianza territorial activa para cobertura NE + SW Mallorca sin competencia interna.\n\n## 🌍 eXp Global + Stack Operativo\n\n- Comunicación y coordinación: [[Slack]]\n- Captación y datos de mercado: [[Inmovilla]]\n- Análisis territorial y señales: [[StateFox]]\n- Gestión de pipeline y contexto: [[Coda]]\n\n## 🧭 Ruta Operativa\n\n- Detectar oportunidades con [[Inmovilla]] y [[StateFox]]\n- Filtrar y priorizar en [[Anclora Nexus]]\n- Coordinar seguimiento en [[Coda]] y [[Slack]]\n- Convertir insight en autoridad con [[Estrategia de Autoridad IA Inmobiliaria]]\n- Activar colaboración y cobertura territorial con [[Jorge Cifre]] y [[Anclora Synergi]]\n\n## 🏗️ Proyectos y Aplicaciones Activas\n\n> [!todo] Estado operativo\n> Esta tabla refleja el estado documentado hoy en la bóveda, no un estado idealizado.\n\n| Nodo | Estado documentado | Repositorio | Siguiente foco |\n| :--- | :--- | :--- | :--- |\n| [[Anclora Private Estates]] | activo | [GitHub](https://github.com/ToniIAPro73/Anclora-Private-Estates.git) | Definir mejor propuesta de valor y mapear dependencia con [[Anclora Nexus]]. |\n| [[Anclora Nexus]] | activo | [GitHub](https://github.com/ToniIAPro73/Anclora-Nexus.git) | Consolidar etapas reales del pipeline y su uso con contenido e inteligencia. |\n| [[Anclora Advisor AI]] | activo | [GitHub](https://github.com/ToniIAPro73/Anclora-Advisor-AI.git) | Priorizar casos de uso y documentar mejor branding y UI. |\n| [[Anclora Impulso]] | activo | [GitHub](https://github.com/ToniIAPro73/Anclora-Impulso.git) | Traducir su madurez técnica en propuesta de valor y activos reutilizables. |\n| [[Anclora Synergi]] | research | [GitHub](https://github.com/ToniIAPro73/anclora-synergi.git) | Convertir los perfiles de partner en onboarding y workspaces reales. |\n| [[Anclora Content Generator AI]] | research | [GitHub](https://github.com/ToniIAPro73/anclora-content-generator-ai.git) | Definir outputs concretos conectados a captacion y nurturing. |\n\n## 🐙 Actividad de Desarrollo\n\n> [!abstract] Snapshot verificado el 27 de marzo de 2026\n> Fechas obtenidas a partir de los repositorios remotos para que este panel no dependa solo de memoria local.\n\n- `anclora-synergi`: último push el **26 de marzo de 2026**\n- `Anclora-Nexus`: último push el **25 de marzo de 2026**\n- `Anclora-Private-Estates`: último push el **25 de marzo de 2026**\n- `Anclora-Advisor-AI`: último push el **25 de marzo de 2026**\n- `Anclora-Impulso`: último push el **25 de marzo de 2026**\n- `anclora-content-generator-ai`: último push el **25 de marzo de 2026**\n\n## 📈 Sinergias y Playbooks\n\n- Flujo principal: [[Flujo Comercial Inteligente Anclora]]\n- Arquitectura de extremo a extremo: [[Arquitectura de Integración Anclora]]\n- Mapa relacional: [[Mapa de Stakeholders de Anclora Group]]\n- Borrador comercial activo: [[Borrador de Email de Captación Synergi]]\n- Autoridad inmobiliaria: [[Estrategia de Autoridad IA Inmobiliaria]]\n\n## 🎯 Próximas Decisiones\n\n- Decidir qué partner deja de ser “semilla” y pasa a onboarding real en [[Anclora Synergi]].\n- Convertir insights de [[Anclora Data Lab]] en un activo comercial medible dentro de [[Anclora Nexus]].\n- Mantener sincronizadas las notas de proyectos con sus README y actividad reciente en GitHub.\n\n## 📬 Activos de Comunicación\n\n- Propuesta de colaboración: [[propuesta-colaboracion-jorge]]\n- Borrador de autoridad para LinkedIn: [[post-linkedin-autoridad]]\n- Borrador comercial activo: [[Borrador de Email de Captación Synergi]]\n\n## 📍 Objetivo SW Mallorca\n\n> [!tip] Seguimiento de prospección en Nexus\n> Priorizar oportunidades donde la ventaja competitiva venga de detectar, filtrar y explicar mejor el mercado del suroeste de Mallorca que el resto de agentes generalistas.\n\n- Fuente de captación: [[Inmovilla]] + [[StateFox]]\n- Motor de análisis: [[Anclora Nexus]]\n- Coordinación operativa: [[Coda]] + [[Slack]]\n- Playbook principal: [[Prospección Avanzada con Nexus]]\n\n## 📡 Monitor de Prospección SW\n\n> [!warning] Lógica de negocio\n> Este bloque es un monitor operativo orientativo. Hasta que entren datos reales automatizados desde [[StateFox]] y [[Anclora Nexus]], debe leerse como estructura de seguimiento y no como dato de mercado confirmado del día.\n\n- % de zona SW analizada en [[StateFox]]: `35%` estimado de cobertura inicial\n\n### Alertas Nexus\n\n- Santa Ponsa: movimiento alto por combinación de demanda premium y rotación visible\n- Port d'Andratx: oportunidades de alto valor que requieren filtrado fino y seguimiento rápido\n- Bendinat / Costa d'en Blanes: zona sensible para detectar activos infravalorados con narrativa de precisión y confianza\n\n## 🛠️ Acciones Rápidas\n\n- Crear o actualizar partner usando [[partner-synergi]]\n- Abrir activo comercial en [[Borrador de Email de Captación Synergi]]\n- Revisar propuesta territorial en [[propuesta-colaboracion-jorge]]\n- Revisar borrador público en [[post-linkedin-autoridad]]\n- Revisar el flujo comercial en [[Flujo Comercial Inteligente Anclora]]\n- Revisar la arquitectura en [[Arquitectura de Integración Anclora]]\n- Capturar avances del dia en [[Rutina Diaria del Segundo Cerebro]]\n\n#dashboard #management #anclora\n",
+    "intro": "# Anclora Command Center\n\n> [!meta] Estado del Ecosistema\n> Este panel centraliza la inteligencia de [[Anclora Group]], cruzando proyectos, partners, arquitectura y actividad reciente de desarrollo.\n\n> [!summary] Navegación rápida\n> [[Anclora Group]] · [[Anclora Nexus]] · [[Prospección Avanzada con Nexus]] · [[Estrategia de Autoridad IA Inmobiliaria]] · [[Mapa de Stakeholders de Anclora Group]] · [[Borrador de Email de Captación Synergi]]",
+    "executivePulse": [
+      "Foco territorial: **Suroeste de Mallorca**",
+      "Alianza clave de isla: [[Jorge Cifre]] para eje **NE + SW**",
+      "Stack operativo: [[Inmovilla]] + [[StateFox]] + [[Anclora Nexus]] + [[Coda]] + [[Slack]]",
+      "Prioridad inmediata: convertir prospección real en confianza comercial y partnerships activos"
+    ],
+    "partnerRadar": [
+      {
+        "name": "Lucia Serrano",
+        "influence": "clave",
+        "summary": "family office con potencial de capital patrimonial y validacion premium."
+      },
+      {
+        "name": "Javier Ortega",
+        "influence": "alto",
+        "summary": "partner de desarrollo y producto con posible coinversion o colaboracion inmobiliaria."
+      },
+      {
+        "name": "Marta Vidal",
+        "influence": "alto",
+        "summary": "broker de lujo orientada a conversion consultiva y confianza comercial."
+      },
+      {
+        "name": "Jorge Cifre",
+        "influence": "clave",
+        "summary": "alianza territorial activa para cobertura NE + SW Mallorca sin competencia interna."
+      }
+    ],
+    "stack": [
+      {
+        "label": "Comunicación y coordinación",
+        "value": "[[Slack]]",
+        "links": [
+          {
+            "target": "Slack",
+            "label": "Slack"
+          }
+        ]
+      },
+      {
+        "label": "Captación y datos de mercado",
+        "value": "[[Inmovilla]]",
+        "links": [
+          {
+            "target": "Inmovilla",
+            "label": "Inmovilla"
+          }
+        ]
+      },
+      {
+        "label": "Análisis territorial y señales",
+        "value": "[[StateFox]]",
+        "links": [
+          {
+            "target": "StateFox",
+            "label": "StateFox"
+          }
+        ]
+      },
+      {
+        "label": "Gestión de pipeline y contexto",
+        "value": "[[Coda]]",
+        "links": [
+          {
+            "target": "Coda",
+            "label": "Coda"
+          }
+        ]
+      }
+    ],
+    "route": [
+      "Detectar oportunidades con [[Inmovilla]] y [[StateFox]]",
+      "Filtrar y priorizar en [[Anclora Nexus]]",
+      "Coordinar seguimiento en [[Coda]] y [[Slack]]",
+      "Convertir insight en autoridad con [[Estrategia de Autoridad IA Inmobiliaria]]",
+      "Activar colaboración y cobertura territorial con [[Jorge Cifre]] y [[Anclora Synergi]]"
+    ],
+    "projects": [
+      {
+        "Nodo": "[[Anclora Private Estates]]",
+        "Estado documentado": "activo",
+        "Repositorio": "[GitHub](https://github.com/ToniIAPro73/Anclora-Private-Estates.git)",
+        "Siguiente foco": "Definir mejor propuesta de valor y mapear dependencia con [[Anclora Nexus]]."
+      },
+      {
+        "Nodo": "[[Anclora Nexus]]",
+        "Estado documentado": "activo",
+        "Repositorio": "[GitHub](https://github.com/ToniIAPro73/Anclora-Nexus.git)",
+        "Siguiente foco": "Consolidar etapas reales del pipeline y su uso con contenido e inteligencia."
+      },
+      {
+        "Nodo": "[[Anclora Advisor AI]]",
+        "Estado documentado": "activo",
+        "Repositorio": "[GitHub](https://github.com/ToniIAPro73/Anclora-Advisor-AI.git)",
+        "Siguiente foco": "Priorizar casos de uso y documentar mejor branding y UI."
+      },
+      {
+        "Nodo": "[[Anclora Impulso]]",
+        "Estado documentado": "activo",
+        "Repositorio": "[GitHub](https://github.com/ToniIAPro73/Anclora-Impulso.git)",
+        "Siguiente foco": "Traducir su madurez técnica en propuesta de valor y activos reutilizables."
+      },
+      {
+        "Nodo": "[[Anclora Synergi]]",
+        "Estado documentado": "research",
+        "Repositorio": "[GitHub](https://github.com/ToniIAPro73/anclora-synergi.git)",
+        "Siguiente foco": "Convertir los perfiles de partner en onboarding y workspaces reales."
+      },
+      {
+        "Nodo": "[[Anclora Content Generator AI]]",
+        "Estado documentado": "research",
+        "Repositorio": "[GitHub](https://github.com/ToniIAPro73/anclora-content-generator-ai.git)",
+        "Siguiente foco": "Definir outputs concretos conectados a captacion y nurturing."
+      }
+    ],
+    "activity": [
+      {
+        "repo": "anclora-synergi",
+        "pushedAt": "26 de marzo de 2026"
+      },
+      {
+        "repo": "Anclora-Nexus",
+        "pushedAt": "25 de marzo de 2026"
+      },
+      {
+        "repo": "Anclora-Private-Estates",
+        "pushedAt": "25 de marzo de 2026"
+      },
+      {
+        "repo": "Anclora-Advisor-AI",
+        "pushedAt": "25 de marzo de 2026"
+      },
+      {
+        "repo": "Anclora-Impulso",
+        "pushedAt": "25 de marzo de 2026"
+      },
+      {
+        "repo": "anclora-content-generator-ai",
+        "pushedAt": "25 de marzo de 2026"
+      }
+    ],
+    "synergies": [
+      "Flujo principal: [[Flujo Comercial Inteligente Anclora]]",
+      "Arquitectura de extremo a extremo: [[Arquitectura de Integración Anclora]]",
+      "Mapa relacional: [[Mapa de Stakeholders de Anclora Group]]",
+      "Borrador comercial activo: [[Borrador de Email de Captación Synergi]]",
+      "Autoridad inmobiliaria: [[Estrategia de Autoridad IA Inmobiliaria]]"
+    ],
+    "decisions": [
+      "Decidir qué partner deja de ser “semilla” y pasa a onboarding real en [[Anclora Synergi]].",
+      "Convertir insights de [[Anclora Data Lab]] en un activo comercial medible dentro de [[Anclora Nexus]].",
+      "Mantener sincronizadas las notas de proyectos con sus README y actividad reciente en GitHub."
+    ],
+    "communicationAssets": [
+      "Propuesta de colaboración: [[propuesta-colaboracion-jorge]]",
+      "Borrador de autoridad para LinkedIn: [[post-linkedin-autoridad]]",
+      "Borrador comercial activo: [[Borrador de Email de Captación Synergi]]"
+    ],
+    "swObjective": [
+      "Fuente de captación: [[Inmovilla]] + [[StateFox]]",
+      "Motor de análisis: [[Anclora Nexus]]",
+      "Coordinación operativa: [[Coda]] + [[Slack]]",
+      "Playbook principal: [[Prospección Avanzada con Nexus]]"
+    ],
+    "monitorCoverage": {
+      "label": "% de zona SW analizada en [[StateFox]]:  estimado de cobertura inicial",
+      "value": "35%"
+    },
+    "monitorAlerts": [
+      "Santa Ponsa: movimiento alto por combinación de demanda premium y rotación visible",
+      "Port d'Andratx: oportunidades de alto valor que requieren filtrado fino y seguimiento rápido",
+      "Bendinat / Costa d'en Blanes: zona sensible para detectar activos infravalorados con narrativa de precisión y confianza"
+    ],
+    "quickActions": [
+      "Crear o actualizar partner usando [[partner-synergi]]",
+      "Abrir activo comercial en [[Borrador de Email de Captación Synergi]]",
+      "Revisar propuesta territorial en [[propuesta-colaboracion-jorge]]",
+      "Revisar borrador público en [[post-linkedin-autoridad]]",
+      "Revisar el flujo comercial en [[Flujo Comercial Inteligente Anclora]]",
+      "Revisar la arquitectura en [[Arquitectura de Integración Anclora]]",
+      "Capturar avances del dia en [[Rutina Diaria del Segundo Cerebro]]"
+    ]
+  },
+  "group": {
+    "meta": {
+      "title": "Anclora Group",
+      "aliases": [
+        "Anclora Group"
+      ],
+      "repo": "https://github.com/ToniIAPro73/Anclora-Group.git",
+      "type": "corporate-hub",
+      "status": "active",
+      "verticals": [
+        "Real Estate",
+        "AI",
+        "Health"
+      ],
+      "arquitecto_jefe": "[[personas/Toni|Toni]]",
+      "territorio_foco": "Suroeste de Mallorca",
+      "tags": [
+        "resource",
+        "anclora",
+        "corporate-hub"
+      ],
+      "related": [
+        "[[Anclora Command Center]]",
+        "[[Anclora Private Estates]]",
+        "[[Anclora Synergi]]",
+        "[[Anclora Data Lab]]",
+        "[[Anclora Nexus]]",
+        "[[Anclora Content Generator AI]]",
+        "[[Anclora Advisor AI]]",
+        "[[Anclora Impulso]]",
+        "[[Slack]]",
+        "[[Inmovilla]]",
+        "[[StateFox]]",
+        "[[Coda]]",
+        "[[Prospección Avanzada con Nexus]]",
+        "[[Estrategia de Autoridad IA Inmobiliaria]]",
+        "[[Flujo Comercial Inteligente Anclora]]",
+        "[[Mapa de Stakeholders de Anclora Group]]",
+        "[[Arquitectura de Integración Anclora]]",
+        "[[MOC de Negocio]]",
+        "[[personas/Toni|Toni]]"
+      ]
+    },
+    "body": "\n# Anclora Group\n\nEs el nucleo gravitatorio y entorno corporativo unificado desde el cual se organiza el acceso interno a aplicaciones, equipos y herramientas estrategicas.\n\n## ¿Qué es Anclora Group?\n\nEs el hub corporativo del ecosistema. Su arquitectura permite un control granular por rol y una trazabilidad total de las operaciones entre verticales, inteligencia, herramientas y memoria relacional.\n\nEn la capa inmobiliaria, el posicionamiento operativo actual combina tecnologia, consultoria y prospeccion territorial con foco en el suroeste de Mallorca.\n\n## ¿Por qué importa?\n\n### Valor Estratégico\n\n- **Unificación de Datos**: actua como puente entre el vertical inmobiliario premium y los motores de inteligencia, evitando silos de informacion.\n- **Escalabilidad de Aplicaciones**: permite que herramientas como [[Anclora Nexus]] o [[Anclora Synergi]] compartan una logica de negocio comun.\n- **Multiplicador de IA**: integra generadores de contenido y asesores inteligentes directamente en el flujo de trabajo operativo.\n- **Gobierno Corporativo**: centraliza la propiedad de activos, repositorios y conocimiento canonico de la marca.\n\n## Mapa del Ecosistema\n\n- Puerta de Enlace Inmobiliaria: [[Anclora Private Estates]]\n- Inteligencia y Datos: [[Anclora Data Lab]] | [[Anclora Content Generator AI]]\n- Gestión de Partners: [[Anclora Synergi]]\n- Motor Operativo: [[Anclora Nexus]]\n- Verticales de Valor Personal: [[Anclora Advisor AI]] | [[Anclora Impulso]]\n\n## Capa eXp + Herramientas de Verdad\n\n- Contexto profesional dual: [[personas/Toni|Toni]] combina CGI + eXp Realty dentro de la operativa del grupo.\n- Territorio de foco: suroeste de Mallorca.\n- Recursos operativos vinculados: [[Slack]], [[Inmovilla]], [[StateFox]], [[Coda]].\n\n## Ecosistema de Aplicaciones\n\n- [[Anclora Private Estates]]: Matriz del vertical inmobiliario premium. Puerta de entrada a [[Anclora Nexus]], [[Anclora Synergi]] y [[Anclora Data Lab]].\n- [[Anclora Synergi]]: Plataforma de gestion de partners y workspaces privados.\n- [[Anclora Data Lab]]: Activos analiticos, senales territoriales e informes premium.\n- [[Anclora Nexus]]: Central operativa: pipeline, CRM y trazabilidad comercial.\n- [[Anclora Content Generator AI]]: Motor editorial de inteligencia de contenido.\n- [[Anclora Advisor AI]]: Asesoria fiscal y laboral para uso personal y pluriactividad.\n- [[Anclora Impulso]]: Ecosistema Health and Fitness centrado en nutricion e IA.\n- [[Flujo Comercial Inteligente Anclora]]: Playbook de integracion entre datos, contenido, pipeline y partnerships.\n- [[Arquitectura de Integración Anclora]]: Recorrido extremo a extremo del dato, desde insight hasta venta o colaboracion.\n- [[Prospección Avanzada con Nexus]]: Flujo de prospeccion real para detectar oportunidades en SW Mallorca con datos y filtros de IA.\n- [[Estrategia de Autoridad IA Inmobiliaria]]: Sistema de contenido basado en evidencia real y posicionamiento territorial.\n\n## Contactos Clave\n\n> [!note] Memoria relacional\n> Toda persona vinculada al ecosistema debe residir en `personas/`.\n\n- Arquitecto Jefe: [[personas/Toni|Toni]]\n- Mapa canónico de actores: [[Mapa de Stakeholders de Anclora Group]]\n- Stakeholders semilla: [[Lucia Serrano]], [[Javier Ortega]], [[Marta Vidal]]\n- Alianza territorial activa: [[Jorge Cifre]] para cobertura NE + SW Mallorca\n\n## Relacionado\n\n- [[Anclora Command Center]]\n- [[MOC de Negocio]]\n- [[Prospección Avanzada con Nexus]]\n- [[Estrategia de Autoridad IA Inmobiliaria]]\n- [[Flujo Comercial Inteligente Anclora]]\n- [[Arquitectura de Integración Anclora]]\n- [[Mapa de Stakeholders de Anclora Group]]\n- [[Mapa del Sistema de Agentes]]\n- [[El Arquitecto del Segundo Cerebro Autónomo]]\n\n#resource #anclora\n",
+    "links": [
+      {
+        "target": "Anclora Nexus",
+        "label": "Anclora Nexus"
+      },
+      {
+        "target": "Anclora Synergi",
+        "label": "Anclora Synergi"
+      },
+      {
+        "target": "Anclora Private Estates",
+        "label": "Anclora Private Estates"
+      },
+      {
+        "target": "Anclora Data Lab",
+        "label": "Anclora Data Lab"
+      },
+      {
+        "target": "Anclora Content Generator AI",
+        "label": "Anclora Content Generator AI"
+      },
+      {
+        "target": "Anclora Synergi",
+        "label": "Anclora Synergi"
+      },
+      {
+        "target": "Anclora Nexus",
+        "label": "Anclora Nexus"
+      },
+      {
+        "target": "Anclora Advisor AI",
+        "label": "Anclora Advisor AI"
+      },
+      {
+        "target": "Anclora Impulso",
+        "label": "Anclora Impulso"
+      },
+      {
+        "target": "personas/Toni",
+        "label": "Toni"
+      },
+      {
+        "target": "Slack",
+        "label": "Slack"
+      },
+      {
+        "target": "Inmovilla",
+        "label": "Inmovilla"
+      },
+      {
+        "target": "StateFox",
+        "label": "StateFox"
+      },
+      {
+        "target": "Coda",
+        "label": "Coda"
+      },
+      {
+        "target": "Anclora Private Estates",
+        "label": "Anclora Private Estates"
+      },
+      {
+        "target": "Anclora Nexus",
+        "label": "Anclora Nexus"
+      },
+      {
+        "target": "Anclora Synergi",
+        "label": "Anclora Synergi"
+      },
+      {
+        "target": "Anclora Data Lab",
+        "label": "Anclora Data Lab"
+      },
+      {
+        "target": "Anclora Synergi",
+        "label": "Anclora Synergi"
+      },
+      {
+        "target": "Anclora Data Lab",
+        "label": "Anclora Data Lab"
+      },
+      {
+        "target": "Anclora Nexus",
+        "label": "Anclora Nexus"
+      },
+      {
+        "target": "Anclora Content Generator AI",
+        "label": "Anclora Content Generator AI"
+      },
+      {
+        "target": "Anclora Advisor AI",
+        "label": "Anclora Advisor AI"
+      },
+      {
+        "target": "Anclora Impulso",
+        "label": "Anclora Impulso"
+      },
+      {
+        "target": "Flujo Comercial Inteligente Anclora",
+        "label": "Flujo Comercial Inteligente Anclora"
+      },
+      {
+        "target": "Arquitectura de Integración Anclora",
+        "label": "Arquitectura de Integración Anclora"
+      },
+      {
+        "target": "Prospección Avanzada con Nexus",
+        "label": "Prospección Avanzada con Nexus"
+      },
+      {
+        "target": "Estrategia de Autoridad IA Inmobiliaria",
+        "label": "Estrategia de Autoridad IA Inmobiliaria"
+      },
+      {
+        "target": "personas/Toni",
+        "label": "Toni"
+      },
+      {
+        "target": "Mapa de Stakeholders de Anclora Group",
+        "label": "Mapa de Stakeholders de Anclora Group"
+      },
+      {
+        "target": "Lucia Serrano",
+        "label": "Lucia Serrano"
+      },
+      {
+        "target": "Javier Ortega",
+        "label": "Javier Ortega"
+      },
+      {
+        "target": "Marta Vidal",
+        "label": "Marta Vidal"
+      },
+      {
+        "target": "Jorge Cifre",
+        "label": "Jorge Cifre"
+      },
+      {
+        "target": "Anclora Command Center",
+        "label": "Anclora Command Center"
+      },
+      {
+        "target": "MOC de Negocio",
+        "label": "MOC de Negocio"
+      },
+      {
+        "target": "Prospección Avanzada con Nexus",
+        "label": "Prospección Avanzada con Nexus"
+      },
+      {
+        "target": "Estrategia de Autoridad IA Inmobiliaria",
+        "label": "Estrategia de Autoridad IA Inmobiliaria"
+      },
+      {
+        "target": "Flujo Comercial Inteligente Anclora",
+        "label": "Flujo Comercial Inteligente Anclora"
+      },
+      {
+        "target": "Arquitectura de Integración Anclora",
+        "label": "Arquitectura de Integración Anclora"
+      },
+      {
+        "target": "Mapa de Stakeholders de Anclora Group",
+        "label": "Mapa de Stakeholders de Anclora Group"
+      },
+      {
+        "target": "Mapa del Sistema de Agentes",
+        "label": "Mapa del Sistema de Agentes"
+      },
+      {
+        "target": "El Arquitecto del Segundo Cerebro Autónomo",
+        "label": "El Arquitecto del Segundo Cerebro Autónomo"
+      }
+    ]
+  },
+  "stakeholders": {
+    "meta": {
+      "title": "Mapa de Stakeholders de Anclora Group",
+      "aliases": [
+        "Mapa de Stakeholders de Anclora Group",
+        "Mapa de Stakeholders"
+      ],
+      "repo": "https://github.com/ToniIAPro73/Anclora-Group.git",
+      "type": "stakeholder-map",
+      "status": "activo",
+      "arquitecto_jefe": "[[personas/Toni|Toni]]",
+      "tags": [
+        "resource",
+        "anclora",
+        "stakeholders"
+      ],
+      "related": [
+        "[[Anclora Group]]",
+        "[[Anclora Private Estates]]",
+        "[[Anclora Synergi]]",
+        "[[Anclora Nexus]]",
+        "[[Arquitectura de Integración Anclora]]",
+        "[[Jorge Cifre]]",
+        "[[Lucia Serrano]]",
+        "[[Javier Ortega]]",
+        "[[Marta Vidal]]",
+        "[[personas/Toni|Toni]]"
+      ]
+    },
+    "body": "\n# Mapa de Stakeholders de Anclora Group\n\n## ¿Qué es?\n\nMapa canónico de actores clave del ecosistema Anclora Group. Su función es evitar que la memoria relacional quede dispersa entre proyectos, repositorios y notas diarias.\n\n## ¿Por qué importa?\n\n- Permite saber a quién involucrar en cada vertical o flujo operativo.\n- Evita fragmentar identidades entre nombre personal, alias operativo y usuario de GitHub.\n- Hace visible qué relaciones siguen sin documentarse.\n\n## Stakeholders canonizados\n\n### Dirección y arquitectura\n\n- [[personas/Toni|Toni]]\n  Contexto: fundador y Arquitecto Jefe del ecosistema.\n  Identidad técnica: `Antonio Ballesterosa` / `ToniIAPro73`.\n  Ámbitos: [[Anclora Group]], [[Anclora Private Estates]], [[Anclora Nexus]], [[Anclora Advisor AI]], [[Anclora Impulso]].\n\n### Partners y perfiles comerciales semilla\n\n- [[Lucia Serrano]]\n  Contexto: perfil de family office para validar acceso premium, inteligencia territorial y onboarding privado en [[Anclora Synergi]].\n- [[Javier Ortega]]\n  Contexto: partner de desarrollo inmobiliario para modelar colaboracion, pipeline y coordinacion privada entre [[Anclora Private Estates]], [[Anclora Synergi]] y [[Anclora Nexus]].\n- [[Marta Vidal]]\n  Contexto: perfil de broker de lujo para conectar narrativa comercial, contenido y conversion en el vertical premium.\n\n### Alianzas territoriales activas\n\n- [[Jorge Cifre]]\n  Contexto: alianza estratégica para el noreste de Mallorca, complementaria al foco de Toni en el suroeste, con propuesta de cobertura total de la isla usando tecnología compartida.\n\n## Stakeholders pendientes de documentar\n\n- Primer stakeholder real validado en sustitucion de cada perfil semilla\n- Responsable comercial u operador efectivo de pipeline para [[Anclora Nexus]]\n- Colaboradores técnicos o autores recurrentes distintos de [[personas/Toni|Toni]]\n- Clientes reales o family offices con conversacion ya iniciada\n\n## Señales para crear nuevas notas de persona\n\n- Aparece como autor de commits de forma recurrente\n- Participa en decisiones de producto o negocio\n- Tiene relación directa con leads, partners o clientes\n- Requiere seguimiento o memoria contextual entre conversaciones\n\n## Próxima acción\n\n- Crear las siguientes notas en `personas/` cuando exista contexto suficiente: partner inmobiliario clave, colaborador comercial de Nexus y primer stakeholder externo de Synergi.\n\n## Relacionado\n\n- [[Anclora Group]]\n- [[Anclora Private Estates]]\n- [[Anclora Synergi]]\n- [[Anclora Nexus]]\n- [[Arquitectura de Integración Anclora]]\n- [[Jorge Cifre]]\n- [[Lucia Serrano]]\n- [[Javier Ortega]]\n- [[Marta Vidal]]\n- [[personas/Toni|Toni]]\n\n#resource #anclora\n",
+    "links": [
+      {
+        "target": "personas/Toni",
+        "label": "Toni"
+      },
+      {
+        "target": "Anclora Group",
+        "label": "Anclora Group"
+      },
+      {
+        "target": "Anclora Private Estates",
+        "label": "Anclora Private Estates"
+      },
+      {
+        "target": "Anclora Nexus",
+        "label": "Anclora Nexus"
+      },
+      {
+        "target": "Anclora Advisor AI",
+        "label": "Anclora Advisor AI"
+      },
+      {
+        "target": "Anclora Impulso",
+        "label": "Anclora Impulso"
+      },
+      {
+        "target": "Lucia Serrano",
+        "label": "Lucia Serrano"
+      },
+      {
+        "target": "Anclora Synergi",
+        "label": "Anclora Synergi"
+      },
+      {
+        "target": "Javier Ortega",
+        "label": "Javier Ortega"
+      },
+      {
+        "target": "Anclora Private Estates",
+        "label": "Anclora Private Estates"
+      },
+      {
+        "target": "Anclora Synergi",
+        "label": "Anclora Synergi"
+      },
+      {
+        "target": "Anclora Nexus",
+        "label": "Anclora Nexus"
+      },
+      {
+        "target": "Marta Vidal",
+        "label": "Marta Vidal"
+      },
+      {
+        "target": "Jorge Cifre",
+        "label": "Jorge Cifre"
+      },
+      {
+        "target": "Anclora Nexus",
+        "label": "Anclora Nexus"
+      },
+      {
+        "target": "personas/Toni",
+        "label": "Toni"
+      },
+      {
+        "target": "Anclora Group",
+        "label": "Anclora Group"
+      },
+      {
+        "target": "Anclora Private Estates",
+        "label": "Anclora Private Estates"
+      },
+      {
+        "target": "Anclora Synergi",
+        "label": "Anclora Synergi"
+      },
+      {
+        "target": "Anclora Nexus",
+        "label": "Anclora Nexus"
+      },
+      {
+        "target": "Arquitectura de Integración Anclora",
+        "label": "Arquitectura de Integración Anclora"
+      },
+      {
+        "target": "Jorge Cifre",
+        "label": "Jorge Cifre"
+      },
+      {
+        "target": "Lucia Serrano",
+        "label": "Lucia Serrano"
+      },
+      {
+        "target": "Javier Ortega",
+        "label": "Javier Ortega"
+      },
+      {
+        "target": "Marta Vidal",
+        "label": "Marta Vidal"
+      },
+      {
+        "target": "personas/Toni",
+        "label": "Toni"
+      }
+    ]
+  },
+  "partnerTemplate": {
+    "meta": {
+      "type": "persona",
+      "tags": [
+        "persona",
+        "partner",
+        "synergi"
+      ],
+      "status": "",
+      "company": "",
+      "role": "",
+      "location": "",
+      "influence_level": "",
+      "onboarding_date": "",
+      "github_user": "",
+      "related": [
+        "[[Anclora Synergi]]"
+      ]
+    },
+    "body": "\n# Partner: {{title}}\n\n## 📋 Perfil Ejecutivo\n\n> [!abstract] Resumen\nBreve descripción de quién es esta persona, su trayectoria en el sector premium/inmobiliario y por qué es relevante para Anclora Group.\n\n- Especialidad: (ej. Inversión, Desarrollo, Legal, Marketing de Lujo)\n\n- Punto de contacto principal: (Email / LinkedIn / Teléfono)\n\n- Nivel de confianza/Vetting: (Describir si ha pasado el proceso de admisión de Synergi)\n\n## 🤝 Relación con Anclora Synergi\n\n### Estado en la Plataforma\n\n[ ] Invitación enviada\n\n[ ] Workspace activado\n\n[ ] Acuerdo de confidencialidad firmado\n\n### Valor para el Ecosistema\n\n- ¿Qué aporta a Anclora? (ej. Acceso a activos exclusivos, red de inversores)\n\n- ¿Qué consume de Anclora? (ej. Reportes de [[Anclora Data Lab]], gestión en [[Anclora Nexus]])\n\n## 🎙️ Registro de Conversaciones\n\n> [!quote] Bitácora de Interacciones\n> Listar de más reciente a más antigua.\n\n- YYYY-MM-DD: (Resumen de la reunión/llamada. Decisiones tomadas o intereses mostrados).\n\n- YYYY-MM-DD: ...\n\n## 🚀 Oportunidades y Sinergias\n\n- Siguiente Acción: (ej. Enviar propuesta de colaboración para el proyecto X)\n\n- Proyectos Relacionados:\n\n  [[ ]]\n\n  [[ ]]\n\n## 💡 Notas de Contexto Personal\n\n(Intereses fuera del trabajo, estilo de comunicación preferido, \"pain points\" detectados).\n\n#persona #synergi-partner\n",
+    "links": [
+      {
+        "target": "Anclora Data Lab",
+        "label": "Anclora Data Lab"
+      },
+      {
+        "target": "Anclora Nexus",
+        "label": "Anclora Nexus"
+      },
+      {
+        "target": " ",
+        "label": " "
+      },
+      {
+        "target": " ",
+        "label": " "
+      }
+    ]
+  },
+  "ideas": [
+    {
+      "meta": {
+        "title": "Propuesta de colaboración con Jorge Cifre",
+        "type": "idea",
+        "status": "activo",
+        "tags": [
+          "idea",
+          "anclora",
+          "partnership",
+          "mallorca"
+        ],
+        "related": [
+          "[[Jorge Cifre]]",
+          "[[Anclora Synergi]]",
+          "[[Anclora Nexus]]",
+          "[[StateFox]]",
+          "[[Inmovilla]]",
+          "[[Prospección Avanzada con Nexus]]",
+          "[[personas/Toni|Toni]]"
+        ]
+      },
+      "body": "\n# Propuesta de colaboración con Jorge Cifre\n\n## Enfoque\n\nLa propuesta no parte de competir por zona, sino de construir una cobertura complementaria de Mallorca con inteligencia compartida y mejor capacidad de detección de oportunidades.\n\n## Borrador\n\nJorge,\n\nQuería proponerte una idea que creo que tiene mucho sentido por cómo estamos posicionados cada uno en la isla.\n\nTú tienes una lectura muy sólida del mercado del noreste, especialmente en Pollensa, y yo estoy concentrando el foco y la prospección en el suroeste de Mallorca. En lugar de pisarnos, creo que ahí hay una oportunidad muy potente de construir un eje **NE - SW** con cobertura más completa y con una capa tecnológica que nos dé ventaja real.\n\nLa idea es sencilla: que podamos compartir una lógica de trabajo apoyada en datos y no solo en intuición comercial. Yo estoy integrando herramientas como [[StateFox]] e [[Inmovilla]] dentro de [[Anclora Nexus]] para filtrar mejor el mercado, detectar oportunidades infravaloradas en el SW y convertir esa información en seguimiento operativo útil. Eso puede servirte para inversores o perfiles que miren también esa parte de la isla, igual que a mí me puede interesar tu lectura local del noreste cuando surjan perfiles o activos con mejor encaje allí.\n\nNo lo veo como competencia. Lo veo como una alianza inteligente: tú con profundidad en el NE, yo con foco en el SW, y una capa compartida de tecnología, pipeline y criterio para llegar antes y con más precisión.\n\nSi te encaja, me gustaría que tuviéramos una reunión breve por [[Slack]] para enseñarte cómo estoy montando el stack y ver si tiene sentido coordinarlo contigo.\n\nUn abrazo,\n\n[[personas/Toni|Toni]]\n\n## Objetivo de la propuesta\n\n- Reforzar la percepción de alianza territorial, no de reparto defensivo.\n- Introducir el valor de [[Anclora Nexus]] como motor de prospección y coordinación.\n- Abrir una conversación concreta sobre stack tecnológico compartido.\n\n## Relacionado\n\n- [[Jorge Cifre]]\n- [[Anclora Synergi]]\n- [[Prospección Avanzada con Nexus]]\n- [[StateFox]]\n- [[Inmovilla]]\n\n#idea #anclora\n",
+      "links": [
+        {
+          "target": "StateFox",
+          "label": "StateFox"
+        },
+        {
+          "target": "Inmovilla",
+          "label": "Inmovilla"
+        },
+        {
+          "target": "Anclora Nexus",
+          "label": "Anclora Nexus"
+        },
+        {
+          "target": "Slack",
+          "label": "Slack"
+        },
+        {
+          "target": "personas/Toni",
+          "label": "Toni"
+        },
+        {
+          "target": "Anclora Nexus",
+          "label": "Anclora Nexus"
+        },
+        {
+          "target": "Jorge Cifre",
+          "label": "Jorge Cifre"
+        },
+        {
+          "target": "Anclora Synergi",
+          "label": "Anclora Synergi"
+        },
+        {
+          "target": "Prospección Avanzada con Nexus",
+          "label": "Prospección Avanzada con Nexus"
+        },
+        {
+          "target": "StateFox",
+          "label": "StateFox"
+        },
+        {
+          "target": "Inmovilla",
+          "label": "Inmovilla"
+        }
+      ]
+    },
+    {
+      "meta": {
+        "title": "Post LinkedIn Autoridad IA Inmobiliaria",
+        "type": "idea",
+        "status": "activo",
+        "tags": [
+          "idea",
+          "anclora",
+          "linkedin",
+          "authority",
+          "mallorca"
+        ],
+        "related": [
+          "[[Estrategia de Autoridad IA Inmobiliaria]]",
+          "[[StateFox]]",
+          "[[Inmovilla]]",
+          "[[Anclora Nexus]]",
+          "[[Jorge Cifre]]",
+          "[[personas/Toni|Toni]]"
+        ]
+      },
+      "body": "\n# Post LinkedIn Autoridad IA Inmobiliaria\n\n## Borrador\n\nEn el mercado inmobiliario de Mallorca, los datos matan al relato.\n\nDemasiadas veces se habla de zonas, oportunidades o “producto exclusivo” sin una lectura real de lo que está pasando en el mercado.\n\nYo estoy trabajando justo en lo contrario.\n\nGracias a formar parte de eXp Realty, puedo apoyarme en herramientas como [[StateFox]] e [[Inmovilla]] para leer con más precisión la realidad del suroeste de Mallorca. Pero la clave no está solo en tener acceso al dato.\n\nLa clave está en saber filtrarlo.\n\nAhí es donde entra [[Anclora Nexus]]: un motor que me ayuda a separar ruido de señal, detectar qué oportunidades merecen de verdad atención y construir un pipeline con criterio, no con intuición improvisada.\n\nPor eso no siento que “venda casas”.\nLo que realmente vendo es la capacidad de encontrarlas con precisión quirúrgica.\n\nY creo que el siguiente paso natural no es hacerlo solo, sino generar sinergias con otros profesionales que dominen otras zonas de la isla para cubrir Mallorca con más inteligencia, más contexto y mejor tecnología compartida.\n\n## Intención del post\n\n- Posicionarte como operador que trabaja con evidencia y no con relato vacio.\n- Conectar marca personal, stack eXp y motor propio de Anclora.\n- Lanzar un guiño elegante a alianzas como [[Jorge Cifre]] sin convertir el post en una mención directa excesiva.\n\n## Relacionado\n\n- [[Estrategia de Autoridad IA Inmobiliaria]]\n- [[StateFox]]\n- [[Inmovilla]]\n- [[Anclora Nexus]]\n- [[Jorge Cifre]]\n\n#idea #anclora\n",
+      "links": [
+        {
+          "target": "StateFox",
+          "label": "StateFox"
+        },
+        {
+          "target": "Inmovilla",
+          "label": "Inmovilla"
+        },
+        {
+          "target": "Anclora Nexus",
+          "label": "Anclora Nexus"
+        },
+        {
+          "target": "Jorge Cifre",
+          "label": "Jorge Cifre"
+        },
+        {
+          "target": "Estrategia de Autoridad IA Inmobiliaria",
+          "label": "Estrategia de Autoridad IA Inmobiliaria"
+        },
+        {
+          "target": "StateFox",
+          "label": "StateFox"
+        },
+        {
+          "target": "Inmovilla",
+          "label": "Inmovilla"
+        },
+        {
+          "target": "Anclora Nexus",
+          "label": "Anclora Nexus"
+        },
+        {
+          "target": "Jorge Cifre",
+          "label": "Jorge Cifre"
+        }
+      ]
+    }
+  ],
+  "partners": [
+    {
+      "title": "Lucia Serrano",
+      "status": "prospecto",
+      "influenceLevel": "clave",
+      "company": "Serrano Capital",
+      "role": "Inversora patrimonial / Family Office",
+      "location": "Madrid",
+      "contactChannel": "LinkedIn",
+      "trustLevel": "perfil-semilla",
+      "tags": [
+        "persona",
+        "partner",
+        "synergi",
+        "anclora",
+        "real-estate"
+      ],
+      "summary": "Perfil semilla de partner de alto valor para el vertical inmobiliario premium. Representa a un family office que valora acceso filtrado, trazabilidad y activos analiticos antes de abrir una colaboracion formal.",
+      "executiveBullets": [
+        "Especialidad: Inversion patrimonial, family office y acceso premium a oportunidades filtradas.",
+        "Punto de contacto principal: LinkedIn.",
+        "Nivel de confianza/Vetting: perfil semilla aun no admitido en Synergi; pendiente de validacion real."
+      ],
+      "ecosystemValue": [
+        "¿Qué aporta a Anclora?",
+        "¿Qué consume de Anclora?"
+      ],
+      "nextAction": "enviar primer acercamiento apoyado en insights de [[Anclora Data Lab]] y el [[Borrador de Email de Captación Synergi]].",
+      "projectLinks": [
+        "Anclora Data Lab",
+        "Borrador de Email de Captación Synergi",
+        "Anclora Private Estates",
+        "Flujo Comercial Inteligente Anclora"
+      ],
+      "personalNotes": "Valora claridad, exclusividad y procesos discretos. Es un perfil al que conviene hablarle con criterio de admision, curacion y trazabilidad, no con volumen ni marketing generico.\n\n#persona #synergi-partner"
+    },
+    {
+      "title": "Javier Ortega",
+      "status": "prospecto",
+      "influenceLevel": "alto",
+      "company": "Ortega Developments",
+      "role": "Developer inmobiliario / Partner de producto",
+      "location": "Costa del Sol",
+      "contactChannel": "Email",
+      "trustLevel": "perfil-semilla",
+      "tags": [
+        "persona",
+        "partner",
+        "synergi",
+        "anclora",
+        "real-estate"
+      ],
+      "summary": "Perfil semilla de partner orientado a desarrollo y colaboraciones inmobiliarias premium. Es el tipo de contacto que necesita tanto visibilidad comercial como un entorno privado de coordinacion.",
+      "executiveBullets": [
+        "Especialidad: Desarrollo inmobiliario, coinversion y coordinacion de producto premium.",
+        "Punto de contacto principal: Email.",
+        "Nivel de confianza/Vetting: perfil semilla pendiente de validacion y admision en workspace privado."
+      ],
+      "ecosystemValue": [
+        "¿Qué aporta a Anclora?",
+        "¿Qué consume de Anclora?"
+      ],
+      "nextAction": "definir una oferta clara de colaboracion y trazabilidad de pipeline para potencial partner de desarrollo.",
+      "projectLinks": [
+        "Anclora Private Estates",
+        "Anclora Nexus"
+      ],
+      "personalNotes": "Es un perfil al que hay que hablarle en terminos de proceso, visibilidad y seguridad operativa. Conviene mostrarle que el sistema evita improvisacion y deja memoria compartida de cada oportunidad.\n\n#persona #synergi-partner"
+    },
+    {
+      "title": "Marta Vidal",
+      "status": "prospecto",
+      "influenceLevel": "alto",
+      "company": "Vidal Estates Advisory",
+      "role": "Broker de lujo / Relationship manager",
+      "location": "Barcelona",
+      "contactChannel": "LinkedIn",
+      "trustLevel": "perfil-semilla",
+      "tags": [
+        "persona",
+        "partner",
+        "synergi",
+        "anclora",
+        "broker",
+        "luxury"
+      ],
+      "summary": "Perfil semilla de intermediacion comercial para real estate premium. Representa a la persona que puede convertir contenido, argumentos de valor y trazabilidad en relaciones de confianza con clientes de alto nivel.",
+      "executiveBullets": [
+        "Especialidad: Brokerage de lujo, gestion relacional y conversion consultiva.",
+        "Punto de contacto principal: LinkedIn.",
+        "Nivel de confianza/Vetting: perfil semilla aun no evaluado dentro del proceso de admision de Synergi."
+      ],
+      "ecosystemValue": [
+        "¿Qué aporta a Anclora?",
+        "¿Qué consume de Anclora?"
+      ],
+      "nextAction": "validar que mensajes y materiales aceleran mas la confianza en captacion premium.",
+      "projectLinks": [
+        "Anclora Nexus",
+        "Anclora Content Generator AI"
+      ],
+      "personalNotes": "Probablemente responda mejor a mensajes con tono premium, muy claros y con utilidad comercial inmediata. Conviene evitar tecnicismos si no se traducen en ventaja concreta para cliente o partner.\n\n#persona #synergi-partner"
+    },
+    {
+      "title": "Jorge Cifre",
+      "status": "activo",
+      "influenceLevel": "clave",
+      "company": "Alianza territorial Mallorca",
+      "role": "Partner territorial NE / Pollensa",
+      "location": "Noreste de Mallorca",
+      "contactChannel": "WhatsApp / llamada",
+      "trustLevel": "alianza-estrategica",
+      "tags": [
+        "persona",
+        "partner",
+        "synergi",
+        "anclora",
+        "mallorca",
+        "real-estate"
+      ],
+      "summary": "Aliado territorial para el noreste de Mallorca, especialmente Pollensa. Su valor estrategico reside en complementar el foco de Toni en el suroeste para construir una cobertura de isla con tecnologia compartida en lugar de competir entre zonas.",
+      "executiveBullets": [
+        "Especialidad: cobertura territorial NE, relacion local y expansion de red inmobiliaria.",
+        "Punto de contacto principal: llamada o WhatsApp.",
+        "Nivel de confianza/Vetting: alianza estrategica activa para cobertura territorial complementaria."
+      ],
+      "ecosystemValue": [
+        "¿Qué aporta a Anclora?",
+        "¿Qué consume de Anclora?"
+      ],
+      "nextAction": "activar workspace o marco de trabajo comun para prospeccion y cobertura territorial coordinada.",
+      "projectLinks": [
+        "Anclora Synergi",
+        "Prospección Avanzada con Nexus"
+      ],
+      "personalNotes": "La narrativa de alianza debe insistir en cobertura total de la isla, confianza y velocidad de deteccion de oportunidades, no en reparto defensivo de zonas.\n\n#persona #synergi-partner"
+    }
+  ]
+}
