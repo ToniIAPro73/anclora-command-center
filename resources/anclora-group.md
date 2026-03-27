@@ -8,6 +8,7 @@ verticals: [Real Estate, AI, Health]
 arquitecto_jefe: "[[personas/Toni|Toni]]"
 tags: [resource, anclora, corporate-hub]
 related:
+  - "[[Anclora Command Center]]"
   - "[[Anclora Private Estates]]"
   - "[[Anclora Synergi]]"
   - "[[Anclora Data Lab]]"
@@ -70,6 +71,7 @@ Es el hub corporativo del ecosistema. Su arquitectura permite un control granula
 
 ## Relacionado
 
+- [[Anclora Command Center]]
 - [[MOC de Negocio]]
 - [[Flujo Comercial Inteligente Anclora]]
 - [[Arquitectura de Integración Anclora]]
