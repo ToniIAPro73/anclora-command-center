@@ -67,6 +67,13 @@ Seleccion por ajuste con el cliente y capacidad operativa.
 - Fisico: eventos, talleres, networking.
 - Ventas: web, WhatsApp Business, partners, etc.
 
+Priorizacion extraida de NotebookLM:
+- Prioridad maxima: Meta Ads
+- Prioridad alta: Instagram
+- Prioridad alta para high-ticket: LinkedIn
+- Prioridad media: YouTube
+- Prioridad de apoyo: TikTok
+
 Evaluacion rapida (1-10):
 | Canal | Cliente ahi | Habilidad | Tiempo | Rentable | Total |
 | --- | --- | --- | --- | --- | --- |
@@ -100,6 +107,8 @@ Revision:
 - Conectar mensajes con [[Estrategia de Autoridad IA Inmobiliaria]].
 - Medir conversion con los flujos de [[Prospeccion Avanzada con Nexus]].
 - Reportar en [[Anclora Command Center]] (objetivos, canales, KPIs).
+- Integrar el recorrido completo en [[Funnel de Captación Inmobiliaria con IA]].
+- Basar decisiones de captacion en [[Captación Inmobiliaria con IA - insights NotebookLM]].
 
 ## Checklist de implementacion
 - [ ] Objetivo SMART definido

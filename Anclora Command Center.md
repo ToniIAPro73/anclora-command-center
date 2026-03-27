@@ -100,6 +100,8 @@ related:
 - Mapa relacional: [[Mapa de Stakeholders de Anclora Group]]
 - Borrador comercial activo: [[Borrador de Email de Captación Synergi]]
 - Autoridad inmobiliaria: [[Estrategia de Autoridad IA Inmobiliaria]]
+- Funnel de captacion: [[Funnel de Captación Inmobiliaria con IA]]
+- Research de captacion: [[Captación Inmobiliaria con IA - insights NotebookLM]]
 
 ## 🎯 Próximas Decisiones
 
