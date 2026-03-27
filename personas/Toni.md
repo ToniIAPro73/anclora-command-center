@@ -26,6 +26,8 @@ related:
   - "[[Prospección Avanzada con Nexus]]"
   - "[[Estrategia de Autoridad IA Inmobiliaria]]"
   - "[[Mapa de Stakeholders de Anclora Group]]"
+  - "[[Plan Maestro de Marca Personal e Ingesta Comercial]]"
+  - "[[Propuesta de Valor de Toni - Real Estate + IA]]"
 ---
 
 # Toni
@@ -81,6 +83,8 @@ Su posicionamiento profesional es dual: consultor IT senior en CGI y agente asoc
 - [[Prospección Avanzada con Nexus]]
 - [[Estrategia de Autoridad IA Inmobiliaria]]
 - [[Mapa de Stakeholders de Anclora Group]]
+- [[Plan Maestro de Marca Personal e Ingesta Comercial]]
+- [[Propuesta de Valor de Toni - Real Estate + IA]]
 
 ## Notas adicionales
 
