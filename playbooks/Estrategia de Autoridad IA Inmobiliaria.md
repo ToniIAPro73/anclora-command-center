@@ -15,6 +15,7 @@ related:
   - "[[personas/Toni|Toni]]"
   - "[[ICP Comprador Premium SW Mallorca]]"
   - "[[Propuesta de Valor de Toni - Real Estate + IA]]"
+  - "[[Pruebas de Autoridad y Casos Reales]]"
 ---
 
 # Estrategia de Autoridad IA Inmobiliaria
@@ -62,6 +63,10 @@ El perfil principal para esta estrategia es:
 La propuesta que debe sostener cada pieza es:
 
 - [[Propuesta de Valor de Toni - Real Estate + IA]]
+
+Y la base probatoria que evita exageraciones es:
+
+- [[Pruebas de Autoridad y Casos Reales]]
 
 ## Hooks que si merecen repetirse
 
@@ -113,6 +118,7 @@ La propuesta que debe sostener cada pieza es:
 - [[Arquitectura Implementable de Automatización Anclora]]
 - [[ICP Comprador Premium SW Mallorca]]
 - [[Propuesta de Valor de Toni - Real Estate + IA]]
+- [[Pruebas de Autoridad y Casos Reales]]
 - [[personas/Toni|Toni]]
 
 #playbook #anclora

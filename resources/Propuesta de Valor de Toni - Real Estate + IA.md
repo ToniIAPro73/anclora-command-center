@@ -14,6 +14,7 @@ related:
   - "[[Lead Magnets Inmobiliarios para SW Mallorca]]"
   - "[[Mapa de Objeciones de Captación Inmobiliaria]]"
   - "[[ICP Comprador Premium SW Mallorca]]"
+  - "[[Pruebas de Autoridad y Casos Reales]]"
   - "[[Plan Maestro de Marca Personal e Ingesta Comercial]]"
 ---
 
@@ -141,6 +142,7 @@ Palabras o enfoques que conviene bajar:
 - lead magnets específicos por territorio
 - ejemplos de análisis o prospección con [[Prospección Avanzada con Nexus]]
 - piezas de autoridad conectadas a [[Estrategia de Autoridad IA Inmobiliaria]]
+- respaldo documental consolidado en [[Pruebas de Autoridad y Casos Reales]]
 
 ## Claim operativo recomendado
 
@@ -166,4 +168,5 @@ Usar esta nota como referencia canónica para:
 - [[Lead Magnets Inmobiliarios para SW Mallorca]]
 - [[Mapa de Objeciones de Captación Inmobiliaria]]
 - [[ICP Comprador Premium SW Mallorca]]
+- [[Pruebas de Autoridad y Casos Reales]]
 - [[Plan Maestro de Marca Personal e Ingesta Comercial]]
