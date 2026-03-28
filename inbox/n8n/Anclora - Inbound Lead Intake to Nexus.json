@@ -1,0 +1,162 @@
+{
+  "name": "Anclora - Inbound Lead Intake to Nexus",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "anclora-inbound-nexus-bridge",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "f0d75621-aef9-4207-9aa2-b6e08b7b68a1",
+      "name": "Inbound Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        260,
+        300
+      ],
+      "webhookId": "anclora-inbound-nexus-bridge"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const input = $input.first();\nconst payload = input.json.body ?? {};\nconst query = input.json.query ?? {};\n\nconst fullName = payload.full_name ?? payload.fullName ?? payload.name ?? payload.nombre ?? '';\nconst email = payload.email ?? query.email ?? '';\nconst phone = payload.phone ?? payload.telefono ?? payload.mobile ?? '';\nconst whatsapp = payload.whatsapp ?? payload.whatsApp ?? phone ?? '';\nconst intentRaw = String(payload.intent ?? payload.lead_type ?? payload.type ?? '').toLowerCase().trim();\nconst sourceType = String(payload.source_type ?? 'web_inbound').toLowerCase().trim();\nconst sourcePlatform = String(payload.source_platform ?? payload.platform ?? 'web').toLowerCase().trim();\nconst territory = payload.territory ?? payload.zone ?? payload.area ?? 'SW Mallorca';\nconst originAsset = payload.origin_asset ?? payload.cta ?? payload.asset ?? query.cta ?? 'unknown';\nconst notes = payload.notes ?? payload.message ?? payload.context ?? '';\nconst budget = payload.budget ?? null;\nconst horizon = payload.horizon ?? payload.timeframe ?? null;\nconst language = payload.language ?? payload.idioma ?? 'es';\n\nlet intent = 'unknown';\nif (['buyer', 'comprador', 'purchase'].includes(intentRaw)) intent = 'buyer';\nif (['seller', 'vendedor', 'sale'].includes(intentRaw)) intent = 'seller';\nif (['partner', 'colaborador', 'referral'].includes(intentRaw)) intent = 'partner';\n\nconst hasContact = Boolean(email || phone || whatsapp);\nconst textBlob = [notes, payload.request, payload.goal, payload.interest].filter(Boolean).join(' ').toLowerCase();\nconst hotSignals = Boolean(payload.request_call || payload.request_visit || payload.book_meeting || payload.priority_contact) || /(llamada|call|visita|visit|meeting|reunion|reunión|shortlist|tour|hablar esta semana|this week|esta semana|cuanto antes|cuánto antes|asap|urgente|priority)/i.test(textBlob);\nconst warmSignals = Boolean(notes || budget || horizon || territory || originAsset !== 'unknown');\n\nlet leadTemperature = 'cold';\nlet nextAction = 'send_lead_magnet';\nlet reviewRequired = false;\n\nif (!hasContact || intent === 'unknown') {\n  leadTemperature = 'manual_review';\n  nextAction = 'manual_review_required';\n  reviewRequired = true;\n} else if (hotSignals) {\n  leadTemperature = 'hot';\n  nextAction = 'priority_call_24h';\n} else if (warmSignals) {\n  leadTemperature = 'warm';\n  nextAction = 'send_zone_readout';\n}\n\nreturn [{\n  json: {\n    status: 'captured',\n    nexus_ready: true,\n    received_at: new Date().toISOString(),\n    full_name: fullName,\n    name: fullName,\n    email,\n    phone,\n    whatsapp,\n    intent,\n    source_type: sourceType,\n    source_platform: sourcePlatform,\n    territory,\n    origin_asset: originAsset,\n    notes,\n    budget,\n    horizon,\n    language,\n    lead_temperature: leadTemperature,\n    next_action: nextAction,\n    review_required: reviewRequired,\n    source: 'web',\n    source_system: 'n8n_inbound_intake',\n    source_channel: sourcePlatform,\n    source_detail: originAsset\n  }\n}];"
+      },
+      "id": "a27c9ebd-67aa-4b3f-a09a-b7f60d893146",
+      "name": "Normalize and Classify Lead",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://anclora-nexus.onrender.com/api/public/cta/lead",
+        "sendHeaders": true,
+        "specifyHeaders": "keypair",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ { name: $json.name, email: $json.email, phone: $json.phone, whatsapp: $json.whatsapp, territory: $json.territory, notes: $json.notes, intent: $json.intent, source: $json.source, source_system: $json.source_system, source_channel: $json.source_channel, source_detail: $json.source_detail } }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": false,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "id": "2cd20c27-2815-4967-aecc-90e94d0016bd",
+      "name": "Send to Nexus Public CTA",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        860,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const normalized = $items('Normalize and Classify Lead', 0, 0)[0]?.json ?? {};\nconst nexusResult = $input.first()?.json ?? {};\n\nreturn [{\n  json: {\n    ...normalized,\n    nexus_status: nexusResult.status ?? 'unknown',\n    nexus_lead_id: nexusResult.lead_id ?? null,\n    nexus_response: nexusResult\n  }\n}];"
+      },
+      "id": "6d8d1f85-01bc-4e35-a27e-224d24817cb8",
+      "name": "Compose Final Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1160,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "firstIncomingItem",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "93e27dae-7d10-4d1c-b781-749f53ae8674",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1460,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Inbound Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize and Classify Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize and Classify Lead": {
+      "main": [
+        [
+          {
+            "node": "Send to Nexus Public CTA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send to Nexus Public CTA": {
+      "main": [
+        [
+          {
+            "node": "Compose Final Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compose Final Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "versionId": "1db4ba68-bf3d-4d2a-95c6-32ea24b30a22"
+}
