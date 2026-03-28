@@ -1,0 +1,292 @@
+{
+  "name": "Anclora - Lead SLA Watchdog",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 5 * * * *"
+            }
+          ]
+        }
+      },
+      "id": "5dd0fd26-2711-4bf4-a99a-b7c021f91b95",
+      "name": "Hourly SLA Check",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        220,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const now = new Date();\nconst hotCutoff = new Date(now.getTime() - 24 * 60 * 60 * 1000).toISOString();\nconst warmCutoff = new Date(now.getTime() - 48 * 60 * 60 * 1000).toISOString();\n\nreturn [{\n  json: {\n    run_at: now.toISOString(),\n    hot_cutoff: hotCutoff,\n    warm_cutoff: warmCutoff,\n    org_id: 'YOUR_ORG_ID',\n    supabase_url: 'https://YOUR_PROJECT.supabase.co',\n    recipient_email: 'antonio@anclora.com',\n    sender_email: 'Anclora Alerts <antonio@anclora.com>'\n  }\n}];"
+      },
+      "id": "9f9bf8f0-e81c-4f3d-9d34-b6f430907b8a",
+      "name": "Build SLA Query Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.supabase_url + '/rest/v1/leads' }}",
+        "sendQuery": true,
+        "specifyQuery": "keypair",
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "select",
+              "value": "id,name,email,phone,assigned_user_id,ai_priority,next_action,status,source_channel,source_detail,created_at"
+            },
+            {
+              "name": "org_id",
+              "value": "={{ 'eq.' + $json.org_id }}"
+            },
+            {
+              "name": "status",
+              "value": "eq.new"
+            },
+            {
+              "name": "ai_priority",
+              "value": "gte.4"
+            },
+            {
+              "name": "created_at",
+              "value": "={{ 'lt.' + $json.hot_cutoff }}"
+            },
+            {
+              "name": "order",
+              "value": "created_at.asc"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "specifyHeaders": "keypair",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "YOUR_SUPABASE_SERVICE_ROLE_KEY"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer YOUR_SUPABASE_SERVICE_ROLE_KEY"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": false,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "id": "eff0a584-7902-484c-8aa9-5dbf164aa70b",
+      "name": "Fetch Hot SLA Breaches",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        820,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.supabase_url + '/rest/v1/leads' }}",
+        "sendQuery": true,
+        "specifyQuery": "keypair",
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "select",
+              "value": "id,name,email,phone,assigned_user_id,ai_priority,next_action,status,source_channel,source_detail,created_at"
+            },
+            {
+              "name": "org_id",
+              "value": "={{ 'eq.' + $json.org_id }}"
+            },
+            {
+              "name": "status",
+              "value": "eq.new"
+            },
+            {
+              "name": "ai_priority",
+              "value": "eq.3"
+            },
+            {
+              "name": "created_at",
+              "value": "={{ 'lt.' + $json.warm_cutoff }}"
+            },
+            {
+              "name": "order",
+              "value": "created_at.asc"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "specifyHeaders": "keypair",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "YOUR_SUPABASE_SERVICE_ROLE_KEY"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer YOUR_SUPABASE_SERVICE_ROLE_KEY"
+            },
+            {
+              "name": "Accept",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": false,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "id": "fcb76631-d337-41eb-82c5-39374f3cd1ae",
+      "name": "Fetch Warm SLA Breaches",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        820,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "function normalize(nodeName) {\n  const items = $items(nodeName, 0, 0) || [];\n  const raw = items.map((item) => item.json);\n  return raw\n    .flatMap((entry) => Array.isArray(entry) ? entry : [entry])\n    .filter((entry) => entry && Object.keys(entry).length > 0);\n}\n\nconst context = $items('Build SLA Query Context', 0, 0)[0]?.json ?? {};\nconst hotLeads = normalize('Fetch Hot SLA Breaches');\nconst warmLeads = normalize('Fetch Warm SLA Breaches');\nconst total = hotLeads.length + warmLeads.length;\n\nif (total === 0) {\n  return [];\n}\n\nconst formatLead = (lead) => {\n  const createdAt = lead.created_at ? new Date(lead.created_at).toISOString() : 'n/d';\n  return [\n    `- ${lead.name || 'Lead sin nombre'} | prioridad ${lead.ai_priority || 'n/d'} | canal ${lead.source_channel || 'n/d'} | asset ${lead.source_detail || 'n/d'} | creado ${createdAt} | id ${lead.id}`,\n  ].join('');\n};\n\nconst subject = `[Anclora] SLA vencido - ${hotLeads.length} hot / ${warmLeads.length} warm`;\nconst text = [\n  'Resumen de leads sin atender dentro de SLA',\n  '',\n  `Hot vencidos: ${hotLeads.length}`,\n  ...hotLeads.map(formatLead),\n  '',\n  `Warm vencidos: ${warmLeads.length}`,\n  ...warmLeads.map(formatLead),\n  '',\n  `Generado: ${context.run_at || new Date().toISOString()}`,\n].join('\\n');\n\nconst renderGroup = (title, leads, accent) => {\n  if (!leads.length) return `<p style=\"margin:0 0 16px;color:#6b7280;\">${title}: sin incidencias.</p>`;\n  return `\n    <div style=\"margin:0 0 20px;\">\n      <h2 style=\"margin:0 0 12px;font-size:18px;color:${accent};\">${title}: ${leads.length}</h2>\n      <ul style=\"margin:0;padding-left:18px;line-height:1.6;\">\n        ${leads.map((lead) => `<li><strong>${lead.name || 'Lead sin nombre'}</strong> · prioridad ${lead.ai_priority || 'n/d'} · canal ${lead.source_channel || 'n/d'} · asset ${lead.source_detail || 'n/d'} · creado ${lead.created_at || 'n/d'} · id ${lead.id}</li>`).join('')}\n      </ul>\n    </div>\n  `;\n};\n\nconst html = `\n  <div style=\"font-family:Arial,sans-serif;line-height:1.5;color:#111827;max-width:780px;margin:0 auto;padding:24px;\">\n    <div style=\"border-radius:16px;padding:20px 24px;background:#111827;color:#f8fafc;\">\n      <div style=\"font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.72;\">Watchdog SLA</div>\n      <h1 style=\"margin:8px 0 0;font-size:28px;line-height:1.15;\">Leads sin atender dentro de SLA</h1>\n      <p style=\"margin:12px 0 0;font-size:15px;opacity:.88;\">Hot vencidos: ${hotLeads.length} · Warm vencidos: ${warmLeads.length}</p>\n    </div>\n    <div style=\"margin-top:18px;border:1px solid #e5e7eb;border-radius:16px;padding:20px 24px;background:#ffffff;\">\n      ${renderGroup('Hot', hotLeads, '#b91c1c')}\n      ${renderGroup('Warm', warmLeads, '#b45309')}\n      <p style=\"margin:12px 0 0;color:#6b7280;\"><strong>Generado:</strong> ${context.run_at || new Date().toISOString()}</p>\n    </div>\n  </div>\n`;\n\nreturn [{\n  json: {\n    subject,\n    text,\n    html,\n    total_breaches: total,\n    hot_breaches: hotLeads.length,\n    warm_breaches: warmLeads.length,\n    run_at: context.run_at || new Date().toISOString(),\n    recipient_email: context.recipient_email || 'antonio@anclora.com',\n    sender_email: context.sender_email || 'Anclora Alerts <antonio@anclora.com>'\n  }\n}];"
+      },
+      "id": "13669c27-1372-4506-bf39-5650618fb10b",
+      "name": "Compose SLA Digest",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1160,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "email",
+        "operation": "send",
+        "fromEmail": "={{ $json.sender_email }}",
+        "toEmail": "={{ $json.recipient_email }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "both",
+        "text": "={{ $json.text }}",
+        "html": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false,
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "7e2948ae-a1aa-4db8-9888-5df3b27c20d8",
+      "name": "Send SLA Alert Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1480,
+        320
+      ]
+    }
+  ],
+  "connections": {
+    "Hourly SLA Check": {
+      "main": [
+        [
+          {
+            "node": "Build SLA Query Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build SLA Query Context": {
+      "main": [
+        [
+          {
+            "node": "Fetch Hot SLA Breaches",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Fetch Warm SLA Breaches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Hot SLA Breaches": {
+      "main": [
+        [
+          {
+            "node": "Compose SLA Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Warm SLA Breaches": {
+      "main": [
+        [
+          {
+            "node": "Compose SLA Digest",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compose SLA Digest": {
+      "main": [
+        [
+          {
+            "node": "Send SLA Alert Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
