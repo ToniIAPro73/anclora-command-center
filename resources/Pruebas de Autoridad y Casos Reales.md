@@ -98,7 +98,8 @@ Hecho declarado:
 Estado de verificación:
 
 - experiencia relatada por Toni
-- no hay en esta nota prueba pública enlazada todavía
+- repositorio local disponible en `C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-playa-viva-uniestate`
+- caso descrito en [[Playa Viva - Landing real con HubSpot y dossier personalizado]]
 
 Valor narrativo:
 
@@ -135,6 +136,7 @@ Cómo debe comunicarse:
 - como portfolio estructural
 - como demostración de criterio de conversión y presentación premium
 - nunca como promoción de un activo real actualmente en comercialización
+- ver también [[Azure Bay - Caso de estudio de landing premium]]
 
 ### 2. Anclora Portfolio
 
@@ -157,6 +159,32 @@ Cómo debe comunicarse:
 
 - como portfolio técnico verticalizado para real estate premium
 - como señal de que Toni no solo entiende marketing o captación, sino también implementación
+- ver también [[Anclora Portfolio - Base técnica reutilizable]]
+
+### 3. Playa Viva
+
+Activo demostrable:
+
+- repositorio local: `C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-playa-viva-uniestate`
+
+Qué lo hace especialmente valioso:
+
+- no era solo una landing
+- estaba integrada con HubSpot CRM
+- disparaba un email automático con enlace al dossier
+- ofrecía acceso directo al calendario de HubSpot para reservar una cita de 30 minutos
+- soportaba experiencia bilingüe según idioma de la landing
+- generaba un dossier personalizado con el nombre del lead en la segunda página
+
+Cómo debe comunicarse:
+
+- como prueba real de ejecución comercial-tecnológica
+- como evidencia de automatización orientada a conversión
+- como ejemplo de experiencia premium más allá del formulario
+
+Ver también:
+
+- [[Playa Viva - Landing real con HubSpot y dossier personalizado]]
 
 ## Qué sí puede afirmarse con tranquilidad
 
@@ -212,6 +240,10 @@ Esta nota debe servir como base para:
 - respuestas a objeciones tipo “¿por qué tú?”
 - dossier personal de credibilidad
 
+Para navegar por los activos concretos, usar también:
+
+- [[Portfolio técnico y casos demostrables de Toni]]
+
 ## Relacionado
 
 - [[personas/Toni|Toni]]
@@ -219,3 +251,4 @@ Esta nota debe servir como base para:
 - [[ICP Comprador Premium SW Mallorca]]
 - [[Estrategia de Autoridad IA Inmobiliaria]]
 - [[Plan Maestro de Marca Personal e Ingesta Comercial]]
+- [[Portfolio técnico y casos demostrables de Toni]]
