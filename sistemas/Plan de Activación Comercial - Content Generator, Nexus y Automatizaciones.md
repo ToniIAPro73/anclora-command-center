@@ -205,6 +205,10 @@ No automatizar por moda, sino para evitar olvido y fuga de oportunidades.
 - contenido ganador que no ha sido derivado a otro canal
 - zona con movimiento relevante sin pieza editorial asociada
 
+Esta prioridad ya tiene una primera bajada operativa en:
+
+- [[Flujo Implementable - Alerta y Seguimiento Comercial]]
+
 ## Automatizaciones que no deberían ser prioridad todavía
 
 - publicación totalmente autónoma sin revisión
