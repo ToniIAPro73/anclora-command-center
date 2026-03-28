@@ -17,9 +17,9 @@ related:
 
 ## Resumen
 
-Esta nota define la versión canónica del workflow de `n8n` para capturar leads inbound de Anclora, normalizarlos, clasificarlos y enviarlos al endpoint público de [[Anclora Nexus]].
+Esta nota define la versión canónica del workflow de `n8n` para capturar leads inbound de Anclora, normalizarlos, clasificarlos, enviarlos al endpoint público de [[Anclora Nexus]] y disparar la alerta operativa por email.
 
-El flujo validado queda así: `webhook -> normalización -> clasificación -> POST a Nexus -> respuesta final`.
+El flujo validado queda así: `webhook -> normalización -> clasificación -> POST a Nexus -> composición de respuesta -> alerta email -> respuesta final`.
 
 Importante:
 
@@ -36,6 +36,7 @@ Tener un workflow útil que:
 - clasifique `hot`, `warm`, `cold` o `manual_review`
 - devuelva una siguiente acción sugerida
 - persista el lead contra [[Anclora Nexus]]
+- dispare el workflow de alerta por email cuando aplique
 - devuelva el resultado final de `Nexus`
 
 ## Nombre recomendado del workflow
@@ -112,7 +113,38 @@ Responsabilidad:
 
 - combinar la clasificación local con la respuesta de `Nexus`
 
-## Nodo 5. Respond to Webhook
+## Nodo 5. Trigger Lead Alert Email
+
+Tipo:
+
+- `n8n-nodes-base.httpRequest`
+
+Responsabilidad:
+
+- llamar al workflow:
+  - [[Especificación n8n - Alerta por Email para Leads]]
+- pasar solo los campos necesarios para el aviso
+- no romper la respuesta del workflow principal si el nodo de email responde con `ok`
+
+Configuración recomendada:
+
+- método `POST`
+- URL `http://localhost:5678/webhook/anclora-lead-alert-email`
+- `neverError = true`
+
+## Nodo 6. Finalize Response with Alert Status
+
+Tipo:
+
+- `n8n-nodes-base.code`
+
+Responsabilidad:
+
+- recuperar el payload final útil del nodo `Compose Final Response`
+- añadir `email_alert_status`
+- evitar que el workflow responda únicamente con el `ok` del webhook secundario
+
+## Nodo 7. Respond to Webhook
 
 Tipo:
 
@@ -223,6 +255,7 @@ Si no cae en ninguno de los casos anteriores:
   "source_detail": "cta-private-estates-diagnostico",
   "nexus_status": "success",
   "nexus_lead_id": "uuid-o-id-real",
+  "email_alert_status": "ok",
   "nexus_response": {
     "status": "success",
     "lead_id": "uuid-o-id-real"
@@ -348,6 +381,7 @@ La automatización canónica ya ha sido validada extremo a extremo:
 - llega correctamente al endpoint público de `Nexus`
 - devuelve `nexus_status: success`
 - devuelve `nexus_lead_id` real
+- dispara el workflow de alerta por email
 - el contrato público de `Nexus` ya devuelve errores reales y no falsos éxitos
 
 Última validación confirmada:
@@ -357,6 +391,7 @@ La automatización canónica ya ha sido validada extremo a extremo:
 - `source_system = cta_web`
 - `source_channel = website`
 - `nexus_lead_id = 62f76092-9687-4282-82ba-3206145b9ffe`
+- correo operativo recibido correctamente
 
 ## Recomendación práctica
 
@@ -376,7 +411,7 @@ En el estado actual del ecosistema, el backend remoto de `Nexus` ya responde cor
 
 Usar esta V1 como base real para la siguiente iteración:
 
-- alertas internas
+- alertas internas ya conectadas por email
 - seguimiento comercial
 - visualización en [[Anclora Command Center]]
 

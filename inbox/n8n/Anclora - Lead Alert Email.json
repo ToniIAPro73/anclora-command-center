@@ -1,0 +1,95 @@
+{
+  "name": "Anclora - Lead Alert Email",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "anclora-lead-alert-email",
+        "responseMode": "onReceived",
+        "options": {
+          "allowedOrigins": "*",
+          "responseData": "ok"
+        }
+      },
+      "id": "a8ceeb56-c819-4563-83a1-cd05e12e35b1",
+      "name": "Alert Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "anclora-lead-alert-email"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const input = $input.first();\nconst payload = input.json.body ?? input.json ?? {};\n\nconst leadTemperature = String(payload.lead_temperature ?? '').toLowerCase().trim();\nconst fullName = payload.full_name ?? payload.name ?? 'Lead sin nombre';\nconst intent = payload.intent ?? 'unknown';\nconst nextAction = payload.next_action ?? 'manual_review_required';\nconst sourceChannel = payload.source_channel ?? payload.source_platform ?? 'unknown';\nconst originAsset = payload.origin_asset ?? payload.source_detail ?? 'unknown';\nconst territory = payload.territory ?? 'SW Mallorca';\nconst nexusLeadId = payload.nexus_lead_id ?? payload.lead_id ?? '';\nconst receivedAt = payload.received_at ?? new Date().toISOString();\nconst notes = payload.notes ?? '';\nconst email = payload.email ?? '';\nconst phone = payload.phone ?? payload.whatsapp ?? '';\n\nif (!['hot', 'warm', 'manual_review'].includes(leadTemperature)) {\n  return [];\n}\n\nlet alertLabel = 'OPERATIVA';\nlet sla = '48h';\nif (leadTemperature === 'hot') {\n  alertLabel = 'PRIORITARIA';\n  sla = '24h';\n}\nif (leadTemperature === 'manual_review') {\n  alertLabel = 'REVISION';\n  sla = 'Revisar cuanto antes';\n}\n\nconst subject = `[Anclora] Lead ${leadTemperature.toUpperCase()} - ${fullName}`;\nconst text = [\n  `Nuevo lead ${leadTemperature} en Nexus`,\n  '',\n  `Nombre: ${fullName}`,\n  `Intent: ${intent}`,\n  `Canal: ${sourceChannel}`,\n  `Asset: ${originAsset}`,\n  `Zona: ${territory}`,\n  `Siguiente accion: ${nextAction}`,\n  `SLA sugerido: ${sla}`,\n  `Lead ID: ${nexusLeadId || 'pendiente'}`,\n  `Email: ${email || 'n/d'}`,\n  `Telefono: ${phone || 'n/d'}`,\n  notes ? `Notas: ${notes}` : null,\n  `Recibido: ${receivedAt}`\n].filter(Boolean).join('\\n');\n\nconst html = `\n  <div style=\"font-family:Arial,sans-serif;line-height:1.5;color:#111827;max-width:720px;margin:0 auto;padding:24px;\">\n    <div style=\"border-radius:16px;padding:20px 24px;background:#0f172a;color:#f8fafc;\">\n      <div style=\"font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.72;\">Alerta ${alertLabel}</div>\n      <h1 style=\"margin:8px 0 0;font-size:28px;line-height:1.15;\">Nuevo lead ${leadTemperature}</h1>\n      <p style=\"margin:12px 0 0;font-size:15px;opacity:.88;\">${fullName} requiere atencion comercial.</p>\n    </div>\n    <div style=\"margin-top:18px;border:1px solid #e5e7eb;border-radius:16px;padding:20px 24px;background:#ffffff;\">\n      <p><strong>Intent:</strong> ${intent}</p>\n      <p><strong>Canal:</strong> ${sourceChannel}</p>\n      <p><strong>Asset:</strong> ${originAsset}</p>\n      <p><strong>Zona:</strong> ${territory}</p>\n      <p><strong>Siguiente accion:</strong> ${nextAction}</p>\n      <p><strong>SLA sugerido:</strong> ${sla}</p>\n      <p><strong>Lead ID:</strong> ${nexusLeadId || 'pendiente'}</p>\n      <p><strong>Email:</strong> ${email || 'n/d'}</p>\n      <p><strong>Telefono:</strong> ${phone || 'n/d'}</p>\n      ${notes ? `<p><strong>Notas:</strong> ${notes}</p>` : ''}\n      <p><strong>Recibido:</strong> ${receivedAt}</p>\n    </div>\n  </div>\n`;\n\nreturn [{\n  json: {\n    should_send_alert: true,\n    lead_temperature: leadTemperature,\n    alert_label: alertLabel,\n    sla,\n    subject,\n    text,\n    html,\n    full_name: fullName,\n    nexus_lead_id: nexusLeadId,\n    next_action: nextAction,\n    source_channel: sourceChannel,\n    origin_asset: originAsset,\n    territory: territory,\n    received_at: receivedAt\n  }\n}];"
+      },
+      "id": "8ba0f97d-4228-43c2-a4c3-ef07875aef65",
+      "name": "Prepare Alert Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "email",
+        "operation": "send",
+        "fromEmail": "Anclora Alerts <alerts@anclora.local>",
+        "toEmail": "antonio.ballesterosa@example.com",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "both",
+        "text": "={{ $json.text }}",
+        "html": "={{ $json.html }}",
+        "options": {
+          "appendAttribution": false,
+          "allowUnauthorizedCerts": false
+        }
+      },
+      "id": "99d2e7de-6688-4cbd-82f7-50f343a88052",
+      "name": "Send Alert Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        900,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Alert Webhook": {
+      "main": [
+        [
+          {
+            "node": "Prepare Alert Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Alert Email": {
+      "main": [
+        [
+          {
+            "node": "Send Alert Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
