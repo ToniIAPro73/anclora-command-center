@@ -90,6 +90,59 @@
     },
     {
       "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5678/webhook/anclora-lead-alert-email",
+        "sendHeaders": true,
+        "specifyHeaders": "keypair",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "json",
+        "specifyBody": "json",
+        "jsonBody": "={{ { full_name: $json.full_name, name: $json.name, email: $json.email, phone: $json.phone, whatsapp: $json.whatsapp, intent: $json.intent, lead_temperature: $json.lead_temperature, next_action: $json.next_action, source_channel: $json.source_channel, origin_asset: $json.origin_asset, territory: $json.territory, nexus_lead_id: $json.nexus_lead_id, received_at: $json.received_at, notes: $json.notes } }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": false,
+              "neverError": true,
+              "responseFormat": "json"
+            }
+          },
+          "timeout": 10000
+        }
+      },
+      "id": "2c855699-9169-4faa-8de4-c4fd7bac6c94",
+      "name": "Trigger Lead Alert Email",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const finalResponse = $items('Compose Final Response', 0, 0)[0]?.json ?? {};\nconst alertResult = $input.first()?.json ?? {};\n\nlet emailAlertStatus = 'not_sent';\nif (typeof alertResult === 'string' && alertResult.trim()) {\n  emailAlertStatus = alertResult.trim();\n} else if (alertResult?.status) {\n  emailAlertStatus = alertResult.status;\n} else if (Object.keys(alertResult).length > 0) {\n  emailAlertStatus = 'processed';\n}\n\nreturn [{\n  json: {\n    ...finalResponse,\n    email_alert_status: emailAlertStatus\n  }\n}];"
+      },
+      "id": "ea273555-8afe-40e7-8aa7-d133dc8094e6",
+      "name": "Finalize Response with Alert Status",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        300
+      ]
+    },
+    {
+      "parameters": {
         "respondWith": "firstIncomingItem",
         "options": {
           "responseCode": 200
@@ -100,7 +153,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1460,
+        2060,
         300
       ]
     }
@@ -140,6 +193,28 @@
       ]
     },
     "Compose Final Response": {
+      "main": [
+        [
+          {
+            "node": "Trigger Lead Alert Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger Lead Alert Email": {
+      "main": [
+        [
+          {
+            "node": "Finalize Response with Alert Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finalize Response with Alert Status": {
       "main": [
         [
           {
