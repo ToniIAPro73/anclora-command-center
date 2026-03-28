@@ -82,6 +82,17 @@ Muy alto.
 
 Es el flujo con mejor ROI porque protege negocio desde el primer punto de entrada.
 
+### Estado actual
+
+La V1 de este flujo ya está validada y documentada en:
+
+- [[Especificación n8n - Inbound Lead Intake to Nexus]]
+- [[Flujo Implementable - Inbound a Nexus]]
+
+El siguiente paso operativo natural es:
+
+- [[Flujo Implementable - Alerta y Seguimiento Comercial]]
+
 ## Flujo 2. Señal interna de Nexus -> outreach supervisado
 
 ## Qué resuelve
