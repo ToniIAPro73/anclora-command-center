@@ -298,6 +298,10 @@ Y después definir:
 - tabla de mapeo de fuentes
 - lógica exacta de temperatura
 
+La especificación operativa actual para montarlo en `n8n` está en:
+
+- [[Especificación n8n - Inbound Lead Intake to Nexus]]
+
 ## Relacionado
 
 - [[Primeros 3 Flujos de Automatización Anclora]]
@@ -307,3 +311,4 @@ Y después definir:
 - [[Funnel de Captación Inmobiliaria con IA]]
 - [[Mensajes de Captación para LinkedIn y WhatsApp]]
 - [[Anclora Command Center]]
+- [[Especificación n8n - Inbound Lead Intake to Nexus]]
