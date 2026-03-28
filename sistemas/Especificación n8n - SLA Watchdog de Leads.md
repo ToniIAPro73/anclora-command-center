@@ -63,7 +63,7 @@ Si más adelante `Nexus` introduce estados o campos de seguimiento mejores, este
 
 ## Diseño del flujo
 
-`schedule -> build query context -> fetch hot breaches -> fetch warm breaches -> compose digest -> send email`
+`schedule -> build query context -> fetch hot breaches -> fetch warm breaches -> merge -> compose digest -> send email`
 
 ## Nodo 1. Hourly SLA Check
 
@@ -117,7 +117,26 @@ Consulta:
 - `ai_priority = 3`
 - `created_at < warm_cutoff`
 
-## Nodo 5. Compose SLA Digest
+## Nodo 5. Merge SLA Results
+
+Tipo:
+
+- `n8n-nodes-base.merge`
+
+Responsabilidades:
+
+- esperar a que las ramas `hot` y `warm` estén listas
+- evitar dobles envíos del email
+- garantizar que el resumen final se compone una sola vez por ejecución
+
+Configuración validada:
+
+- `Mode = Combine`
+- `Combine By = Position`
+- `Output Type = Keep Everything`
+- `Output Data From = Both Inputs Merged Together`
+
+## Nodo 6. Compose SLA Digest
 
 Tipo:
 
@@ -130,8 +149,10 @@ Responsabilidades:
 - construir asunto
 - construir versión `text`
 - construir versión `html`
+- incluir hora visible de generación en el asunto y en el cuerpo
+- tolerar el caso de una rama vacía sin romper el flujo
 
-## Nodo 6. Send SLA Alert Email
+## Nodo 7. Send SLA Alert Email
 
 Tipo:
 
@@ -144,16 +165,21 @@ Responsabilidades:
 
 ## Campos que tendrás que cambiar
 
-Este workflow queda muy completo, pero todavía necesita tres valores reales:
+Este workflow queda muy completo, pero todavía necesita un valor real sensible:
 
-1. `YOUR_ORG_ID`
-2. `YOUR_PROJECT.supabase.co`
-3. `YOUR_SUPABASE_SERVICE_ROLE_KEY`
+1. `YOUR_SUPABASE_SERVICE_ROLE_KEY`
 
 Esos cambios viven en:
 
 - nodo `Build SLA Query Context`
 - nodos `Fetch Hot SLA Breaches` y `Fetch Warm SLA Breaches`
+
+En la versión canónica ya quedan fijados:
+
+1. `org_id = 9d6cb56d-3f21-4f7b-80ea-797a7c2c62cf`
+2. `supabase_url = https://jtlnmypcrgmzxeuiffup.supabase.co`
+
+La `SUPABASE_SERVICE_ROLE_KEY` debe seguir pegándose manualmente en `n8n` y no se guarda en la bóveda.
 
 ## Por qué uso Service Role Key
 
@@ -163,6 +189,11 @@ La forma más estable de hacerlo en `n8n` es:
 
 - `apikey = SERVICE_ROLE_KEY`
 - `Authorization = Bearer SERVICE_ROLE_KEY`
+
+Importante:
+
+- la `SUPABASE_SERVICE_ROLE_KEY` debe pertenecer al mismo proyecto que `supabase_url`
+- no mezclar credenciales de otros proyectos Supabase
 
 ## Configuración recomendada del email
 
@@ -194,6 +225,16 @@ Si hay incidencias:
   - número de `hot` vencidos
   - número de `warm` vencidos
   - detalle mínimo por lead
+  - hora de generación visible en asunto y cuerpo
+
+## Validación realizada
+
+La versión canónica quedó validada end-to-end con:
+
+- lectura real de leads en Supabase
+- sincronización correcta de ramas `hot` y `warm` mediante `Merge`
+- envío de un único email por ejecución
+- asunto con timestamp para evitar agrupación confusa en Gmail
 
 ## Siguiente iteración recomendada
 
