@@ -21,6 +21,12 @@ Esta nota define la versión canónica del workflow de `n8n` para capturar leads
 
 El flujo validado queda así: `webhook -> normalización -> clasificación -> POST a Nexus -> respuesta final`.
 
+Importante:
+
+- los enums enviados a `Nexus` deben respetar su contrato público
+- `source_system` no puede ser un valor libre como `n8n_inbound_intake`
+- `source_channel` no puede usar `web`
+
 ## Objetivo
 
 Tener un workflow útil que:
@@ -47,7 +53,7 @@ Tipo:
 Configuración recomendada:
 
 - método: `POST`
-- path: `anclora-inbound-nexus`
+- path: `anclora-inbound-nexus-bridge`
 - response mode: `responseNode`
 
 ## Nodo 2. Normalize and Classify Lead
@@ -80,6 +86,21 @@ Configuración recomendada:
 - método `POST`
 - URL `https://anclora-nexus.onrender.com/api/public/cta/lead`
 - `Ignore SSL Issues` activado en local si `n8n` lo exige
+- mapear `source_system` a valores válidos:
+  - `cta_web`
+  - `social`
+  - `manual`
+  - `referral`
+  - `partner`
+  - `import`
+- mapear `source_channel` a valores válidos:
+  - `website`
+  - `linkedin`
+  - `instagram`
+  - `facebook`
+  - `email`
+  - `phone`
+  - `other`
 
 ## Nodo 4. Compose Final Response
 
@@ -195,7 +216,17 @@ Si no cae en ninguno de los casos anteriores:
   "language": "es",
   "lead_temperature": "warm",
   "next_action": "send_zone_readout",
-  "review_required": false
+  "review_required": false,
+  "source": "web",
+  "source_system": "cta_web",
+  "source_channel": "website",
+  "source_detail": "cta-private-estates-diagnostico",
+  "nexus_status": "success",
+  "nexus_lead_id": "uuid-o-id-real",
+  "nexus_response": {
+    "status": "success",
+    "lead_id": "uuid-o-id-real"
+  }
 }
 ```
 
@@ -248,6 +279,17 @@ if (!hasContact || intent === 'unknown') {
   nextAction = 'send_zone_readout';
 }
 
+let nexusSourceSystem = 'cta_web';
+let nexusSourceChannel = 'website';
+if (sourcePlatform === 'linkedin') nexusSourceChannel = 'linkedin';
+if (sourcePlatform === 'instagram') nexusSourceChannel = 'instagram';
+if (sourcePlatform === 'facebook' || sourcePlatform === 'meta') {
+  nexusSourceSystem = 'social';
+  nexusSourceChannel = 'facebook';
+}
+if (sourcePlatform === 'email') nexusSourceChannel = 'email';
+if (sourcePlatform === 'phone' || sourcePlatform === 'whatsapp') nexusSourceChannel = 'phone';
+
 return [
   {
     json: {
@@ -255,6 +297,7 @@ return [
       nexus_ready: true,
       received_at: new Date().toISOString(),
       full_name: fullName,
+      name: fullName,
       email,
       phone,
       whatsapp,
@@ -270,6 +313,10 @@ return [
       lead_temperature: leadTemperature,
       next_action: nextAction,
       review_required: reviewRequired,
+      source: 'web',
+      source_system: nexusSourceSystem,
+      source_channel: nexusSourceChannel,
+      source_detail: originAsset
     },
   },
 ];
@@ -298,12 +345,22 @@ La automatización canónica ya ha sido validada extremo a extremo:
 
 - entra por webhook en `n8n`
 - clasifica correctamente `hot / warm / cold / manual_review`
-- envía el lead al endpoint público de `Nexus`
+- llega correctamente al endpoint público de `Nexus`
 - devuelve `nexus_status: success`
+- devuelve `nexus_lead_id` real
+- el contrato público de `Nexus` ya devuelve errores reales y no falsos éxitos
+
+Última validación confirmada:
+
+- `lead_temperature = hot`
+- `next_action = priority_call_24h`
+- `source_system = cta_web`
+- `source_channel = website`
+- `nexus_lead_id = 62f76092-9687-4282-82ba-3206145b9ffe`
 
 ## Recomendación práctica
 
-No seguir ampliando complejidad hasta que esta versión quede estabilizada y con mejor trazabilidad del `lead_id`.
+No seguir ampliando complejidad hasta que esta versión quede estabilizada y con mejor trazabilidad operativa del `lead_id` dentro de reporting y seguimiento.
 
 La siguiente iteración buena sería:
 
@@ -317,7 +374,20 @@ En el estado actual del ecosistema, el backend remoto de `Nexus` ya responde cor
 
 ## Próxima acción
 
-Revisar en `Nexus` por qué el endpoint público responde `status: success` pero no devuelve todavía `lead_id`.
+Usar esta V1 como base real para la siguiente iteración:
+
+- alertas internas
+- seguimiento comercial
+- visualización en [[Anclora Command Center]]
+
+## Nota operativa
+
+Tras la corrección del contrato en `Nexus`, el siguiente punto de fallo detectado fue el mapeo de enums en `n8n`.
+
+La versión canónica del workflow ya corrige eso:
+
+- `source_system = cta_web`
+- `source_channel = website`
 
 ## Relacionado
 
