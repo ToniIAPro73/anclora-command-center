@@ -192,7 +192,6 @@ function Send-SmtpReminder {
 
 $repoRoot = $VaultRoot
 $queuePath = Join-Path $repoRoot "docs\cambios\CONTRACT_CHANGE_QUEUE.md"
-$planPath = Join-Path $repoRoot "docs\governance\CONTRACT_ACTION_PLAN.md"
 $envPath = Join-Path $repoRoot ".env.local"
 $logPath = Join-Path $repoRoot "logs\contract-governance.log"
 
@@ -239,15 +238,6 @@ $lines += ""
 $lines += "Cambios abiertos:"
 foreach ($row in $pendingRows) {
     $lines += "- $($row.Id) | estado $($row.Status) | ambito $($row.Scope) | contrato $($row.Contracts) | cambio $($row.Change)"
-}
-
-if (Test-Path $planPath) {
-    $lines += ""
-    $lines += "Plan de accion actual:"
-    $planPreview = Get-Content -LiteralPath $planPath -Encoding UTF8 | Select-Object -First 20
-    foreach ($line in $planPreview) {
-        $lines += "  $line"
-    }
 }
 
 $body = $lines -join [Environment]::NewLine

@@ -105,29 +105,6 @@ powershell -ExecutionPolicy Bypass -File .\scripts\process-contract-change-queue
 Los cambios de gobernanza se dejan dentro de la bóveda y no se propagan a repos de aplicaciones.
 Los cambios en `DETECTED`, `ANALYSIS_REQUIRED` o `PLAN_READY` se listan, pero no se ejecutan.
 
-## `generate-contract-action-plan.ps1`
-
-Convierte la matriz de cumplimiento en un plan de acción priorizado.
-
-### Cuándo usarlo
-
-- Cuando se actualiza `docs/governance/CONTRACT_COMPLIANCE_MATRIX.md`
-- Cuando quieres priorizar qué app o familia revisar primero
-- Cuando necesitas un resumen operativo para la bóveda
-
-### Comando
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\generate-contract-action-plan.ps1
-```
-
-### Salida
-
-- escribe `docs/governance/CONTRACT_ACTION_PLAN.md`
-- ordena las apps por prioridad
-- propone la siguiente acción a ejecutar según el gap abierto
-- sirve como insumo para valorar un cambio antes de aprobarlo
-
 ## `detect-contract-changes.ps1`
 
 Detecta cambios en los contratos maestros de `docs/standards/` comparando hashes con el ultimo snapshot conocido.
@@ -160,7 +137,6 @@ Ejecuta el ciclo diario de gobierno contractual de extremo a extremo.
 - detecta cambios en contratos maestros
 - procesa la cola solo para cambios aprobados
 - audita sincronizacion contractual
-- regenera el plan de accion
 - escribe un rastro tecnico en `logs/contract-governance.log`
 - intenta mostrar una notificacion ligera al terminar
 
@@ -198,7 +174,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\unregister-daily-contract-gov
 
 ## `send-contract-governance-reminder.ps1`
 
-Lee la cola y el plan de accion y envia un recordatorio solo si hay cambios pendientes.
+Lee la cola de cambios y envia un recordatorio solo si hay cambios pendientes.
 
 ### Comportamiento
 
