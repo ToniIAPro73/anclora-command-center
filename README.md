@@ -15,6 +15,7 @@ Bóveda operativa y documental del ecosistema Anclora.
 ## Gobierno contractual
 
 - `docs/governance/CONTRACT_HIERARCHY.md`
+- `docs/governance/CONTRACT_CONDITION_CATALOG.md`
 - `docs/governance/APPLICATION_FAMILY_MAP.md`
 - `docs/governance/CONTRACT_COMPLIANCE_MATRIX.md`
 - `docs/cambios/CONTRACT_CHANGE_QUEUE.md`
@@ -23,10 +24,13 @@ Bóveda operativa y documental del ecosistema Anclora.
 ## Orden de lectura
 
 1. `docs/standards/ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
-2. contrato del grupo aplicable
-3. `docs/standards/UI_MOTION_CONTRACT.md`
-4. `docs/standards/MODAL_CONTRACT.md`
-5. `docs/standards/LOCALIZATION_CONTRACT.md`
+2. `docs/governance/CONTRACT_HIERARCHY.md`
+3. `docs/governance/APPLICATION_FAMILY_MAP.md`
+4. `docs/governance/CONTRACT_CONDITION_CATALOG.md`
+5. contrato del grupo aplicable
+6. `docs/standards/UI_MOTION_CONTRACT.md`
+7. `docs/standards/MODAL_CONTRACT.md`
+8. `docs/standards/LOCALIZATION_CONTRACT.md`
 
 ## Flujo de cambios
 

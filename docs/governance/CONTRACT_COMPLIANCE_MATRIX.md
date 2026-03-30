@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Servir de checklist maestra de cumplimiento por aplicación, agrupada por familias y por contratos.
+Servir de checklist maestra de cumplimiento por aplicación, agrupada por familia y por contrato.
 
 Estados permitidos:
 - `OK`
@@ -10,73 +10,118 @@ Estados permitidos:
 - `NO`
 - `N/A`
 
-## Condiciones agrupadas por contratos
+La referencia de condiciones es:
+- `docs/governance/CONTRACT_CONDITION_CATALOG.md`
+
+## Vista resumida por aplicación
+
+| Aplicación | Familia | Universal Motion | Universal Modal | Universal Localization | Family Contract | Overrides locales | Estado global | Gaps abiertos | Última auditoría |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `anclora-group` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Falta auditoría detallada por pantallas | 2026-03-30 |
+| `anclora-advisor-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Falta auditoría detallada por pantallas | 2026-03-30 |
+| `anclora-nexus` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Falta auditoría detallada por pantallas | 2026-03-30 |
+| `anclora-content-generator-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Falta auditoría detallada por pantallas | 2026-03-30 |
+| `anclora-impulso` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Falta cierre pantalla por pantalla y pass final de producción | 2026-03-30 |
+| `Boveda-Anclora/dashboard` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | PARTIAL | Falta auditoría completa de vistas secundarias | 2026-03-30 |
+| `anclora-data-lab` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Falta auditoría completa del backoffice y workspace | 2026-03-30 |
+| `anclora-synergi` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Falta auditoría completa del backoffice | 2026-03-30 |
+| `anclora-private-estates` | Ultra Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | Falta auditoría detallada y validación de overrides | 2026-03-30 |
+| `anclora-portfolio` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Falta auditoría detallada | 2026-03-30 |
+| `anclora-azure-bay-landing` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Falta auditoría detallada | 2026-03-30 |
+| `anclora-playa-viva-uniestate` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Falta auditoría detallada | 2026-03-30 |
+
+## Vista detallada por contrato
 
 ### Universal · UI Motion
 
-- `M1` Elevación y hover consistentes entre cards equivalentes
-- `M2` Borde/foco legible y coherente con el tema
-- `M3` CTA primario/ secundario/ destructivo con semántica estable
-- `M4` Sin clipping visual al elevar cards o surfaces
+| Aplicación | M1 | M2 | M3 | M4 | M5 | M6 |
+| --- | --- | --- | --- | --- | --- | --- |
+| `anclora-group` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-advisor-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-nexus` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-impulso` | PARTIAL | PARTIAL | OK | PARTIAL | PARTIAL | OK |
+| `Boveda-Anclora/dashboard` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-data-lab` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-portfolio` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-azure-bay-landing` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-playa-viva-uniestate` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 
 ### Universal · Modal
 
-- `D1` Cierre superior derecho claro
-- `D2` Acciones principales visibles en la parte inferior
-- `D3` Sin scroll vertical u horizontal evitable
-- `D4` Validación visual obligatoria en escritorio y móvil antes de publicar
+| Aplicación | D1 | D2 | D3 | D4 | D5 | D6 |
+| --- | --- | --- | --- | --- | --- | --- |
+| `anclora-group` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-advisor-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-nexus` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-impulso` | OK | OK | PARTIAL | OK | OK | OK |
+| `Boveda-Anclora/dashboard` | N/A | N/A | N/A | N/A | N/A | N/A |
+| `anclora-data-lab` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-portfolio` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-azure-bay-landing` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-playa-viva-uniestate` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 
 ### Universal · Localization
 
-- `L1` Todos los idiomas objetivo realmente visibles, no sólo toggle cosmético
-- `L2` Sin mezcla de idiomas dentro de la misma experiencia
-- `L3` Sin hardcoded strings de producto donde debe haber i18n
+| Aplicación | L1 | L2 | L3 | L4 | L5 |
+| --- | --- | --- | --- | --- | --- |
+| `anclora-group` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-advisor-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-nexus` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-impulso` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `Boveda-Anclora/dashboard` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-data-lab` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-portfolio` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-azure-bay-landing` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-playa-viva-uniestate` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 
 ### Family · Internal
 
-- `I1` Shell funcional y denso, priorizando claridad operativa
-- `I2` Toggles visibles de idioma/tema cuando el contrato de la app lo exija
+| Aplicación | I1 | I2 | I3 |
+| --- | --- | --- | --- |
+| `anclora-group` | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-advisor-ai` | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-nexus` | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL |
 
 ### Family · Premium
 
-- `P1` Tratamiento visual premium consistente entre topbar, hero, cards y filtros
-- `P2` Densidad controlada en móvil, sin sacrificar jerarquía
-- `P3` Ritmo visual y aire suficientes en claro y oscuro
-- `P4` Tono de marca premium sin romper la semántica universal
+| Aplicación | P1 | P2 | P3 | P4 | P5 |
+| --- | --- | --- | --- | --- | --- |
+| `anclora-impulso` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `Boveda-Anclora/dashboard` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-data-lab` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 
 ### Family · Ultra Premium
 
-- `U1` Presentación de muy alto nivel editorial
-- `U2` Overrides de marca documentados y controlados
+| Aplicación | U1 | U2 | U3 |
+| --- | --- | --- | --- |
+| `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL |
 
-### Family · Portfolio
+### Family · Portfolio / Showcase
 
-- `S1` Prioridad a conversión, narrativa visual y captación
-- `S2` Navegación y CTA de showcase coherentes entre landings
+| Aplicación | S1 | S2 | S3 |
+| --- | --- | --- | --- |
+| `anclora-portfolio` | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-azure-bay-landing` | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-playa-viva-uniestate` | PARTIAL | PARTIAL | PARTIAL |
 
-## Matriz
-
-| Aplicación | Familia | M1 | M2 | M3 | M4 | D1 | D2 | D3 | D4 | L1 | L2 | L3 | Familia | Estado | Gaps abiertos | Última auditoría |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `anclora-group` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL (`I1`,`I2`) | PARTIAL | Pendiente de auditoría detallada | 2026-03-30 |
-| `anclora-advisor-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL (`I1`,`I2`) | PARTIAL | Pendiente de auditoría detallada | 2026-03-30 |
-| `anclora-nexus` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL (`I1`,`I2`) | PARTIAL | Pendiente de auditoría detallada | 2026-03-30 |
-| `anclora-content-generator-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL (`I1`,`I2`) | PARTIAL | Pendiente de auditoría detallada | 2026-03-30 |
-| `anclora-impulso` | Premium | PARTIAL | PARTIAL | OK | PARTIAL | OK | OK | PARTIAL | OK | PARTIAL | PARTIAL | PARTIAL | PARTIAL (`P1`,`P2`,`P3`,`P4`) | PARTIAL | Faltan rondas completas pantalla por pantalla y pass final de producción | 2026-03-30 |
-| `Boveda-Anclora/dashboard` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | N/A | N/A | OK | PARTIAL | PARTIAL | PARTIAL | PARTIAL (`P1`,`P2`,`P3`,`P4`) | PARTIAL | Falta auditoría completa de vistas secundarias | 2026-03-30 |
-| `anclora-data-lab` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | OK | PARTIAL | PARTIAL | PARTIAL | PARTIAL (`P1`,`P2`,`P3`,`P4`) | PARTIAL | Falta auditoría completa del backoffice | 2026-03-30 |
-| `anclora-synergi` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | OK | PARTIAL | PARTIAL | PARTIAL | PARTIAL (`P1`,`P2`,`P3`,`P4`) | PARTIAL | Falta auditoría completa del backoffice | 2026-03-30 |
-| `anclora-private-estates` | Ultra Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL (`U1`,`U2`) | PARTIAL | Pendiente de auditoría detallada | 2026-03-30 |
-| `anclora-portfolio` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL (`S1`,`S2`) | PARTIAL | Pendiente de auditoría detallada | 2026-03-30 |
-| `anclora-azure-bay-landing` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL (`S1`,`S2`) | PARTIAL | Pendiente de auditoría detallada | 2026-03-30 |
-| `anclora-playa-viva-uniestate` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL (`S1`,`S2`) | PARTIAL | Pendiente de auditoría detallada | 2026-03-30 |
-
-## Uso de la matriz
+## Uso
 
 Cuando se cierre una auditoría o una propagación contractual:
 
-1. actualizar la fila de la app afectada
-2. actualizar `Gaps abiertos`
-3. actualizar `Última auditoría`
+1. actualizar la fila resumida de la app
+2. actualizar el bloque detallado del contrato afectado
+3. actualizar `Gaps abiertos`
+4. actualizar `Última auditoría`
 
-La matriz no sustituye a los contratos. Sirve para medir cumplimiento.
+La matriz mide cumplimiento. No sustituye a los contratos.

@@ -92,9 +92,10 @@ Si el cambio es pequeño, puntual y sólo afecta a una pantalla concreta:
 1. Detectar el cambio.
 2. Clasificarlo como `APP_ONLY` o `CONTRACTUAL`.
 3. Si es contractual, registrarlo en `docs/cambios/CONTRACT_CHANGE_QUEUE.md`.
-4. Actualizar primero la bóveda:
+4. Si afecta a condiciones, actualizar también `docs/governance/CONTRACT_CONDITION_CATALOG.md`.
+5. Actualizar primero la bóveda:
    - `docs/standards/`
    - `docs/governance/`
-5. Propagar a los repos afectados.
-6. Actualizar `docs/governance/CONTRACT_COMPLIANCE_MATRIX.md`.
-7. Mover el cambio a estado `CLOSED` o a histórico.
+6. Propagar a los repos afectados.
+7. Actualizar `docs/governance/CONTRACT_COMPLIANCE_MATRIX.md`.
+8. Mover el cambio a estado `CLOSED` o a histórico.
