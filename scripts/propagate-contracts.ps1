@@ -1,5 +1,7 @@
 param(
   [string]$VaultRoot = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\Boveda-Anclora",
+  [string[]]$Families,
+  [string[]]$IncludeFiles,
   [switch]$WhatIfOnly
 )
 
@@ -40,11 +42,17 @@ if (-not (Test-Path $sourceStandards)) {
 }
 
 $allKnownFiles = Get-ChildItem -Path $sourceStandards -File | Select-Object -ExpandProperty Name
+$selectedFamilies = if ($Families -and $Families.Count -gt 0) { @($Families) } else { @("Internal", "Premium", "UltraPremium", "Portfolio") }
+$selectedFiles = if ($IncludeFiles -and $IncludeFiles.Count -gt 0) { @($IncludeFiles | Select-Object -Unique) } else { $null }
 
 foreach ($repoEntry in $repoMap) {
   $repo = $repoEntry.Path
   $family = $repoEntry.Family
   $targetStandards = Join-Path $repo "docs\standards"
+
+  if ($family -notin $selectedFamilies) {
+    continue
+  }
 
   if (-not (Test-Path $repo)) {
     Write-Warning "Repositorio no encontrado: $repo"
@@ -60,6 +68,10 @@ foreach ($repoEntry in $repoMap) {
   }
 
   $filesToCopy = @($universalFiles + $familyFiles[$family] | Select-Object -Unique)
+
+  if ($selectedFiles) {
+    $filesToCopy = @($filesToCopy | Where-Object { $_ -in $selectedFiles } | Select-Object -Unique)
+  }
 
   foreach ($fileName in $filesToCopy) {
     if ($fileName -notin $allKnownFiles) {
