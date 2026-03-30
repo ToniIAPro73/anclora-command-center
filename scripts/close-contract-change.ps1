@@ -1,4 +1,4 @@
-param(
+﻿param(
   [Parameter(Mandatory = $true)]
   [string]$ChangeId,
   [Parameter(Mandatory = $true)]
@@ -19,8 +19,8 @@ if (-not (Test-Path $historyPath)) {
   throw "No existe el histórico de cambios: $historyPath"
 }
 
-$queueLines = Get-Content $queuePath
-$historyLines = Get-Content $historyPath
+$queueLines = Get-Content $queuePath -Encoding UTF8
+$historyLines = Get-Content $historyPath -Encoding UTF8
 
 $targetLine = ($queueLines | Where-Object { $_ -like "*$ChangeId*" -and $_.Trim().StartsWith("|") } | Select-Object -First 1)
 
@@ -30,11 +30,14 @@ if (-not $targetLine) {
 
 $cells = $targetLine.Split('|').ForEach({ $_.Trim() })
 
-if ($cells.Count -lt 14) {
+if ($cells.Count -lt 18) {
   throw "La fila de $ChangeId no tiene el formato esperado."
 }
 
-$historyRow = "| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} |" -f `
+$decision = if ($cells[12]) { $cells[12] } else { '`APPROVED`' }
+$approvedBy = if ($cells[13]) { $cells[13] } else { '`N/A`' }
+
+$historyRow = "| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} | {9} | {10} |" -f `
   $cells[1], `
   (Get-Date -Format "yyyy-MM-dd"), `
   $cells[3], `
@@ -42,6 +45,8 @@ $historyRow = "| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} |" -f `
   $cells[5], `
   $cells[6], `
   $cells[7], `
+  $decision, `
+  $approvedBy, `
   $cells[9], `
   $ClosureNote
 
@@ -65,7 +70,7 @@ if (-not ($updatedHistoryLines -contains $historyRow)) {
   $updatedHistoryLines += $historyRow
 }
 
-Set-Content -Path $queuePath -Value $updatedQueueLines
-Set-Content -Path $historyPath -Value $updatedHistoryLines
+[System.IO.File]::WriteAllLines($queuePath, $updatedQueueLines, (New-Object System.Text.UTF8Encoding($true)))
+[System.IO.File]::WriteAllLines($historyPath, $updatedHistoryLines, (New-Object System.Text.UTF8Encoding($true)))
 
 Write-Host "Cambio $ChangeId movido a histórico."
