@@ -650,20 +650,22 @@ html[data-theme='light'] .hero__palette-image {
 
 @media (max-width: 720px) {
   .dashboard-shell {
-    padding: 16px;
+    padding: 18px 16px 28px;
   }
 
   .hero__copy,
   .hero__signal,
   .hero__palette,
   .panel {
-    padding: 22px;
-    border-radius: 22px;
+    padding: 24px 22px;
+    border-radius: 24px;
   }
 
   .topbar {
-    padding: 18px 18px 20px;
-    border-radius: 26px;
+    gap: 16px;
+    padding: 18px;
+    margin-bottom: 18px;
+    border-radius: 28px;
   }
 
   .topbar__brand {
@@ -683,6 +685,81 @@ html[data-theme='light'] .hero__palette-image {
 
   .topbar__controls {
     width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .topbar__toggle-group {
+    gap: 4px;
+    padding: 3px;
+  }
+
+  .topbar__toggle-group button {
+    min-height: 38px;
+    min-width: 38px;
+    padding: 8px 12px;
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+  }
+
+  .hero {
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 13vw, 3.7rem);
+  }
+
+  .hero__lede {
+    margin-top: 14px;
+    font-size: 0.98rem;
+    line-height: 1.62;
+  }
+
+  .hero__aside {
+    gap: 18px;
+  }
+
+  .hero__meta {
+    display: grid;
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .grid {
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .panel__body {
+    margin-top: 16px;
+  }
+
+  .partner-grid,
+  .stack-list,
+  .activity-list,
+  .signal-list,
+  .route ol {
+    gap: 12px;
+  }
+
+  .lists {
+    gap: 22px;
+  }
+
+  .lists > div + div {
+    padding-top: 18px;
+    border-top: 1px solid rgba(234, 232, 245, 0.08);
+  }
+
+  html[data-theme='light'] .lists > div + div {
+    border-top-color: rgba(108, 99, 255, 0.09);
+  }
+
+  .table-wrap {
+    margin-inline: -4px;
+    padding-bottom: 4px;
   }
 
   .stack-item {
