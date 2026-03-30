@@ -30,18 +30,19 @@ if (-not $targetLine) {
 
 $cells = $targetLine.Split('|').ForEach({ $_.Trim() })
 
-if ($cells.Count -lt 12) {
+if ($cells.Count -lt 14) {
   throw "La fila de $ChangeId no tiene el formato esperado."
 }
 
-$historyRow = "| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} |" -f `
+$historyRow = "| {0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} |" -f `
   $cells[1], `
   (Get-Date -Format "yyyy-MM-dd"), `
   $cells[3], `
   $cells[4], `
   $cells[5], `
   $cells[6], `
-  $cells[8], `
+  $cells[7], `
+  $cells[9], `
   $ClosureNote
 
 $updatedQueueLines = foreach ($line in $queueLines) {
@@ -51,7 +52,7 @@ $updatedQueueLines = foreach ($line in $queueLines) {
   $line
 }
 
-$historyPlaceholder = "| _Sin registros todavía_ |  |  |  |  |  |  |  |"
+$historyPlaceholder = "| _Sin registros todavía_ |  |  |  |  |  |  |  |  |"
 $updatedHistoryLines = foreach ($line in $historyLines) {
   if ($line -eq $historyPlaceholder) {
     $historyRow

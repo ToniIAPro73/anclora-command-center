@@ -55,20 +55,54 @@ Aplicaciones:
 
 ## Tabla canónica
 
-| Aplicación | Familia | Contratos aplicables |
-| --- | --- | --- |
-| `anclora-group` | Internal | Universal + Internal |
-| `anclora-advisor-ai` | Internal | Universal + Internal |
-| `anclora-nexus` | Internal | Universal + Internal |
-| `anclora-content-generator-ai` | Internal | Universal + Internal |
-| `anclora-impulso` | Premium | Universal + Premium |
-| `Boveda-Anclora/dashboard` | Premium | Universal + Premium |
-| `anclora-data-lab` | Premium | Universal + Premium |
-| `anclora-synergi` | Premium | Universal + Premium |
-| `anclora-private-estates` | Ultra Premium | Universal + Ultra Premium |
-| `anclora-portfolio` | Portfolio / Showcase | Universal + Portfolio |
-| `anclora-azure-bay-landing` | Portfolio / Showcase | Universal + Portfolio |
-| `anclora-playa-viva-uniestate` | Portfolio / Showcase | Universal + Portfolio |
+| Aplicación | Familia | Contratos universales | Contrato de familia | Override local permitido |
+| --- | --- | --- | --- | --- |
+| `anclora-group` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
+| `anclora-advisor-ai` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
+| `anclora-nexus` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
+| `anclora-content-generator-ai` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
+| `anclora-impulso` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
+| `Boveda-Anclora/dashboard` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
+| `anclora-data-lab` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
+| `anclora-synergi` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
+| `anclora-private-estates` | Ultra Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `ULTRA_PREMIUM` | Sí |
+| `anclora-portfolio` | Portfolio / Showcase | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PORTFOLIO` | Sí |
+| `anclora-azure-bay-landing` | Portfolio / Showcase | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PORTFOLIO` | Sí |
+| `anclora-playa-viva-uniestate` | Portfolio / Showcase | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PORTFOLIO` | Sí |
+
+## Agrupación operativa
+
+### Internal
+
+| Aplicación | Set mínimo de contratos |
+| --- | --- |
+| `anclora-group` | Universal + Internal |
+| `anclora-advisor-ai` | Universal + Internal |
+| `anclora-nexus` | Universal + Internal |
+| `anclora-content-generator-ai` | Universal + Internal |
+
+### Premium
+
+| Aplicación | Set mínimo de contratos |
+| --- | --- |
+| `anclora-impulso` | Universal + Premium |
+| `Boveda-Anclora/dashboard` | Universal + Premium |
+| `anclora-data-lab` | Universal + Premium |
+| `anclora-synergi` | Universal + Premium |
+
+### Ultra Premium
+
+| Aplicación | Set mínimo de contratos |
+| --- | --- |
+| `anclora-private-estates` | Universal + Ultra Premium |
+
+### Portfolio / Showcase
+
+| Aplicación | Set mínimo de contratos |
+| --- | --- |
+| `anclora-portfolio` | Universal + Portfolio |
+| `anclora-azure-bay-landing` | Universal + Portfolio |
+| `anclora-playa-viva-uniestate` | Universal + Portfolio |
 
 ## Regla de alta de nuevas apps
 

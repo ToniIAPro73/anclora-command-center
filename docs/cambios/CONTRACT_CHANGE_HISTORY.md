@@ -6,6 +6,6 @@ Mantener trazabilidad de cambios contractuales ya cerrados.
 
 ## Histórico
 
-| ID | Fecha cierre | Contrato | Tipo | Ámbito | Descripción | Repos afectados | Notas |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `CHG-0001` | 2026-03-30 | `UI_MOTION_CONTRACT.md` + `MODAL_CONTRACT.md` | MODIFY | `UNIVERSAL` | Añadir gobierno contractual, matriz de cumplimiento y cola de cambios en bóveda. No requiere propagación de contenido aún, sólo infraestructura de gobierno. | `Boveda-Anclora` | Infraestructura de gobierno creada y contratos sincronizados por familia |
+| ID | Fecha cierre | Contrato(s) | Condición(es) | Tipo | Ámbito | Cambio | Repos afectados | Notas |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `CHG-0001` | 2026-03-30 | `UI_MOTION_CONTRACT.md` + `MODAL_CONTRACT.md` | `M6`, `D5`, `D6` | `MODIFY` | `UNIVERSAL` | Añadir validación visual obligatoria en escritorio y móvil y propagarla al ecosistema. | `Boveda-Anclora` + familias afectadas | Contratos sincronizados por familia |
