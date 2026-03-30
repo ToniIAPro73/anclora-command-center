@@ -65,6 +65,9 @@ Bóveda operativa y documental del ecosistema Anclora.
 - `scripts/run-contract-governance-cycle.ps1`
 - `scripts/register-daily-contract-governance-task.ps1`
 - `scripts/unregister-daily-contract-governance-task.ps1`
+- `scripts/send-contract-governance-reminder.ps1`
+- `scripts/register-contract-governance-reminder-task.ps1`
+- `scripts/unregister-contract-governance-reminder-task.ps1`
 
 ## Nota
 

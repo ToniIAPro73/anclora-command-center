@@ -196,6 +196,88 @@ Elimina la tarea programada diaria del ciclo contractual.
 powershell -ExecutionPolicy Bypass -File .\scripts\unregister-daily-contract-governance-task.ps1
 ```
 
+## `send-contract-governance-reminder.ps1`
+
+Lee la cola y el plan de accion y envia un recordatorio solo si hay cambios pendientes.
+
+### Comportamiento
+
+- si no hay pendientes, no envia nada
+- si hay configuracion SMTP, envia email
+- si no hay SMTP, lanza una notificacion local como fallback
+
+### Variables soportadas
+
+- `CONTRACT_GOVERNANCE_EMAIL_TO`
+- `CONTRACT_GOVERNANCE_EMAIL_FROM`
+- `CONTRACT_GOVERNANCE_SMTP_HOST`
+- `CONTRACT_GOVERNANCE_SMTP_PORT`
+- `CONTRACT_GOVERNANCE_SMTP_USER`
+- `CONTRACT_GOVERNANCE_SMTP_PASS`
+- `CONTRACT_GOVERNANCE_SMTP_SSL`
+
+Tambien puede leerlas desde `.env.local`, que queda ignorado por Git.
+Si no se definen, intenta reutilizar la configuracion SMTP ya usada por Nexus:
+
+- `SMTP_HOST`
+- `SMTP_PORT`
+- `SMTP_USERNAME`
+- `SMTP_PASSWORD`
+- `SMTP_FROM_EMAIL`
+- `SMTP_FROM_NAME`
+- `SMTP_USE_SSL`
+- `SMTP_USE_TLS`
+
+Defaults si no se definen:
+- `CONTRACT_GOVERNANCE_EMAIL_FROM = Anclora Alerts <antonio@anclora.com>`
+- `CONTRACT_GOVERNANCE_EMAIL_TO = antonio@anclora.com`
+
+### Asunto por defecto
+
+Sigue el mismo patron operativo de Nexus:
+
+```text
+[Anclora] Contract Governance pendiente - {abiertos} abiertos / {estancados} estancados - {fecha}
+```
+
+Ejemplo:
+
+```text
+[Anclora] Contract Governance pendiente - 2 abiertos / 1 estancado - 30/3/26, 9:15:00
+```
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\send-contract-governance-reminder.ps1 -WhatIfOnly
+```
+
+## `register-contract-governance-reminder-task.ps1`
+
+Registra una tarea diaria para enviar el recordatorio de cambios pendientes.
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\register-contract-governance-reminder-task.ps1
+```
+
+### Comportamiento por defecto
+
+- nombre de tarea: `Anclora Contract Governance Reminder`
+- frecuencia: diaria
+- hora: `09:15`
+
+## `unregister-contract-governance-reminder-task.ps1`
+
+Elimina la tarea programada del recordatorio contractual.
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\unregister-contract-governance-reminder-task.ps1
+```
+
 ## Relacionado
 
 - [[AGENTS]]
