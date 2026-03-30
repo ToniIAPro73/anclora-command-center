@@ -45,6 +45,15 @@ Bóveda operativa y documental del ecosistema Anclora.
 7. regenerar `docs/governance/CONTRACT_ACTION_PLAN.md`
 8. mover el cambio a histórico cuando quede cerrado
 
+## Flujo diario recomendado
+
+1. detectar cambios en `docs/standards/`
+2. registrar los cambios nuevos en la cola si no existen ya
+3. procesar solo cambios aprobados
+4. auditar sincronizacion contractual
+5. regenerar el plan de accion
+6. revisar `logs/contract-governance.log`
+
 ## Scripts operativos
 
 - `scripts/propagate-contracts.ps1`
@@ -52,6 +61,10 @@ Bóveda operativa y documental del ecosistema Anclora.
 - `scripts/close-contract-change.ps1`
 - `scripts/process-contract-change-queue.ps1`
 - `scripts/generate-contract-action-plan.ps1`
+- `scripts/detect-contract-changes.ps1`
+- `scripts/run-contract-governance-cycle.ps1`
+- `scripts/register-daily-contract-governance-task.ps1`
+- `scripts/unregister-daily-contract-governance-task.ps1`
 
 ## Nota
 

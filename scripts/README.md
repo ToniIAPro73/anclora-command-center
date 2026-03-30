@@ -128,6 +128,74 @@ powershell -ExecutionPolicy Bypass -File .\scripts\generate-contract-action-plan
 - propone la siguiente acción a ejecutar según el gap abierto
 - sirve como insumo para valorar un cambio antes de aprobarlo
 
+## `detect-contract-changes.ps1`
+
+Detecta cambios en los contratos maestros de `docs/standards/` comparando hashes con el ultimo snapshot conocido.
+
+### Cuándo usarlo
+
+- Cuando quieres saber si ha cambiado algun contrato maestro
+- Antes de procesar la cola de cambios
+- Como primer paso del ciclo diario
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\detect-contract-changes.ps1 -WhatIfOnly
+```
+
+### Salida
+
+- registra cambios nuevos en `docs/cambios/CONTRACT_CHANGE_QUEUE.md`
+- actualiza `logs/contract-standards-state.json`
+- deja los cambios nuevos en `ANALYSIS_REQUIRED`
+- en la primera ejecucion real crea un baseline y no abre cambios
+
+## `run-contract-governance-cycle.ps1`
+
+Ejecuta el ciclo diario de gobierno contractual de extremo a extremo.
+
+### Que hace
+
+- detecta cambios en contratos maestros
+- procesa la cola solo para cambios aprobados
+- audita sincronizacion contractual
+- regenera el plan de accion
+- escribe un rastro tecnico en `logs/contract-governance.log`
+- intenta mostrar una notificacion ligera al terminar
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run-contract-governance-cycle.ps1
+```
+
+## `register-daily-contract-governance-task.ps1`
+
+Registra una tarea programada diaria para ejecutar el ciclo de gobierno contractual.
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\register-daily-contract-governance-task.ps1
+```
+
+### Comportamiento por defecto
+
+- nombre de tarea: `Anclora Daily Contract Governance`
+- frecuencia: diaria
+- hora: `09:00`
+
+## `unregister-daily-contract-governance-task.ps1`
+
+Elimina la tarea programada diaria del ciclo contractual.
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\unregister-daily-contract-governance-task.ps1
+```
+
 ## Relacionado
 
 - [[AGENTS]]
