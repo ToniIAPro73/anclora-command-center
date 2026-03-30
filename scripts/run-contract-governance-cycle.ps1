@@ -73,9 +73,7 @@ $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
 $detectScript = Join-Path $repoRoot "scripts\detect-contract-changes.ps1"
 $processScript = Join-Path $repoRoot "scripts\process-contract-change-queue.ps1"
 $auditScript = Join-Path $repoRoot "scripts\audit-contract-sync.ps1"
-$planScript = Join-Path $repoRoot "scripts\generate-contract-action-plan.ps1"
-
-foreach ($script in @($detectScript, $processScript, $auditScript, $planScript)) {
+foreach ($script in @($detectScript, $processScript, $auditScript)) {
     if (-not (Test-Path $script)) {
         throw "Required script not found: $script"
     }
@@ -87,18 +85,14 @@ $commonArgs = @('-ExecutionPolicy', 'Bypass')
 
 $detectArgs = @($commonArgs + @('-File', $detectScript, '-VaultRoot', $repoRoot))
 $processArgs = @($commonArgs + @('-File', $processScript, '-VaultRoot', $repoRoot))
-$planArgs = @($commonArgs + @('-File', $planScript, '-VaultRoot', $repoRoot))
-
 if ($WhatIfOnly) {
     $detectArgs += '-WhatIfOnly'
     $processArgs += '-WhatIfOnly'
-    $planArgs += '-WhatIfOnly'
 }
 
 Invoke-And-Log -CommandArgs $detectArgs -Path $logPath
 Invoke-And-Log -CommandArgs $processArgs -Path $logPath
 Invoke-And-Log -CommandArgs @('-ExecutionPolicy', 'Bypass', '-File', $auditScript, '-VaultRoot', $repoRoot) -Path $logPath
-Invoke-And-Log -CommandArgs $planArgs -Path $logPath
 
 $endTimestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
 Write-LogLine -Path $logPath -Message "[$endTimestamp] Contract governance cycle finished"
