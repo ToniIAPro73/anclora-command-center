@@ -1,4 +1,4 @@
-param(
+﻿param(
   [string]$VaultRoot = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\Boveda-Anclora",
   [string[]]$OnlyIds,
   [switch]$WhatIfOnly
@@ -28,7 +28,7 @@ function Parse-QueueRow {
   param([string]$Line)
 
   $cells = @($Line.Trim().Split('|') | ForEach-Object { $_.Trim() })
-  if ($cells.Count -lt 15) { return $null }
+  if ($cells.Count -lt 18) { return $null }
   if ($cells[1] -eq 'ID') { return $null }
   if ($cells[1] -match '^-+$') { return $null }
 
@@ -44,8 +44,12 @@ function Parse-QueueRow {
     TargetRepos = $cells[9]
     PropagationAction = $cells[10]
     Status = $cells[11]
-    AppliedIn = $cells[12]
-    Notes = $cells[13]
+    Decision = $cells[12]
+    ApprovedBy = $cells[13]
+    ApprovedAt = $cells[14]
+    ActionPlan = $cells[15]
+    AppliedIn = $cells[16]
+    Notes = $cells[17]
   }
 }
 
@@ -91,20 +95,39 @@ function Resolve-Families {
   return @($families | Select-Object -Unique)
 }
 
-$rows = @(Get-QueueRows -Lines (Get-Content $queuePath))
-$activeRows = $rows | Where-Object { $_.Status -replace '`', '' -in @('PENDING', 'IN_PROGRESS') }
+$rows = @(Get-QueueRows -Lines (Get-Content $queuePath -Encoding UTF8))
+$actionableRows = $rows | Where-Object { $_.Status -replace '`', '' -in @('APPROVED', 'IN_PROGRESS', 'VERIFYING') }
+$analysisRows = $rows | Where-Object { $_.Status -replace '`', '' -in @('DETECTED', 'ANALYSIS_REQUIRED', 'PLAN_READY') }
 
 if ($OnlyIds -and $OnlyIds.Count -gt 0) {
-  $activeRows = $activeRows | Where-Object { ($_.Id -replace '`', '') -in $OnlyIds }
+  $actionableRows = $actionableRows | Where-Object { ($_.Id -replace '`', '') -in $OnlyIds }
+  $analysisRows = $analysisRows | Where-Object { ($_.Id -replace '`', '') -in $OnlyIds }
 }
 
-if (-not $activeRows -or $activeRows.Count -eq 0) {
+if (-not $actionableRows -or $actionableRows.Count -eq 0) {
+  if ($analysisRows -and $analysisRows.Count -gt 0) {
+    Write-Host "No hay cambios aprobados para ejecutar."
+    Write-Host "Cambios pendientes de analisis o decision:"
+    $analysisRows | Format-Table Id, Status, Decision, Contracts, Scope -AutoSize
+    exit 0
+  }
+
   Write-Host "No hay cambios activos que procesar."
   exit 0
 }
 
-foreach ($row in $activeRows) {
+foreach ($row in $actionableRows) {
   $id = $row.Id -replace '`', ''
+  $decision = $row.Decision -replace '`', ''
+
+  if ($decision -and $decision -notin @('APPROVED', '')) {
+    Write-Host ""
+    Write-Host "=== $id ==="
+    Write-Host "Decision: $decision"
+    Write-Host "Saltado. El cambio no esta aprobado para ejecutar."
+    continue
+  }
+
   $families = @(Resolve-Families -Scope $row.Scope)
   $contracts = @(Get-ValuesFromCell -Cell $row.Contracts)
   $conditions = @(Get-ValuesFromCell -Cell $row.Conditions)
@@ -116,6 +139,8 @@ foreach ($row in $activeRows) {
   Write-Host ""
   Write-Host "=== $id ==="
   Write-Host "Scope: $($row.Scope)"
+  Write-Host "Status: $($row.Status)"
+  Write-Host "Decision: $($row.Decision)"
   Write-Host "Contracts: $($contracts -join ', ')"
   Write-Host "Conditions: $($conditions -join ', ')"
   Write-Host "Families: $($families -join ', ')"

@@ -84,6 +84,10 @@ Procesa la cola de cambios contractual y distingue entre:
 - cambios de gobernanza de `docs/governance/`
 - cambios de seguimiento de `docs/cambios/`
 
+Solo ejecuta cambios con:
+- `Status = APPROVED`, `IN_PROGRESS` o `VERIFYING`
+- y decision compatible con ejecucion
+
 ### Cuándo usarlo
 
 - Cuando hay entradas activas en `docs/cambios/CONTRACT_CHANGE_QUEUE.md`
@@ -99,6 +103,30 @@ powershell -ExecutionPolicy Bypass -File .\scripts\process-contract-change-queue
 ### Nota
 
 Los cambios de gobernanza se dejan dentro de la bóveda y no se propagan a repos de aplicaciones.
+Los cambios en `DETECTED`, `ANALYSIS_REQUIRED` o `PLAN_READY` se listan, pero no se ejecutan.
+
+## `generate-contract-action-plan.ps1`
+
+Convierte la matriz de cumplimiento en un plan de acción priorizado.
+
+### Cuándo usarlo
+
+- Cuando se actualiza `docs/governance/CONTRACT_COMPLIANCE_MATRIX.md`
+- Cuando quieres priorizar qué app o familia revisar primero
+- Cuando necesitas un resumen operativo para la bóveda
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\generate-contract-action-plan.ps1
+```
+
+### Salida
+
+- escribe `docs/governance/CONTRACT_ACTION_PLAN.md`
+- ordena las apps por prioridad
+- propone la siguiente acción a ejecutar según el gap abierto
+- sirve como insumo para valorar un cambio antes de aprobarlo
 
 ## Relacionado
 

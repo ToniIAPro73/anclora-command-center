@@ -123,5 +123,6 @@ Cuando se cierre una auditoría o una propagación contractual:
 2. actualizar el bloque detallado del contrato afectado
 3. actualizar `Gaps abiertos`
 4. actualizar `Última auditoría`
+5. regenerar `docs/governance/CONTRACT_ACTION_PLAN.md` si el cambio altera prioridades o acciones
 
 La matriz mide cumplimiento. No sustituye a los contratos.
