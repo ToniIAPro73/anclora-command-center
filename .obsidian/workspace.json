@@ -179,6 +179,8 @@
   },
   "active": "a463ad71d480de80",
   "lastOpenFiles": [
+    "docs/cambios/revisiones/CHANGE_REVIEW_TEMPLATE.md",
+    "docs/cambios/revisiones",
     "docs/standards/ANCLORA_PORTFOLIO_SHOWCASE_CONTRACT.md",
     "dashboard/README.md",
     "README.md",
@@ -212,9 +214,7 @@
     "sistemas/Primeros 3 Flujos de Automatización Anclora.md",
     "sistemas/Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones.md",
     "playbooks/Captación Multicanal - Instagram, Facebook y Cold Email.md",
-    "playbooks/Mensajes de Captación para LinkedIn y WhatsApp.md",
     "scripts/sync-command-center-dashboard.ps1",
-    "dashboard/dist/assets/index-1e20_zYR.js",
     "dashboard/dist/brand/paleta-anclora-command-center.png",
     "dashboard/dist/brand/logo-anclora-command-center.png",
     "dashboard/public/brand/paleta-anclora-command-center.png",
