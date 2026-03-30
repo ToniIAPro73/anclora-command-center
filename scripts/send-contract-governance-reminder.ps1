@@ -6,6 +6,15 @@
 
 $ErrorActionPreference = "Stop"
 
+function Write-LogLine {
+    param(
+        [string]$Path,
+        [string]$Message
+    )
+
+    Add-Content -LiteralPath $Path -Value $Message -Encoding UTF8
+}
+
 function Load-DotEnvFile {
     param([string]$Path)
 
@@ -107,24 +116,21 @@ function Send-SmtpReminder {
         [string]$Body
     )
 
-    $host = [Environment]::GetEnvironmentVariable('CONTRACT_GOVERNANCE_SMTP_HOST', 'Process')
+    $smtpHost = [Environment]::GetEnvironmentVariable('CONTRACT_GOVERNANCE_SMTP_HOST', 'Process')
     $port = [Environment]::GetEnvironmentVariable('CONTRACT_GOVERNANCE_SMTP_PORT', 'Process')
     $user = [Environment]::GetEnvironmentVariable('CONTRACT_GOVERNANCE_SMTP_USER', 'Process')
     $pass = [Environment]::GetEnvironmentVariable('CONTRACT_GOVERNANCE_SMTP_PASS', 'Process')
     $from = [Environment]::GetEnvironmentVariable('CONTRACT_GOVERNANCE_EMAIL_FROM', 'Process')
     $to = [Environment]::GetEnvironmentVariable('CONTRACT_GOVERNANCE_EMAIL_TO', 'Process')
     $ssl = [Environment]::GetEnvironmentVariable('CONTRACT_GOVERNANCE_SMTP_SSL', 'Process')
+    $tls = [Environment]::GetEnvironmentVariable('CONTRACT_GOVERNANCE_SMTP_TLS', 'Process')
 
-    if (-not $host) { $host = [Environment]::GetEnvironmentVariable('SMTP_HOST', 'Process') }
+    if (-not $smtpHost) { $smtpHost = [Environment]::GetEnvironmentVariable('SMTP_HOST', 'Process') }
     if (-not $port) { $port = [Environment]::GetEnvironmentVariable('SMTP_PORT', 'Process') }
     if (-not $user) { $user = [Environment]::GetEnvironmentVariable('SMTP_USERNAME', 'Process') }
     if (-not $pass) { $pass = [Environment]::GetEnvironmentVariable('SMTP_PASSWORD', 'Process') }
-    if (-not $ssl) {
-        $ssl = [Environment]::GetEnvironmentVariable('SMTP_USE_SSL', 'Process')
-        if (-not $ssl) {
-            $ssl = [Environment]::GetEnvironmentVariable('SMTP_USE_TLS', 'Process')
-        }
-    }
+    if (-not $ssl) { $ssl = [Environment]::GetEnvironmentVariable('SMTP_USE_SSL', 'Process') }
+    if (-not $tls) { $tls = [Environment]::GetEnvironmentVariable('SMTP_USE_TLS', 'Process') }
 
     if (-not $from) {
         $fallbackFromEmail = [Environment]::GetEnvironmentVariable('SMTP_FROM_EMAIL', 'Process')
@@ -146,7 +152,7 @@ function Send-SmtpReminder {
         $from = 'Anclora Alerts <antonio@anclora.com>'
     }
 
-    if (-not $host -or -not $from -or -not $to) {
+    if (-not $smtpHost -or -not $from -or -not $to) {
         return $false
     }
 
@@ -164,8 +170,15 @@ function Send-SmtpReminder {
         $smtpPort = [int]$port
     }
 
-    $client = New-Object System.Net.Mail.SmtpClient($host, $smtpPort)
-    $client.EnableSsl = ($ssl -match '^(1|true|yes)$')
+    $useSsl = ($ssl -match '^(1|true|yes)$')
+    $useTls = ($tls -match '^(1|true|yes)$')
+
+    if (-not $useSsl -and -not $useTls -and $smtpPort -eq 465) {
+        $useSsl = $true
+    }
+
+    $client = New-Object System.Net.Mail.SmtpClient($smtpHost, $smtpPort)
+    $client.EnableSsl = ($useSsl -or $useTls)
 
     if ($user -and $pass) {
         $securePass = ConvertTo-SecureString $pass -AsPlainText -Force
@@ -201,11 +214,13 @@ if ($pendingRows.Count -eq 0) {
 $today = Get-Date
 $staleRows = @()
 foreach ($row in $pendingRows) {
-    $parsedDate = $null
-    if ([datetime]::TryParse($row.Date, [ref]$parsedDate)) {
+    try {
+        $parsedDate = [datetime]::Parse($row.Date, [System.Globalization.CultureInfo]::InvariantCulture)
         if (($today - $parsedDate).TotalDays -ge $StaleAfterDays) {
             $staleRows += $row
         }
+    } catch {
+        continue
     }
 }
 
@@ -246,14 +261,14 @@ $sent = $false
 try {
     $sent = Send-SmtpReminder -Subject $subject -Body $body
 } catch {
-    Add-Content -LiteralPath $logPath -Value "[$($today.ToString('yyyy-MM-dd HH:mm:ss'))] Reminder send failed: $($_.Exception.Message)"
+    Write-LogLine -Path $logPath -Message "[$($today.ToString('yyyy-MM-dd HH:mm:ss'))] Reminder send failed: $($_.Exception.Message)"
 }
 
 if ($sent) {
-    Add-Content -LiteralPath $logPath -Value "[$($today.ToString('yyyy-MM-dd HH:mm:ss'))] Reminder email sent: $subject"
+    Write-LogLine -Path $logPath -Message "[$($today.ToString('yyyy-MM-dd HH:mm:ss'))] Reminder email sent: $subject"
     Write-Host "Reminder email sent."
 } else {
     Send-GovernanceNotification -Title "Anclora Contract Governance" -Message "$($pendingRows.Count) cambios pendientes sin resolver."
-    Add-Content -LiteralPath $logPath -Value "[$($today.ToString('yyyy-MM-dd HH:mm:ss'))] Reminder fallback notification emitted."
+    Write-LogLine -Path $logPath -Message "[$($today.ToString('yyyy-MM-dd HH:mm:ss'))] Reminder fallback notification emitted."
     Write-Host "Reminder fallback notification emitted."
 }

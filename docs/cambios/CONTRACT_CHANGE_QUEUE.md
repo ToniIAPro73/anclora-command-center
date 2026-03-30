@@ -35,6 +35,7 @@ Registrar cambios contractuales detectados, analizarlos, decidir su alcance y, s
 
 | ID | Fecha | Contrato(s) | Condición(es) | Tipo | Ámbito | Cambio | Repo fuente | Repos destino | Acción de propagación | Estado | Decision | Aprobado por | Aprobado en | Plan de accion | Aplicado en | Notas |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `CHG-0003` | 2026-03-30 | `UI_MOTION_CONTRACT.md` + `ANCLORA_PREMIUM_APP_CONTRACT.md` | `M1`, `M2`, `M3`, `P1`, `P3` | `MODIFY` | `PREMIUM` | Unificar el tratamiento visual de cards premium para eliminar desalineación cromática entre Impulso, Data Lab, Synergi y dashboard de la bóveda. | `Boveda-Anclora` | `anclora-impulso` + `anclora-data-lab` + `anclora-synergi` + `Boveda-Anclora/dashboard` | Actualizar contrato premium y motion si procede; validar impacto, aprobar y propagar sólo a premium. | `ANALYSIS_REQUIRED` | `` | `` | `` | `docs/cambios/revisiones/CHG-0003.md` | `` | Detectado como gap visual pequeño pero fácil de perder entre apps premium. |
 
 ## Regla de cierre
 
