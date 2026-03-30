@@ -5,6 +5,29 @@
 
 $ErrorActionPreference = "Stop"
 
+function Write-LogLine {
+    param(
+        [string]$Path,
+        [string]$Message
+    )
+
+    Add-Content -LiteralPath $Path -Value $Message -Encoding UTF8
+}
+
+function Invoke-And-Log {
+    param(
+        [string[]]$CommandArgs,
+        [string]$Path
+    )
+
+    $output = & powershell @CommandArgs 2>&1
+    foreach ($line in @($output)) {
+        $text = [string]$line
+        Write-Output $text
+        Write-LogLine -Path $Path -Message $text
+    }
+}
+
 function Send-GovernanceNotification {
     param(
         [string]$Title,
@@ -58,7 +81,7 @@ foreach ($script in @($detectScript, $processScript, $auditScript, $planScript))
     }
 }
 
-Add-Content -LiteralPath $logPath -Value "[$timestamp] Starting contract governance cycle"
+Write-LogLine -Path $logPath -Message "[$timestamp] Starting contract governance cycle"
 
 $commonArgs = @('-ExecutionPolicy', 'Bypass')
 
@@ -72,13 +95,13 @@ if ($WhatIfOnly) {
     $planArgs += '-WhatIfOnly'
 }
 
-& powershell @detectArgs | Tee-Object -FilePath $logPath -Append
-& powershell @processArgs | Tee-Object -FilePath $logPath -Append
-& powershell -ExecutionPolicy Bypass -File $auditScript -VaultRoot $repoRoot | Tee-Object -FilePath $logPath -Append
-& powershell @planArgs | Tee-Object -FilePath $logPath -Append
+Invoke-And-Log -CommandArgs $detectArgs -Path $logPath
+Invoke-And-Log -CommandArgs $processArgs -Path $logPath
+Invoke-And-Log -CommandArgs @('-ExecutionPolicy', 'Bypass', '-File', $auditScript, '-VaultRoot', $repoRoot) -Path $logPath
+Invoke-And-Log -CommandArgs $planArgs -Path $logPath
 
 $endTimestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-Add-Content -LiteralPath $logPath -Value "[$endTimestamp] Contract governance cycle finished"
+Write-LogLine -Path $logPath -Message "[$endTimestamp] Contract governance cycle finished"
 
 $message = if ($WhatIfOnly) {
     "Daily cycle simulated successfully."
