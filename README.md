@@ -12,6 +12,14 @@ Bóveda operativa y documental del ecosistema Anclora.
 
 - `docs/standards/`
 
+## Gobierno contractual
+
+- `docs/governance/CONTRACT_HIERARCHY.md`
+- `docs/governance/APPLICATION_FAMILY_MAP.md`
+- `docs/governance/CONTRACT_COMPLIANCE_MATRIX.md`
+- `docs/cambios/CONTRACT_CHANGE_QUEUE.md`
+- `docs/cambios/CONTRACT_CHANGE_HISTORY.md`
+
 ## Orden de lectura
 
 1. `docs/standards/ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
@@ -19,6 +27,20 @@ Bóveda operativa y documental del ecosistema Anclora.
 3. `docs/standards/UI_MOTION_CONTRACT.md`
 4. `docs/standards/MODAL_CONTRACT.md`
 5. `docs/standards/LOCALIZATION_CONTRACT.md`
+
+## Flujo de cambios
+
+1. registrar cambios contractuales en `docs/cambios/CONTRACT_CHANGE_QUEUE.md`
+2. actualizar primero la bóveda
+3. propagar después a repos afectados
+4. actualizar `docs/governance/CONTRACT_COMPLIANCE_MATRIX.md`
+5. mover el cambio a histórico cuando quede cerrado
+
+## Scripts operativos
+
+- `scripts/propagate-contracts.ps1`
+- `scripts/audit-contract-sync.ps1`
+- `scripts/close-contract-change.ps1`
 
 ## Nota
 
