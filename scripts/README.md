@@ -77,6 +77,29 @@ Elimina la tarea programada si quieres dejar de usar la automatización.
 powershell -ExecutionPolicy Bypass -File .\scripts\unregister-weekly-review-task.ps1
 ```
 
+## `process-contract-change-queue.ps1`
+
+Procesa la cola de cambios contractual y distingue entre:
+- propagaciones de contratos de `docs/standards/`
+- cambios de gobernanza de `docs/governance/`
+- cambios de seguimiento de `docs/cambios/`
+
+### Cuándo usarlo
+
+- Cuando hay entradas activas en `docs/cambios/CONTRACT_CHANGE_QUEUE.md`
+- Cuando se quiere simular el impacto con `-WhatIfOnly`
+- Cuando se quiere ejecutar la propagación por familia sin hacerlo manualmente contrato a contrato
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\process-contract-change-queue.ps1 -WhatIfOnly
+```
+
+### Nota
+
+Los cambios de gobernanza se dejan dentro de la bóveda y no se propagan a repos de aplicaciones.
+
 ## Relacionado
 
 - [[AGENTS]]
