@@ -38,6 +38,9 @@
 		},
 		{
 			"path": "../anclora-talent"
+		},
+		{
+			"path": "../anclora-agent-skills"
 		}
 	],
 	"settings": {}
