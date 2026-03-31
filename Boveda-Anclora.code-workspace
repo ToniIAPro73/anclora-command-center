@@ -1,0 +1,44 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../anclora-group"
+		},
+		{
+			"path": "../anclora-data-lab"
+		},
+		{
+			"path": "../anclora-private-estates"
+		},
+		{
+			"path": "../anclora-synergi"
+		},
+		{
+			"path": "../anclora-content-generator-ai"
+		},
+		{
+			"path": "../anclora-advisor-ai"
+		},
+		{
+			"path": "../anclora-nexus"
+		},
+		{
+			"path": "../anclora-portfolio"
+		},
+		{
+			"path": "../anclora-azure-bay-landing"
+		},
+		{
+			"path": "../anclora-impulso"
+		},
+		{
+			"path": "../anclora-playa-viva-uniestate"
+		},
+		{
+			"path": "../anclora-talent"
+		}
+	],
+	"settings": {}
+}
