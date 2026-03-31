@@ -87,6 +87,7 @@ related:
 | [[Anclora Impulso]] | activo | [GitHub](https://github.com/ToniIAPro73/Anclora-Impulso.git) | Traducir su madurez técnica en propuesta de valor y activos reutilizables. |
 | [[Anclora Synergi]] | research | [GitHub](https://github.com/ToniIAPro73/anclora-synergi.git) | Convertir los perfiles de partner en onboarding y workspaces reales. |
 | [[Anclora Content Generator AI]] | research | [GitHub](https://github.com/ToniIAPro73/anclora-content-generator-ai.git) | Definir outputs concretos conectados a captacion y nurturing. |
+| [[Anclora Talent]] | activo | [GitHub](https://github.com/ToniIAPro73/anclora-talent.git) | Conectar importación `txt/docx` y exportación PDF sobre el flujo editorial actual. |
 
 ## 🐙 Actividad de Desarrollo
 
