@@ -36,6 +36,9 @@ related:
 > [!summary] Navegación rápida
 > [[Anclora Group]] · [[Anclora Nexus]] · [[Prospección Avanzada con Nexus]] · [[Estrategia de Autoridad IA Inmobiliaria]] · [[Mapa de Stakeholders de Anclora Group]] · [[Borrador de Email de Captación Synergi]]
 
+> [!info] Superficies conectadas
+> [[Anclora Cuadro de Mando Real Estate]] · `https://dashboard-cuadro-de-mando.vercel.app/`
+
 ## ⚡ Pulso Ejecutivo
 
 > [!tip] Lectura de 30 segundos
@@ -110,6 +113,7 @@ related:
 - Nutricion comercial: [[Nutrición y Seguimiento Comercial con IA]]
 - Reportes automaticos: [[Reportes Automáticos para Inmobiliarias]]
 - Arquitectura implementable: [[Arquitectura Implementable de Automatización Anclora]]
+- Cuadro de mando Real Estate: [[Anclora Cuadro de Mando Real Estate]]
 
 ## 🎯 Próximas Decisiones
 
