@@ -26,12 +26,14 @@ Mapa de contenido orientado a negocio para conectar nodos corporativos, vertical
 - [[Anclora Nexus]]
 - [[Anclora Advisor AI]]
 - [[Anclora Impulso]]
+- [[Anclora Talent]]
 
 ## Inteligencia
 
 - [[Anclora Synergi]]
 - [[Anclora Data Lab]]
 - [[Anclora Content Generator AI]]
+- [[Anclora Talent]]
 
 ## Memoria relacional
 
