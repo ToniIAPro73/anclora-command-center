@@ -4,3 +4,4 @@ logs/weekly-review.log
 .env.local
 dashboard-cuadro-de-mando/node_modules/
 dashboard-cuadro-de-mando/dist/
+node_modules/
