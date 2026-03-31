@@ -15,6 +15,7 @@ related:
   - "[[Anclora Data Lab]]"
   - "[[Anclora Nexus]]"
   - "[[Anclora Content Generator AI]]"
+  - "[[Anclora Talent]]"
   - "[[Anclora Advisor AI]]"
   - "[[Anclora Impulso]]"
   - "[[Slack]]"
@@ -53,6 +54,7 @@ En la capa inmobiliaria, el posicionamiento operativo actual combina tecnologia,
 
 - Puerta de Enlace Inmobiliaria: [[Anclora Private Estates]]
 - Inteligencia y Datos: [[Anclora Data Lab]] | [[Anclora Content Generator AI]]
+- Superficie Editorial: [[Anclora Talent]]
 - Gestión de Partners: [[Anclora Synergi]]
 - Motor Operativo: [[Anclora Nexus]]
 - Verticales de Valor Personal: [[Anclora Advisor AI]] | [[Anclora Impulso]]
@@ -70,6 +72,7 @@ En la capa inmobiliaria, el posicionamiento operativo actual combina tecnologia,
 - [[Anclora Data Lab]]: Activos analiticos, senales territoriales e informes premium.
 - [[Anclora Nexus]]: Central operativa: pipeline, CRM y trazabilidad comercial.
 - [[Anclora Content Generator AI]]: Motor editorial de inteligencia de contenido.
+- [[Anclora Talent]]: Plataforma editorial con autenticación, dashboard, editor, preview y estudio de portada para proyectos canónicos.
 - [[Anclora Advisor AI]]: Asesoria fiscal y laboral para uso personal y pluriactividad.
 - [[Anclora Impulso]]: Ecosistema Health and Fitness centrado en nutricion e IA.
 - [[Flujo Comercial Inteligente Anclora]]: Playbook de integracion entre datos, contenido, pipeline y partnerships.
