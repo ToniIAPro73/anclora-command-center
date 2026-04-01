@@ -41,6 +41,9 @@
 		},
 		{
 			"path": "../anclora-agent-skills"
+		},
+		{
+			"path": "../anclora-awesome-skills"
 		}
 	],
 	"settings": {}
