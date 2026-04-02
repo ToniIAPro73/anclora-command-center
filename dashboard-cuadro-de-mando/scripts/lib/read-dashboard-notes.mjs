@@ -97,26 +97,24 @@ function readMarkdownNote(filePath, rootDir, expectedFields) {
       },
     },
   });
-  const note = {
-    ...parsed.data,
-    body: parsed.content.trim(),
-    note_path: toRelativePosixPath(filePath, rootDir),
-  };
+  const frontmatter = parsed.data;
+  const relativePath = toRelativePosixPath(filePath, rootDir);
+  const row = {};
 
   for (const field of expectedFields) {
-    if (!(field in note)) {
-      throw new Error(`Missing required field "${field}" in ${note.note_path}`);
+    if (!(field in frontmatter)) {
+      throw new Error(`Missing required field "${field}" in ${relativePath}`);
     }
     if (LIST_FIELDS.has(field)) {
-      note[field] = normalizeListValue(note[field]);
-    } else if (note[field] == null) {
-      note[field] = "";
+      row[field] = normalizeListValue(frontmatter[field]);
+    } else if (frontmatter[field] == null) {
+      row[field] = "";
     } else {
-      note[field] = String(note[field]).trim();
+      row[field] = String(frontmatter[field]).trim();
     }
   }
 
-  return note;
+  return row;
 }
 
 function readMarkdownDirectory(directoryPath, rootDir, expectedFields) {
