@@ -2,7 +2,7 @@
 title: Dashboard Real Estate Source - ASY - research - anclora-synergi
 type: dashboard-real-estate-fuente
 app_name: Anclora Synergi
-source_note: [[Anclora Synergi]]
+source_note: research/anclora/anclora-synergi.md
 source_type: research
 evidence_summary: Detalla su rol relacional, valor y dudas frente a Nexus
 related:

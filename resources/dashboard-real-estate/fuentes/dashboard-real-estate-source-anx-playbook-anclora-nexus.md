@@ -2,7 +2,7 @@
 title: Dashboard Real Estate Source - ANX - playbook - anclora-nexus
 type: dashboard-real-estate-fuente
 app_name: Anclora Nexus
-source_note: [[Anclora Nexus]]
+source_note: playbooks/anclora-nexus.md
 source_type: playbook
 evidence_summary: Describe objetivo, etapas operativas, validacion y riesgos
 related:

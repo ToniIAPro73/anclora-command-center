@@ -2,7 +2,7 @@
 title: Dashboard Real Estate Source - ANX - system - Arquitectura de Integracion Anclora
 type: dashboard-real-estate-fuente
 app_name: Anclora Nexus
-source_note: [[Arquitectura de Integración Anclora]]
+source_note: sistemas/Arquitectura de Integración Anclora.md
 source_type: system
 evidence_summary: La ubica como activacion operativa y punto de medicion del pipeline
 related:

@@ -1,6 +1,6 @@
 ---
 title: Dashboard Real Estate - ASY - Anclora Synergi
-aliases: [Anclora Synergi, ASY]
+aliases: [ASY]
 type: dashboard-real-estate-app
 app_id: ASY
 app_name: Anclora Synergi
@@ -25,11 +25,11 @@ main_risks: Difuminacion con Nexus y falta de definicion de usuarios/workspaces 
 next_focus: Clarificar modelo de partners, usuarios y workspaces
 territory_focus: Mallorca premium con especial relevancia para eje SW + alianzas territoriales
 repo_url: https://github.com/ToniIAPro73/anclora-synergi.git
-primary_note: "[[Anclora Synergi]]"
+primary_note: research/anclora/anclora-synergi.md
 supporting_notes:
-  - "[[Anclora Group]]"
-  - "[[Arquitectura de Integración Anclora]]"
-  - "[[Flujo Comercial Inteligente Anclora]]"
+  - resources/anclora-group.md
+  - sistemas/Arquitectura de Integración Anclora.md
+  - playbooks/flujo-comercial-inteligente.md
 source_confidence: medium
 related:
   - "[[Indice Dashboard Real Estate]]"
@@ -41,6 +41,13 @@ related:
 ## Resumen
 
 Capa relacional para partners, workspaces privados y colaboracion estructurada.
+
+## Referencias
+
+- [[Anclora Synergi]]
+- [[Anclora Group]]
+- [[Arquitectura de Integración Anclora]]
+- [[Flujo Comercial Inteligente Anclora]]
 
 ## Lectura operativa
 

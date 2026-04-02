@@ -2,7 +2,7 @@
 title: Dashboard Real Estate Source - ACG - system-plan - Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones
 type: dashboard-real-estate-fuente
 app_name: Anclora Content Generator AI
-source_note: [[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]
+source_note: sistemas/Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones.md
 source_type: system-plan
 evidence_summary: La considera suficientemente madura para entrar ya en la operativa editorial
 related:

@@ -2,7 +2,7 @@
 title: Dashboard Real Estate Source - ANX - resource - anclora-group
 type: dashboard-real-estate-fuente
 app_name: Anclora Nexus
-source_note: [[Anclora Group]]
+source_note: resources/anclora-group.md
 source_type: resource
 evidence_summary: La define como central operativa de pipeline, CRM y trazabilidad
 related:

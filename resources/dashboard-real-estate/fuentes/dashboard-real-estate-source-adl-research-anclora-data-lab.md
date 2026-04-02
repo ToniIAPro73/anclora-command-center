@@ -2,7 +2,7 @@
 title: Dashboard Real Estate Source - ADL - research - anclora-data-lab
 type: dashboard-real-estate-fuente
 app_name: Anclora Data Lab
-source_note: [[Anclora Data Lab]]
+source_note: research/anclora/anclora-data-lab.md
 source_type: research
 evidence_summary: Describe mision, implicaciones y duda abierta sobre outputs y distribucion
 related:

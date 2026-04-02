@@ -1,6 +1,6 @@
 ---
 title: Dashboard Real Estate - ANX - Anclora Nexus
-aliases: [Anclora Nexus, ANX]
+aliases: [ANX]
 type: dashboard-real-estate-app
 app_id: ANX
 app_name: Anclora Nexus
@@ -25,12 +25,12 @@ main_risks: Convertirse en contenedor ambiguo si no se simplifican los flujos pr
 next_focus: Consolidar etapas reales del pipeline y una vista clara de siguiente mejor accion
 territory_focus: SW Mallorca, captacion premium y coordinacion comercial
 repo_url: https://github.com/ToniIAPro73/Anclora-Nexus.git
-primary_note: "[[Anclora Nexus]]"
+primary_note: playbooks/anclora-nexus.md
 supporting_notes:
-  - "[[Anclora Group]]"
-  - "[[Arquitectura de Integración Anclora]]"
-  - "[[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]"
-  - "[[Anclora Command Center]]"
+  - resources/anclora-group.md
+  - sistemas/Arquitectura de Integración Anclora.md
+  - sistemas/Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones.md
+  - Anclora Command Center.md
 source_confidence: high
 related:
   - "[[Indice Dashboard Real Estate]]"
@@ -42,6 +42,14 @@ related:
 ## Resumen
 
 Sistema operativo comercial: pipeline, CRM y trazabilidad.
+
+## Referencias
+
+- [[Anclora Nexus]]
+- [[Anclora Group]]
+- [[Arquitectura de Integración Anclora]]
+- [[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]
+- [[Anclora Command Center]]
 
 ## Lectura operativa
 

@@ -1,6 +1,6 @@
 ---
 title: Dashboard Real Estate - ACG - Anclora Content Generator AI
-aliases: [Anclora Content Generator AI, ACG]
+aliases: [ACG]
 type: dashboard-real-estate-app
 app_id: ACG
 app_name: Anclora Content Generator AI
@@ -25,12 +25,12 @@ main_risks: Generar volumen sin criterio comercial y quedar desconectado del pip
 next_focus: Definir outputs canonicos, plantillas por canal y conexion explicita con CTA/comercializacion
 territory_focus: Autoridad y captacion para SW Mallorca y vertical inmobiliario premium
 repo_url: https://github.com/ToniIAPro73/anclora-content-generator-ai.git
-primary_note: "[[Anclora Content Generator AI]]"
+primary_note: research/anclora/anclora-content-generator.md
 supporting_notes:
-  - "[[Anclora Group]]"
-  - "[[Arquitectura de Integración Anclora]]"
-  - "[[Flujo Comercial Inteligente Anclora]]"
-  - "[[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]"
+  - resources/anclora-group.md
+  - sistemas/Arquitectura de Integración Anclora.md
+  - playbooks/flujo-comercial-inteligente.md
+  - sistemas/Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones.md
 source_confidence: high
 related:
   - "[[Indice Dashboard Real Estate]]"
@@ -42,6 +42,14 @@ related:
 ## Resumen
 
 Motor editorial y de activos comerciales basado en inteligencia.
+
+## Referencias
+
+- [[Anclora Content Generator AI]]
+- [[Anclora Group]]
+- [[Arquitectura de Integración Anclora]]
+- [[Flujo Comercial Inteligente Anclora]]
+- [[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]
 
 ## Lectura operativa
 

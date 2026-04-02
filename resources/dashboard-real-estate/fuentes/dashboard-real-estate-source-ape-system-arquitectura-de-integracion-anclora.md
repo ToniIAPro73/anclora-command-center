@@ -2,7 +2,7 @@
 title: Dashboard Real Estate Source - APE - system - Arquitectura de Integracion Anclora
 type: dashboard-real-estate-fuente
 app_name: Anclora Private Estates
-source_note: [[Arquitectura de Integración Anclora]]
+source_note: sistemas/Arquitectura de Integración Anclora.md
 source_type: system
 evidence_summary: La situa como lugar donde la maquinaria del ecosistema genera valor economico visible
 related:

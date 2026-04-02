@@ -2,7 +2,7 @@
 title: Dashboard Real Estate Source - ACG - system - Arquitectura de Integracion Anclora
 type: dashboard-real-estate-fuente
 app_name: Anclora Content Generator AI
-source_note: [[Arquitectura de Integración Anclora]]
+source_note: sistemas/Arquitectura de Integración Anclora.md
 source_type: system
 evidence_summary: La coloca en la traduccion comercial de insights a activos reutilizables
 related:
