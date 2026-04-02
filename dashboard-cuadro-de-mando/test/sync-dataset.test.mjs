@@ -2,21 +2,27 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
-import { execFileSync } from "node:child_process";
+import { execSync } from "node:child_process";
 
 const dashboardRoot = path.resolve(import.meta.dirname, "..");
+const vaultRoot = path.resolve(dashboardRoot, "..");
+const workbookFile = path.join(vaultRoot, "output", "spreadsheet", "anclora-group-real-estate-dataset.xlsx");
 const generatedFile = path.join(dashboardRoot, "src", "generated", "dataset.json");
 
 test("sync-dataset genera dataset.json con derivados operativos", () => {
+  if (fs.existsSync(workbookFile)) {
+    fs.rmSync(workbookFile, { force: true });
+  }
   if (fs.existsSync(generatedFile)) {
     fs.rmSync(generatedFile, { force: true });
   }
 
-  execFileSync("node", ["./scripts/sync-dataset.mjs"], {
+  execSync("npm run sync:data", {
     cwd: dashboardRoot,
     stdio: "pipe",
   });
 
+  assert.equal(fs.existsSync(workbookFile), true, "debe regenerar el workbook canonico antes del dataset");
   assert.equal(fs.existsSync(generatedFile), true, "debe generar src/generated/dataset.json");
 
   const dataset = JSON.parse(fs.readFileSync(generatedFile, "utf8"));
