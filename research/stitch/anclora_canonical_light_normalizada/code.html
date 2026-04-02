@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-container": "#4f3e00",
+              "surface-dim": "#dbdad5",
+              "outline-variant": "#bfc8c7",
+              "secondary-container": "#d2e0fe",
+              "primary-fixed": "#b1eeea",
+              "on-surface-variant": "#3f4948",
+              "secondary": "#515f78",
+              "primary-fixed-dim": "#95d1ce",
+              "surface": "#fbf9f4",
+              "on-tertiary-fixed": "#241a00",
+              "tertiary-fixed-dim": "#e9c349",
+              "on-primary-fixed": "#00201f",
+              "surface-tint": "#2a6865",
+              "on-primary": "#ffffff",
+              "tertiary-container": "#cca730",
+              "surface-bright": "#fbf9f4",
+              "outline": "#707978",
+              "on-secondary-container": "#55637d",
+              "error-container": "#ffdad6",
+              "inverse-primary": "#95d1ce",
+              "surface-container": "#f0eee9",
+              "on-tertiary": "#ffffff",
+              "secondary-fixed": "#d6e3ff",
+              "secondary-fixed-dim": "#b9c7e4",
+              "on-background": "#1b1c19",
+              "tertiary-fixed": "#ffe088",
+              "inverse-on-surface": "#f2f1ec",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed": "#0d1c32",
+              "on-tertiary-fixed-variant": "#574500",
+              "on-secondary-fixed-variant": "#39475f",
+              "surface-container-high": "#eae8e3",
+              "inverse-surface": "#30312e",
+              "background": "#fbf9f4",
+              "surface-container-highest": "#e4e2dd",
+              "on-error-container": "#93000a",
+              "tertiary": "#735c00",
+              "error": "#ba1a1a",
+              "on-surface": "#1b1c19",
+              "surface-variant": "#e4e2dd",
+              "surface-container-low": "#f5f3ee",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-fixed-variant": "#084f4d",
+              "on-error": "#ffffff",
+              "primary-container": "#004b49",
+              "primary": "#003331",
+              "on-primary-container": "#7ebab7"
+            },
+            fontFamily: {
+              "headline": ["Newsreader", "serif"],
+              "body": ["Manrope", "sans-serif"],
+              "label": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .font-serif-tight { letter-spacing: -0.02em; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[92%] max-w-7xl rounded-full px-8 py-3 bg-stone-50/80 backdrop-blur-xl flex justify-between items-center z-50 shadow-[0_20px_40px_rgba(27,28,25,0.06)]">
+<div class="text-2xl font-serif italic text-teal-900">Anclora Group</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium Manrope tracking-wide text-teal-900/60 hover:text-teal-900 transition-colors duration-300" href="#">Portfolio</a>
+<a class="text-sm font-medium Manrope tracking-wide text-teal-900/60 hover:text-teal-900 transition-colors duration-300" href="#">Methodology</a>
+<a class="text-sm font-medium Manrope tracking-wide text-teal-900/60 hover:text-teal-900 transition-colors duration-300" href="#">Atelier</a>
+<a class="text-sm font-medium Manrope tracking-wide text-teal-900/60 hover:text-teal-900 transition-colors duration-300" href="#">Advisory</a>
+<a class="text-sm font-medium Manrope tracking-wide text-teal-900/60 hover:text-teal-900 transition-colors duration-300" href="#">Insights</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-all scale-98 active:scale-95 duration-200">
+            Inquire
+        </button>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen pt-32 pb-20 px-6 md:px-12 flex flex-col justify-center overflow-hidden">
+<div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+<div class="md:col-span-7 z-10">
+<h1 class="font-headline text-5xl md:text-8xl text-primary font-serif-tight leading-[1.1] mb-8">
+                        Precision <span class="italic font-light">Architected</span> for Perpetual Value.
+                    </h1>
+<p class="font-body text-lg md:text-xl text-on-surface-variant max-w-xl leading-relaxed mb-12">
+                        We harmonize complex data ecosystems with human-centric design, creating platforms that don't just solve problems—they define new standards of operational excellence.
+                    </p>
+<div class="flex items-center gap-6">
+<button class="bg-primary text-on-primary px-10 py-4 rounded-md text-base font-semibold transition-transform hover:-translate-y-0.5 duration-300">
+                            Explore the Portfolio
+                        </button>
+<button class="text-primary font-semibold text-base tracking-[0.07em] flex items-center gap-2 group transition-opacity hover:opacity-70">
+                            Our Methodology 
+                            <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="md:col-span-5 relative">
+<div class="aspect-[4/5] w-full rounded-2xl overflow-hidden shadow-2xl relative group">
+<img alt="Modern architectural interior" class="w-full h-full object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-700" data-alt="Minimalist architectural interior with clean lines, soft natural light, and high-end materials reflecting precision and modern luxury" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7dV_2PlXCtgauI_eZNYvEiK0e8JIslOyEouRiB8ZGJYtQh3FOQ4XmY979TyfQRhzcb5qeXbOFpCyeN6Q8FHgg-zRF9UUC1TwaSW2ovnPh0FT3BmFqB_mOijobCW-Nm7Ckd1eS50WubycSMC0orXwMlibseqJAlXVHOBZm3S-wKkqDjOU_VXFfqK0bvbEMY2yazI6W2RsWO8_xz5dCK7P1uNvk3JS-6JWGHesjJFc710HEDUlGLFc5WBqSdD3sygRTkkPYnpAuwM4"/>
+<div class="absolute inset-0 bg-primary/5 mix-blend-multiply"></div>
+</div>
+<!-- Asymmetric Decorative Element -->
+<div class="absolute -bottom-12 -left-12 w-48 h-48 bg-surface-container-high rounded-full -z-10 blur-3xl opacity-60"></div>
+</div>
+</div>
+</section>
+<!-- Value Proposition: Modular Narrative -->
+<section class="py-28 px-6 md:px-12 bg-surface-container-low">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-baseline mb-20 gap-8">
+<h2 class="font-headline text-4xl md:text-5xl text-primary md:w-1/2 font-serif-tight">
+                        Our philosophy is rooted in the intersection of technical depth and aesthetic clarity.
+                    </h2>
+<p class="font-body text-on-surface-variant md:w-1/3 text-lg leading-relaxed">
+                        Beyond the metrics, we believe true innovation is found in the friction-less experience. We architect systems that feel like second nature.
+                    </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="space-y-6 group">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-highest text-primary rounded-lg transition-colors group-hover:bg-primary group-hover:text-on-primary">
+<span class="material-symbols-outlined">architecture</span>
+</div>
+<h3 class="font-headline text-2xl text-primary">Structural Integrity</h3>
+<p class="font-body text-on-surface-variant leading-relaxed">
+                            Every line of code and every pixel is placed with intentionality. We build for the long term, ensuring scalability is baked into the foundation.
+                        </p>
+</div>
+<div class="space-y-6 group">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-highest text-primary rounded-lg transition-colors group-hover:bg-primary group-hover:text-on-primary">
+<span class="material-symbols-outlined">data_object</span>
+</div>
+<h3 class="font-headline text-2xl text-primary">Intelligent Systems</h3>
+<p class="font-body text-on-surface-variant leading-relaxed">
+                            We transform raw data into actionable narratives. Our platforms utilize advanced AI to surface insights that drive strategic evolution.
+                        </p>
+</div>
+<div class="space-y-6 group">
+<div class="w-12 h-12 flex items-center justify-center bg-surface-container-highest text-primary rounded-lg transition-colors group-hover:bg-primary group-hover:text-on-primary">
+<span class="material-symbols-outlined">auto_awesome</span>
+</div>
+<h3 class="font-headline text-2xl text-primary">Refined UX</h3>
+<p class="font-body text-on-surface-variant leading-relaxed">
+                            Elegance is not an afterthought. We apply atelier-level craft to user interfaces, making complex tools a joy to navigate and use.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Narrative: The Asymmetric Block -->
+<section class="py-28 px-6 md:px-12 bg-surface">
+<div class="max-w-7xl mx-auto flex flex-col gap-32">
+<!-- Block 1 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+<div class="md:col-span-6 md:order-2">
+<div class="aspect-video bg-surface-container rounded-xl overflow-hidden shadow-sm">
+<img alt="Data visualization dashboard" class="w-full h-full object-cover" data-alt="Sophisticated data visualization interface showing complex patterns with a muted, professional color palette on high-resolution displays" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOLlmpq2D6QkkwMH7jkgTH0HPw1CE3djwMFvjpaYjpcicn4IMOAiGBVpiv5lNDYxDMcFTM4Cu-QG4XKT0Iew68GqRrdf4vkgD1XNDlLWmf_po9jui4jwwq_3C6Ojh9DtRXbHYjNPAC0w3nm8-a-93GhQleMFcqcyPIr3P1KQSXpWhZ7ElqeN0xv1WPge6oOACl7fL3W5SpKVS1StDItmZ4UIGFN4LlA2rUYtAeg3qtN2aupUJ0EdvW0C0ZtFqYn4UsVqwQSqCO-iQ"/>
+</div>
+</div>
+<div class="md:col-span-5 md:col-start-1">
+<span class="font-label text-xs uppercase tracking-widest text-primary/60 font-bold mb-4 block">Platform Infrastructure</span>
+<h2 class="font-headline text-4xl text-primary mb-6 font-serif-tight">Unified Data Orchestration</h2>
+<p class="font-body text-on-surface-variant text-lg leading-relaxed mb-8">
+                            A single source of truth for global enterprises. Our orchestration engine harmonizes disparate data streams into a cohesive, secure, and lightning-fast ecosystem.
+                        </p>
+<ul class="space-y-4 mb-10">
+<li class="flex items-center gap-3 text-on-surface/80">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body text-sm font-medium">Real-time synchronization at scale</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface/80">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body text-sm font-medium">Zero-latency insights delivery</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Trust Section: Integrated Evidence -->
+<section class="py-28 px-6 md:px-12 bg-stone-100">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+<div class="md:col-span-4">
+<h3 class="font-headline text-3xl text-primary mb-6">Built for the Global Vanguard.</h3>
+<p class="font-body text-on-surface-variant leading-relaxed">
+                            Anclora Group is the silent partner behind some of the world's most ambitious digital transformations, from Fortune 100 leaders to innovative hyper-growth startups.
+                        </p>
+</div>
+<div class="md:col-span-7 md:col-start-6">
+<div class="grid grid-cols-2 md:grid-cols-3 gap-y-12 gap-x-8 opacity-40 grayscale group">
+<div class="flex items-center justify-center h-12 font-serif text-xl tracking-tighter hover:opacity-100 hover:grayscale-0 transition-all duration-300">AURUM CO.</div>
+<div class="flex items-center justify-center h-12 font-body font-black italic tracking-tight hover:opacity-100 hover:grayscale-0 transition-all duration-300">VELOCITY</div>
+<div class="flex items-center justify-center h-12 font-serif font-bold hover:opacity-100 hover:grayscale-0 transition-all duration-300">LYRA GLOBAL</div>
+<div class="flex items-center justify-center h-12 font-body font-light tracking-[0.4em] hover:opacity-100 hover:grayscale-0 transition-all duration-300">ELEMENT</div>
+<div class="flex items-center justify-center h-12 font-headline italic hover:opacity-100 hover:grayscale-0 transition-all duration-300">The Strand</div>
+<div class="flex items-center justify-center h-12 font-body font-semibold hover:opacity-100 hover:grayscale-0 transition-all duration-300">NEXUS AI</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ: Premium & Editorial -->
+<section class="py-28 px-6 md:px-12 bg-surface">
+<div class="max-w-3xl mx-auto">
+<h2 class="font-headline text-4xl text-primary text-center mb-16">Inquiries &amp; Clarifications</h2>
+<div class="space-y-0">
+<div class="py-8 border-b border-on-surface/5 group">
+<button class="w-full flex justify-between items-center text-left focus:outline-none">
+<span class="font-headline text-xl text-primary group-hover:text-primary-container transition-colors">How does Anclora approach proprietary integration?</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:rotate-45 transition-transform">add</span>
+</button>
+<div class="mt-4 hidden font-body text-on-surface-variant leading-relaxed">
+                            Our methodology prioritizes non-disruptive implementation. We create bespoke adapter layers that allow modern AI and data platforms to interface seamlessly with legacy systems without compromising security.
+                        </div>
+</div>
+<div class="py-8 border-b border-on-surface/5 group">
+<button class="w-full flex justify-between items-center text-left focus:outline-none">
+<span class="font-headline text-xl text-primary group-hover:text-primary-container transition-colors">What is the timeline for a standard engagement?</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:rotate-45 transition-transform">add</span>
+</button>
+</div>
+<div class="py-8 border-b border-on-surface/5 group">
+<button class="w-full flex justify-between items-center text-left focus:outline-none">
+<span class="font-headline text-xl text-primary group-hover:text-primary-container transition-colors">Do you provide ongoing architectural support?</span>
+<span class="material-symbols-outlined text-primary/40 group-hover:rotate-45 transition-transform">add</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA: The Stacking Principle -->
+<section class="py-32 px-6 md:px-12 relative overflow-hidden">
+<div class="max-w-5xl mx-auto bg-primary rounded-3xl p-12 md:p-24 text-center relative z-10 shadow-2xl">
+<h2 class="font-headline text-4xl md:text-6xl text-on-primary mb-8 font-serif-tight">Let's build the future of precision.</h2>
+<p class="font-body text-on-primary/70 text-lg md:text-xl max-w-2xl mx-auto mb-12">
+                    Partner with an atelier dedicated to structural elegance and technical mastery. Your next evolution begins with a conversation.
+                </p>
+<div class="flex flex-col md:flex-row gap-4 justify-center">
+<button class="bg-surface text-primary px-10 py-4 rounded-md text-base font-semibold hover:bg-surface-container transition-colors duration-300">
+                        Schedule an Atelier Session
+                    </button>
+<button class="border border-on-primary/20 text-on-primary px-10 py-4 rounded-md text-base font-semibold hover:bg-on-primary/10 transition-colors duration-300">
+                        Request Credentials
+                    </button>
+</div>
+</div>
+<!-- Background Decoration -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-surface-container-high/40 -z-0"></div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-20 px-12 md:px-24 bg-stone-100 flex flex-col md:flex-row justify-between items-end gap-12">
+<div class="flex flex-col items-start max-w-sm">
+<div class="text-4xl font-serif text-teal-950 mb-8">Anclora Group</div>
+<p class="font-body text-teal-950/50 mb-8 leading-relaxed">
+                Architecting precision at the intersection of complex data systems and high-end editorial design.
+            </p>
+<div class="text-teal-950 dark:text-teal-100 text-sm font-body">© 2024 Anclora Group. Architecting Precision.</div>
+</div>
+<div class="flex flex-wrap gap-12 justify-end">
+<div class="flex flex-col gap-4">
+<span class="font-label text-xs uppercase tracking-widest font-bold text-teal-950/30">Connect</span>
+<a class="text-teal-950/50 hover:text-teal-950 underline decoration-teal-900/20 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">Heritage</a>
+<a class="text-teal-950/50 hover:text-teal-950 underline decoration-teal-900/20 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">Careers</a>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-label text-xs uppercase tracking-widest font-bold text-teal-950/30">Legal</span>
+<a class="text-teal-950/50 hover:text-teal-950 underline decoration-teal-900/20 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="text-teal-950/50 hover:text-teal-950 underline decoration-teal-900/20 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">Terms</a>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-label text-xs uppercase tracking-widest font-bold text-teal-950/30">Presence</span>
+<a class="text-teal-950/50 hover:text-teal-950 underline decoration-teal-900/20 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">London</a>
+<a class="text-teal-950/50 hover:text-teal-950 underline decoration-teal-900/20 underline-offset-4 transition-opacity opacity-80 hover:opacity-100" href="#">Singapore</a>
+</div>
+</div>
+</footer>
+</body></html>

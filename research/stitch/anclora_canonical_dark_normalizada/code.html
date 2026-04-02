@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Anclora | Architectural Intelligence &amp; Systems</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error": "#ba1a1a",
+              "surface-container-highest": "#1c2431",
+              "surface-container-lowest": "#050b14",
+              "inverse-surface": "#f2f1ec",
+              "on-secondary-fixed-variant": "#b9c7e4",
+              "on-error-container": "#ffdad6",
+              "outline-variant": "#2c3641",
+              "primary": "#95d1ce",
+              "on-error": "#690005",
+              "on-primary-container": "#00201f",
+              "on-surface-variant": "#94a3b8",
+              "surface-container-high": "#131d2a",
+              "on-primary": "#003735",
+              "surface-variant": "#1e293b",
+              "tertiary-fixed": "#ffe088",
+              "on-tertiary-fixed": "#241a00",
+              "tertiary-container": "#574500",
+              "surface": "#0a121e",
+              "on-secondary-container": "#d2e0fe",
+              "secondary": "#b9c7e4",
+              "inverse-on-surface": "#0a121e",
+              "primary-container": "#004b49",
+              "surface-bright": "#1e293b",
+              "surface-dim": "#0a121e",
+              "secondary-fixed": "#d6e3ff",
+              "secondary-container": "#1e293b",
+              "on-primary-fixed": "#00201f",
+              "inverse-primary": "#006a67",
+              "primary-fixed": "#b1eeea",
+              "on-secondary-fixed": "#0d1c32",
+              "background": "#070e19",
+              "error-container": "#93000a",
+              "on-primary-fixed-variant": "#00504d",
+              "on-tertiary-container": "#ffe088",
+              "on-tertiary-fixed-variant": "#574500",
+              "tertiary": "#e9c349",
+              "on-secondary": "#233148",
+              "outline": "#475569",
+              "tertiary-fixed-dim": "#e9c349",
+              "secondary-fixed-dim": "#b9c7e4",
+              "surface-container-low": "#0d1522",
+              "on-surface": "#f1f5f9",
+              "surface-container": "#111a27",
+              "on-tertiary": "#3c2f00",
+              "surface-tint": "#95d1ce",
+              "on-background": "#f1f5f9",
+              "primary-fixed-dim": "#95d1ce"
+            },
+            fontFamily: {
+              "headline": ["Newsreader", "serif"],
+              "body": ["Manrope", "sans-serif"],
+              "label": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.375rem", "xl": "0.75rem", "2xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; }
+        .font-serif { font-family: 'Newsreader', serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; }
+        .tonal-surface-1 { background-color: #0d1522; }
+        .tonal-surface-2 { background-color: #111a27; }
+        .glass-blur { backdrop-filter: blur(20px); background-color: rgba(7, 14, 25, 0.7); }
+        details > summary::-webkit-details-marker { display: none; }
+        .asymmetric-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 6rem; }
+        @media (max-width: 1024px) { .asymmetric-grid { grid-template-columns: 1fr; gap: 4rem; } }
+        ::selection { background: #e9c349; color: #3c2f00; }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- Top Navigation -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-center py-6">
+<div class="w-[90%] max-w-7xl flex justify-between items-center px-10 py-4 glass-blur rounded-full">
+<div class="text-2xl font-serif italic text-on-background tracking-tight">Anclora</div>
+<div class="hidden lg:flex gap-12 items-center">
+<a class="text-xs font-medium tracking-[0.15em] uppercase text-on-surface-variant hover:text-primary transition-colors" href="#">Systems</a>
+<a class="text-xs font-medium tracking-[0.15em] uppercase text-on-background border-b border-primary/50 pb-0.5" href="#">Philosophy</a>
+<a class="text-xs font-medium tracking-[0.15em] uppercase text-on-surface-variant hover:text-primary transition-colors" href="#">Archive</a>
+</div>
+<div class="flex gap-8 items-center">
+<button class="text-[10px] font-bold tracking-[0.2em] uppercase text-on-surface-variant hover:text-on-background transition-colors">Client Portal</button>
+<button class="bg-primary text-on-primary px-8 py-2.5 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase hover:opacity-90 active:scale-95 transition-all">Engage</button>
+</div>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen pt-48 pb-32 px-8 max-w-7xl mx-auto flex items-center">
+<div class="asymmetric-grid items-center w-full">
+<div class="space-y-16">
+<div class="space-y-6">
+<span class="text-tertiary font-label text-[10px] font-bold tracking-[0.4em] uppercase">The Architecture of Systems</span>
+<h1 class="font-serif text-7xl md:text-8xl italic leading-[0.9] tracking-[-0.04em] text-on-background">
+                            Intelligence <br/> That Breathes <br/> Structure.
+                        </h1>
+</div>
+<p class="font-body text-xl text-on-surface-variant max-w-lg leading-relaxed font-light">
+                        We design high-fidelity frameworks where digital precision meets intuitive depth. A canonical ecosystem for those who build the next era of infrastructure.
+                    </p>
+<div class="flex gap-10 items-center">
+<button class="px-10 py-5 bg-on-background text-background font-bold text-[10px] tracking-[0.2em] uppercase rounded-full hover:bg-primary transition-colors">Explore Ecosystem</button>
+<button class="group flex items-center gap-4 cursor-pointer">
+<span class="text-[10px] font-bold tracking-[0.2em] uppercase text-tertiary">Read Journal</span>
+<span class="material-symbols-outlined text-tertiary text-sm transition-transform group-hover:translate-x-2" data-icon="east">east</span>
+</button>
+</div>
+</div>
+<div class="relative hidden lg:block">
+<div class="aspect-[4/5] bg-surface-container-high rounded-2xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover grayscale opacity-40 mix-blend-luminosity" data-alt="minimalist architectural shadows on dark concrete with clean sharp lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSltRrT-BOPzzGBg8-xUlp4dY5lz4mnzd5KPHCYCx18igHvB9-HO98JwoPdb8peyFn-F833gmU1Tp2JtOL0L56f3C3Li-8x3PanaTS5lNKRiV4uBTPxaKwF_jbovAIBCuobZxaiXnMrZrRHuWZeFqs1BPfAy2HShzuv-bLpBRsCb7VBkOS26sOneNC55J_N4u7R2kmCDh4ZZjKgshScOlJF9DpY06hPGCEed8Oq0syiA1f4D2e3p77iME4Vxok8ywUWmoVPI78E9w"/>
+</div>
+<div class="absolute -bottom-12 -left-12 tonal-surface-2 p-10 rounded-2xl max-w-xs shadow-2xl space-y-4">
+<p class="font-serif italic text-3xl text-tertiary">01</p>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed">
+                            Every component is hand-tuned. We don't deploy templates; we architect environments that evolve with your mandate.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Reusable Narrative Modules -->
+<section class="tonal-surface-1 py-40 px-8">
+<div class="max-w-7xl mx-auto">
+<div class="mb-32 max-w-3xl">
+<h2 class="font-serif text-5xl md:text-6xl italic text-on-background leading-tight mb-8">A sanctuary for complexity.</h2>
+<p class="text-on-surface-variant text-lg font-light max-w-xl">Move from noise to signal with our three core operational pillars designed for permanence.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+<div class="space-y-8 p-4 hover:bg-surface-container-high/30 rounded-2xl transition-colors">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="blur_on">blur_on</span>
+</div>
+<h3 class="font-serif text-3xl italic text-on-background">Systemic Synthesis</h3>
+<p class="text-on-surface-variant leading-relaxed font-light">Harmonizing disparate data streams into a singular, actionable interface with architectural clarity.</p>
+</div>
+<div class="space-y-8 p-4 hover:bg-surface-container-high/30 rounded-2xl transition-colors">
+<div class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-2xl" data-icon="hub">hub</span>
+</div>
+<h3 class="font-serif text-3xl italic text-on-background">Core Sovereignty</h3>
+<p class="text-on-surface-variant leading-relaxed font-light">Ownership of the stack. We build private protocols that ensure complete autonomy over your digital assets.</p>
+</div>
+<div class="space-y-8 p-4 hover:bg-surface-container-high/30 rounded-2xl transition-colors">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="auto_awesome_motion">auto_awesome_motion</span>
+</div>
+<h3 class="font-serif text-3xl italic text-on-background">Adaptive Layering</h3>
+<p class="text-on-surface-variant leading-relaxed font-light">Structures that don't break under pressure, but reconfigure to meet shifting institutional requirements.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Ecosystem Proof Section -->
+<section class="py-40 px-8 overflow-hidden">
+<div class="max-w-7xl mx-auto">
+<div class="asymmetric-grid items-start">
+<div class="space-y-20">
+<div class="space-y-8">
+<span class="text-[10px] font-bold tracking-[0.4em] uppercase text-primary">Protocol Insight</span>
+<h2 class="font-serif text-6xl italic tracking-tight leading-none text-on-background">Defined by <br/> Outcome.</h2>
+<p class="font-body text-lg text-on-surface-variant max-w-md font-light">Our systems are invisible until you need them—performing with silent, mathematical certainty.</p>
+</div>
+<div class="space-y-16">
+<div class="flex items-start gap-8 group">
+<div class="text-tertiary font-serif italic text-3xl opacity-40 group-hover:opacity-100 transition-opacity">α</div>
+<div>
+<h4 class="text-on-background font-bold tracking-wider uppercase text-[10px] mb-3">Live Attribution</h4>
+<p class="text-sm text-on-surface-variant font-light leading-relaxed">Tracing value flows with sub-millisecond precision across the entire ecosystem.</p>
+</div>
+</div>
+<div class="flex items-start gap-8 group">
+<div class="text-tertiary font-serif italic text-3xl opacity-40 group-hover:opacity-100 transition-opacity">β</div>
+<div>
+<h4 class="text-on-background font-bold tracking-wider uppercase text-[10px] mb-3">Modular Scale</h4>
+<p class="text-sm text-on-surface-variant font-light leading-relaxed">Expand your mandate without re-architecting your foundation. Pure structural elasticity.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative mt-20 lg:mt-0">
+<div class="tonal-surface-2 p-1 rounded-3xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.8)]">
+<div class="bg-background rounded-[1.25rem] overflow-hidden flex flex-col h-[500px]">
+<div class="px-8 py-6 flex justify-between items-center bg-surface-container-high/30">
+<div class="flex gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-outline-variant"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-outline-variant"></div>
+</div>
+<span class="text-[9px] font-mono tracking-widest text-on-surface-variant uppercase">Operational Standard v2.4</span>
+</div>
+<div class="flex-grow p-10 flex flex-col justify-center gap-12">
+<div class="space-y-4">
+<div class="h-1 w-3/4 bg-primary/20 rounded-full"></div>
+<div class="h-1 w-1/2 bg-primary/10 rounded-full"></div>
+<div class="h-1 w-full bg-primary/20 rounded-full"></div>
+</div>
+<div class="flex justify-between items-end">
+<div class="space-y-1">
+<p class="text-[9px] text-on-surface-variant font-bold tracking-[0.3em] uppercase">Aggregate Signal</p>
+<div class="text-6xl font-serif text-tertiary italic">99.8%</div>
+</div>
+<div class="text-right">
+<p class="text-xs text-primary font-mono">+12.4% Optimal</p>
+</div>
+</div>
+</div>
+<img class="w-full h-40 object-cover opacity-10 mix-blend-screen" data-alt="macro abstract textures of flowing liquid obsidian with golden veins" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFZYq3diPkwEFpsPvGRuAGTzinv2snTwODn4ru0JKotLsr7ue8YAZr1uIuzFuWtJRpnwmDD1Lk8tbbcezFhjYiA0ATV-xmsSgfQzY7nT8H-FpVYbt0kcOnYewsjhrZS1Wkn3z1c9X2ITGgPchXoEGUknD8Ss6CVK8olpixuwdtR0d8XQuSOL1th05w2laR-Ivup5_AoV0nKO49eJEaUUYx4nEtUfuzhoPd311l54EoTkmU4j-BmtD_PF1oUk8fMh1gEk5zOUYiBiA"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Authored Trust Section -->
+<section class="py-24 tonal-surface-2">
+<div class="max-w-7xl mx-auto px-8">
+<div class="flex flex-col md:flex-row items-center justify-between gap-16">
+<p class="text-xs font-bold tracking-[0.4em] uppercase text-on-surface-variant">Validated through exclusive partnerships</p>
+<div class="flex flex-wrap justify-center gap-x-16 gap-y-8 items-center">
+<span class="text-xl font-serif text-on-background italic opacity-30">Apex Global</span>
+<span class="text-xl font-serif text-on-background italic opacity-30">Summit Collective</span>
+<span class="text-xl font-serif text-on-background italic opacity-30">Elysian Group</span>
+<span class="text-xl font-serif text-on-background italic opacity-30">Vanguardia</span>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section (Refined) -->
+<section class="py-48 px-8">
+<div class="max-w-4xl mx-auto">
+<div class="mb-24">
+<span class="text-tertiary font-label text-[10px] font-bold tracking-[0.4em] uppercase mb-4 block">Inquiry &amp; Rationale</span>
+<h2 class="font-serif text-5xl italic text-on-background">Common Mandates</h2>
+</div>
+<div class="space-y-16">
+<div class="space-y-6">
+<h4 class="font-serif text-2xl text-on-background italic">What defines the Anclora methodology?</h4>
+<p class="text-on-surface-variant font-light leading-relaxed max-w-2xl">
+                            We operate as a digital atelier. Every system is a response to a specific architectural need, moving away from mass-market algorithmic models to hand-tuned precision tools for high-stakes environments.
+                        </p>
+</div>
+<div class="space-y-6">
+<h4 class="font-serif text-2xl text-on-background italic">How is sovereignty managed within the ecosystem?</h4>
+<p class="text-on-surface-variant font-light leading-relaxed max-w-2xl">
+                            Ownership is absolute. Our infrastructure is designed so that clients retain full custody of their logic, data, and execution layers, hosted within secure, private-tier environments.
+                        </p>
+</div>
+<div class="space-y-6">
+<h4 class="font-serif text-2xl text-on-background italic">Is onboarding limited?</h4>
+<p class="text-on-surface-variant font-light leading-relaxed max-w-2xl">
+                            To maintain the artisanal quality of our deployments, we strictly limit active mandates. Each new partnership requires a preliminary assessment phase to ensure structural alignment.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="relative py-48 px-8 overflow-hidden bg-[#03070d]">
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[160px]"></div>
+<div class="max-w-4xl mx-auto text-center relative z-10">
+<h2 class="font-serif text-7xl md:text-8xl italic leading-tight text-on-background mb-16">Initiate your <br/> mandate.</h2>
+<div class="flex flex-col md:flex-row justify-center gap-8 items-center">
+<button class="w-full md:w-auto px-16 py-6 bg-tertiary text-on-tertiary font-bold tracking-[0.2em] uppercase text-[10px] rounded-full shadow-2xl hover:scale-105 transition-all">Begin Consultation</button>
+<button class="w-full md:w-auto px-16 py-6 border border-on-background/20 text-on-background font-bold tracking-[0.2em] uppercase text-[10px] rounded-full hover:bg-on-background/5 transition-colors">Request Archive</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="tonal-surface-2 py-32 px-8 overflow-hidden relative">
+<div class="max-w-7xl mx-auto relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-20 mb-32">
+<div class="lg:col-span-4 space-y-8">
+<div class="text-3xl font-serif italic text-on-background">Anclora</div>
+<p class="text-xs text-on-surface-variant leading-relaxed max-w-xs font-light">
+                        The world's first architectural intelligence atelier. We craft enduring systems for the modern era's most complex mandates.
+                    </p>
+</div>
+<div class="lg:col-span-2 space-y-6">
+<h5 class="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">Systems</h5>
+<ul class="space-y-4">
+<li><a class="text-xs text-on-surface-variant hover:text-on-background transition-colors font-light" href="#">Tonal Layering</a></li>
+<li><a class="text-xs text-on-surface-variant hover:text-on-background transition-colors font-light" href="#">Core Protocols</a></li>
+<li><a class="text-xs text-on-surface-variant hover:text-on-background transition-colors font-light" href="#">Edge Intelligence</a></li>
+</ul>
+</div>
+<div class="lg:col-span-2 space-y-6">
+<h5 class="text-[10px] font-bold uppercase tracking-[0.3em] text-tertiary">Organization</h5>
+<ul class="space-y-4">
+<li><a class="text-xs text-on-surface-variant hover:text-on-background transition-colors font-light" href="#">The Atelier</a></li>
+<li><a class="text-xs text-on-surface-variant hover:text-on-background transition-colors font-light" href="#">Partner Network</a></li>
+<li><a class="text-xs text-on-surface-variant hover:text-on-background transition-colors font-light" href="#">Archive</a></li>
+</ul>
+</div>
+<div class="lg:col-span-2 space-y-6">
+<h5 class="text-[10px] font-bold uppercase tracking-[0.3em] text-on-surface-variant">Legal</h5>
+<ul class="space-y-4">
+<li><a class="text-xs text-on-surface-variant hover:text-on-background transition-colors font-light" href="#">Sovereign Privacy</a></li>
+<li><a class="text-xs text-on-surface-variant hover:text-on-background transition-colors font-light" href="#">Security Terms</a></li>
+<li><a class="text-xs text-on-surface-variant hover:text-on-background transition-colors font-light" href="#">Compliance</a></li>
+</ul>
+</div>
+<div class="lg:col-span-2 space-y-6">
+<h5 class="text-[10px] font-bold uppercase tracking-[0.3em] text-on-surface-variant">Contact</h5>
+<p class="text-xs text-on-surface-variant font-light leading-loose">
+                        12 Precision Way,<br/>Mayfair, London<br/>W1K 4QT
+                    </p>
+</div>
+</div>
+<div class="pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="text-[9px] font-bold tracking-[0.4em] uppercase text-on-surface-variant/40">© 2024 Anclora Systems Group</div>
+<div class="flex gap-12">
+<a class="text-[9px] font-bold tracking-[0.4em] uppercase text-on-surface-variant/40 hover:text-primary transition-colors" href="#">System Status</a>
+<a class="text-[9px] font-bold tracking-[0.4em] uppercase text-on-surface-variant/40 hover:text-primary transition-colors" href="#">Public Key</a>
+</div>
+</div>
+</div>
+<!-- Background Branding -->
+<div class="absolute -bottom-16 left-1/2 -translate-x-1/2 text-[15vw] font-serif italic text-on-background/[0.02] select-none pointer-events-none whitespace-nowrap">
+            Anclora Ecosystem
+        </div>
+</footer>
+</body></html>
