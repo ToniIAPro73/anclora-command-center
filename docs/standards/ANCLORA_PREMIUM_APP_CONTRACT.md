@@ -27,6 +27,12 @@ Fijar una gramática premium compartida para productos públicos o semi-público
 - El CTA principal puede tener mayor presencia visual, pero no debe monopolizar toda la lectura.
 - No más de un CTA dominante por viewport principal.
 - Los secundarios deben sentirse premium, no utilitarios sin remate.
+- Las familias equivalentes deben mantener semántica visual estable entre temas:
+  - misma lógica de foreground por familia
+  - misma lógica de contraste por familia
+  - misma lectura de prioridad entre `primary`, `secondary`, `ghost` y `destructive`
+- Un botón dorado, teal o de firma no puede cambiar arbitrariamente el color del texto entre `dark` y `light` si sigue perteneciendo a la misma familia semántica.
+- Si una familia necesita redefinirse entre temas, el cambio debe estar documentado como variante real por tema y no como herencia accidental de tokens.
 
 ### 3. Cards premium
 - Se admite mayor profundidad visual que en el grupo interno.
@@ -76,6 +82,12 @@ Fijar una gramática premium compartida para productos públicos o semi-público
 
 ### 8. Tema premium
 - Si la app soporta dos o más temas, cada modo debe sentirse diseñado, no derivado.
+- Los temas no pueden reinterpretar por accidente la semántica de una familia de botón, pill o control interactivo.
+- La regla base es:
+  - misma familia semántica
+  - mismo criterio de foreground
+  - mismo criterio de contraste
+  - mismo criterio de prioridad visual
 - Si la app usa un único tema editorial, los tokens base deben dejar abierta una futura extensión sin reescribir componentes.
 
 ## Reglas particulares por aplicación
@@ -112,3 +124,4 @@ Una feature premium no está lista si:
 - usa cards con hover espectáculo o layout inestable
 - el modo alternativo parece una conversión incompleta
 - el selector de idioma o tema rompe el acabado de marca
+- una misma familia de botón cambia el foreground o la legibilidad entre temas sin motivo contractual explícito

@@ -24,7 +24,7 @@ Este documento evita:
 | `M1` | Cards equivalentes comparten la misma semántica de elevación | Todas las apps |
 | `M2` | Hover no provoca clipping, bordes perdidos ni solapes | Todas las apps |
 | `M3` | El borde activo/focus es visible y coherente con el tema | Todas las apps |
-| `M4` | CTA primario, secundario y destructivo mantienen semántica estable | Todas las apps |
+| `M4` | CTA primario, secundario y destructivo mantienen semántica estable, incluido foreground y contraste por familia al cambiar de tema | Todas las apps |
 | `M5` | Superficies interactivas no mezclan patrones de motion incompatibles en una misma pantalla | Todas las apps |
 | `M6` | Cards y surfaces con hover se validan visualmente en escritorio y móvil antes de publicar | Todas las apps |
 
@@ -68,6 +68,7 @@ Este documento evita:
 | `P3` | Ritmo visual y aire suficientes en claro y oscuro | Apps premium |
 | `P4` | Tono premium sin romper contratos universales | Apps premium |
 | `P5` | Toggles y controles superiores se integran visualmente con la identidad de la app | Apps premium |
+| `P6` | Las variantes premium por tema no cambian arbitrariamente la lectura de botones, pills o CTAs equivalentes | Apps premium |
 
 ### `ANCLORA_ULTRA_PREMIUM_APP_CONTRACT.md`
 

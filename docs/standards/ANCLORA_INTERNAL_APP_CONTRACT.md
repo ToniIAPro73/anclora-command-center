@@ -30,8 +30,10 @@ Unificar la UX/UI de las aplicaciones internas sin borrar la identidad de cada p
   - altura
   - radio
   - nivel de contraste
+  - criterio de foreground por familia
   - transición de hover/focus
   - estado disabled
+- Si la app soporta más de un tema, una misma familia de botón no puede cambiar arbitrariamente el color del texto o la legibilidad entre `dark` y `light`.
 
 ### 3. Cards y surfaces
 - Toda card interactiva debe tener hover y focus consistentes.
@@ -73,6 +75,7 @@ Unificar la UX/UI de las aplicaciones internas sin borrar la identidad de cada p
 - Los tokens base deben existir aunque una app publique un solo tema.
 - No se permiten colores hardcodeados por pantalla si la semántica ya existe en el sistema UI.
 - Los componentes nuevos deben nacer listos para tema real y para un futuro modo alternativo cuando el roadmap lo exija.
+- Si una app usa `dark/light/system`, las familias semánticas de botones y controles deben conservar una lógica estable de foreground, contraste y prioridad entre temas.
 
 ## Reglas particulares por aplicación
 
@@ -115,3 +118,4 @@ Una feature interna no está lista si:
 - añade un modal denso con scroll evitable
 - deja textos visibles fuera de i18n cuando la app requiere localización
 - usa un hover o elevación arbitraria que rompa el bloque
+- cambia el foreground o la legibilidad de una familia de botón entre temas sin documentarlo como variante real
