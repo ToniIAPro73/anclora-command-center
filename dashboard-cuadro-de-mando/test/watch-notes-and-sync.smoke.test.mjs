@@ -50,6 +50,26 @@ function copyDashboardNotesFixture(tempRoot) {
   return { tempVaultRoot, tempDashboardRoot, tempResourcesRoot };
 }
 
+async function stopWatcherProcess(watcher) {
+  if (!watcher) {
+    return;
+  }
+
+  if (watcher.exitCode === null && watcher.signalCode === null) {
+    watcher.kill("SIGINT");
+  }
+
+  await Promise.race([
+    new Promise((resolve) => watcher.once("exit", resolve)),
+    new Promise((resolve) => setTimeout(resolve, 2000)),
+  ]);
+
+  if (watcher.exitCode === null && watcher.signalCode === null) {
+    watcher.kill("SIGKILL");
+    await new Promise((resolve) => watcher.once("exit", resolve));
+  }
+}
+
 test("watch-notes-and-sync reruns the pipeline when a canonical note changes", async () => {
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "dashboard-watch-"));
   const { tempVaultRoot, tempDashboardRoot, tempResourcesRoot } = copyDashboardNotesFixture(tempRoot);
@@ -60,6 +80,7 @@ test("watch-notes-and-sync reruns the pipeline when a canonical note changes", a
   );
   const tempWorkbookFile = path.join(tempVaultRoot, "output", "spreadsheet", "anclora-group-real-estate-dataset.xlsx");
   const tempGeneratedFile = path.join(tempDashboardRoot, "src", "generated", "dataset.json");
+  let watcher;
 
   try {
     fs.rmSync(path.dirname(tempWorkbookFile), { recursive: true, force: true });
@@ -68,7 +89,7 @@ test("watch-notes-and-sync reruns the pipeline when a canonical note changes", a
     generateWorkbookFromNotes({ dashboardRoot: tempDashboardRoot });
     syncDataset({ dashboardRoot: tempDashboardRoot });
 
-    const watcher = spawn(
+    watcher = spawn(
       "node",
       ["./scripts/watch-notes-and-sync.mjs", "--dashboard-root", tempDashboardRoot],
       {
@@ -100,10 +121,8 @@ test("watch-notes-and-sync reruns the pipeline when a canonical note changes", a
     assert.ok(workbookAfter.mtimeMs > workbookBefore.mtimeMs, "debe regenerar el workbook al cambiar una nota canonica");
     assert.ok(datasetAfter.mtimeMs > datasetBefore.mtimeMs, "debe regenerar el dataset al cambiar una nota canonica");
     assert.equal(stderr, "", "el watcher no debe emitir errores");
-
-    watcher.kill("SIGINT");
-    await new Promise((resolve) => watcher.once("exit", resolve));
   } finally {
+    await stopWatcherProcess(watcher);
     fs.rmSync(tempRoot, { recursive: true, force: true });
   }
 });

@@ -6,7 +6,7 @@
   "scripts": {
     "generate:workbook": "node ./scripts/generate-workbook-from-notes.mjs",
     "sync:data:json": "node ./scripts/sync-dataset.mjs",
-    "sync:data": "npm run generate:workbook && npm run sync:data:json",
+    "sync:data": "node ./scripts/watch-notes-and-sync.mjs --once",
     "dev:vite": "vite",
     "watch:notes": "node ./scripts/watch-notes-and-sync.mjs",
     "dev:watch": "concurrently -k -s first \"npm:dev:vite\" \"npm:watch:notes\"",
