@@ -2,7 +2,7 @@
 title: Dashboard Real Estate Source - ACG - playbook - flujo-comercial-inteligente
 type: dashboard-real-estate-fuente
 app_name: Anclora Content Generator AI
-source_note: [[Flujo Comercial Inteligente Anclora]]
+source_note: playbooks/flujo-comercial-inteligente.md
 source_type: playbook
 evidence_summary: La usa para generar briefs, emails segmentados y activos comerciales
 related:

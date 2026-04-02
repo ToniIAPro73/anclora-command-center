@@ -1,6 +1,6 @@
 ---
 title: Dashboard Real Estate - ADL - Anclora Data Lab
-aliases: [Anclora Data Lab, ADL]
+aliases: [ADL]
 type: dashboard-real-estate-app
 app_id: ADL
 app_name: Anclora Data Lab
@@ -25,11 +25,11 @@ main_risks: Outputs canonicos indefinidos y baja definicion de frecuencia/format
 next_focus: Definir outputs clave, informes y senales utiles para negocio
 territory_focus: Suroeste de Mallorca y senales territoriales premium
 repo_url: https://github.com/ToniIAPro73/anclora-data-lab.git
-primary_note: "[[Anclora Data Lab]]"
+primary_note: research/anclora/anclora-data-lab.md
 supporting_notes:
-  - "[[Anclora Group]]"
-  - "[[Arquitectura de Integración Anclora]]"
-  - "[[Flujo Comercial Inteligente Anclora]]"
+  - resources/anclora-group.md
+  - sistemas/Arquitectura de Integración Anclora.md
+  - playbooks/flujo-comercial-inteligente.md
 source_confidence: medium
 related:
   - "[[Indice Dashboard Real Estate]]"
@@ -41,6 +41,13 @@ related:
 ## Resumen
 
 Capa de inteligencia analitica, senales territoriales e informes premium.
+
+## Referencias
+
+- [[Anclora Data Lab]]
+- [[Anclora Group]]
+- [[Arquitectura de Integración Anclora]]
+- [[Flujo Comercial Inteligente Anclora]]
 
 ## Lectura operativa
 

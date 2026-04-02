@@ -2,7 +2,7 @@
 title: Dashboard Real Estate Source - ADL - resource - anclora-group
 type: dashboard-real-estate-fuente
 app_name: Anclora Data Lab
-source_note: [[Anclora Group]]
+source_note: resources/anclora-group.md
 source_type: resource
 evidence_summary: La define como activos analiticos, senales territoriales e informes premium
 related:

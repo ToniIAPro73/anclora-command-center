@@ -2,7 +2,7 @@
 title: Dashboard Real Estate Source - ANX - dashboard - Anclora Command Center
 type: dashboard-real-estate-fuente
 app_name: Anclora Nexus
-source_note: [[Anclora Command Center]]
+source_note: Anclora Command Center.md
 source_type: dashboard
 evidence_summary: La marca como nucleo a consolidar y aplicacion activa con foco claro
 related:

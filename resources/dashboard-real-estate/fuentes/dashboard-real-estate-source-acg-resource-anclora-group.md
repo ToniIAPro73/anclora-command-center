@@ -2,7 +2,7 @@
 title: Dashboard Real Estate Source - ACG - resource - anclora-group
 type: dashboard-real-estate-fuente
 app_name: Anclora Content Generator AI
-source_note: [[Anclora Group]]
+source_note: resources/anclora-group.md
 source_type: resource
 evidence_summary: La define como motor editorial de inteligencia de contenido
 related:
