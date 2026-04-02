@@ -14,9 +14,7 @@ import {
 import { readDashboardNotes } from "./lib/read-dashboard-notes.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dashboardRoot = path.resolve(__dirname, "..");
-const vaultRoot = path.resolve(dashboardRoot, "..");
-const workbookPath = path.join(vaultRoot, "output", "spreadsheet", "anclora-group-real-estate-dataset.xlsx");
+const defaultDashboardRoot = path.resolve(__dirname, "..");
 
 function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
@@ -44,6 +42,14 @@ function mapRows(rows, fields) {
 
     return mapped;
   });
+}
+
+function resolvePaths(inputDashboardRoot) {
+  const dashboardRoot = path.resolve(inputDashboardRoot);
+  const vaultRoot = path.resolve(dashboardRoot, "..");
+  const workbookPath = path.join(vaultRoot, "output", "spreadsheet", "anclora-group-real-estate-dataset.xlsx");
+
+  return { dashboardRoot, vaultRoot, workbookPath };
 }
 
 export function validateDashboardNotes(data) {
@@ -91,8 +97,9 @@ function createWorkbook(data) {
   return workbook;
 }
 
-export function generateWorkbookFromNotes({ dashboardRoot: inputDashboardRoot = dashboardRoot } = {}) {
-  const data = readDashboardNotes({ dashboardRoot: inputDashboardRoot });
+export function generateWorkbookFromNotes({ dashboardRoot: inputDashboardRoot = defaultDashboardRoot } = {}) {
+  const { dashboardRoot, workbookPath } = resolvePaths(inputDashboardRoot);
+  const data = readDashboardNotes({ dashboardRoot });
   validateDashboardNotes(data);
 
   const workbook = createWorkbook(data);
