@@ -73,7 +73,7 @@ Capa de inteligencia analitica, senales territoriales e informes premium.
 - Territory: Suroeste de Mallorca y senales territoriales premium
 - Repo: https://github.com/ToniIAPro73/anclora-data-lab.git
 - Primary note: [[Anclora Data Lab]]
-- Supporting notes: [[Anclora Group]] | [[Arquitectura de Integracion Anclora]] | [[Flujo Comercial Inteligente Anclora]]
+- Supporting notes: [[Anclora Group]] | [[Arquitectura de Integración Anclora]] | [[Flujo Comercial Inteligente Anclora]]
 - Confidence: medium
 
 ## Interacciones

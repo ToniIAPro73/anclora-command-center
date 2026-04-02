@@ -73,7 +73,7 @@ Puerta de entrada premium y matriz comercial del vertical inmobiliario.
 - Territory: Suroeste de Mallorca
 - Repo: https://github.com/ToniIAPro73/Anclora-Private-Estates.git
 - Primary note: [[Anclora Private Estates]]
-- Supporting notes: [[Anclora Group]] | [[Arquitectura de Integracion Anclora]] | [[Anclora Command Center]]
+- Supporting notes: [[Anclora Group]] | [[Arquitectura de Integración Anclora]] | [[Anclora Command Center]]
 - Confidence: high
 
 ## Interacciones

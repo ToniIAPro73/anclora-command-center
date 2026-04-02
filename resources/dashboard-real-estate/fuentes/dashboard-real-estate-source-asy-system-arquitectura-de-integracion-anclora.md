@@ -19,7 +19,7 @@ La situa en la continuidad relacional y onboarding de partners.
 
 ## Referencia
 
-- Fuente base: [[Arquitectura de Integracion Anclora]]
+- Fuente base: [[Arquitectura de Integración Anclora]]
 - Canonica: [[Dashboard Real Estate - ASY - Anclora Synergi]]
 - Tipo de fuente: system
 

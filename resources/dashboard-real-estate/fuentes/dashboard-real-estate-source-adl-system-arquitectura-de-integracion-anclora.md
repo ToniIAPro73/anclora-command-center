@@ -19,7 +19,7 @@ La coloca al inicio de la cadena de transformacion del dato al negocio.
 
 ## Referencia
 
-- Fuente base: [[Arquitectura de Integracion Anclora]]
+- Fuente base: [[Arquitectura de Integración Anclora]]
 - Canonica: [[Dashboard Real Estate - ADL - Anclora Data Lab]]
 - Tipo de fuente: system
 

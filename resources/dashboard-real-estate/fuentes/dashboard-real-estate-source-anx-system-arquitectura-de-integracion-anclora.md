@@ -19,7 +19,7 @@ La ubica como activacion operativa y punto de medicion del pipeline.
 
 ## Referencia
 
-- Fuente base: [[Arquitectura de Integracion Anclora]]
+- Fuente base: [[Arquitectura de Integración Anclora]]
 - Canonica: [[Dashboard Real Estate - ANX - Anclora Nexus]]
 - Tipo de fuente: system
 

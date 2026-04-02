@@ -75,7 +75,7 @@ Motor editorial y de activos comerciales basado en inteligencia.
 - Territory: Autoridad y captacion para SW Mallorca y vertical inmobiliario premium
 - Repo: https://github.com/ToniIAPro73/anclora-content-generator-ai.git
 - Primary note: [[Anclora Content Generator AI]]
-- Supporting notes: [[Anclora Group]] | [[Arquitectura de Integracion Anclora]] | [[Flujo Comercial Inteligente Anclora]] | [[Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones]]
+- Supporting notes: [[Anclora Group]] | [[Arquitectura de Integración Anclora]] | [[Flujo Comercial Inteligente Anclora]] | [[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]
 - Confidence: high
 
 ## Interacciones

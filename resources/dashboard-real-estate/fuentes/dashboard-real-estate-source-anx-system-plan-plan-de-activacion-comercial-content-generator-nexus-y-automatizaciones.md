@@ -19,7 +19,7 @@ La eleva a corazon operativo del sistema comercial y prioriza flujos de retorno 
 
 ## Referencia
 
-- Fuente base: [[Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones]]
+- Fuente base: [[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]
 - Canonica: [[Dashboard Real Estate - ANX - Anclora Nexus]]
 - Tipo de fuente: system-plan
 

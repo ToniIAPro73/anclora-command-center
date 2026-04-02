@@ -19,7 +19,7 @@ La considera suficientemente madura para entrar ya en la operativa editorial.
 
 ## Referencia
 
-- Fuente base: [[Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones]]
+- Fuente base: [[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]
 - Canonica: [[Dashboard Real Estate - ACG - Anclora Content Generator AI]]
 - Tipo de fuente: system-plan
 
