@@ -1,9 +1,8 @@
 ---
 title: Dashboard Real Estate Source - ADL - playbook - flujo-comercial-inteligente
-aliases: [Anclora Data Lab, flujo-comercial-inteligente]
 type: dashboard-real-estate-fuente
 app_name: Anclora Data Lab
-source_note: playbooks/flujo-comercial-inteligente.md
+source_note: [[Flujo Comercial Inteligente Anclora]]
 source_type: playbook
 evidence_summary: La usa como input territorial e inteligencia para el flujo comercial
 related:
@@ -28,3 +27,4 @@ La usa como input territorial e inteligencia para el flujo comercial.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

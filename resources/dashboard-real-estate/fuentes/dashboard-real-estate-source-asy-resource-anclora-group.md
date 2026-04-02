@@ -1,9 +1,8 @@
 ---
 title: Dashboard Real Estate Source - ASY - resource - anclora-group
-aliases: [Anclora Synergi, anclora-group]
 type: dashboard-real-estate-fuente
 app_name: Anclora Synergi
-source_note: resources/anclora-group.md
+source_note: [[Anclora Group]]
 source_type: resource
 evidence_summary: La define como plataforma de gestion de partners y workspaces privados
 related:
@@ -28,3 +27,4 @@ La define como plataforma de gestion de partners y workspaces privados.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

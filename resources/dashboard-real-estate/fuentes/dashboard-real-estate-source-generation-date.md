@@ -1,11 +1,10 @@
 ---
 title: Dashboard Real Estate Source - generation_date
-aliases: [generation_date, 2026-03-31]
 type: dashboard-real-estate-fuente
 app_name: generation_date
 source_note: 2026-03-31
-source_type: 
-evidence_summary: 
+source_type: metadata
+evidence_summary: Workbook metadata row for generation date
 related:
   - "[[Indice Dashboard Real Estate]]"
   - "[[Anclora Cuadro de Mando Real Estate]]"
@@ -27,3 +26,4 @@ Metadato del snapshot del workbook.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

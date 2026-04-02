@@ -1,11 +1,10 @@
 ---
 title: Dashboard Real Estate Source - output_file
-aliases: [output_file, anclora-group-real-estate-dataset]
 type: dashboard-real-estate-fuente
 app_name: output_file
 source_note: output/spreadsheet/anclora-group-real-estate-dataset.xlsx
-source_type: 
-evidence_summary: 
+source_type: metadata
+evidence_summary: Workbook metadata row for output file
 related:
   - "[[Indice Dashboard Real Estate]]"
   - "[[Anclora Cuadro de Mando Real Estate]]"
@@ -27,3 +26,4 @@ Metadato del snapshot del workbook.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

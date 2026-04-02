@@ -1,11 +1,10 @@
 ---
 title: Dashboard Real Estate Source - dataset_scope
-aliases: [dataset_scope, Anclora Group - apps relacionadas con Real Estate excluyendo Anclora Advisor AI por instruccion del usuario]
 type: dashboard-real-estate-fuente
 app_name: dataset_scope
 source_note: Anclora Group - apps relacionadas con Real Estate excluyendo Anclora Advisor AI por instruccion del usuario
-source_type: 
-evidence_summary: 
+source_type: metadata
+evidence_summary: Workbook metadata row for dataset scope
 related:
   - "[[Indice Dashboard Real Estate]]"
   - "[[Anclora Cuadro de Mando Real Estate]]"
@@ -27,3 +26,4 @@ Metadato del snapshot del workbook.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

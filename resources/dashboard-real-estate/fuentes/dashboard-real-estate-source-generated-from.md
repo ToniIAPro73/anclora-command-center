@@ -1,11 +1,10 @@
 ---
 title: Dashboard Real Estate Source - generated_from
-aliases: [generated_from, Boveda de Obsidian local]
 type: dashboard-real-estate-fuente
 app_name: generated_from
 source_note: Boveda de Obsidian local
-source_type: 
-evidence_summary: 
+source_type: metadata
+evidence_summary: Workbook metadata row for source environment
 related:
   - "[[Indice Dashboard Real Estate]]"
   - "[[Anclora Cuadro de Mando Real Estate]]"
@@ -27,3 +26,4 @@ Metadato del snapshot del workbook.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

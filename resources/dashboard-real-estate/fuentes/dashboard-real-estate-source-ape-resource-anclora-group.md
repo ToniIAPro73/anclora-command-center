@@ -1,9 +1,8 @@
 ---
 title: Dashboard Real Estate Source - APE - resource - anclora-group
-aliases: [Anclora Private Estates, anclora-group]
 type: dashboard-real-estate-fuente
 app_name: Anclora Private Estates
-source_note: resources/anclora-group.md
+source_note: [[Anclora Group]]
 source_type: resource
 evidence_summary: Se define como puerta de entrada inmobiliaria premium y matriz del vertical
 related:
@@ -28,3 +27,4 @@ Se define como puerta de entrada inmobiliaria premium y matriz del vertical.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

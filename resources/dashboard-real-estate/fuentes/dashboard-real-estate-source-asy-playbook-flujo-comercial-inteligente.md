@@ -1,9 +1,8 @@
 ---
 title: Dashboard Real Estate Source - ASY - playbook - flujo-comercial-inteligente
-aliases: [Anclora Synergi, flujo-comercial-inteligente]
 type: dashboard-real-estate-fuente
 app_name: Anclora Synergi
-source_note: playbooks/flujo-comercial-inteligente.md
+source_note: [[Flujo Comercial Inteligente Anclora]]
 source_type: playbook
 evidence_summary: La integra como capa de coordinacion privada y onboarding
 related:
@@ -28,3 +27,4 @@ La integra como capa de coordinacion privada y onboarding.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

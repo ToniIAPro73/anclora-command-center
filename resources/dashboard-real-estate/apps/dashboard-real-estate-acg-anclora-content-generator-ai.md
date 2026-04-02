@@ -25,8 +25,12 @@ main_risks: Generar volumen sin criterio comercial y quedar desconectado del pip
 next_focus: Definir outputs canonicos, plantillas por canal y conexion explicita con CTA/comercializacion
 territory_focus: Autoridad y captacion para SW Mallorca y vertical inmobiliario premium
 repo_url: https://github.com/ToniIAPro73/anclora-content-generator-ai.git
-primary_note: research/anclora/anclora-content-generator.md
-supporting_notes: resources/anclora-group.md | sistemas/Arquitectura de Integracion Anclora.md | playbooks/flujo-comercial-inteligente.md | sistemas/Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones.md
+primary_note: "[[Anclora Content Generator AI]]"
+supporting_notes:
+  - "[[Anclora Group]]"
+  - "[[Arquitectura de Integración Anclora]]"
+  - "[[Flujo Comercial Inteligente Anclora]]"
+  - "[[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]"
 source_confidence: high
 related:
   - "[[Indice Dashboard Real Estate]]"
@@ -76,3 +80,4 @@ Motor editorial y de activos comerciales basado en inteligencia.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

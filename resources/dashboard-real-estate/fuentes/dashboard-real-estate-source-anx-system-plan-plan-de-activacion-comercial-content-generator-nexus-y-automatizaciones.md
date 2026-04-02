@@ -1,9 +1,8 @@
 ---
 title: Dashboard Real Estate Source - ANX - system-plan - Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones
-aliases: [Anclora Nexus, Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones]
 type: dashboard-real-estate-fuente
 app_name: Anclora Nexus
-source_note: sistemas/Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones.md
+source_note: [[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]
 source_type: system-plan
 evidence_summary: La eleva a corazon operativo del sistema comercial y prioriza flujos de retorno rapido
 related:
@@ -28,3 +27,4 @@ La eleva a corazon operativo del sistema comercial y prioriza flujos de retorno 
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

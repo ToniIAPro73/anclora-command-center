@@ -25,8 +25,11 @@ main_risks: Difuminacion con Nexus y falta de definicion de usuarios/workspaces 
 next_focus: Clarificar modelo de partners, usuarios y workspaces
 territory_focus: Mallorca premium con especial relevancia para eje SW + alianzas territoriales
 repo_url: https://github.com/ToniIAPro73/anclora-synergi.git
-primary_note: research/anclora/anclora-synergi.md
-supporting_notes: resources/anclora-group.md | sistemas/Arquitectura de Integracion Anclora.md | playbooks/flujo-comercial-inteligente.md
+primary_note: "[[Anclora Synergi]]"
+supporting_notes:
+  - "[[Anclora Group]]"
+  - "[[Arquitectura de Integración Anclora]]"
+  - "[[Flujo Comercial Inteligente Anclora]]"
 source_confidence: medium
 related:
   - "[[Indice Dashboard Real Estate]]"
@@ -76,3 +79,4 @@ Capa relacional para partners, workspaces privados y colaboracion estructurada.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

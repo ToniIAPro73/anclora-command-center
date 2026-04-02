@@ -25,8 +25,11 @@ main_risks: Propuesta de valor aun poco precisa; relaciones operativas todavia i
 next_focus: Precisar posicionamiento premium y mapear dependencia operativa con Nexus, Synergi y Data Lab
 territory_focus: Suroeste de Mallorca
 repo_url: https://github.com/ToniIAPro73/Anclora-Private-Estates.git
-primary_note: proyectos/anclora-private-estates.md
-supporting_notes: resources/anclora-group.md | sistemas/Arquitectura de Integracion Anclora.md | Anclora Command Center.md
+primary_note: "[[Anclora Private Estates]]"
+supporting_notes:
+  - "[[Anclora Group]]"
+  - "[[Arquitectura de Integración Anclora]]"
+  - "[[Anclora Command Center]]"
 source_confidence: high
 related:
   - "[[Indice Dashboard Real Estate]]"
@@ -77,3 +80,4 @@ Puerta de entrada premium y matriz comercial del vertical inmobiliario.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

@@ -1,9 +1,8 @@
 ---
 title: Dashboard Real Estate Source - ADL - research - anclora-data-lab
-aliases: [Anclora Data Lab, anclora-data-lab]
 type: dashboard-real-estate-fuente
 app_name: Anclora Data Lab
-source_note: research/anclora/anclora-data-lab.md
+source_note: [[Anclora Data Lab]]
 source_type: research
 evidence_summary: Describe mision, implicaciones y duda abierta sobre outputs y distribucion
 related:
@@ -28,3 +27,4 @@ Describe mision, implicaciones y duda abierta sobre outputs y distribucion.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+
