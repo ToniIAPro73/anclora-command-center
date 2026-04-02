@@ -25,6 +25,7 @@ Aplicaciones premium:
 - `Boveda-Anclora/dashboard`
 - `anclora-synergi`
 - `anclora-data-lab`
+- `anclora-talent`
 
 Aplicaciones ultra premium:
 - `anclora-private-estates`
@@ -97,6 +98,7 @@ Al crear una app nueva:
 | `Boveda-Anclora/dashboard` | Premium | `es`, `en`, `de` | `dark/light` | Base + premium |
 | `anclora-synergi` | Premium | `es`, `en`, `de` | tema editorial único | Base + premium |
 | `anclora-data-lab` | Premium | `es`, `en`, `de` | `dark/light/system` | Base + premium |
+| `anclora-talent` | Premium | `es`, `en` | `dark/light` | Base + premium |
 | `anclora-private-estates` | Ultra premium | `es`, `en`, `de`, `fr` | premium multi-theme | Base + ultra premium |
 | `anclora-portfolio` | Portfolio / showcase | `es`, `en` | tema editorial único o dual diseñado | Base + portfolio |
 | `anclora-azure-bay-landing` | Portfolio / showcase | `es`, `en` | tema editorial único | Base + portfolio |

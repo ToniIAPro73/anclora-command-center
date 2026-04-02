@@ -31,6 +31,7 @@ La referencia de condiciones es:
 | `Boveda-Anclora/dashboard` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | Home principal auditada en desktop/móvil; vistas secundarias pendientes | PARTIAL | Falta auditoría completa de vistas secundarias y coherencia fina de cards premium | 2026-03-30 |
 | `anclora-data-lab` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Login y backoffice `access-requests` auditados en desktop/móvil; workspace pendiente | PARTIAL | Falta auditoría completa del workspace y cierre de coherencia premium de cards/surfaces | 2026-03-30 |
 | `anclora-synergi` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Login y backoffice `partner-admissions` auditados en desktop/móvil; resto del backoffice parcial | PARTIAL | Falta auditoría completa del backoffice y cierre de coherencia premium de cards/surfaces | 2026-03-30 |
+| `anclora-talent` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | Clasificada como premium en bóveda; landing, auth y workspace con contrato dark-first e i18n es/en en progreso de cierre | PARTIAL | Falta auditoría visual completa y cierre de persistencia de tema/idioma en toda la app | 2026-04-02 |
 | `anclora-private-estates` | Ultra Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | Contratos sincronizados; falta auditoría editorial y validación de overrides | PARTIAL | Falta auditoría visual detallada y validación de overrides ultra premium | 2026-03-30 |
 | `anclora-portfolio` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría detallada | PARTIAL | Falta auditoría visual y de conversión en desktop/móvil | 2026-03-30 |
 | `anclora-azure-bay-landing` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría detallada | PARTIAL | Falta auditoría visual y de conversión en desktop/móvil | 2026-03-30 |
@@ -46,6 +47,7 @@ La referencia de condiciones es:
 | `Boveda-Anclora/dashboard` | Home principal auditada y responsive corregido | Vistas secundarias no auditadas y densidad móvil todavía justa | Auditar todas las vistas y fijar patrón premium de cards |
 | `anclora-data-lab` | Login y backoffice de accesos auditados; claro/oscuro e i18n corregidos | Workspace pendiente y cards premium todavía sin criterio final de grupo | Auditar workspace y cerrar criterio de cards premium |
 | `anclora-synergi` | Login y backoffice de admisiones auditados; claro/oscuro e i18n corregidos | Backoffice completo pendiente y cards premium todavía sin criterio final de grupo | Auditar resto del backoffice y cerrar criterio de cards premium |
+| `anclora-talent` | Clasificada como premium en la bóveda; cuenta con shell, auth y dashboard definidos | Falta cierre visual y validación completa de dark default, theme toggle y locale toggle | Completar auditoría y cerrar contrato de preferencias e i18n en toda la app |
 
 ### Internal
 
@@ -84,6 +86,7 @@ La referencia de condiciones es:
 | `Boveda-Anclora/dashboard` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-data-lab` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-talent` | PARTIAL | N/A | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-portfolio` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-azure-bay-landing` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -101,6 +104,7 @@ La referencia de condiciones es:
 | `Boveda-Anclora/dashboard` | N/A | N/A | N/A | N/A | N/A | N/A |
 | `anclora-data-lab` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-talent` | N/A | N/A | N/A | N/A | N/A | N/A |
 | `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-portfolio` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-azure-bay-landing` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -140,6 +144,7 @@ La referencia de condiciones es:
 | `Boveda-Anclora/dashboard` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-data-lab` | PARTIAL | OK | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-synergi` | PARTIAL | OK | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-talent` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 
 ### Family · Ultra Premium
 

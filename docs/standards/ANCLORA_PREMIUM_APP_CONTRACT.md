@@ -8,6 +8,7 @@ Fijar una gramática premium compartida para productos públicos o semi-público
 - `Boveda-Anclora/dashboard`
 - `anclora-synergi`
 - `anclora-data-lab`
+- `anclora-talent`
 
 ## Invariantes de grupo
 
@@ -95,6 +96,13 @@ Fijar una gramática premium compartida para productos públicos o semi-público
 - Mantener `es/en/de`.
 - Mantener `dark/light/system`.
 - Debe sentirse más analítica y precisa que Synergi, pero compartir la misma disciplina premium en botones, cards y modales.
+
+### `anclora-talent`
+- Mantener `es/en` con `es` como idioma por defecto.
+- Mantener `dark/light` con `dark` como tema inicial.
+- El shell autenticado debe exponer toggles visibles de tema e idioma integrados en la identidad premium.
+- La experiencia debe sentirse como plataforma editorial premium coherente en `landing`, `sign-in`, `sign-up`, `dashboard`, `editor`, `preview` y `cover`.
+- No puede parecer un dashboard interno con decoración aplicada encima.
 
 ## Gate de aceptación
 
