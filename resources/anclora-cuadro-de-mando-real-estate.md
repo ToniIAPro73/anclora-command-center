@@ -35,6 +35,15 @@ Es la capa visual específica para el dataset de apps Real Estate. Complementa a
 - Pipeline de ingestión: `xlsx -> json`
 - App local: `dashboard-cuadro-de-mando/`
 
+## Fuente de verdad
+
+La capa canonica para la migracion de este workbook vive en [[Indice Dashboard Real Estate]] y en `resources/dashboard-real-estate/`.
+
+Notas de mantenimiento:
+
+- Si cambia el workbook, regenerar las notas canonicas antes de comparar resultados.
+- Mantener esta nota como puntero de referencia, no como replica completa del dataset.
+
 ## Qué permite leer
 
 - prioridad actual de cada app
