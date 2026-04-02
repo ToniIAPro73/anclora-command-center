@@ -69,11 +69,25 @@ test("validateDashboardNotes rejects missing app ids", () => {
   assert.throws(() => validateDashboardNotes(data), /Missing app_id/);
 });
 
+test("validateDashboardNotes rejects duplicate app ids", () => {
+  const data = readDashboardNotes({ dashboardRoot });
+  data.apps = [...data.apps, { ...data.apps[0] }];
+
+  assert.throws(() => validateDashboardNotes(data), /Duplicate app_id/);
+});
+
 test("validateDashboardNotes rejects unknown source apps", () => {
   const data = readDashboardNotes({ dashboardRoot });
   data.interactions = [{ ...data.interactions[0], source_app: "ZZZ" }];
 
   assert.throws(() => validateDashboardNotes(data), /Unknown source_app/);
+});
+
+test("validateDashboardNotes rejects unknown target apps", () => {
+  const data = readDashboardNotes({ dashboardRoot });
+  data.interactions = [{ ...data.interactions[0], target_app: "ZZZ" }];
+
+  assert.throws(() => validateDashboardNotes(data), /Unknown target_app/);
 });
 
 test("generateWorkbookFromNotes uses the provided dashboardRoot for output", () => {
