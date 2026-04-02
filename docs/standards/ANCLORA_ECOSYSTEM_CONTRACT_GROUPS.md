@@ -75,6 +75,12 @@ Al tocar botones, cards, shells, tablas o bloques interactivos:
 3. `UI_MOTION_CONTRACT.md`
 4. `LOCALIZATION_CONTRACT.md`
 
+Al tocar tema, tokens o variantes visuales de botones:
+1. `ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
+2. contrato del grupo aplicable
+3. `CONTRACT_CONDITION_CATALOG.md`
+4. `UI_MOTION_CONTRACT.md`
+
 Al tocar modales:
 1. `ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
 2. contrato del grupo aplicable
@@ -121,3 +127,4 @@ Una app no cumple el contrato si:
 - introduce modales con scroll evitable
 - crea nuevas superficies fuera de la gramática del grupo
 - reintroduce hardcoded strings donde el contrato exige i18n
+- cambia el foreground o el contraste de una familia de botón entre temas sin mantener semántica estable o sin documentar una variante real por tema
