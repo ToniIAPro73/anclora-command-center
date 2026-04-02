@@ -37,3 +37,28 @@ test("sync-dataset genera dataset.json con derivados operativos", () => {
     "Nexus debe aparecer como prioridad principal del dataset actual",
   );
 });
+
+test("sync-dataset json step preserves the existing workbook", () => {
+  execSync("npm run generate:workbook", {
+    cwd: dashboardRoot,
+    stdio: "pipe",
+  });
+
+  const before = fs.statSync(workbookFile);
+
+  if (fs.existsSync(generatedFile)) {
+    fs.rmSync(generatedFile, { force: true });
+  }
+
+  execSync("node ./scripts/sync-dataset.mjs", {
+    cwd: dashboardRoot,
+    stdio: "pipe",
+  });
+
+  const after = fs.statSync(workbookFile);
+  const dataset = JSON.parse(fs.readFileSync(generatedFile, "utf8"));
+
+  assert.equal(after.mtimeMs, before.mtimeMs, "el paso JSON no debe regenerar el workbook");
+  assert.equal(dataset.sourceWorkbook, "output/spreadsheet/anclora-group-real-estate-dataset.xlsx");
+  assert.equal(dataset.apps.length, 5);
+});

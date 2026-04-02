@@ -3,8 +3,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import XLSX from "xlsx";
 
-import { generateWorkbookFromNotes } from "./generate-workbook-from-notes.mjs";
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dashboardRoot = path.resolve(__dirname, "..");
 
@@ -104,8 +102,6 @@ export function syncDataset({ dashboardRoot: inputDashboardRoot = dashboardRoot 
   );
   const resolvedGeneratedDir = path.join(resolvedDashboardRoot, "src", "generated");
   const resolvedOutputPath = path.join(resolvedGeneratedDir, "dataset.json");
-
-  generateWorkbookFromNotes({ dashboardRoot: resolvedDashboardRoot });
 
   if (!fs.existsSync(resolvedWorkbookPath)) {
     throw new Error(`Workbook not found: ${resolvedWorkbookPath}`);
