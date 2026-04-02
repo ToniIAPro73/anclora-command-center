@@ -37,12 +37,23 @@ Es la capa visual específica para el dataset de apps Real Estate. Complementa a
 
 ## Fuente de verdad
 
-La capa canonica para la migracion de este workbook vive en [[Indice Dashboard Real Estate]] y en `resources/dashboard-real-estate/`.
+La capa canonica para esta version del cuadro de mando vive en [[Indice Dashboard Real Estate]] y en `resources/dashboard-real-estate/`.
 
-Notas de mantenimiento:
+El workbook `output/spreadsheet/anclora-group-real-estate-dataset.xlsx` y `dashboard-cuadro-de-mando/src/generated/dataset.json` son artefactos derivados. No se editan a mano salvo para una investigacion puntual; se regeneran desde las notas canonicas.
+
+## Flujo operativo de verdad
+
+1. Editar primero las notas canonicas en `resources/dashboard-real-estate/`.
+2. Regenerar el workbook con `npm run generate:workbook` desde `dashboard-cuadro-de-mando/`.
+3. Sincronizar el dataset con `npm run sync:data`.
+4. Validar el estado con `npm test` y `npm run build` en `dashboard-cuadro-de-mando/`.
+5. Si una comparacion no cuadra, revisar las notas origen antes de tocar el workbook o el JSON generado.
+
+## Notas de mantenimiento
 
 - Si cambia el workbook, regenerar las notas canonicas antes de comparar resultados.
 - Mantener esta nota como puntero de referencia, no como replica completa del dataset.
+- Si la semantica del snapshot cambia, actualizar primero las notas de origen y despues ajustar los tests de regresion.
 
 ## Qué permite leer
 

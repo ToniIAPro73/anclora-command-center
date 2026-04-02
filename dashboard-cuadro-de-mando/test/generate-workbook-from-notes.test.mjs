@@ -26,7 +26,8 @@ const workbookSheets = [
 ];
 
 test("generate-workbook-from-notes writes the canonical workbook sheets", () => {
-  const originalWorkbook = fs.readFileSync(workbookPath);
+  const hadOriginalWorkbook = fs.existsSync(workbookPath);
+  const originalWorkbook = hadOriginalWorkbook ? fs.readFileSync(workbookPath) : null;
 
   if (fs.existsSync(workbookPath)) {
     fs.rmSync(workbookPath, { force: true });
@@ -46,9 +47,26 @@ test("generate-workbook-from-notes writes the canonical workbook sheets", () => 
     }
 
     const apps = XLSX.utils.sheet_to_json(workbook.Sheets.apps_master, { defval: "" });
+    const interactions = XLSX.utils.sheet_to_json(workbook.Sheets.interacciones, { defval: "" });
+    const sources = XLSX.utils.sheet_to_json(workbook.Sheets.fuentes, { defval: "" });
+
     assert.equal(apps.length, 5);
+    assert.equal(interactions.length, 10);
+    assert.equal(sources.length, 26);
+
+    const anx = apps.find((item) => item.app_id === "ANX");
     const ape = apps.find((item) => item.app_id === "APE");
+    assert.ok(anx, "expected the ANX app row");
     assert.ok(ape, "expected the APE app row");
+    assert.equal(anx.main_inputs, "Leads inbound | oportunidades internas | activos de contenido | senales premium | actores/partners");
+    assert.equal(anx.downstream_dependencies, "Anclora Synergi | Command Center | aprendizaje de sistema");
+    assert.equal(anx.key_workflows, "Lead intake | cualificacion | activacion comercial | seguimiento | cierre");
+    assert.equal(anx.documented_state, "activo");
+    assert.equal(anx.source_confidence, "high");
+    assert.equal(
+      anx.supporting_notes,
+      "resources/anclora-group.md | sistemas/Arquitectura de Integración Anclora.md | sistemas/Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones.md | Anclora Command Center.md",
+    );
     assert.equal(ape.app_name, "Anclora Private Estates");
     assert.equal(
       ape.upstream_dependencies,
@@ -57,8 +75,27 @@ test("generate-workbook-from-notes writes the canonical workbook sheets", () => 
     assert.equal(ape.downstream_dependencies, "Anclora Nexus | Anclora Synergi | Anclora Data Lab");
     assert.equal(ape.key_workflows, "Captacion premium | posicionamiento territorial | coordinacion comercial");
     assert.equal(ape.supporting_notes, "resources/anclora-group.md | sistemas/Arquitectura de Integración Anclora.md | Anclora Command Center.md");
+
+    assert.deepEqual(interactions.find((item) => item.source_app === "ANX" && item.target_app === "ASY"), {
+      source_app: "ANX",
+      target_app: "ASY",
+      interaction_type: "partner_handoff",
+      what_flows: "Nexus transfiere oportunidad madura a relacion/partnership",
+      business_reason: "Synergi toma el relevo para continuidad privada y onboarding",
+    });
+
+    assert.deepEqual(sources.find((item) => item.app_name === "Anclora Data Lab"), {
+      app_name: "Anclora Data Lab",
+      source_note: "playbooks/flujo-comercial-inteligente.md",
+      source_type: "playbook",
+      evidence_summary: "La usa como input territorial e inteligencia para el flujo comercial",
+    });
   } finally {
-    fs.writeFileSync(workbookPath, originalWorkbook);
+    if (originalWorkbook) {
+      fs.writeFileSync(workbookPath, originalWorkbook);
+    } else if (fs.existsSync(workbookPath)) {
+      fs.rmSync(workbookPath, { force: true });
+    }
   }
 });
 
@@ -97,6 +134,7 @@ test("generateWorkbookFromNotes uses the provided dashboardRoot for output", () 
   const sourceResources = path.join(vaultRoot, "resources", "dashboard-real-estate");
   const targetResources = path.join(tempResourcesDir, "dashboard-real-estate");
   const expectedWorkbookPath = path.join(tempRoot, "output", "spreadsheet", "anclora-group-real-estate-dataset.xlsx");
+  const hadDefaultWorkbook = fs.existsSync(workbookPath);
 
   try {
     fs.mkdirSync(tempDashboardRoot, { recursive: true });
@@ -107,7 +145,11 @@ test("generateWorkbookFromNotes uses the provided dashboardRoot for output", () 
 
     assert.equal(generatedPath, expectedWorkbookPath);
     assert.equal(fs.existsSync(expectedWorkbookPath), true);
-    assert.equal(fs.existsSync(workbookPath), true, "default workbook path should remain available");
+    assert.equal(
+      fs.existsSync(workbookPath),
+      hadDefaultWorkbook,
+      "default workbook path should remain unchanged by temp generation",
+    );
   } finally {
     fs.rmSync(tempRoot, { recursive: true, force: true });
   }
