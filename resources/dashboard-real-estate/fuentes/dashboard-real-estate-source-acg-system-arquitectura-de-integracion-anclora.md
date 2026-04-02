@@ -19,7 +19,7 @@ La coloca en la traduccion comercial de insights a activos reutilizables.
 
 ## Referencia
 
-- Fuente base: [[Arquitectura de Integracion Anclora]]
+- Fuente base: [[Arquitectura de Integración Anclora]]
 - Canonica: [[Dashboard Real Estate - ACG - Anclora Content Generator AI]]
 - Tipo de fuente: system
 

@@ -19,7 +19,7 @@ La situa como lugar donde la maquinaria del ecosistema genera valor economico vi
 
 ## Referencia
 
-- Fuente base: [[Arquitectura de Integracion Anclora]]
+- Fuente base: [[Arquitectura de Integración Anclora]]
 - Canonica: [[Dashboard Real Estate - APE - Anclora Private Estates]]
 - Tipo de fuente: system
 

@@ -73,7 +73,7 @@ Capa relacional para partners, workspaces privados y colaboracion estructurada.
 - Territory: Mallorca premium con especial relevancia para eje SW + alianzas territoriales
 - Repo: https://github.com/ToniIAPro73/anclora-synergi.git
 - Primary note: [[Anclora Synergi]]
-- Supporting notes: [[Anclora Group]] | [[Arquitectura de Integracion Anclora]] | [[Flujo Comercial Inteligente Anclora]]
+- Supporting notes: [[Anclora Group]] | [[Arquitectura de Integración Anclora]] | [[Flujo Comercial Inteligente Anclora]]
 - Confidence: medium
 
 ## Interacciones

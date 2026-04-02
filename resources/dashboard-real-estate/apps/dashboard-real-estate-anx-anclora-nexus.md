@@ -75,7 +75,7 @@ Sistema operativo comercial: pipeline, CRM y trazabilidad.
 - Territory: SW Mallorca, captacion premium y coordinacion comercial
 - Repo: https://github.com/ToniIAPro73/Anclora-Nexus.git
 - Primary note: [[Anclora Nexus]]
-- Supporting notes: [[Anclora Group]] | [[Arquitectura de Integracion Anclora]] | [[Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones]] | [[Anclora Command Center]]
+- Supporting notes: [[Anclora Group]] | [[Arquitectura de Integración Anclora]] | [[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]] | [[Anclora Command Center]]
 - Confidence: high
 
 ## Interacciones
