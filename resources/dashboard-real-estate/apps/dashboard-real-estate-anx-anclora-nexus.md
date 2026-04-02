@@ -25,8 +25,12 @@ main_risks: Convertirse en contenedor ambiguo si no se simplifican los flujos pr
 next_focus: Consolidar etapas reales del pipeline y una vista clara de siguiente mejor accion
 territory_focus: SW Mallorca, captacion premium y coordinacion comercial
 repo_url: https://github.com/ToniIAPro73/Anclora-Nexus.git
-primary_note: playbooks/anclora-nexus.md
-supporting_notes: resources/anclora-group.md | sistemas/Arquitectura de Integracion Anclora.md | sistemas/Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones.md | Anclora Command Center.md
+primary_note: "[[Anclora Nexus]]"
+supporting_notes:
+  - "[[Anclora Group]]"
+  - "[[Arquitectura de Integración Anclora]]"
+  - "[[Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones]]"
+  - "[[Anclora Command Center]]"
 source_confidence: high
 related:
   - "[[Indice Dashboard Real Estate]]"
@@ -79,3 +83,4 @@ Sistema operativo comercial: pipeline, CRM y trazabilidad.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

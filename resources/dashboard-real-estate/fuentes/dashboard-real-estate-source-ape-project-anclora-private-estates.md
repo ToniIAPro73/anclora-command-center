@@ -1,9 +1,8 @@
 ---
 title: Dashboard Real Estate Source - APE - project - anclora-private-estates
-aliases: [Anclora Private Estates, anclora-private-estates]
 type: dashboard-real-estate-fuente
 app_name: Anclora Private Estates
-source_note: proyectos/anclora-private-estates.md
+source_note: [[Anclora Private Estates]]
 source_type: project
 evidence_summary: Recoge objetivo, estado, riesgos y proximos pasos del vertical premium
 related:
@@ -28,3 +27,4 @@ Recoge objetivo, estado, riesgos y proximos pasos del vertical premium.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

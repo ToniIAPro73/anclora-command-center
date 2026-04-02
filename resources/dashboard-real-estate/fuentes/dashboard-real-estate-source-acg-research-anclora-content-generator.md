@@ -1,9 +1,8 @@
 ---
 title: Dashboard Real Estate Source - ACG - research - anclora-content-generator
-aliases: [Anclora Content Generator AI, anclora-content-generator]
 type: dashboard-real-estate-fuente
 app_name: Anclora Content Generator AI
-source_note: research/anclora/anclora-content-generator.md
+source_note: [[Anclora Content Generator AI]]
 source_type: research
 evidence_summary: Resume su rol editorial, dependencias y dudas operativas
 related:
@@ -28,3 +27,4 @@ Resume su rol editorial, dependencias y dudas operativas.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

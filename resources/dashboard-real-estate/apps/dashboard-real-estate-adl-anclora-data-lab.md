@@ -25,8 +25,11 @@ main_risks: Outputs canonicos indefinidos y baja definicion de frecuencia/format
 next_focus: Definir outputs clave, informes y senales utiles para negocio
 territory_focus: Suroeste de Mallorca y senales territoriales premium
 repo_url: https://github.com/ToniIAPro73/anclora-data-lab.git
-primary_note: research/anclora/anclora-data-lab.md
-supporting_notes: resources/anclora-group.md | sistemas/Arquitectura de Integracion Anclora.md | playbooks/flujo-comercial-inteligente.md
+primary_note: "[[Anclora Data Lab]]"
+supporting_notes:
+  - "[[Anclora Group]]"
+  - "[[Arquitectura de Integración Anclora]]"
+  - "[[Flujo Comercial Inteligente Anclora]]"
 source_confidence: medium
 related:
   - "[[Indice Dashboard Real Estate]]"
@@ -77,3 +80,4 @@ Capa de inteligencia analitica, senales territoriales e informes premium.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

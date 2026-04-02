@@ -1,9 +1,8 @@
 ---
 title: Dashboard Real Estate Source - ASY - system - Arquitectura de Integracion Anclora
-aliases: [Anclora Synergi, Arquitectura de Integracion Anclora]
 type: dashboard-real-estate-fuente
 app_name: Anclora Synergi
-source_note: sistemas/Arquitectura de Integracion Anclora.md
+source_note: [[Arquitectura de Integración Anclora]]
 source_type: system
 evidence_summary: La situa en la continuidad relacional y onboarding de partners
 related:
@@ -28,3 +27,4 @@ La situa en la continuidad relacional y onboarding de partners.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

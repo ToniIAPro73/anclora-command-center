@@ -1,9 +1,8 @@
 ---
 title: Dashboard Real Estate Source - ADL - system - Arquitectura de Integracion Anclora
-aliases: [Anclora Data Lab, Arquitectura de Integracion Anclora]
 type: dashboard-real-estate-fuente
 app_name: Anclora Data Lab
-source_note: sistemas/Arquitectura de Integracion Anclora.md
+source_note: [[Arquitectura de Integración Anclora]]
 source_type: system
 evidence_summary: La coloca al inicio de la cadena de transformacion del dato al negocio
 related:
@@ -28,3 +27,4 @@ La coloca al inicio de la cadena de transformacion del dato al negocio.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+

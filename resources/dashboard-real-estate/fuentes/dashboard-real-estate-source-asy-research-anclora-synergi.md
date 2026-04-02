@@ -1,9 +1,8 @@
 ---
 title: Dashboard Real Estate Source - ASY - research - anclora-synergi
-aliases: [Anclora Synergi, anclora-synergi]
 type: dashboard-real-estate-fuente
 app_name: Anclora Synergi
-source_note: research/anclora/anclora-synergi.md
+source_note: [[Anclora Synergi]]
 source_type: research
 evidence_summary: Detalla su rol relacional, valor y dudas frente a Nexus
 related:
@@ -28,3 +27,4 @@ Detalla su rol relacional, valor y dudas frente a Nexus.
 
 - [[Indice Dashboard Real Estate]]
 - [[Anclora Cuadro de Mando Real Estate]]
+
