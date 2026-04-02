@@ -4,9 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "generate:workbook": "node ./scripts/generate-workbook-from-notes.mjs",
-    "sync:data:json": "node ./scripts/sync-dataset.mjs",
-    "sync:data": "npm run generate:workbook && npm run sync:data:json",
+    "sync:data": "node ./scripts/sync-dataset.mjs",
     "dev:vite": "vite",
     "dev": "npm run sync:data && vite",
     "build": "npm run sync:data && tsc -b && vite build",

@@ -3,10 +3,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import XLSX from "xlsx";
 
-import { generateWorkbookFromNotes } from "./generate-workbook-from-notes.mjs";
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dashboardRoot = path.resolve(__dirname, "..");
+const vaultRoot = path.resolve(dashboardRoot, "..");
+const workbookPath = path.join(vaultRoot, "output", "spreadsheet", "anclora-group-real-estate-dataset.xlsx");
+const generatedDir = path.join(dashboardRoot, "src", "generated");
+const outputPath = path.join(generatedDir, "dataset.json");
 
 const BAND_BY_SCORE = [
   { min: 75, band: "critical" },
@@ -93,27 +95,14 @@ function groupCount(items, key) {
   return Array.from(counts.entries()).map(([label, value]) => ({ label, value }));
 }
 
-export function syncDataset({ dashboardRoot: inputDashboardRoot = dashboardRoot } = {}) {
-  const resolvedDashboardRoot = path.resolve(inputDashboardRoot);
-  const resolvedVaultRoot = path.resolve(resolvedDashboardRoot, "..");
-  const resolvedWorkbookPath = path.join(
-    resolvedVaultRoot,
-    "output",
-    "spreadsheet",
-    "anclora-group-real-estate-dataset.xlsx",
-  );
-  const resolvedGeneratedDir = path.join(resolvedDashboardRoot, "src", "generated");
-  const resolvedOutputPath = path.join(resolvedGeneratedDir, "dataset.json");
-
-  generateWorkbookFromNotes({ dashboardRoot: resolvedDashboardRoot });
-
-  if (!fs.existsSync(resolvedWorkbookPath)) {
-    throw new Error(`Workbook not found: ${resolvedWorkbookPath}`);
+function sync() {
+  if (!fs.existsSync(workbookPath)) {
+    throw new Error(`Workbook not found: ${workbookPath}`);
   }
 
-  ensureDir(resolvedGeneratedDir);
+  ensureDir(generatedDir);
 
-  const workbook = XLSX.readFile(resolvedWorkbookPath);
+  const workbook = XLSX.readFile(workbookPath);
   const apps = readSheet(workbook, "apps_master");
   const interactions = readSheet(workbook, "interacciones");
   const fieldDictionary = readSheet(workbook, "campos_analiticos");
@@ -166,7 +155,7 @@ export function syncDataset({ dashboardRoot: inputDashboardRoot = dashboardRoot 
 
   const payload = {
     generatedAt: new Date().toISOString(),
-    sourceWorkbook: path.relative(resolvedVaultRoot, resolvedWorkbookPath).replaceAll("\\", "/"),
+    sourceWorkbook: path.relative(vaultRoot, workbookPath).replaceAll("\\", "/"),
     apps: enrichedApps,
     interactions,
     fieldDictionary,
@@ -181,14 +170,8 @@ export function syncDataset({ dashboardRoot: inputDashboardRoot = dashboardRoot 
     },
   };
 
-  fs.writeFileSync(resolvedOutputPath, JSON.stringify(payload, null, 2));
-  process.stdout.write(
-    `Dataset synced to ${path.relative(resolvedVaultRoot, resolvedOutputPath).replaceAll("\\", "/")}\n`,
-  );
-
-  return resolvedOutputPath;
+  fs.writeFileSync(outputPath, JSON.stringify(payload, null, 2));
+  process.stdout.write(`Dataset synced to ${path.relative(vaultRoot, outputPath).replaceAll("\\", "/")}\n`);
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  syncDataset();
-}
+sync();
