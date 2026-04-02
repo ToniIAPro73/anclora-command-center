@@ -10,9 +10,11 @@ repo: https://github.com/ToniIAPro73/anclora-talent.git
 url: https://anclora-talent.vercel.app/
 scope: editorial-platform
 arquitecto_jefe: "[[personas/Toni|Toni]]"
-tags: [proyecto, anclora, editorial]
+tags: [proyecto, anclora, editorial, premium]
 related:
   - "[[Anclora Group]]"
+  - "[[ANCLORA_ECOSYSTEM_CONTRACT_GROUPS|Anclora Ecosystem Contract Groups]]"
+  - "[[ANCLORA_PREMIUM_APP_CONTRACT|Anclora Premium App Contract]]"
   - "[[Anclora Content Generator AI]]"
   - "[[personas/Toni|Toni]]"
 ---
@@ -38,6 +40,14 @@ Disponer de una plataforma editorial operativa que permita crear y administrar p
 - Situación actual: proyecto activo con despliegue en `https://anclora-talent.vercel.app/` y repositorio operativo en GitHub.
 - Último avance relevante: el README confirma base en `Next.js App Router`, autenticación con `Clerk`, persistencia preparada para `Neon`, assets en `Vercel Blob` y fallback a store en memoria para desarrollo local.
 - Principal riesgo o bloqueo: todavía falta conectar importación real `txt/docx` y exportación PDF sobre el flujo ya implementado.
+
+## 🧾 Marco contractual
+
+- Familia contractual: `Premium`.
+- Idioma objetivo: `es/en`, con `es` por defecto.
+- Tema objetivo: `dark/light`, con `dark` por defecto.
+- Contratos aplicables: [[ANCLORA_ECOSYSTEM_CONTRACT_GROUPS]], [[ANCLORA_PREMIUM_APP_CONTRACT]], [[UI_MOTION_CONTRACT]], [[MODAL_CONTRACT]], [[LOCALIZATION_CONTRACT]].
+- Criterio de lectura: la app debe sentirse como una plataforma editorial premium y no como un dashboard interno genérico.
 
 ## 📌 Decisiones clave
 
@@ -73,10 +83,13 @@ Disponer de una plataforma editorial operativa que permita crear y administrar p
 
 - Sistema o principio: [[Anclora Group]]
 - Nodo editorial relacionado: [[Anclora Content Generator AI]]
+- Contrato de referencia: [[ANCLORA_PREMIUM_APP_CONTRACT]]
 
 ## 🔗 Relacionado
 
 - [[Anclora Group]]
+- [[ANCLORA_ECOSYSTEM_CONTRACT_GROUPS|Anclora Ecosystem Contract Groups]]
+- [[ANCLORA_PREMIUM_APP_CONTRACT|Anclora Premium App Contract]]
 - [[Anclora Content Generator AI]]
 - [[personas/Toni|Toni]]
 

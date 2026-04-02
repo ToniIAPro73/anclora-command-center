@@ -34,6 +34,7 @@ Aplicaciones:
 - `Boveda-Anclora/dashboard`
 - `anclora-data-lab`
 - `anclora-synergi`
+- `anclora-talent`
 
 ### Ultra Premium
 
@@ -65,6 +66,7 @@ Aplicaciones:
 | `Boveda-Anclora/dashboard` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
 | `anclora-data-lab` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
 | `anclora-synergi` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
+| `anclora-talent` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
 | `anclora-private-estates` | Ultra Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `ULTRA_PREMIUM` | Sí |
 | `anclora-portfolio` | Portfolio / Showcase | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PORTFOLIO` | Sí |
 | `anclora-azure-bay-landing` | Portfolio / Showcase | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PORTFOLIO` | Sí |
@@ -89,6 +91,7 @@ Aplicaciones:
 | `Boveda-Anclora/dashboard` | Universal + Premium |
 | `anclora-data-lab` | Universal + Premium |
 | `anclora-synergi` | Universal + Premium |
+| `anclora-talent` | Universal + Premium |
 
 ### Ultra Premium
 
