@@ -13,6 +13,7 @@ const watchDelayMs = 250;
 function parseArgs(argv) {
   const result = {
     dashboardRoot: defaultDashboardRoot,
+    once: false,
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -26,6 +27,11 @@ function parseArgs(argv) {
 
     if (arg.startsWith("--dashboard-root=")) {
       result.dashboardRoot = path.resolve(arg.slice("--dashboard-root=".length));
+      continue;
+    }
+
+    if (arg === "--once") {
+      result.once = true;
     }
   }
 
@@ -53,7 +59,7 @@ function writeError(message) {
   process.stderr.write(`${message}\n`);
 }
 
-async function refreshDashboardNotes(dashboardRoot, reason) {
+async function runDashboardSync(dashboardRoot, reason) {
   const prefix = reason ? ` (${reason})` : "";
   writeLine(`Refreshing canonical dashboard notes${prefix}...`);
   generateWorkbookFromNotes({ dashboardRoot });
@@ -62,7 +68,12 @@ async function refreshDashboardNotes(dashboardRoot, reason) {
 }
 
 async function main() {
-  const { dashboardRoot } = parseArgs(process.argv.slice(2));
+  const { dashboardRoot, once } = parseArgs(process.argv.slice(2));
+  if (once) {
+    await runDashboardSync(dashboardRoot, "once");
+    return;
+  }
+
   const watchTargets = resolveWatchTargets(dashboardRoot);
   let refreshInFlight = false;
   let refreshAgain = false;
@@ -80,14 +91,15 @@ async function main() {
     }
 
     refreshInFlight = true;
-
-    do {
-      refreshAgain = false;
-      await refreshDashboardNotes(dashboardRoot, reason);
-      reason = "queued change";
-    } while (refreshAgain && active);
-
-    refreshInFlight = false;
+    try {
+      do {
+        refreshAgain = false;
+        await runDashboardSync(dashboardRoot, reason);
+        reason = "queued change";
+      } while (refreshAgain && active);
+    } finally {
+      refreshInFlight = false;
+    }
   };
 
   const stop = async () => {
