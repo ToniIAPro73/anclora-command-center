@@ -1,10 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
-
-const require = createRequire(import.meta.url);
-const XLSX = require("xlsx");
+import ExcelJS from "exceljs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dashboardRoot = path.resolve(__dirname, "..");
@@ -20,13 +17,44 @@ function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
+function normalizeCellValue(value) {
+  if (value == null) return "";
+  if (typeof value === "object") {
+    if ("result" in value && value.result != null) return value.result;
+    if ("text" in value && value.text != null) return value.text;
+    if ("hyperlink" in value && value.hyperlink != null) return value.hyperlink;
+    if ("richText" in value && Array.isArray(value.richText)) {
+      return value.richText.map((part) => part.text ?? "").join("");
+    }
+  }
+  return value;
+}
+
 function readSheet(workbook, sheetName) {
-  const sheet = workbook.Sheets[sheetName];
+  const sheet = workbook.getWorksheet(sheetName);
   if (!sheet) {
     throw new Error(`Missing sheet: ${sheetName}`);
   }
 
-  return XLSX.utils.sheet_to_json(sheet, { defval: "" });
+  const headerRow = sheet.getRow(1);
+  const headers = headerRow.values
+    .slice(1)
+    .map((value) => String(normalizeCellValue(value)).trim());
+
+  const rows = [];
+  sheet.eachRow((row, rowNumber) => {
+    if (rowNumber === 1) {
+      return;
+    }
+
+    const entry = {};
+    headers.forEach((header, index) => {
+      entry[header] = normalizeCellValue(row.getCell(index + 1).value);
+    });
+    rows.push(entry);
+  });
+
+  return rows;
 }
 
 function toList(value) {
@@ -94,7 +122,7 @@ function groupCount(items, key) {
   return Array.from(counts.entries()).map(([label, value]) => ({ label, value }));
 }
 
-export function syncDataset({ dashboardRoot: inputDashboardRoot = dashboardRoot } = {}) {
+export async function syncDataset({ dashboardRoot: inputDashboardRoot = dashboardRoot } = {}) {
   const resolvedDashboardRoot = path.resolve(inputDashboardRoot);
   const resolvedVaultRoot = path.resolve(resolvedDashboardRoot, "..");
   const resolvedWorkbookPath = path.join(
@@ -112,7 +140,8 @@ export function syncDataset({ dashboardRoot: inputDashboardRoot = dashboardRoot 
 
   ensureDir(resolvedGeneratedDir);
 
-  const workbook = XLSX.readFile(resolvedWorkbookPath);
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.readFile(resolvedWorkbookPath);
   const apps = readSheet(workbook, "apps_master");
   const interactions = readSheet(workbook, "interacciones");
   const fieldDictionary = readSheet(workbook, "campos_analiticos");
@@ -189,5 +218,5 @@ export function syncDataset({ dashboardRoot: inputDashboardRoot = dashboardRoot 
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  syncDataset();
+  await syncDataset();
 }
