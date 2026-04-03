@@ -3,96 +3,105 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { createRequire } from "node:module";
+import ExcelJS from "exceljs";
 
 import { syncDataset } from "./sync-real-estate-dataset.mjs";
+async function writeWorkbook(workbookPath) {
+  const workbook = new ExcelJS.Workbook();
 
-const require = createRequire(import.meta.url);
-const XLSX = require("xlsx");
+  const appsSheet = workbook.addWorksheet("apps_master");
+  appsSheet.columns = [
+    { header: "app_id", key: "app_id" },
+    { header: "app_name", key: "app_name" },
+    { header: "app_type", key: "app_type" },
+    { header: "documented_state", key: "documented_state" },
+    { header: "maturity_status", key: "maturity_status" },
+    { header: "source_confidence", key: "source_confidence" },
+    { header: "main_risks", key: "main_risks" },
+    { header: "next_focus", key: "next_focus" },
+    { header: "state_summary", key: "state_summary" },
+    { header: "upstream_dependencies", key: "upstream_dependencies" },
+    { header: "downstream_dependencies", key: "downstream_dependencies" },
+    { header: "key_workflows", key: "key_workflows" },
+    { header: "ecosystem_layer", key: "ecosystem_layer" },
+  ];
+  appsSheet.addRows([
+    {
+      app_id: "app-command-center",
+      app_name: "Command Center",
+      app_type: "dashboard",
+      documented_state: "activo",
+      maturity_status: "pending_to_active_transition",
+      source_confidence: "high",
+      main_risks: "Critical dependency on a single manual sync step for high-signal reporting.",
+      next_focus: "Validate the unified shell and finalize the premium dashboard migration path.",
+      state_summary: "Unified shell operational.",
+      upstream_dependencies: "vault | spreadsheet",
+      downstream_dependencies: "exec-reporting | real-estate",
+      key_workflows: "triage | monitoring",
+      ecosystem_layer: "experience",
+    },
+    {
+      app_id: "app-real-estate",
+      app_name: "Real Estate",
+      app_type: "module",
+      documented_state: "documentado",
+      maturity_status: "mapped",
+      source_confidence: "medium",
+      main_risks: "Secondary surface still depends on legacy navigation references.",
+      next_focus: "",
+      state_summary: "Ready for migration follow-up.",
+      upstream_dependencies: "",
+      downstream_dependencies: "",
+      key_workflows: "portfolio review",
+      ecosystem_layer: "operations",
+    },
+  ]);
 
-function writeWorkbook(workbookPath) {
-  const workbook = XLSX.utils.book_new();
+  const interactionsSheet = workbook.addWorksheet("interacciones");
+  interactionsSheet.columns = [
+    { header: "source_app", key: "source_app" },
+    { header: "target_app", key: "target_app" },
+    { header: "interaction_type", key: "interaction_type" },
+    { header: "what_flows", key: "what_flows" },
+  ];
+  interactionsSheet.addRow({
+    source_app: "app-command-center",
+    target_app: "app-real-estate",
+    interaction_type: "navigates_to",
+    what_flows: "User opens the real estate view from the shared shell.",
+  });
 
-  XLSX.utils.book_append_sheet(
-    workbook,
-    XLSX.utils.json_to_sheet([
-      {
-        app_id: "app-command-center",
-        app_name: "Command Center",
-        app_type: "dashboard",
-        documented_state: "activo",
-        maturity_status: "pending_to_active_transition",
-        source_confidence: "high",
-        main_risks: "Critical dependency on a single manual sync step for high-signal reporting.",
-        next_focus: "Validate the unified shell and finalize the premium dashboard migration path.",
-        state_summary: "Unified shell operational.",
-        upstream_dependencies: "vault | spreadsheet",
-        downstream_dependencies: "exec-reporting | real-estate",
-        key_workflows: "triage | monitoring",
-        ecosystem_layer: "experience",
-      },
-      {
-        app_id: "app-real-estate",
-        app_name: "Real Estate",
-        app_type: "module",
-        documented_state: "documentado",
-        maturity_status: "mapped",
-        source_confidence: "medium",
-        main_risks: "Secondary surface still depends on legacy navigation references.",
-        next_focus: "",
-        state_summary: "Ready for migration follow-up.",
-        upstream_dependencies: "",
-        downstream_dependencies: "",
-        key_workflows: "portfolio review",
-        ecosystem_layer: "operations",
-      },
-    ]),
-    "apps_master",
-  );
+  const fieldsSheet = workbook.addWorksheet("campos_analiticos");
+  fieldsSheet.columns = [
+    { header: "field_name", key: "field_name" },
+    { header: "description", key: "description" },
+  ];
+  fieldsSheet.addRow({
+    field_name: "priority_band",
+    description: "Derived band used by dashboard cards.",
+  });
 
-  XLSX.utils.book_append_sheet(
-    workbook,
-    XLSX.utils.json_to_sheet([
-      {
-        source_app: "app-command-center",
-        target_app: "app-real-estate",
-        interaction_type: "navigates_to",
-        what_flows: "User opens the real estate view from the shared shell.",
-      },
-    ]),
-    "interacciones",
-  );
+  const sourcesSheet = workbook.addWorksheet("fuentes");
+  sourcesSheet.columns = [
+    { header: "app_name", key: "app_name" },
+    { header: "source_name", key: "source_name" },
+  ];
+  sourcesSheet.addRows([
+    {
+      app_name: "Command Center",
+      source_name: "Manual review",
+    },
+    {
+      app_name: "",
+      source_name: "Ignored empty source row",
+    },
+  ]);
 
-  XLSX.utils.book_append_sheet(
-    workbook,
-    XLSX.utils.json_to_sheet([
-      {
-        field_name: "priority_band",
-        description: "Derived band used by dashboard cards.",
-      },
-    ]),
-    "campos_analiticos",
-  );
-
-  XLSX.utils.book_append_sheet(
-    workbook,
-    XLSX.utils.json_to_sheet([
-      {
-        app_name: "Command Center",
-        source_name: "Manual review",
-      },
-      {
-        app_name: "",
-        source_name: "Ignored empty source row",
-      },
-    ]),
-    "fuentes",
-  );
-
-  XLSX.writeFile(workbook, workbookPath);
+  await workbook.xlsx.writeFile(workbookPath);
 }
 
-test("syncDataset builds the real estate dataset payload from the workbook contract", () => {
+test("syncDataset builds the real estate dataset payload from the workbook contract", async () => {
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), "real-estate-sync-"));
 
   try {
@@ -103,9 +112,9 @@ test("syncDataset builds the real estate dataset payload from the workbook contr
     fs.mkdirSync(path.join(dashboardRoot, "src", "generated"), { recursive: true });
     fs.mkdirSync(workbookDir, { recursive: true });
 
-    writeWorkbook(workbookPath);
+    await writeWorkbook(workbookPath);
 
-    const outputPath = syncDataset({ dashboardRoot });
+    const outputPath = await syncDataset({ dashboardRoot });
     const payload = JSON.parse(fs.readFileSync(outputPath, "utf8"));
 
     assert.equal(outputPath, path.join(dashboardRoot, "src", "generated", "dataset.json"));
