@@ -1,7 +1,7 @@
 ---
 title: Sistema canónico de landing premium Anclora
 type: recurso
-status: activo
+estado: activo
 scope: canon-landing-premium
 tags: [anclora, landing, premium, canon, design-system, stitch]
 related:

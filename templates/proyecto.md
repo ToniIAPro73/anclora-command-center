@@ -1,6 +1,6 @@
 ---
 title: {{title}}
-status: activo
+estado: activo
 fecha_inicio: {{date:YYYY-MM-DD}}
 fecha_objetivo:
 resultado_esperado:
@@ -49,7 +49,7 @@ Breve descripción del proyecto y su propósito.
 
 ## 🧠 Aprendizajes
 
-- 
+-
 
 ## 🛠️ Sistemas y playbooks relacionados
 

@@ -3,6 +3,8 @@ logs/contract-standards-state.json
 logs/weekly-review.log
 .worktrees/
 .env.local
+.obsidian/workspace.json
+.obsidian/graph.json
 dashboard-cuadro-de-mando/node_modules/
 dashboard-cuadro-de-mando/dist/
 node_modules/

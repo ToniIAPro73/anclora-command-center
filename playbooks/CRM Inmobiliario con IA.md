@@ -1,7 +1,7 @@
 ---
 title: CRM Inmobiliario con IA
 type: playbook
-status: active
+estado: activo
 tags: [playbook, crm, inmobiliario, ia, automatizacion]
 related:
   - "[[Operativa Inmobiliaria con IA - insights NotebookLM]]"
@@ -80,6 +80,10 @@ Este playbook no adopta el stack literal del material fuente de NotebookLM. Las 
 6. El asesor recibe un resumen estructurado cuando el lead ya esta listo para avanzar.
 7. El pipeline se actualiza en [[Anclora Nexus]] y se coordina en [[Coda]] y [[Slack]].
 
+## Superficie de lectura
+
+[[Anclora Cuadro de Mando Real Estate]] puede actuar como vista resumida para leer estado, riesgos y siguiente foco del sistema comercial sin entrar directamente en cada herramienta.
+
 ## Entradas recomendadas para scoring
 
 - canal de origen
@@ -126,6 +130,10 @@ El resumen al asesor debe incluir:
 - Separar prospeccion, CRM y reporting en herramientas desconectadas.
 - Medir actividad en lugar de calidad del pipeline.
 
+## 🧠 Base de research
+
+Este playbook aterriza en operación las conclusiones de [[Operativa Inmobiliaria con IA - insights NotebookLM]] y se apoya en la lógica de sistema descrita en [[Anclora Data Lab]] y [[Anclora Synergi]].
+
 ## Relacionado
 
 - [[Operativa Inmobiliaria con IA - insights NotebookLM]]
@@ -133,4 +141,7 @@ El resumen al asesor debe incluir:
 - [[Reportes Automáticos para Inmobiliarias]]
 - [[Anclora Nexus]]
 - [[Anclora Command Center]]
+- [[Anclora Cuadro de Mando Real Estate]]
+- [[Anclora Data Lab]]
+- [[Anclora Synergi]]
 - [[Arquitectura Implementable de Automatización Anclora]]

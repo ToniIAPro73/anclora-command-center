@@ -1,7 +1,7 @@
 ---
 title: Propuesta de colaboración con Iván Aliado
 type: idea
-status: activo
+estado: activo
 tags: [idea, anclora, partnership, mallorca]
 related:
   - "[[Iván Aliado]]"

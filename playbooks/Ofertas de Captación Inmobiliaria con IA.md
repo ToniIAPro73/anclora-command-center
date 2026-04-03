@@ -1,7 +1,7 @@
 ---
 title: Ofertas de Captación Inmobiliaria con IA
 type: playbook
-status: active
+estado: activo
 tags: [playbook, oferta, captacion, inmobiliario, ia]
 related:
   - "[[Lead Magnets Inmobiliarios para SW Mallorca]]"

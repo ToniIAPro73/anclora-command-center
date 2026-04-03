@@ -1,7 +1,7 @@
 ---
 title: Captación Multicanal - Instagram, Facebook y Cold Email
 type: playbook
-status: activo
+estado: activo
 scope: captacion-multicanal
 priority: alta
 tags: [playbook, instagram, facebook, cold-email, captacion, real-estate]
@@ -130,7 +130,7 @@ No te escribo para venderte nada de forma genérica, sino porque creo que puede 
 
 Si te encaja, encantado de proponerte una conversación breve.
 
-Un saludo,  
+Un saludo,
 Toni
 
 ## Plantilla base para propietario o perfil comprador muy concreto
@@ -145,7 +145,7 @@ En las últimas semanas estoy viendo señales interesantes relacionadas con `{{z
 
 Si te encaja, te la envío encantado y, si no es el momento, ningún problema.
 
-Un saludo,  
+Un saludo,
 Toni
 
 ## Seguimiento correcto

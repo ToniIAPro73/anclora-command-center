@@ -1,7 +1,7 @@
 ---
 title: Captación Inmobiliaria con IA - insights NotebookLM
 type: research
-status: active
+estado: activo
 tags: [research, inmobiliario, ia, captacion, notebooklm]
 related:
   - "[[Benchmark LinkedIn - Francisco Igual]]"

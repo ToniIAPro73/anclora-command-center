@@ -2,7 +2,7 @@
 title: Anclora Cuadro de Mando Real Estate
 aliases: [Cuadro de Mando Real Estate, Dashboard Cuadro de Mando]
 type: resource
-status: activo
+estado: activo
 scope: dashboard-operativo
 repo_local: dashboard-cuadro-de-mando
 url: https://dashboard-cuadro-de-mando.vercel.app/
@@ -63,6 +63,14 @@ El workbook `output/spreadsheet/anclora-group-real-estate-dataset.xlsx` y `dashb
 - relaciones entre nodos del ecosistema
 - trazabilidad de fuentes
 
+## Encaje comercial
+
+Este cuadro de mando sirve como capa de lectura para el nucleo descrito en [[MOC Real Estate Comercial]]. No sustituye a los playbooks; los hace legibles en una sola superficie cuando hay que priorizar foco, seguimiento y reporting.
+
+- [[Prospección Avanzada con Nexus]] usa esta vista para leer prioridad territorial, dependencias y siguiente foco comercial.
+- [[CRM Inmobiliario con IA]] lo aprovecha como lectura sintetica del estado del pipeline y de sus bloqueos.
+- [[Reportes Automáticos para Inmobiliarias]] encuentra aqui una superficie util para direccion y coordinacion, complementaria a [[Anclora Command Center]].
+
 ## Relación con el ecosistema
 
 - [[Anclora Private Estates]] como vertical comercial
@@ -80,3 +88,7 @@ El workbook `output/spreadsheet/anclora-group-real-estate-dataset.xlsx` y `dashb
 - [[Anclora Data Lab]]
 - [[Anclora Content Generator AI]]
 - [[Anclora Synergi]]
+- [[MOC Real Estate Comercial]]
+- [[Prospección Avanzada con Nexus]]
+- [[CRM Inmobiliario con IA]]
+- [[Reportes Automáticos para Inmobiliarias]]

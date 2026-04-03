@@ -1,5 +1,6 @@
 ---
 title: Toni
+aliases: [Antonio Ballesterosa, ToniIAPro73]
 rol: Arquitecto Jefe
 organizacion: CGI + eXp Realty + Anclora Group
 full_name: Antonio Ballesterosa

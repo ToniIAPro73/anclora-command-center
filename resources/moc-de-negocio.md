@@ -2,7 +2,7 @@
 title: MOC de Negocio
 aliases: [MOC de Negocio]
 type: business-moc
-status: active
+estado: activo
 arquitecto_jefe: "[[personas/Toni|Toni]]"
 tags: [resource, moc, negocio]
 related:
@@ -34,6 +34,12 @@ Mapa de contenido orientado a negocio para conectar nodos corporativos, vertical
 - [[Anclora Data Lab]]
 - [[Anclora Content Generator AI]]
 - [[Anclora Talent]]
+
+## Mapas temáticos
+
+- [[MOC Real Estate Comercial]]
+- [[MOC Stack Operativo Anclora]]
+- [[MOC Toni - Marca Personal y Autoridad]]
 
 ## Memoria relacional
 

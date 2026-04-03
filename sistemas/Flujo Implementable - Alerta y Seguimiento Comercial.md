@@ -1,7 +1,7 @@
 ---
 title: Flujo Implementable - Alerta y Seguimiento Comercial
 type: implementation-plan
-status: activo
+estado: activo
 scope: alertas-y-follow-up
 priority: alta
 tags: [automatizacion, nexus, seguimiento, alertas, n8n, comercial]

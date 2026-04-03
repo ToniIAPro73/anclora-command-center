@@ -1,11 +1,11 @@
 ---
 type: persona
 tags: [persona, partner, synergi]
-status: 
+estado:
 company:
 role:
 location:
-influence_level: 
+influence_level:
 onboarding_date:
 github_user:
 related: ["[[Anclora Synergi]]"]

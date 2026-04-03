@@ -1,7 +1,7 @@
 ---
 title: PDFs IA Inmobiliaria (NotebookLM)
 type: inbox
-status: pending
+estado: pendiente
 tags: [ocr, pdf, inmobiliario, ia]
 related: [[Anclora Command Center]]
 ---
@@ -24,3 +24,7 @@ Se recibieron varios PDFs (Notion export y recursos) sobre IA y sector inmobilia
 
 ## Siguiente accion
 - Extraer insights desde NotebookLM MCP.
+
+## Encaje provisional
+
+Este material probablemente termine alimentando [[Captación Inmobiliaria con IA - insights NotebookLM]], [[Operativa Inmobiliaria con IA - insights NotebookLM]] o directamente algún playbook del eje [[Anclora Command Center]].

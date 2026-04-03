@@ -1,7 +1,7 @@
 ---
 title: Primeros 3 Flujos de Automatización Anclora
 type: implementation-plan
-status: activo
+estado: activo
 scope: automatizacion-comercial
 priority: alta
 tags: [automatizacion, nexus, content-generator, n8n, captacion, plan]

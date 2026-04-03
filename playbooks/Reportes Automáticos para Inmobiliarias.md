@@ -1,7 +1,7 @@
 ---
 title: Reportes Automáticos para Inmobiliarias
 type: playbook
-status: active
+estado: activo
 tags: [playbook, reportes, inmobiliario, ia, direccion]
 related:
   - "[[CRM Inmobiliario con IA]]"
@@ -111,6 +111,7 @@ Objetivo:
 - [[Inmovilla]] y [[StateFox]] aportan contexto de demanda, activos y zonas
 - [[Anclora Nexus]] consolida el estado del pipeline
 - [[Anclora Command Center]] resume el pulso ejecutivo
+- [[Anclora Cuadro de Mando Real Estate]] ofrece una lectura operativa del dataset inmobiliario para detectar prioridades, bloqueos y dependencias
 - [[Coda]] puede servir como superficie de lectura para el equipo
 - [[Slack]] distribuye alertas y resúmenes breves
 
@@ -138,6 +139,10 @@ Objetivo:
 
 - `n8n` para consolidar datos y disparar reportes
 
+## 🧠 Base de research
+
+Para que estos reportes tengan valor real, [[Anclora Data Lab]] debe definir mejor señales y lecturas, mientras [[Operativa Inmobiliaria con IA - insights NotebookLM]] aporta la lógica de reporting por rol.
+
 ## Validacion
 
 - El reporte diario cambia el trabajo del dia.
@@ -150,4 +155,6 @@ Objetivo:
 - [[Operativa Inmobiliaria con IA - insights NotebookLM]]
 - [[Anclora Nexus]]
 - [[Anclora Command Center]]
+- [[Anclora Cuadro de Mando Real Estate]]
+- [[Anclora Data Lab]]
 - [[Arquitectura Implementable de Automatización Anclora]]

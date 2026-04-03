@@ -1,7 +1,7 @@
 ---
 title: Pruebas de Autoridad y Casos Reales
 type: authority-evidence
-status: activo
+estado: activo
 scope: marca-personal
 priority: alta
 tags: [autoridad, credibilidad, real-estate, ia-generativa, portfolio]

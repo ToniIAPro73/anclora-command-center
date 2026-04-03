@@ -1,7 +1,7 @@
 ---
 title: Prompt de iteración v2 para Google Stitch - Refinamiento premium Anclora
 type: recurso
-status: activo
+estado: activo
 scope: prompts-google-stitch-iteration
 tags: [anclora, prompt, google-stitch, landing, premium, iteration]
 related:

@@ -1,7 +1,7 @@
 ---
 title: Bio y Pitch de Toni - Real Estate + IA
 type: messaging-canon
-status: activo
+estado: activo
 scope: marca-personal
 priority: alta
 tags: [bio, pitch, linkedin, marca-personal, real-estate, ia-generativa]

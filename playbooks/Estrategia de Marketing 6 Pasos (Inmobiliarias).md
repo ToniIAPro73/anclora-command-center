@@ -1,7 +1,7 @@
 ---
 title: Estrategia de Marketing 6 Pasos (Inmobiliarias)
 type: playbook
-status: draft
+estado: borrador
 tags: [marketing, inmobiliario, playbook]
 related: [[Anclora Command Center]], [[Estrategia de Autoridad IA Inmobiliaria]]
 ---

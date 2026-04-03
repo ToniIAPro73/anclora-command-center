@@ -32,7 +32,7 @@ Usar la bóveda cada día como apoyo real para decidir, capturar y cerrar el tra
 
 1. Abre la nota diaria y define hasta 3 focos reales del día.
 2. Registra reuniones, ideas, decisiones, aprendizajes y tareas en la nota diaria o en `inbox/`.
-3. Cada vez que aparezca algo importante, añade al menos un `[[wikilink]]` hacia proyecto, persona o investigación relacionada.
+3. Cada vez que aparezca algo importante, añade al menos un enlace interno hacia proyecto, persona o investigación relacionada.
 4. Antes de terminar el día, procesa 1-3 capturas importantes:
    - si es acción con contexto, muévela a `proyectos/`
    - si es aprendizaje o exploración, muévela a `research/`

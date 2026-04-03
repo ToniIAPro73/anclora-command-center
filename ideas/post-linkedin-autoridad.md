@@ -1,7 +1,7 @@
 ---
 title: Post LinkedIn Autoridad IA Inmobiliaria
 type: idea
-status: activo
+estado: activo
 tags: [idea, anclora, linkedin, authority, mallorca]
 related:
   - "[[Estrategia de Autoridad IA Inmobiliaria]]"

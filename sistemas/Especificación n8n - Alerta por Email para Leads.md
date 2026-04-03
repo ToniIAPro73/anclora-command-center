@@ -1,7 +1,7 @@
 ---
 title: Especificación n8n - Alerta por Email para Leads
 type: implementation-spec
-status: activo
+estado: activo
 scope: n8n-email-alerts
 priority: alta
 tags: [n8n, email, alertas, leads, nexus, automatizacion]

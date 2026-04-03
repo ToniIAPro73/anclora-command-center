@@ -1,7 +1,7 @@
 ---
 title: Prompt maestro - Landing premium reusable para apps del ecosistema Anclora
 type: recurso
-status: activo
+estado: activo
 scope: prompts-ux-premium
 tags: [anclora, prompt, landing, premium, design-system, reusable]
 related:

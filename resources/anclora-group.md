@@ -3,7 +3,7 @@ title: Anclora Group
 aliases: [Anclora Group]
 repo: https://github.com/ToniIAPro73/Anclora-Group.git
 type: corporate-hub
-status: active
+estado: activo
 verticals: [Real Estate, AI, Health]
 arquitecto_jefe: "[[personas/Toni|Toni]]"
 territorio_foco: Suroeste de Mallorca

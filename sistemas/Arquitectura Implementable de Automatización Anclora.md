@@ -1,7 +1,7 @@
 ---
 title: Arquitectura Implementable de Automatización Anclora
 type: system
-status: active
+estado: activo
 tags: [sistema, automatizacion, anclora, n8n, crm]
 related:
   - "[[Anclora Nexus]]"

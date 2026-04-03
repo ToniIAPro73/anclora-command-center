@@ -1,7 +1,7 @@
 ---
 title: Anclora Private Estates Landing Page
 aliases: [Anclora Private Estates Landing, Anclora Private Estates Landing Page]
-status: activo
+estado: activo
 fecha_inicio: 2026-04-03
 fecha_objetivo:
 resultado_esperado: Consolidar la landing pública flagship de Anclora Private Estates como superficie ultra premium de autoridad, captación y acceso selectivo del vertical inmobiliario.

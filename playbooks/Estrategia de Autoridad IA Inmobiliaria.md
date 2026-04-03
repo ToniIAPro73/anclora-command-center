@@ -105,6 +105,10 @@ Y la base probatoria que evita exageraciones es:
 - La medicion completa de su impacto comercial todavia depende de una capa de automatizacion no desplegada.
 - La traduccion operativa futura debe seguir [[Arquitectura Implementable de Automatización Anclora]].
 
+## 🧠 Base de research
+
+La capa editorial descrita en [[Anclora Content Generator AI]] y los benchmarks de [[Captación Inmobiliaria con IA - insights NotebookLM]] son la base que convierte esta estrategia en un sistema y no en intuición aislada.
+
 ## 🔗 Relacionado
 
 - [[Prospección Avanzada con Nexus]]
@@ -116,6 +120,7 @@ Y la base probatoria que evita exageraciones es:
 - [[Lead Magnets Inmobiliarios para SW Mallorca]]
 - [[Mapa de Objeciones de Captación Inmobiliaria]]
 - [[Arquitectura Implementable de Automatización Anclora]]
+- [[Anclora Content Generator AI]]
 - [[ICP Comprador Premium SW Mallorca]]
 - [[Propuesta de Valor de Toni - Real Estate + IA]]
 - [[Pruebas de Autoridad y Casos Reales]]
