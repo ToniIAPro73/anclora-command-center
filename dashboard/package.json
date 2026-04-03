@@ -5,15 +5,17 @@
   "type": "module",
   "scripts": {
     "sync:vault": "node ./scripts/sync-vault-data.mjs",
+    "sync:real-estate": "node ./scripts/sync-real-estate-dataset.mjs",
     "dev:vite": "vite",
     "dev": "node ./scripts/dev-with-sync.mjs",
-    "build": "npm run sync:vault && tsc -b && vite build",
+    "build": "npm run sync:vault && npm run sync:real-estate && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",

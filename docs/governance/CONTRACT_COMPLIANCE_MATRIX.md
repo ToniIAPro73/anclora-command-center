@@ -28,11 +28,13 @@ La referencia de condiciones es:
 | `anclora-nexus` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
 | `anclora-content-generator-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
 | `anclora-impulso` | Premium | PARTIAL | OK | PARTIAL | PARTIAL | N/A | Dashboard, Nutrition, Workouts, Profile, Progress y Gamificación auditados en local; producción parcial | PARTIAL | Falta pass final completo en producción y cierre fino de coherencia premium entre superficies | 2026-03-30 |
-| `Boveda-Anclora/dashboard` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | Home principal auditada en desktop/móvil; vistas secundarias pendientes | PARTIAL | Falta auditoría completa de vistas secundarias y coherencia fina de cards premium | 2026-03-30 |
+| `Boveda-Anclora/dashboard` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | Shell compartida y home principal auditadas; vista `real-estate` ya migrada pero pendiente de pass contractual completo | PARTIAL | Falta auditoría completa de las dos vistas del app unificado y cierre fino de coherencia premium | 2026-04-03 |
+| `Boveda-Anclora/dashboard-cuadro-de-mando` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | Superficie legacy en migración hacia `Boveda-Anclora/dashboard`; clasificación contractual formalizada, sin auditoría propia cerrada | PARTIAL | Falta completar la retirada o, mientras exista, auditar sus vistas y responsive con criterio premium | 2026-04-03 |
 | `anclora-data-lab` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Login y backoffice `access-requests` auditados en desktop/móvil; workspace pendiente | PARTIAL | Falta auditoría completa del workspace y cierre de coherencia premium de cards/surfaces | 2026-03-30 |
 | `anclora-synergi` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Login y backoffice `partner-admissions` auditados en desktop/móvil; resto del backoffice parcial | PARTIAL | Falta auditoría completa del backoffice y cierre de coherencia premium de cards/surfaces | 2026-03-30 |
 | `anclora-talent` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | Clasificada como premium en bóveda; landing, auth y workspace con contrato dark-first e i18n es/en en progreso de cierre | PARTIAL | Falta auditoría visual completa y cierre de persistencia de tema/idioma en toda la app | 2026-04-02 |
 | `anclora-private-estates` | Ultra Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | Contratos sincronizados; falta auditoría editorial y validación de overrides | PARTIAL | Falta auditoría visual detallada y validación de overrides ultra premium | 2026-03-30 |
+| `anclora-private-estates-landing-page` | Ultra Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | Landing pública clasificada como ultra premium; existe plan de refinamiento dark-only e i18n, pero falta auditoría contractual cerrada | PARTIAL | Falta auditoría visual detallada, validación de overrides y cierre de la capa pública ultra premium | 2026-04-03 |
 | `anclora-portfolio` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría detallada | PARTIAL | Falta auditoría visual y de conversión en desktop/móvil | 2026-03-30 |
 | `anclora-azure-bay-landing` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría detallada | PARTIAL | Falta auditoría visual y de conversión en desktop/móvil | 2026-03-30 |
 | `anclora-playa-viva-uniestate` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría detallada | PARTIAL | Falta auditoría visual y de conversión en desktop/móvil | 2026-03-30 |
@@ -44,7 +46,8 @@ La referencia de condiciones es:
 | Aplicación | Evidencia actual | Riesgo principal | Próxima acción |
 | --- | --- | --- | --- |
 | `anclora-impulso` | Flujos autenticados auditados mayoritariamente en local; producción validada de forma parcial | Diferencias finas entre local y Vercel y coherencia premium entre cards/surfaces | Ejecutar pass completo en producción y cerrar criterios de cards premium |
-| `Boveda-Anclora/dashboard` | Home principal auditada y responsive corregido | Vistas secundarias no auditadas y densidad móvil todavía justa | Auditar todas las vistas y fijar patrón premium de cards |
+| `Boveda-Anclora/dashboard` | Shell compartida activa; Command Center auditado de forma parcial y `real-estate` ya dentro del mismo app | Falta pass contractual completo de ambas vistas y validación fina de densidad/card hierarchy | Auditar el app unificado completo y retirar dependencia operativa del legacy `dashboard-cuadro-de-mando` |
+| `Boveda-Anclora/dashboard-cuadro-de-mando` | Superficie legacy todavía presente; clasificación premium formalizada, pero sin evidencia contractual propia consolidada | Mantener una app residual sin auditoría ni destino claro incrementa duplicación y deuda | Completar migración al app unificado o cerrar una auditoría mínima mientras siga viva |
 | `anclora-data-lab` | Login y backoffice de accesos auditados; claro/oscuro e i18n corregidos | Workspace pendiente y cards premium todavía sin criterio final de grupo | Auditar workspace y cerrar criterio de cards premium |
 | `anclora-synergi` | Login y backoffice de admisiones auditados; claro/oscuro e i18n corregidos | Backoffice completo pendiente y cards premium todavía sin criterio final de grupo | Auditar resto del backoffice y cerrar criterio de cards premium |
 | `anclora-talent` | Clasificada como premium en la bóveda; cuenta con shell, auth y dashboard definidos | Falta cierre visual y validación completa de dark default, theme toggle y locale toggle | Completar auditoría y cerrar contrato de preferencias e i18n en toda la app |
@@ -63,6 +66,7 @@ La referencia de condiciones es:
 | Aplicación | Evidencia actual | Riesgo principal | Próxima acción |
 | --- | --- | --- | --- |
 | `anclora-private-estates` | Sólo sincronización contractual | Overrides no validados y falta de auditoría editorial | Auditoría ultra premium pantalla por pantalla |
+| `anclora-private-estates-landing-page` | Plan de refinamiento dark-only e i18n existente; falta cierre contractual auditado | Capa pública ultra premium sin validación completa de responsive, localización y overrides | Auditoría ultra premium de landing pública y validación final de overrides |
 
 ### Portfolio / Showcase
 
@@ -84,10 +88,12 @@ La referencia de condiciones es:
 | `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-impulso` | PARTIAL | PARTIAL | OK | PARTIAL | PARTIAL | OK |
 | `Boveda-Anclora/dashboard` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `Boveda-Anclora/dashboard-cuadro-de-mando` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-data-lab` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-talent` | PARTIAL | N/A | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-private-estates-landing-page` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-portfolio` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-azure-bay-landing` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-playa-viva-uniestate` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -102,10 +108,12 @@ La referencia de condiciones es:
 | `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-impulso` | OK | OK | PARTIAL | OK | OK | OK |
 | `Boveda-Anclora/dashboard` | N/A | N/A | N/A | N/A | N/A | N/A |
+| `Boveda-Anclora/dashboard-cuadro-de-mando` | N/A | N/A | N/A | N/A | N/A | N/A |
 | `anclora-data-lab` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-talent` | N/A | N/A | N/A | N/A | N/A | N/A |
 | `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-private-estates-landing-page` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-portfolio` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-azure-bay-landing` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-playa-viva-uniestate` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -120,9 +128,12 @@ La referencia de condiciones es:
 | `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-impulso` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `Boveda-Anclora/dashboard` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `Boveda-Anclora/dashboard-cuadro-de-mando` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-data-lab` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-talent` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-private-estates-landing-page` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-portfolio` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-azure-bay-landing` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-playa-viva-uniestate` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -142,6 +153,7 @@ La referencia de condiciones es:
 | --- | --- | --- | --- | --- | --- |
 | `anclora-impulso` | PARTIAL | OK | PARTIAL | PARTIAL | PARTIAL |
 | `Boveda-Anclora/dashboard` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `Boveda-Anclora/dashboard-cuadro-de-mando` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-data-lab` | PARTIAL | OK | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-synergi` | PARTIAL | OK | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-talent` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -151,6 +163,7 @@ La referencia de condiciones es:
 | Aplicación | U1 | U2 | U3 |
 | --- | --- | --- | --- |
 | `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-private-estates-landing-page` | PARTIAL | PARTIAL | PARTIAL |
 
 ### Family · Portfolio / Showcase
 
@@ -165,6 +178,9 @@ La referencia de condiciones es:
 | ID | Ámbito | Aplicaciones | Gap |
 | --- | --- | --- | --- |
 | `CHG-0003` | `PREMIUM` | `anclora-impulso`, `anclora-data-lab`, `anclora-synergi`, `Boveda-Anclora/dashboard` | Falta decidir si la coherencia visual de cards premium debe pasar a contrato de familia o resolverse como ajustes locales por app |
+
+Nota de alcance:
+- `Boveda-Anclora/dashboard-cuadro-de-mando` no se audita aquí como app objetivo separada. Mientras exista, se considera una superficie legacy en migración hacia `Boveda-Anclora/dashboard`.
 
 ## Uso
 

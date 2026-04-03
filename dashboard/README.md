@@ -1,6 +1,11 @@
 # Anclora Command Center Dashboard
 
-Dashboard premium conectado a la bóveda para visualización operativa y sincronización de contexto.
+`dashboard/` es la app premium canónica del Command Center dentro de esta bóveda. La unificación actual concentra dos vistas en una sola shell compartida:
+
+- `Command Center`: vista principal de coordinación y lectura ejecutiva.
+- `Real Estate`: módulo migrado dentro de la misma app, accesible como segunda vista premium.
+
+`dashboard-cuadro-de-mando/` no es el target arquitectónico. Se mantiene solo como superficie legacy en migración o phase-out hasta cerrar la transición.
 
 ## Scripts
 
@@ -8,6 +13,8 @@ Dashboard premium conectado a la bóveda para visualización operativa y sincron
 - `npm run build`
 - `npm run lint`
 - `npm run sync:vault`
+- `npm run sync:real-estate`
+- `node --test ./scripts/sync-real-estate-dataset.test.mjs`
 
 ## Contratos UX/UI
 
