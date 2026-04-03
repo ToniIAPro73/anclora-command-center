@@ -12,7 +12,7 @@ Cobertura objetivo por aplicación:
 - `anclora-nexus`: `es`, `en`, `de`, `ru`
 - `anclora-content-generator-ai`: `es`, `en`
 - `anclora-impulso`: `es`, `en`
-- `Boveda-Anclora/dashboard`: `es`, `en`, `de`
+- `anclora-command-center`: `es`, `en`, `de`
 - `anclora-synergi`: `es`, `en`, `de`
 - `anclora-data-lab`: `es`, `en`, `de`
 - `anclora-private-estates`: `es`, `en`, `de`, `fr`

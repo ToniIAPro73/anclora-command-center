@@ -67,9 +67,10 @@ tags: [resource, anclora, catalogo]
 
 ## Aplicaciones dentro de Boveda-Anclora
 
-### Anclora Command Center Dashboard
+### Anclora Command Center
 
 - Repo local: `Boveda-Anclora/dashboard`
+- URL pública: `https://anclora-command-center.vercel.app/`
 - Rol: dashboard premium conectado a la bóveda
 - Función: visualización operativa y sincronización de contexto
 - Naturaleza: aplicación premium interna de lectura y control

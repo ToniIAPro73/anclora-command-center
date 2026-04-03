@@ -5,7 +5,7 @@ Fijar una gramática premium compartida para productos públicos o semi-público
 
 Ámbito:
 - `anclora-impulso`
-- `Boveda-Anclora/dashboard`
+- `anclora-command-center`
 - `anclora-synergi`
 - `anclora-data-lab`
 - `anclora-talent`
@@ -92,7 +92,7 @@ Fijar una gramática premium compartida para productos públicos o semi-público
 
 ## Reglas particulares por aplicación
 
-### `Boveda-Anclora/dashboard`
+### `anclora-command-center`
 - Forma parte del grupo premium.
 - Debe mantener `es/en/de`.
 - Debe mantener toggle visible de tema `dark/light`.

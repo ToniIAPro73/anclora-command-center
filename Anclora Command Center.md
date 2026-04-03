@@ -40,7 +40,7 @@ related:
 > [[Anclora Group]] · [[Anclora Nexus]] · [[Prospección Avanzada con Nexus]] · [[Estrategia de Autoridad IA Inmobiliaria]] · [[Mapa de Stakeholders de Anclora Group]] · [[Borrador de Email de Captación Synergi]]
 
 > [!info] Superficies conectadas
-> [[Anclora Cuadro de Mando Real Estate]] · `https://dashboard-cuadro-de-mando.vercel.app/`
+> [[Anclora Cuadro de Mando Real Estate]] · `https://anclora-command-center.vercel.app/real-estate`
 
 ## ⚡ Pulso Ejecutivo
 

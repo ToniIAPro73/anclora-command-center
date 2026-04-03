@@ -5,7 +5,7 @@ type: resource
 estado: activo
 scope: dashboard-operativo
 repo_local: dashboard-cuadro-de-mando
-url: https://dashboard-cuadro-de-mando.vercel.app/
+url: https://anclora-command-center.vercel.app/real-estate
 tags: [resource, dashboard, anclora, real-estate]
 related:
   - "[[Anclora Group]]"
@@ -27,7 +27,7 @@ Es la capa visual específica para el dataset de apps Real Estate. Complementa a
 
 ## URL
 
-- Producción Vercel: `https://dashboard-cuadro-de-mando.vercel.app/`
+- Producción Vercel: `https://anclora-command-center.vercel.app/real-estate`
 
 ## Fuente de datos
 

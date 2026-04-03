@@ -1,4 +1,4 @@
-Anclora Command Center Dashboard
+Anclora Command Center
 
 Aplicacion local para visualizar el estado de `Anclora Command Center.md` con una interfaz tipo producto, manteniendo la boveda como fuente de verdad.
 

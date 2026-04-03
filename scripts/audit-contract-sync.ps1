@@ -43,7 +43,7 @@ $repoMap = @(
   @{ Name = "anclora-impulso"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-impulso"; Family = "Premium" },
   @{ Name = "anclora-data-lab"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-data-lab"; Family = "Premium" },
   @{ Name = "anclora-synergi"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-synergi"; Family = "Premium" },
-  @{ Name = "Boveda-Anclora/dashboard"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\Boveda-Anclora\dashboard"; Family = "Premium" },
+  @{ Name = "anclora-command-center"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\Boveda-Anclora\dashboard"; Family = "Premium" },
   @{ Name = "anclora-private-estates"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-private-estates"; Family = "UltraPremium" },
   @{ Name = "anclora-portfolio"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-portfolio"; Family = "Portfolio" },
   @{ Name = "anclora-azure-bay-landing"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-azure-bay-landing"; Family = "Portfolio" },

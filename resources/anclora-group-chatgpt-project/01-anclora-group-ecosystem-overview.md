@@ -11,7 +11,7 @@ tags: [resource, anclora, ecosystem]
 
 `Anclora Group` es el hub corporativo y operativo de un ecosistema de aplicaciones y activos digitales con foco principal en real estate premium, inteligencia aplicada, contenido, trazabilidad comercial y relaciones con partners.
 
-El centro documental del ecosistema es `Boveda-Anclora`, que funciona como segundo cerebro, fuente de verdad narrativa, gobierno de contratos y mapa de integración entre productos. Dentro de esa bóveda también viven dos aplicaciones válidas: `dashboard/` y `dashboard-cuadro-de-mando/`.
+El centro documental del ecosistema es `Boveda-Anclora`, que funciona como segundo cerebro, fuente de verdad narrativa, gobierno de contratos y mapa de integración entre productos. Dentro de esa bóveda viven `dashboard/` como `anclora-command-center` y `dashboard-cuadro-de-mando/` como superficie legacy en retirada.
 
 ## Núcleo del ecosistema
 
@@ -24,7 +24,7 @@ La lectura canónica del sistema es:
 5. `Anclora Content Generator AI` convierte esa inteligencia en activos editoriales y comerciales.
 6. `Anclora Nexus` actúa como núcleo operativo de pipeline, CRM y trazabilidad.
 7. `Anclora Synergi` estructura partners, admisiones y workspaces privados.
-8. `Boveda-Anclora/dashboard` y `dashboard-cuadro-de-mando` aportan superficies de lectura, control y priorización.
+8. `anclora-command-center` y `dashboard-cuadro-de-mando` aportan superficies de lectura, control y priorización.
 
 ## Qué contiene este proyecto
 
@@ -47,8 +47,8 @@ Este proyecto ChatGPT debe cubrir todo el workspace actual excepto estos repos e
 - `anclora-content-generator-ai`
 - `anclora-nexus`
 - `anclora-synergi`
-- `Boveda-Anclora/dashboard`
-- `Boveda-Anclora/dashboard-cuadro-de-mando`
+- `anclora-command-center`
+- `dashboard-cuadro-de-mando`
 - `Boveda-Anclora` como bóveda, gobierno y fuente de verdad
 
 ### Repos de showcase, portfolio o demostración comercial
@@ -79,7 +79,7 @@ La arquitectura sistémica documentada en la bóveda no debe leerse como un conj
 
 ### `dashboard/`
 
-Es `Anclora Command Center Dashboard`, una superficie premium conectada a la bóveda para visualización operativa y sincronización de contexto.
+Es `Anclora Command Center`, una superficie premium conectada a la bóveda para visualización operativa y sincronización de contexto.
 
 ### `dashboard-cuadro-de-mando/`
 
