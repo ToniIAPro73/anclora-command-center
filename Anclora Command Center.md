@@ -1,7 +1,8 @@
 ---
 title: Anclora Command Center
+aliases: [Command Center, Centro de Mando Anclora, Centro de Mando]
 type: resource
-status: activo
+estado: activo
 scope: dashboard-operativo
 tags: [dashboard, anclora, management]
 related:

@@ -1,7 +1,7 @@
 ---
 title: Portfolio técnico y casos demostrables de Toni
 type: recurso
-status: activo
+estado: activo
 scope: autoridad-portfolio
 tags: [portfolio, autoridad, real-estate, casos, hubspot, vercel, repositorios]
 related:

@@ -8,3 +8,5 @@ Si una nota deja de ser exploración y se convierte en referencia habitual, mué
 
 - [[Mapa del Sistema de Agentes]]
 - [[MOC de Negocio]]
+- [[Anclora Group]]
+- [[Anclora Command Center]]

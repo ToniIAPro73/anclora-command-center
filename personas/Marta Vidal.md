@@ -2,7 +2,7 @@
 title: Marta Vidal
 type: persona
 tags: [persona, partner, synergi, anclora, broker, luxury]
-status: prospecto
+estado: prospecto
 company: Vidal Estates Advisory
 role: Broker de lujo / Relationship manager
 location: Barcelona
@@ -63,5 +63,11 @@ related:
 ## 💡 Notas de Contexto Personal
 
 Probablemente responda mejor a mensajes con tono premium, muy claros y con utilidad comercial inmediata. Conviene evitar tecnicismos si no se traducen en ventaja concreta para cliente o partner.
+
+## 🔗 Encaje en el sistema
+
+- Su conexión principal con el ecosistema pasa por [[Anclora Private Estates]] y el discurso comercial premium.
+- [[Anclora Content Generator AI]] puede aportar argumentarios y piezas de autoridad para acelerar confianza.
+- [[Anclora Nexus]] debería ser la capa donde se conserve memoria comercial y seguimiento real.
 
 #persona #synergi-partner

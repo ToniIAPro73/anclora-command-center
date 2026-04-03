@@ -1,7 +1,7 @@
 ---
 title: Propuesta de colaboración con Jorge Cifre
 type: idea
-status: activo
+estado: activo
 tags: [idea, anclora, partnership, mallorca]
 related:
   - "[[Jorge Cifre]]"

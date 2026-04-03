@@ -1,7 +1,7 @@
 ---
 title: Flujo Implementable - Inbound a Nexus
 type: implementation-plan
-status: activo
+estado: activo
 scope: inbound-leads
 priority: alta
 tags: [automatizacion, nexus, inbound, leads, n8n, implementacion]

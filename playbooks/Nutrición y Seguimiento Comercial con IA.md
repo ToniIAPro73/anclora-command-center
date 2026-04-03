@@ -1,7 +1,7 @@
 ---
 title: Nutrición y Seguimiento Comercial con IA
 type: playbook
-status: active
+estado: activo
 tags: [playbook, nurturing, seguimiento, inmobiliario, ia]
 related:
   - "[[CRM Inmobiliario con IA]]"
@@ -148,6 +148,10 @@ El asesor debe recibir un resumen corto y accionable:
 
 - `n8n` para orquestar secuencias y handoffs
 
+## 🧠 Base de research
+
+Esta capa de seguimiento se apoya en [[Operativa Inmobiliaria con IA - insights NotebookLM]] y necesita que [[Anclora Content Generator AI]] aporte contenido útil por objeción, etapa y temperatura.
+
 ## Validacion
 
 - Cada lead tiene temperatura visible.
@@ -161,4 +165,5 @@ El asesor debe recibir un resumen corto y accionable:
 - [[Funnel de Captación Inmobiliaria con IA]]
 - [[Anclora Nexus]]
 - [[Anclora Command Center]]
+- [[Anclora Content Generator AI]]
 - [[Arquitectura Implementable de Automatización Anclora]]

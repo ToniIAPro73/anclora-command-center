@@ -44,6 +44,12 @@ Sin una capa de inteligencia bien definida, el ecosistema pierde diferenciacion 
 - En qué proyecto o área encaja: [[Anclora Private Estates]] y [[Anclora Group]].
 - Siguiente acción concreta: definir outputs clave, informes y senales utiles para negocio.
 
+## 🔗 Traducción operativa
+
+- En [[Flujo Comercial Inteligente Anclora]] debería actuar como origen de señales, insights y criterios de activación.
+- En [[Prospección Avanzada con Nexus]] puede alimentar lectura territorial y priorización de oportunidades.
+- En [[Reportes Automáticos para Inmobiliarias]] su valor se materializa cuando los insights llegan a decisiones por rol.
+
 ## 🔍 Evidencia o notas destacadas
 
 - Dato clave: se define por activos analiticos, senales territoriales e informes premium.
@@ -61,6 +67,9 @@ Sin una capa de inteligencia bien definida, el ecosistema pierde diferenciacion 
 - [[Anclora Group]]
 - [[Anclora Private Estates]]
 - [[Anclora Content Generator AI]]
+- [[Flujo Comercial Inteligente Anclora]]
+- [[Prospección Avanzada con Nexus]]
+- [[Reportes Automáticos para Inmobiliarias]]
 - [[personas/Toni|Toni]]
 
 #research #anclora/analytics

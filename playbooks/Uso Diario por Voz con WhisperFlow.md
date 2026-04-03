@@ -122,11 +122,11 @@ Frases útiles:
 
 ### Reunión
 
-“Acabo de tener una reunión con X. Captura esto primero en mi daily note. Extrae decisiones, bloqueos y siguientes pasos. Relaciónalo con [[Nombre del Proyecto]] y con la nota de la persona si existe.”
+ “Acabo de tener una reunión con X. Captura esto primero en mi daily note. Extrae decisiones, bloqueos y siguientes pasos. Relaciónalo con el proyecto correspondiente y con la nota de la persona si existe.”
 
 ### Idea de proyecto
 
-“Tengo una idea para mejorar el proyecto X. No sé si es decisión o solo exploración. Guárdalo como research relacionado con [[Nombre del Proyecto]].”
+ “Tengo una idea para mejorar el proyecto X. No sé si es decisión o solo exploración. Guárdalo como research relacionado con el proyecto correspondiente.”
 
 ### Seguimiento
 

@@ -1,7 +1,7 @@
 ---
 title: Lead Magnets Inmobiliarios para SW Mallorca
 type: playbook
-status: active
+estado: activo
 tags: [playbook, lead-magnet, captacion, mallorca, inmobiliario]
 related:
   - "[[Funnel de Captación Inmobiliaria con IA]]"

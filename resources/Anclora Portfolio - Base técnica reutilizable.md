@@ -1,7 +1,7 @@
 ---
 title: Anclora Portfolio - Base técnica reutilizable
 type: recurso
-status: activo
+estado: activo
 scope: portfolio-tecnico
 tags: [portfolio, arquitectura, nextjs, real-estate, reusable-system]
 related:

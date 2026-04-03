@@ -1,7 +1,7 @@
 ---
 title: ICP Comprador Premium SW Mallorca
 type: ideal-customer-profile
-status: activo
+estado: activo
 scope: captacion-comprador
 priority: alta
 tags: [icp, comprador, real-estate, mallorca, premium]

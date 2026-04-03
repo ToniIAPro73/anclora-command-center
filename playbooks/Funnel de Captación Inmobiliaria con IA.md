@@ -1,7 +1,7 @@
 ---
 title: Funnel de Captación Inmobiliaria con IA
 type: playbook
-status: draft
+estado: borrador
 tags: [playbook, inmobiliario, funnel, ia, captacion]
 related:
   - "[[Captación Inmobiliaria con IA - insights NotebookLM]]"

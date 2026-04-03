@@ -1,7 +1,7 @@
 ---
 title: Operativa Inmobiliaria con IA - insights NotebookLM
 type: research
-status: active
+estado: activo
 tags: [research, inmobiliario, ia, crm, automatizacion]
 related:
   - "[[CRM Inmobiliario con IA]]"

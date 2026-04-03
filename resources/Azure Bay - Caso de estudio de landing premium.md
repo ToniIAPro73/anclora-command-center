@@ -1,7 +1,7 @@
 ---
 title: Azure Bay - Caso de estudio de landing premium
 type: recurso
-status: activo
+estado: activo
 scope: portfolio-visual
 tags: [portfolio, landing, real-estate, premium, conversion, azure-bay]
 related:

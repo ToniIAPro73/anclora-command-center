@@ -2,6 +2,20 @@
 
 Bóveda operativa y documental del ecosistema Anclora.
 
+## Navegación operativa
+
+- Hub corporativo: [[Anclora Group]]
+- Centro de mando: [[Anclora Command Center]]
+- Mapa de negocio: [[MOC de Negocio]]
+- Mapa comercial: [[MOC Real Estate Comercial]]
+- Mapa de stack: [[MOC Stack Operativo Anclora]]
+- Mapa de marca personal: [[MOC Toni - Marca Personal y Autoridad]]
+- Arquitectura del sistema: [[Mapa del Sistema de Agentes]]
+- Índice de sistemas: [[sistemas/README]]
+- Índice de research: [[research/README]]
+- Índice de playbooks: [[playbooks/README]]
+- Índice de resources: [[resources/README]]
+
 ## Función
 
 - concentrar documentación estratégica y operativa
@@ -67,3 +81,10 @@ Bóveda operativa y documental del ecosistema Anclora.
 ## Nota
 
 El dashboard de la bóveda tiene su propio set aplicado en `dashboard/docs/standards/` por pertenecer al grupo premium.
+
+## Relacionado
+
+- [[Anclora Group]]
+- [[Anclora Command Center]]
+- [[MOC de Negocio]]
+- [[Mapa del Sistema de Agentes]]

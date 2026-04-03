@@ -2,7 +2,7 @@
 title: Jorge Cifre
 type: persona
 tags: [persona, partner, synergi, anclora, mallorca, real-estate]
-status: activo
+estado: activo
 company: Alianza territorial Mallorca
 role: Partner territorial NE / Pollensa
 location: Noreste de Mallorca
@@ -63,5 +63,11 @@ related:
 ## 💡 Notas de Contexto Personal
 
 La narrativa de alianza debe insistir en cobertura total de la isla, confianza y velocidad de deteccion de oportunidades, no en reparto defensivo de zonas.
+
+## 🔗 Encaje en el sistema
+
+- Su papel se articula desde [[Anclora Private Estates]] como extensión territorial del vertical premium.
+- [[Prospección Avanzada con Nexus]] es el flujo donde esta alianza gana utilidad práctica.
+- [[Anclora Synergi]] es la pieza adecuada para convertir la alianza en coordinación estructurada y no solo relacional.
 
 #persona #synergi-partner

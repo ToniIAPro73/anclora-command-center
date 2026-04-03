@@ -1,7 +1,7 @@
 ---
 title: Playa Viva - Landing real con HubSpot y dossier personalizado
 type: recurso
-status: activo
+estado: activo
 scope: caso-real-captacion
 tags: [playa-viva, uniestate, hubspot, captacion, dossier, portfolio, caso-real]
 related:

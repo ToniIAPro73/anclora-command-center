@@ -2,7 +2,7 @@
 title: Indice Dashboard Real Estate
 aliases: [Indice Dashboard Real Estate, Dashboard Real Estate Index]
 type: resource
-status: activo
+estado: activo
 tags: [resource, dashboard, real-estate]
 related:
   - "[[Anclora Cuadro de Mando Real Estate]]"
@@ -36,4 +36,3 @@ Esta carpeta concentra la migracion a notas canonicas para comparar el workbook 
 ## Relacionado
 
 - [[Anclora Cuadro de Mando Real Estate]]
-

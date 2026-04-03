@@ -3,7 +3,7 @@ title: Mapa de Stakeholders de Anclora Group
 aliases: [Mapa de Stakeholders de Anclora Group, Mapa de Stakeholders]
 repo: https://github.com/ToniIAPro73/Anclora-Group.git
 type: stakeholder-map
-status: activo
+estado: activo
 arquitecto_jefe: "[[personas/Toni|Toni]]"
 tags: [resource, anclora, stakeholders]
 related:

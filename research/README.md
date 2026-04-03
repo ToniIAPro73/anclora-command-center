@@ -10,3 +10,5 @@ Si se convierte en referencia estable y canónica, muévela a `resources/`.
 
 - [[Mapa del Sistema de Agentes]]
 - [[Revisión Semanal del Segundo Cerebro]]
+- [[Anclora Command Center]]
+- [[MOC de Negocio]]

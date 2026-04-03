@@ -1,7 +1,7 @@
 ---
 title: Mensajes de Captación para LinkedIn y WhatsApp
 type: playbook
-status: activo
+estado: activo
 scope: outreach-comercial
 priority: alta
 tags: [playbook, captacion, linkedin, whatsapp, outreach, real-estate]

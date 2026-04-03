@@ -9,3 +9,5 @@ Usa `templates/playbook.md` para cualquier flujo repetible.
 - [[Mapa del Sistema de Agentes]]
 - [[Rutina Diaria del Segundo Cerebro]]
 - [[Revisión Semanal del Segundo Cerebro]]
+- [[Anclora Command Center]]
+- [[MOC de Negocio]]

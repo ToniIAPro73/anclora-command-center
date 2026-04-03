@@ -1,7 +1,7 @@
 ---
 title: Plan Maestro de Marca Personal e Ingesta Comercial
 type: system-plan
-status: activo
+estado: activo
 scope: posicionamiento-personal
 priority: alta
 tags: [marca-personal, captacion, ingesta, real-estate, ia-generativa, mallorca]

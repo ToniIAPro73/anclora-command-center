@@ -1,7 +1,7 @@
 ---
 title: Prompt de normalización final por modo para Google Stitch - Canonical light y dark
 type: recurso
-status: activo
+estado: activo
 scope: prompts-google-stitch-final-normalization
 tags: [anclora, prompt, google-stitch, landing, premium, light, dark, normalization]
 related:

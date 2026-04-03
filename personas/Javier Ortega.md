@@ -2,7 +2,7 @@
 title: Javier Ortega
 type: persona
 tags: [persona, partner, synergi, anclora, real-estate]
-status: prospecto
+estado: prospecto
 company: Ortega Developments
 role: Developer inmobiliario / Partner de producto
 location: Costa del Sol
@@ -62,5 +62,11 @@ related:
 ## 💡 Notas de Contexto Personal
 
 Es un perfil al que hay que hablarle en terminos de proceso, visibilidad y seguridad operativa. Conviene mostrarle que el sistema evita improvisacion y deja memoria compartida de cada oportunidad.
+
+## 🔗 Encaje en el sistema
+
+- Su punto de entrada natural en el ecosistema es [[Anclora Private Estates]] como vertical premium.
+- La coordinación privada y el onboarding deberían ocurrir en [[Anclora Synergi]].
+- La trazabilidad comercial y de oportunidades compartidas debe sostenerse en [[Anclora Nexus]].
 
 #persona #synergi-partner

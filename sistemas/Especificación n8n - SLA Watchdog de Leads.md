@@ -1,7 +1,7 @@
 ---
 title: Especificación n8n - SLA Watchdog de Leads
 type: implementation-spec
-status: activo
+estado: activo
 scope: n8n-lead-sla-watchdog
 priority: alta
 tags: [n8n, nexus, leads, sla, watchdog, supabase, email]

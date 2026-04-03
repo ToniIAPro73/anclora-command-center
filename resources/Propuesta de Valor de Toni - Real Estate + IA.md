@@ -1,7 +1,7 @@
 ---
 title: Propuesta de Valor de Toni - Real Estate + IA
 type: value-proposition
-status: activo
+estado: activo
 scope: marca-personal
 priority: alta
 tags: [marca-personal, propuesta-de-valor, real-estate, ia-generativa, mallorca]

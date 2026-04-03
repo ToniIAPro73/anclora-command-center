@@ -1,7 +1,7 @@
 ---
 title: Anclora Talent
 aliases: [Anclora Talent]
-status: activo
+estado: activo
 fecha_inicio: 2026-03-31
 fecha_objetivo:
 resultado_esperado: Consolidar una plataforma editorial operativa para crear, editar, previsualizar y presentar proyectos canónicos dentro del ecosistema Anclora.

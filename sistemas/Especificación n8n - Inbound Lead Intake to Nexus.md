@@ -1,7 +1,7 @@
 ---
 title: Especificación n8n - Inbound Lead Intake to Nexus
 type: implementation-spec
-status: activo
+estado: activo
 scope: n8n-inbound-lead-intake
 priority: alta
 tags: [n8n, nexus, inbound, automatizacion, leads, webhook]

@@ -1,7 +1,7 @@
 ---
 title: Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones
 type: system-plan
-status: activo
+estado: activo
 scope: captacion-y-automatizacion
 priority: alta
 tags: [anclora, captacion, automatizacion, nexus, content-generator, roadmap]

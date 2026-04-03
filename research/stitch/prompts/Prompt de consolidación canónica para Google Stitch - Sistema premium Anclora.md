@@ -1,7 +1,7 @@
 ---
 title: Prompt de consolidación canónica para Google Stitch - Sistema premium Anclora
 type: recurso
-status: activo
+estado: activo
 scope: prompts-google-stitch-consolidation
 tags: [anclora, prompt, google-stitch, landing, premium, consolidation]
 related:

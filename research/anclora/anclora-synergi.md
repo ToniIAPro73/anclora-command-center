@@ -44,6 +44,12 @@ Puede convertirse en pieza clave para escalar relaciones estrategicas sin perder
 - En qué proyecto o área encaja: [[Anclora Private Estates]] y [[Anclora Group]].
 - Siguiente acción concreta: clarificar modelo de partners, usuarios y workspaces.
 
+## 🔗 Traducción operativa
+
+- En [[Flujo Comercial Inteligente Anclora]] aparece como capa de onboarding y coordinación privada para partners.
+- En [[Anclora Nexus]] debería conectarse con oportunidades reales para que la relación no quede solo en memoria informal.
+- Su validación práctica pasa por perfiles como [[Jorge Cifre]], [[Lucia Serrano]], [[Javier Ortega]] y [[Marta Vidal]].
+
 ## 🔍 Evidencia o notas destacadas
 
 - Dato clave: se define como plataforma de gestion de partners y workspaces privados.
@@ -61,6 +67,11 @@ Puede convertirse en pieza clave para escalar relaciones estrategicas sin perder
 - [[Anclora Group]]
 - [[Anclora Private Estates]]
 - [[Anclora Nexus]]
+- [[Flujo Comercial Inteligente Anclora]]
+- [[Jorge Cifre]]
+- [[Lucia Serrano]]
+- [[Javier Ortega]]
+- [[Marta Vidal]]
 - [[personas/Toni|Toni]]
 
 #research #anclora/partnerships

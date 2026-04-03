@@ -1,7 +1,7 @@
 ---
 title: Anclora Advisor AI
 aliases: [Anclora Advisor AI]
-status: activo
+estado: activo
 fecha_inicio: 2026-03-26
 fecha_objetivo:
 resultado_esperado: Consolidar una capa de asesoria fiscal y laboral util para uso personal y pluriactividad.
@@ -70,6 +70,10 @@ Contar con una capacidad de asesoria util, clara y contextualizada para decision
 
 - Sistema o principio: [[Anclora Group]]
 - Playbook operativo: [[Uso Diario por Voz con WhisperFlow]]
+
+## 🔗 Encaje en el ecosistema
+
+Aunque su foco es personal, [[Anclora Advisor AI]] cuelga de [[Anclora Group]] como capa de soporte a decisiones de pluriactividad, contexto profesional y continuidad operativa de [[personas/Toni|Toni]].
 
 ## 🔗 Relacionado
 

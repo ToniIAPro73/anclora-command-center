@@ -2,7 +2,7 @@
 title: Lucia Serrano
 type: persona
 tags: [persona, partner, synergi, anclora, real-estate]
-status: prospecto
+estado: prospecto
 company: Serrano Capital
 role: Inversora patrimonial / Family Office
 location: Madrid
@@ -63,5 +63,11 @@ related:
 ## 💡 Notas de Contexto Personal
 
 Valora claridad, exclusividad y procesos discretos. Es un perfil al que conviene hablarle con criterio de admision, curacion y trazabilidad, no con volumen ni marketing generico.
+
+## 🔗 Encaje en el sistema
+
+- Su acceso al ecosistema tendría sentido desde [[Anclora Private Estates]] como capa de entrada premium.
+- El valor diferencial para ella depende de [[Anclora Data Lab]] como fuente de insight filtrado.
+- Si la relación madura, el espacio natural de coordinación sería [[Anclora Synergi]].
 
 #persona #synergi-partner

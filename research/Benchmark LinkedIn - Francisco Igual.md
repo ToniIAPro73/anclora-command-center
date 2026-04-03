@@ -1,7 +1,7 @@
 ---
 title: Benchmark LinkedIn - Francisco Igual
 type: research
-status: pending
+estado: pendiente
 tags: [linkedin, benchmark, youtube]
 related: [[Anclora Command Center]]
 ---

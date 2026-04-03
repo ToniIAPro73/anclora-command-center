@@ -1,7 +1,7 @@
 ---
 title: Anclora Private Estates
 aliases: [Anclora Private Estates]
-status: activo
+estado: activo
 fecha_inicio: 2026-03-26
 fecha_objetivo:
 resultado_esperado: Consolidar el vertical inmobiliario premium como matriz operativa y comercial del ecosistema Anclora.

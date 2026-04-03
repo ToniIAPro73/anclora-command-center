@@ -1,7 +1,7 @@
 ---
 title: Prompt optimizado para Google Stitch - Landing premium base Anclora
 type: recurso
-status: activo
+estado: activo
 scope: prompts-google-stitch
 tags: [anclora, prompt, google-stitch, landing, premium, prototyping]
 related:

@@ -69,12 +69,17 @@ Actuar como central de operaciones del ecosistema Anclora para pipeline, CRM y t
 - Riesgo principal: convertir Nexus en un contenedor ambiguo sin proceso claro
 - Cómo deshacer o corregir: volver a definir etapas, criterios y relaciones con otros nodos del ecosistema
 
+## 🧠 Base de research
+
+Este playbook aterriza operativamente hipótesis y relaciones descritas en [[Anclora Synergi]], [[Anclora Content Generator AI]] y [[Anclora Data Lab]].
+
 ## 🔗 Relacionado
 
 - [[Anclora Group]]
 - [[Anclora Private Estates]]
 - [[Anclora Synergi]]
 - [[Anclora Content Generator AI]]
+- [[Anclora Data Lab]]
 - [[Flujo Comercial Inteligente Anclora]]
 - [[personas/Toni|Toni]]
 

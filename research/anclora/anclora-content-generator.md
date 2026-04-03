@@ -44,6 +44,12 @@ Permite amplificar conocimiento, posicionamiento y produccion editorial sin desc
 - En qué proyecto o área encaja: [[Anclora Group]] y [[Anclora Private Estates]].
 - Siguiente acción concreta: definir formatos de salida, tono y fuentes de contexto.
 
+## 🔗 Traducción operativa
+
+- En [[Flujo Comercial Inteligente Anclora]] convierte señales e insights en activos de activación comercial.
+- En [[Estrategia de Autoridad IA Inmobiliaria]] puede traducir mercado y criterio territorial en contenido público.
+- En [[Anclora Nexus]] su utilidad real aparece cuando cada activo queda vinculado a etapa, objeción y siguiente acción.
+
 ## 🔍 Evidencia o notas destacadas
 
 - Dato clave: se define como motor editorial de inteligencia de contenido.
@@ -61,6 +67,9 @@ Permite amplificar conocimiento, posicionamiento y produccion editorial sin desc
 - [[Anclora Group]]
 - [[Anclora Data Lab]]
 - [[Anclora Private Estates]]
+- [[Flujo Comercial Inteligente Anclora]]
+- [[Estrategia de Autoridad IA Inmobiliaria]]
+- [[Anclora Nexus]]
 - [[personas/Toni|Toni]]
 
 #research #anclora/content

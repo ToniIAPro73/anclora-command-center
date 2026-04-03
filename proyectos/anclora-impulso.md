@@ -1,7 +1,7 @@
 ---
 title: Anclora Impulso
 aliases: [Anclora Impulso]
-status: activo
+estado: activo
 fecha_inicio: 2026-03-26
 fecha_objetivo:
 resultado_esperado: Consolidar un ecosistema Health and Fitness apoyado en nutricion e inteligencia artificial.
@@ -71,6 +71,10 @@ Construir un vertical claro y accionable en salud y fitness que combine conocimi
 
 - Sistema o principio: [[Anclora Group]]
 - Playbook operativo: [[Rutina Diaria del Segundo Cerebro]]
+
+## 🔗 Encaje en el ecosistema
+
+[[Anclora Impulso]] amplía [[Anclora Group]] fuera del eje inmobiliario y convierte la bóveda en un sistema multi-vertical, no solo en una base documental de real estate.
 
 ## 🔗 Relacionado
 

@@ -55,6 +55,10 @@ Generar confianza comercial demostrando que el ecosistema detecta oportunidades 
 - Riesgo principal: confundir velocidad con precision y contaminar la prospeccion con datos incompletos o narrativas no verificadas
 - Cómo deshacer o corregir: volver a la fuente de verdad, revalidar en [[Inmovilla]] y [[StateFox]], y ajustar filtros en [[Anclora Nexus]]
 
+## 🧠 Base de research
+
+Su continuidad estratégica depende de que [[Anclora Data Lab]] termine definiendo mejor señales, outputs e inteligencia territorial reutilizable.
+
 ## 🔗 Relacionado
 
 - [[Anclora Group]]
@@ -63,6 +67,7 @@ Generar confianza comercial demostrando que el ecosistema detecta oportunidades 
 - [[StateFox]]
 - [[Coda]]
 - [[Slack]]
+- [[Anclora Data Lab]]
 - [[Jorge Cifre]]
 - [[personas/Toni|Toni]]
 

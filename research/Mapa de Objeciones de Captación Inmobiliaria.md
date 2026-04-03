@@ -1,7 +1,7 @@
 ---
 title: Mapa de Objeciones de Captación Inmobiliaria
 type: research
-status: active
+estado: activo
 tags: [research, objeciones, captacion, inmobiliario]
 related:
   - "[[Estrategia de Autoridad IA Inmobiliaria]]"
