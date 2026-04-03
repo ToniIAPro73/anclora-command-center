@@ -32,9 +32,14 @@ Contrato de familia:
 Aplicaciones:
 - `anclora-impulso`
 - `Boveda-Anclora/dashboard`
+- `Boveda-Anclora/dashboard-cuadro-de-mando`
 - `anclora-data-lab`
 - `anclora-synergi`
 - `anclora-talent`
+
+Nota operativa:
+- `Boveda-Anclora/dashboard` sigue siendo la app premium canónica para el Command Center unificado.
+- `Boveda-Anclora/dashboard-cuadro-de-mando` no se clasifica como target arquitectónico nuevo; queda como superficie legacy en migración / phase-out.
 
 ### Ultra Premium
 
@@ -43,6 +48,7 @@ Contrato de familia:
 
 Aplicaciones:
 - `anclora-private-estates`
+- `anclora-private-estates-landing-page`
 
 ### Portfolio / Showcase
 
@@ -64,13 +70,18 @@ Aplicaciones:
 | `anclora-content-generator-ai` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
 | `anclora-impulso` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
 | `Boveda-Anclora/dashboard` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
+| `Boveda-Anclora/dashboard-cuadro-de-mando` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
 | `anclora-data-lab` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
 | `anclora-synergi` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
 | `anclora-talent` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
 | `anclora-private-estates` | Ultra Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `ULTRA_PREMIUM` | Sí |
+| `anclora-private-estates-landing-page` | Ultra Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `ULTRA_PREMIUM` | Sí |
 | `anclora-portfolio` | Portfolio / Showcase | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PORTFOLIO` | Sí |
 | `anclora-azure-bay-landing` | Portfolio / Showcase | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PORTFOLIO` | Sí |
 | `anclora-playa-viva-uniestate` | Portfolio / Showcase | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PORTFOLIO` | Sí |
+
+Superficie en migración:
+- `Boveda-Anclora/dashboard-cuadro-de-mando`: referencia legacy, no canónica, mantenida solo mientras se completa la consolidación dentro de `Boveda-Anclora/dashboard`.
 
 ## Agrupación operativa
 
@@ -89,6 +100,7 @@ Aplicaciones:
 | --- | --- |
 | `anclora-impulso` | Universal + Premium |
 | `Boveda-Anclora/dashboard` | Universal + Premium |
+| `Boveda-Anclora/dashboard-cuadro-de-mando` | Universal + Premium |
 | `anclora-data-lab` | Universal + Premium |
 | `anclora-synergi` | Universal + Premium |
 | `anclora-talent` | Universal + Premium |
@@ -98,6 +110,7 @@ Aplicaciones:
 | Aplicación | Set mínimo de contratos |
 | --- | --- |
 | `anclora-private-estates` | Universal + Ultra Premium |
+| `anclora-private-estates-landing-page` | Universal + Ultra Premium |
 
 ### Portfolio / Showcase
 
