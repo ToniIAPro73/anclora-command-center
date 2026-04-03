@@ -1,53 +1,52 @@
 {
-  "generatedAt": "2026-04-03T22:19:14.233Z",
+  "generatedAt": "2026-04-03T23:07:05.399Z",
   "sourceWorkbook": "output/spreadsheet/anclora-group-real-estate-dataset.xlsx",
   "apps": [
     {
-      "app_id": "APE",
-      "app_name": "Anclora Private Estates",
+      "app_id": "ACG",
+      "app_name": "Anclora Content Generator AI",
       "scope_status": "in_scope",
-      "ecosystem_role": "Puerta de entrada premium y matriz comercial del vertical inmobiliario",
-      "app_type": "luxury-real-estate-platform",
-      "maturity_status": "active",
-      "validation_status": "documented_in_vault",
-      "ecosystem_layer": "commercial-vertical",
-      "real_estate_focus": "Luxury real estate en SW Mallorca",
-      "primary_users": "Clientes premium, compradores/vendedores de alto nivel, operador principal del ecosistema",
-      "primary_goal": "Consolidar el vertical inmobiliario premium como matriz operativa y comercial del ecosistema",
-      "business_value": "Centraliza propuesta de valor, acceso premium y conexion con datos, pipeline y partnerships",
-      "main_inputs": "Insights de Data Lab, pipeline de Nexus, partnerships de Synergi, estrategia territorial",
-      "main_outputs": "Propuesta de valor premium, captacion y contexto comercial para leads y partners",
-      "upstream_dependencies": "Anclora Group | Anclora Data Lab | Anclora Nexus | Anclora Synergi",
-      "downstream_dependencies": "Anclora Nexus | Anclora Synergi | Anclora Data Lab",
-      "key_workflows": "Captacion premium | posicionamiento territorial | coordinacion comercial",
-      "documented_state": "activo",
-      "state_summary": "Proyecto definido como vertical principal; falta mayor consolidacion operativa y comercial",
-      "main_risks": "Propuesta de valor aun poco precisa; relaciones operativas todavia incompletas",
-      "next_focus": "Precisar posicionamiento premium y mapear dependencia operativa con Nexus, Synergi y Data Lab",
-      "territory_focus": "Suroeste de Mallorca",
-      "repo_url": "https://github.com/ToniIAPro73/Anclora-Private-Estates.git",
-      "primary_note": "proyectos/anclora-private-estates.md",
-      "supporting_notes": "resources/anclora-group.md | sistemas/Arquitectura de Integracion Anclora.md | Anclora Command Center.md",
+      "ecosystem_role": "Motor editorial y de activos comerciales basado en inteligencia",
+      "app_type": "content-intelligence-platform",
+      "maturity_status": "pending_to_active_transition",
+      "validation_status": "research_plus_repo_signals",
+      "ecosystem_layer": "content",
+      "real_estate_focus": "Produccion de contenidos y activos de autoridad para captacion y nurturing inmobiliario",
+      "primary_users": "Operador comercial, marca personal, flujos de captacion y nurturing",
+      "primary_goal": "Transformar inteligencia y contexto comercial en contenido util, coherente y escalable",
+      "business_value": "Convierte senales e insights en municion comercial reutilizable por canal y por etapa",
+      "main_inputs": "Insights de Data Lab | contexto de negocio | backlog editorial | senales comerciales desde Nexus",
+      "main_outputs": "Emails segmentados | briefs | argumentarios | piezas editoriales | activos multicanal",
+      "upstream_dependencies": "Anclora Data Lab | aprendizaje comercial | estrategia de autoridad",
+      "downstream_dependencies": "Anclora Nexus | Anclora Private Estates | flujos de nurturing y captacion",
+      "key_workflows": "Traduccion comercial | generacion editorial | reciclaje multicanal",
+      "documented_state": "pendiente",
+      "state_summary": "En research en la boveda, pero con senales de madurez tecnica suficiente para entrar en operativa editorial",
+      "main_risks": "Generar volumen sin criterio comercial y quedar desconectado del pipeline",
+      "next_focus": "Definir outputs canonicos, plantillas por canal y conexion explicita con CTA/comercializacion",
+      "territory_focus": "Autoridad y captacion para SW Mallorca y vertical inmobiliario premium",
+      "repo_url": "https://github.com/ToniIAPro73/anclora-content-generator-ai.git",
+      "primary_note": "research/anclora/anclora-content-generator.md",
+      "supporting_notes": "resources/anclora-group.md | sistemas/Arquitectura de Integración Anclora.md | playbooks/flujo-comercial-inteligente.md | sistemas/Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones.md",
       "source_confidence": "high",
       "upstream_list": [
-        "Anclora Group",
         "Anclora Data Lab",
-        "Anclora Nexus",
-        "Anclora Synergi"
+        "aprendizaje comercial",
+        "estrategia de autoridad"
       ],
       "downstream_list": [
         "Anclora Nexus",
-        "Anclora Synergi",
-        "Anclora Data Lab"
+        "Anclora Private Estates",
+        "flujos de nurturing y captacion"
       ],
       "workflow_list": [
-        "Captacion premium",
-        "posicionamiento territorial",
-        "coordinacion comercial"
+        "Traduccion comercial",
+        "generacion editorial",
+        "reciclaje multicanal"
       ],
-      "priority_score": 87,
+      "priority_score": 75,
       "priority_band": "critical",
-      "action_now": "Precisar posicionamiento premium y mapear dependencia operativa con Nexus, Synergi y Data Lab"
+      "action_now": "Definir outputs canonicos, plantillas por canal y conexion explicita con CTA/comercializacion"
     },
     {
       "app_id": "ADL",
@@ -62,8 +61,8 @@
       "primary_users": "Operador del ecosistema, vertical inmobiliario, motor editorial",
       "primary_goal": "Convertir datos y senales en inteligencia accionable para el vertical inmobiliario",
       "business_value": "Diferenciacion competitiva basada en insight premium y no en intuicion comercial",
-      "main_inputs": "Datos, senales territoriales, patrones de demanda, criterios recurrentes de clientes/partners",
-      "main_outputs": "Alertas territoriales, informes premium, criterios de priorizacion, notas de contexto",
+      "main_inputs": "Datos | senales territoriales | patrones de demanda | criterios recurrentes de clientes/partners",
+      "main_outputs": "Alertas territoriales | informes premium | criterios de priorizacion | notas de contexto",
       "upstream_dependencies": "Datos de mercado | StateFox | Inmovilla | aprendizaje operativo del ecosistema",
       "downstream_dependencies": "Anclora Content Generator AI | Anclora Private Estates | Anclora Nexus",
       "key_workflows": "Captura de senal | destilacion de inteligencia | soporte a decision comercial",
@@ -74,7 +73,7 @@
       "territory_focus": "Suroeste de Mallorca y senales territoriales premium",
       "repo_url": "https://github.com/ToniIAPro73/anclora-data-lab.git",
       "primary_note": "research/anclora/anclora-data-lab.md",
-      "supporting_notes": "resources/anclora-group.md | sistemas/Arquitectura de Integracion Anclora.md | playbooks/flujo-comercial-inteligente.md",
+      "supporting_notes": "resources/anclora-group.md | sistemas/Arquitectura de Integración Anclora.md | playbooks/flujo-comercial-inteligente.md",
       "source_confidence": "medium",
       "upstream_list": [
         "Datos de mercado",
@@ -97,51 +96,6 @@
       "action_now": "Definir outputs clave, informes y senales utiles para negocio"
     },
     {
-      "app_id": "ASY",
-      "app_name": "Anclora Synergi",
-      "scope_status": "in_scope",
-      "ecosystem_role": "Capa relacional para partners, workspaces privados y colaboracion estructurada",
-      "app_type": "partnership-platform",
-      "maturity_status": "pending",
-      "validation_status": "research_not_validated",
-      "ecosystem_layer": "partnerships",
-      "real_estate_focus": "Expansion premium y coordinacion privada con colaboradores del vertical inmobiliario",
-      "primary_users": "Partners premium, brokers, colaboradores territoriales y operador principal",
-      "primary_goal": "Estructurar partnerships y continuidad relacional con trazabilidad",
-      "business_value": "Escala relaciones estrategicas sin perder control organizativo ni memoria humana",
-      "main_inputs": "Contexto de oportunidad desde Nexus, materiales y activos del ecosistema, perfiles de stakeholders",
-      "main_outputs": "Workspaces privados, onboarding de partners, coordinacion contextual, materiales compartidos",
-      "upstream_dependencies": "Anclora Private Estates | Anclora Nexus | mapa de stakeholders",
-      "downstream_dependencies": "Continuidad relacional de partners | ejecucion de colaboracion premium",
-      "key_workflows": "Onboarding de partners | coordinacion privada | gestion de colaboraciones",
-      "documented_state": "pendiente",
-      "state_summary": "Posicion estrategica definida; falta concretar limites funcionales y modelo operativo",
-      "main_risks": "Difuminacion con Nexus y falta de definicion de usuarios/workspaces reales",
-      "next_focus": "Clarificar modelo de partners, usuarios y workspaces",
-      "territory_focus": "Mallorca premium con especial relevancia para eje SW + alianzas territoriales",
-      "repo_url": "https://github.com/ToniIAPro73/anclora-synergi.git",
-      "primary_note": "research/anclora/anclora-synergi.md",
-      "supporting_notes": "resources/anclora-group.md | sistemas/Arquitectura de Integracion Anclora.md | playbooks/flujo-comercial-inteligente.md",
-      "source_confidence": "medium",
-      "upstream_list": [
-        "Anclora Private Estates",
-        "Anclora Nexus",
-        "mapa de stakeholders"
-      ],
-      "downstream_list": [
-        "Continuidad relacional de partners",
-        "ejecucion de colaboracion premium"
-      ],
-      "workflow_list": [
-        "Onboarding de partners",
-        "coordinacion privada",
-        "gestion de colaboraciones"
-      ],
-      "priority_score": 48,
-      "priority_band": "medium",
-      "action_now": "Clarificar modelo de partners, usuarios y workspaces"
-    },
-    {
       "app_id": "ANX",
       "app_name": "Anclora Nexus",
       "scope_status": "in_scope",
@@ -154,8 +108,8 @@
       "primary_users": "Operador comercial, equipo de seguimiento, flujo de captacion y nurturing",
       "primary_goal": "Centralizar pipeline, CRM y trazabilidad comercial del ecosistema",
       "business_value": "Evita perdida de contexto, conecta contenido y datos con conversion real",
-      "main_inputs": "Leads inbound, oportunidades internas, activos de contenido, senales premium, actores/partners",
-      "main_outputs": "Estado del pipeline, siguiente accion, trazabilidad de mensajes, alertas y seguimiento",
+      "main_inputs": "Leads inbound | oportunidades internas | activos de contenido | senales premium | actores/partners",
+      "main_outputs": "Estado del pipeline | siguiente accion | trazabilidad de mensajes | alertas y seguimiento",
       "upstream_dependencies": "Anclora Private Estates | Anclora Content Generator AI | Anclora Data Lab",
       "downstream_dependencies": "Anclora Synergi | Command Center | aprendizaje de sistema",
       "key_workflows": "Lead intake | cualificacion | activacion comercial | seguimiento | cierre",
@@ -166,7 +120,7 @@
       "territory_focus": "SW Mallorca, captacion premium y coordinacion comercial",
       "repo_url": "https://github.com/ToniIAPro73/Anclora-Nexus.git",
       "primary_note": "playbooks/anclora-nexus.md",
-      "supporting_notes": "resources/anclora-group.md | sistemas/Arquitectura de Integracion Anclora.md | sistemas/Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones.md | Anclora Command Center.md",
+      "supporting_notes": "resources/anclora-group.md | sistemas/Arquitectura de Integración Anclora.md | sistemas/Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones.md | Anclora Command Center.md",
       "source_confidence": "high",
       "upstream_list": [
         "Anclora Private Estates",
@@ -190,53 +144,114 @@
       "action_now": "Consolidar etapas reales del pipeline y una vista clara de siguiente mejor accion"
     },
     {
-      "app_id": "ACG",
-      "app_name": "Anclora Content Generator AI",
+      "app_id": "APE",
+      "app_name": "Anclora Private Estates",
       "scope_status": "in_scope",
-      "ecosystem_role": "Motor editorial y de activos comerciales basado en inteligencia",
-      "app_type": "content-intelligence-platform",
-      "maturity_status": "pending_to_active_transition",
-      "validation_status": "research_plus_repo_signals",
-      "ecosystem_layer": "content",
-      "real_estate_focus": "Produccion de contenidos y activos de autoridad para captacion y nurturing inmobiliario",
-      "primary_users": "Operador comercial, marca personal, flujos de captacion y nurturing",
-      "primary_goal": "Transformar inteligencia y contexto comercial en contenido util, coherente y escalable",
-      "business_value": "Convierte senales e insights en municion comercial reutilizable por canal y por etapa",
-      "main_inputs": "Insights de Data Lab, contexto de negocio, backlog editorial, senales comerciales desde Nexus",
-      "main_outputs": "Emails segmentados, briefs, argumentarios, piezas editoriales, activos multicanal",
-      "upstream_dependencies": "Anclora Data Lab | aprendizaje comercial | estrategia de autoridad",
-      "downstream_dependencies": "Anclora Nexus | Anclora Private Estates | flujos de nurturing y captacion",
-      "key_workflows": "Traduccion comercial | generacion editorial | reciclaje multicanal",
-      "documented_state": "pendiente",
-      "state_summary": "En research en la boveda, pero con senales de madurez tecnica suficiente para entrar en operativa editorial",
-      "main_risks": "Generar volumen sin criterio comercial y quedar desconectado del pipeline",
-      "next_focus": "Definir outputs canonicos, plantillas por canal y conexion explicita con CTA/comercializacion",
-      "territory_focus": "Autoridad y captacion para SW Mallorca y vertical inmobiliario premium",
-      "repo_url": "https://github.com/ToniIAPro73/anclora-content-generator-ai.git",
-      "primary_note": "research/anclora/anclora-content-generator.md",
-      "supporting_notes": "resources/anclora-group.md | sistemas/Arquitectura de Integracion Anclora.md | playbooks/flujo-comercial-inteligente.md | sistemas/Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones.md",
+      "ecosystem_role": "Puerta de entrada premium y matriz comercial del vertical inmobiliario",
+      "app_type": "luxury-real-estate-platform",
+      "maturity_status": "active",
+      "validation_status": "documented_in_vault",
+      "ecosystem_layer": "commercial-vertical",
+      "real_estate_focus": "Luxury real estate en SW Mallorca",
+      "primary_users": "Clientes premium, compradores/vendedores de alto nivel, operador principal del ecosistema",
+      "primary_goal": "Consolidar el vertical inmobiliario premium como matriz operativa y comercial del ecosistema",
+      "business_value": "Centraliza propuesta de valor, acceso premium y conexion con datos, pipeline y partnerships",
+      "main_inputs": "Insights de Data Lab | pipeline de Nexus | partnerships de Synergi | estrategia territorial",
+      "main_outputs": "Propuesta de valor premium | landing publica operativa | captacion y contexto comercial para leads y partners",
+      "upstream_dependencies": "Anclora Group | Anclora Data Lab | Anclora Nexus | Anclora Synergi",
+      "downstream_dependencies": "Anclora Nexus | Anclora Synergi | Anclora Data Lab",
+      "key_workflows": "Captacion premium | posicionamiento territorial | landing flagship publica | coordinacion comercial",
+      "documented_state": "activo",
+      "state_summary": "Proyecto definido como vertical principal; ya dispone de landing publica operativa en repo separado, pero falta consolidacion completa entre producto, captacion y circuito comercial",
+      "main_risks": "Propuesta de valor aun poco precisa; relaciones operativas todavia incompletas",
+      "next_focus": "Precisar posicionamiento premium y coordinar la landing publica con Nexus, Synergi y Data Lab",
+      "territory_focus": "Suroeste de Mallorca",
+      "repo_url": "https://github.com/ToniIAPro73/Anclora-Private-Estates.git",
+      "primary_note": "proyectos/anclora-private-estates.md",
+      "supporting_notes": "resources/anclora-group.md | sistemas/Arquitectura de Integración Anclora.md | Anclora Command Center.md | proyectos/anclora-private-estates-landing-page.md",
       "source_confidence": "high",
       "upstream_list": [
+        "Anclora Group",
         "Anclora Data Lab",
-        "aprendizaje comercial",
-        "estrategia de autoridad"
+        "Anclora Nexus",
+        "Anclora Synergi"
       ],
       "downstream_list": [
         "Anclora Nexus",
-        "Anclora Private Estates",
-        "flujos de nurturing y captacion"
+        "Anclora Synergi",
+        "Anclora Data Lab"
       ],
       "workflow_list": [
-        "Traduccion comercial",
-        "generacion editorial",
-        "reciclaje multicanal"
+        "Captacion premium",
+        "posicionamiento territorial",
+        "landing flagship publica",
+        "coordinacion comercial"
       ],
-      "priority_score": 75,
+      "priority_score": 87,
       "priority_band": "critical",
-      "action_now": "Definir outputs canonicos, plantillas por canal y conexion explicita con CTA/comercializacion"
+      "action_now": "Precisar posicionamiento premium y coordinar la landing publica con Nexus, Synergi y Data Lab"
+    },
+    {
+      "app_id": "ASY",
+      "app_name": "Anclora Synergi",
+      "scope_status": "in_scope",
+      "ecosystem_role": "Capa relacional para partners, workspaces privados y colaboracion estructurada",
+      "app_type": "partnership-platform",
+      "maturity_status": "pending",
+      "validation_status": "research_not_validated",
+      "ecosystem_layer": "partnerships",
+      "real_estate_focus": "Expansion premium y coordinacion privada con colaboradores del vertical inmobiliario",
+      "primary_users": "Partners premium, brokers, colaboradores territoriales y operador principal",
+      "primary_goal": "Estructurar partnerships y continuidad relacional con trazabilidad",
+      "business_value": "Escala relaciones estrategicas sin perder control organizativo ni memoria humana",
+      "main_inputs": "Contexto de oportunidad desde Nexus | materiales y activos del ecosistema | perfiles de stakeholders",
+      "main_outputs": "Workspaces privados | onboarding de partners | coordinacion contextual | materiales compartidos",
+      "upstream_dependencies": "Anclora Private Estates | Anclora Nexus | mapa de stakeholders",
+      "downstream_dependencies": "Continuidad relacional de partners | ejecucion de colaboracion premium",
+      "key_workflows": "Onboarding de partners | coordinacion privada | gestion de colaboraciones",
+      "documented_state": "pendiente",
+      "state_summary": "Posicion estrategica definida; falta concretar limites funcionales y modelo operativo",
+      "main_risks": "Difuminacion con Nexus y falta de definicion de usuarios/workspaces reales",
+      "next_focus": "Clarificar modelo de partners, usuarios y workspaces",
+      "territory_focus": "Mallorca premium con especial relevancia para eje SW + alianzas territoriales",
+      "repo_url": "https://github.com/ToniIAPro73/anclora-synergi.git",
+      "primary_note": "research/anclora/anclora-synergi.md",
+      "supporting_notes": "resources/anclora-group.md | sistemas/Arquitectura de Integración Anclora.md | playbooks/flujo-comercial-inteligente.md",
+      "source_confidence": "medium",
+      "upstream_list": [
+        "Anclora Private Estates",
+        "Anclora Nexus",
+        "mapa de stakeholders"
+      ],
+      "downstream_list": [
+        "Continuidad relacional de partners",
+        "ejecucion de colaboracion premium"
+      ],
+      "workflow_list": [
+        "Onboarding de partners",
+        "coordinacion privada",
+        "gestion de colaboraciones"
+      ],
+      "priority_score": 48,
+      "priority_band": "medium",
+      "action_now": "Clarificar modelo de partners, usuarios y workspaces"
     }
   ],
   "interactions": [
+    {
+      "source_app": "ACG",
+      "target_app": "ANX",
+      "interaction_type": "content_activation",
+      "what_flows": "Content Generator produce emails, briefs y activos por etapa",
+      "business_reason": "Nexus puede activar contenido segun estado del lead"
+    },
+    {
+      "source_app": "ACG",
+      "target_app": "APE",
+      "interaction_type": "authority_assets",
+      "what_flows": "Content Generator suministra activos de autoridad y captacion",
+      "business_reason": "Refuerza propuesta premium y visibilidad del vertical"
+    },
     {
       "source_app": "ADL",
       "target_app": "ACG",
@@ -252,11 +267,11 @@
       "business_reason": "Mejora la clasificacion de oportunidades y la lectura territorial"
     },
     {
-      "source_app": "ACG",
-      "target_app": "ANX",
-      "interaction_type": "content_activation",
-      "what_flows": "Content Generator produce emails, briefs y activos por etapa",
-      "business_reason": "Nexus puede activar contenido segun estado del lead"
+      "source_app": "ANX",
+      "target_app": "ADL",
+      "interaction_type": "feedback_loop",
+      "what_flows": "Nexus devuelve resultados comerciales y fricciones",
+      "business_reason": "Data Lab aprende que senales funcionan mejor"
     },
     {
       "source_app": "ANX",
@@ -264,6 +279,13 @@
       "interaction_type": "partner_handoff",
       "what_flows": "Nexus transfiere oportunidad madura a relacion/partnership",
       "business_reason": "Synergi toma el relevo para continuidad privada y onboarding"
+    },
+    {
+      "source_app": "APE",
+      "target_app": "ADL",
+      "interaction_type": "commercial_demand",
+      "what_flows": "Private Estates expresa necesidades de inteligencia territorial",
+      "business_reason": "Data Lab orienta que senales e informes son valiosos"
     },
     {
       "source_app": "APE",
@@ -280,32 +302,11 @@
       "business_reason": "Synergi puede estructurar colaboracion sobre oportunidades concretas"
     },
     {
-      "source_app": "APE",
-      "target_app": "ADL",
-      "interaction_type": "commercial_demand",
-      "what_flows": "Private Estates expresa necesidades de inteligencia territorial",
-      "business_reason": "Data Lab orienta que senales e informes son valiosos"
-    },
-    {
-      "source_app": "ANX",
-      "target_app": "ADL",
-      "interaction_type": "feedback_loop",
-      "what_flows": "Nexus devuelve resultados comerciales y fricciones",
-      "business_reason": "Data Lab aprende que senales funcionan mejor"
-    },
-    {
       "source_app": "ASY",
       "target_app": "ANX",
       "interaction_type": "relationship_feedback",
       "what_flows": "Synergi devuelve contexto de partnership y onboarding",
       "business_reason": "Nexus conserva memoria operativa completa"
-    },
-    {
-      "source_app": "ACG",
-      "target_app": "APE",
-      "interaction_type": "authority_assets",
-      "what_flows": "Content Generator suministra activos de autoridad y captacion",
-      "business_reason": "Refuerza propuesta premium y visibilidad del vertical"
     }
   ],
   "fieldDictionary": [
@@ -322,34 +323,28 @@
       "reading_rule": "Nombre canonico en la boveda"
     },
     {
-      "field_name": "scope_status",
-      "data_type": "text",
-      "definition": "Estado de inclusion en este dataset",
-      "reading_rule": "Todas las filas marcadas como in_scope"
-    },
-    {
-      "field_name": "ecosystem_role",
-      "data_type": "text",
-      "definition": "Rol principal dentro del ecosistema",
-      "reading_rule": "Que funcion cumple en la cadena de valor"
-    },
-    {
       "field_name": "app_type",
       "data_type": "text",
       "definition": "Tipologia funcional",
       "reading_rule": "Clasificacion simplificada de producto/plataforma"
     },
     {
-      "field_name": "maturity_status",
+      "field_name": "business_value",
       "data_type": "text",
-      "definition": "Madurez operativa observada",
-      "reading_rule": "active, pending, pending_to_active_transition"
+      "definition": "Valor de negocio",
+      "reading_rule": "Por que importa estrategicamente"
     },
     {
-      "field_name": "validation_status",
+      "field_name": "documented_state",
       "data_type": "text",
-      "definition": "Calidad de validacion documental",
-      "reading_rule": "Nivel de contraste segun las notas fuente"
+      "definition": "Estado literal en notas",
+      "reading_rule": "activo o pendiente, segun la boveda"
+    },
+    {
+      "field_name": "downstream_dependencies",
+      "data_type": "text",
+      "definition": "Dependencias de salida",
+      "reading_rule": "Que nodos dependen de esta app"
     },
     {
       "field_name": "ecosystem_layer",
@@ -358,28 +353,16 @@
       "reading_rule": "commercial-vertical, intelligence, content, operations, partnerships"
     },
     {
-      "field_name": "real_estate_focus",
+      "field_name": "ecosystem_role",
       "data_type": "text",
-      "definition": "Aplicacion concreta al vertical inmobiliario",
-      "reading_rule": "Donde impacta en Real Estate"
+      "definition": "Rol principal dentro del ecosistema",
+      "reading_rule": "Que funcion cumple en la cadena de valor"
     },
     {
-      "field_name": "primary_users",
+      "field_name": "key_workflows",
       "data_type": "text",
-      "definition": "Usuarios o actores principales",
-      "reading_rule": "Quien usa o se beneficia directamente"
-    },
-    {
-      "field_name": "primary_goal",
-      "data_type": "text",
-      "definition": "Objetivo principal documentado",
-      "reading_rule": "Resultado esperado resumido"
-    },
-    {
-      "field_name": "business_value",
-      "data_type": "text",
-      "definition": "Valor de negocio",
-      "reading_rule": "Por que importa estrategicamente"
+      "definition": "Flujos clave",
+      "reading_rule": "Procesos donde interviene con mayor relevancia"
     },
     {
       "field_name": "main_inputs",
@@ -394,40 +377,16 @@
       "reading_rule": "Que produce de forma util para el sistema"
     },
     {
-      "field_name": "upstream_dependencies",
-      "data_type": "text",
-      "definition": "Dependencias de entrada",
-      "reading_rule": "Que nodos alimentan esta app"
-    },
-    {
-      "field_name": "downstream_dependencies",
-      "data_type": "text",
-      "definition": "Dependencias de salida",
-      "reading_rule": "Que nodos dependen de esta app"
-    },
-    {
-      "field_name": "key_workflows",
-      "data_type": "text",
-      "definition": "Flujos clave",
-      "reading_rule": "Procesos donde interviene con mayor relevancia"
-    },
-    {
-      "field_name": "documented_state",
-      "data_type": "text",
-      "definition": "Estado literal en notas",
-      "reading_rule": "activo o pendiente, segun la boveda"
-    },
-    {
-      "field_name": "state_summary",
-      "data_type": "text",
-      "definition": "Lectura ejecutiva del estado",
-      "reading_rule": "Sintesis analitica del momento actual"
-    },
-    {
       "field_name": "main_risks",
       "data_type": "text",
       "definition": "Riesgo o bloqueo principal",
       "reading_rule": "Mayor limitacion actual detectada"
+    },
+    {
+      "field_name": "maturity_status",
+      "data_type": "text",
+      "definition": "Madurez operativa observada",
+      "reading_rule": "active, pending, pending_to_active_transition"
     },
     {
       "field_name": "next_focus",
@@ -436,16 +395,10 @@
       "reading_rule": "Proxima prioridad operativa/documental"
     },
     {
-      "field_name": "territory_focus",
+      "field_name": "primary_goal",
       "data_type": "text",
-      "definition": "Territorio o contexto geografico",
-      "reading_rule": "Donde se concentra el valor territorial"
-    },
-    {
-      "field_name": "repo_url",
-      "data_type": "url",
-      "definition": "Repositorio asociado",
-      "reading_rule": "URL de GitHub cuando existe"
+      "definition": "Objetivo principal documentado",
+      "reading_rule": "Resultado esperado resumido"
     },
     {
       "field_name": "primary_note",
@@ -454,126 +407,72 @@
       "reading_rule": "Ruta relativa en la boveda"
     },
     {
-      "field_name": "supporting_notes",
+      "field_name": "primary_users",
       "data_type": "text",
-      "definition": "Fuentes de apoyo",
-      "reading_rule": "Otras notas utilizadas para consolidar la lectura"
+      "definition": "Usuarios o actores principales",
+      "reading_rule": "Quien usa o se beneficia directamente"
+    },
+    {
+      "field_name": "real_estate_focus",
+      "data_type": "text",
+      "definition": "Aplicacion concreta al vertical inmobiliario",
+      "reading_rule": "Donde impacta en Real Estate"
+    },
+    {
+      "field_name": "repo_url",
+      "data_type": "url",
+      "definition": "Repositorio asociado",
+      "reading_rule": "URL de GitHub cuando existe"
+    },
+    {
+      "field_name": "scope_status",
+      "data_type": "text",
+      "definition": "Estado de inclusion en este dataset",
+      "reading_rule": "Todas las filas marcadas como in_scope"
     },
     {
       "field_name": "source_confidence",
       "data_type": "text",
       "definition": "Confianza de fuente",
       "reading_rule": "high o medium segun convergencia documental"
+    },
+    {
+      "field_name": "state_summary",
+      "data_type": "text",
+      "definition": "Lectura ejecutiva del estado",
+      "reading_rule": "Sintesis analitica del momento actual"
+    },
+    {
+      "field_name": "supporting_notes",
+      "data_type": "text",
+      "definition": "Fuentes de apoyo",
+      "reading_rule": "Otras notas utilizadas para consolidar la lectura"
+    },
+    {
+      "field_name": "territory_focus",
+      "data_type": "text",
+      "definition": "Territorio o contexto geografico",
+      "reading_rule": "Donde se concentra el valor territorial"
+    },
+    {
+      "field_name": "upstream_dependencies",
+      "data_type": "text",
+      "definition": "Dependencias de entrada",
+      "reading_rule": "Que nodos alimentan esta app"
+    },
+    {
+      "field_name": "validation_status",
+      "data_type": "text",
+      "definition": "Calidad de validacion documental",
+      "reading_rule": "Nivel de contraste segun las notas fuente"
     }
   ],
   "sources": [
     {
-      "app_name": "Anclora Private Estates",
-      "source_note": "resources/anclora-group.md",
-      "source_type": "resource",
-      "evidence_summary": "Se define como puerta de entrada inmobiliaria premium y matriz del vertical"
-    },
-    {
-      "app_name": "Anclora Private Estates",
-      "source_note": "proyectos/anclora-private-estates.md",
-      "source_type": "project",
-      "evidence_summary": "Recoge objetivo, estado, riesgos y proximos pasos del vertical premium"
-    },
-    {
-      "app_name": "Anclora Private Estates",
-      "source_note": "sistemas/Arquitectura de Integracion Anclora.md",
-      "source_type": "system",
-      "evidence_summary": "La situa como lugar donde la maquinaria del ecosistema genera valor economico visible"
-    },
-    {
-      "app_name": "Anclora Private Estates",
-      "source_note": "Anclora Command Center.md",
-      "source_type": "dashboard",
-      "evidence_summary": "La marca como nodo activo y prioriza su propuesta de valor y dependencia con Nexus"
-    },
-    {
-      "app_name": "Anclora Data Lab",
-      "source_note": "resources/anclora-group.md",
-      "source_type": "resource",
-      "evidence_summary": "La define como activos analiticos, senales territoriales e informes premium"
-    },
-    {
-      "app_name": "Anclora Data Lab",
-      "source_note": "research/anclora/anclora-data-lab.md",
-      "source_type": "research",
-      "evidence_summary": "Describe mision, implicaciones y duda abierta sobre outputs y distribucion"
-    },
-    {
-      "app_name": "Anclora Data Lab",
-      "source_note": "sistemas/Arquitectura de Integracion Anclora.md",
-      "source_type": "system",
-      "evidence_summary": "La coloca al inicio de la cadena de transformacion del dato al negocio"
-    },
-    {
-      "app_name": "Anclora Data Lab",
-      "source_note": "playbooks/flujo-comercial-inteligente.md",
-      "source_type": "playbook",
-      "evidence_summary": "La usa como input territorial e inteligencia para el flujo comercial"
-    },
-    {
-      "app_name": "Anclora Synergi",
-      "source_note": "resources/anclora-group.md",
-      "source_type": "resource",
-      "evidence_summary": "La define como plataforma de gestion de partners y workspaces privados"
-    },
-    {
-      "app_name": "Anclora Synergi",
-      "source_note": "research/anclora/anclora-synergi.md",
-      "source_type": "research",
-      "evidence_summary": "Detalla su rol relacional, valor y dudas frente a Nexus"
-    },
-    {
-      "app_name": "Anclora Synergi",
-      "source_note": "sistemas/Arquitectura de Integracion Anclora.md",
-      "source_type": "system",
-      "evidence_summary": "La situa en la continuidad relacional y onboarding de partners"
-    },
-    {
-      "app_name": "Anclora Synergi",
-      "source_note": "playbooks/flujo-comercial-inteligente.md",
-      "source_type": "playbook",
-      "evidence_summary": "La integra como capa de coordinacion privada y onboarding"
-    },
-    {
-      "app_name": "Anclora Nexus",
-      "source_note": "resources/anclora-group.md",
-      "source_type": "resource",
-      "evidence_summary": "La define como central operativa de pipeline, CRM y trazabilidad"
-    },
-    {
-      "app_name": "Anclora Nexus",
-      "source_note": "playbooks/anclora-nexus.md",
-      "source_type": "playbook",
-      "evidence_summary": "Describe objetivo, etapas operativas, validacion y riesgos"
-    },
-    {
-      "app_name": "Anclora Nexus",
-      "source_note": "sistemas/Arquitectura de Integracion Anclora.md",
-      "source_type": "system",
-      "evidence_summary": "La ubica como activacion operativa y punto de medicion del pipeline"
-    },
-    {
-      "app_name": "Anclora Nexus",
-      "source_note": "sistemas/Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones.md",
-      "source_type": "system-plan",
-      "evidence_summary": "La eleva a corazon operativo del sistema comercial y prioriza flujos de retorno rapido"
-    },
-    {
-      "app_name": "Anclora Nexus",
-      "source_note": "Anclora Command Center.md",
-      "source_type": "dashboard",
-      "evidence_summary": "La marca como nucleo a consolidar y aplicacion activa con foco claro"
-    },
-    {
       "app_name": "Anclora Content Generator AI",
-      "source_note": "resources/anclora-group.md",
-      "source_type": "resource",
-      "evidence_summary": "La define como motor editorial de inteligencia de contenido"
+      "source_note": "playbooks/flujo-comercial-inteligente.md",
+      "source_type": "playbook",
+      "evidence_summary": "La usa para generar briefs, emails segmentados y activos comerciales"
     },
     {
       "app_name": "Anclora Content Generator AI",
@@ -583,45 +482,147 @@
     },
     {
       "app_name": "Anclora Content Generator AI",
-      "source_note": "sistemas/Arquitectura de Integracion Anclora.md",
+      "source_note": "resources/anclora-group.md",
+      "source_type": "resource",
+      "evidence_summary": "La define como motor editorial de inteligencia de contenido"
+    },
+    {
+      "app_name": "Anclora Content Generator AI",
+      "source_note": "sistemas/Arquitectura de Integración Anclora.md",
       "source_type": "system",
       "evidence_summary": "La coloca en la traduccion comercial de insights a activos reutilizables"
     },
     {
       "app_name": "Anclora Content Generator AI",
-      "source_note": "playbooks/flujo-comercial-inteligente.md",
-      "source_type": "playbook",
-      "evidence_summary": "La usa para generar briefs, emails segmentados y activos comerciales"
-    },
-    {
-      "app_name": "Anclora Content Generator AI",
-      "source_note": "sistemas/Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones.md",
+      "source_note": "sistemas/Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones.md",
       "source_type": "system-plan",
       "evidence_summary": "La considera suficientemente madura para entrar ya en la operativa editorial"
     },
     {
-      "app_name": "dataset_scope",
-      "source_note": "Anclora Group - apps relacionadas con Real Estate excluyendo Anclora Advisor AI por instruccion del usuario",
-      "source_type": "",
-      "evidence_summary": ""
+      "app_name": "Anclora Data Lab",
+      "source_note": "playbooks/flujo-comercial-inteligente.md",
+      "source_type": "playbook",
+      "evidence_summary": "La usa como input territorial e inteligencia para el flujo comercial"
     },
     {
-      "app_name": "generation_date",
-      "source_note": "2026-03-31",
-      "source_type": "",
-      "evidence_summary": ""
+      "app_name": "Anclora Data Lab",
+      "source_note": "research/anclora/anclora-data-lab.md",
+      "source_type": "research",
+      "evidence_summary": "Describe mision, implicaciones y duda abierta sobre outputs y distribucion"
+    },
+    {
+      "app_name": "Anclora Data Lab",
+      "source_note": "resources/anclora-group.md",
+      "source_type": "resource",
+      "evidence_summary": "La define como activos analiticos, senales territoriales e informes premium"
+    },
+    {
+      "app_name": "Anclora Data Lab",
+      "source_note": "sistemas/Arquitectura de Integración Anclora.md",
+      "source_type": "system",
+      "evidence_summary": "La coloca al inicio de la cadena de transformacion del dato al negocio"
+    },
+    {
+      "app_name": "Anclora Nexus",
+      "source_note": "Anclora Command Center.md",
+      "source_type": "dashboard",
+      "evidence_summary": "La marca como nucleo a consolidar y aplicacion activa con foco claro"
+    },
+    {
+      "app_name": "Anclora Nexus",
+      "source_note": "playbooks/anclora-nexus.md",
+      "source_type": "playbook",
+      "evidence_summary": "Describe objetivo, etapas operativas, validacion y riesgos"
+    },
+    {
+      "app_name": "Anclora Nexus",
+      "source_note": "resources/anclora-group.md",
+      "source_type": "resource",
+      "evidence_summary": "La define como central operativa de pipeline, CRM y trazabilidad"
+    },
+    {
+      "app_name": "Anclora Nexus",
+      "source_note": "sistemas/Arquitectura de Integración Anclora.md",
+      "source_type": "system",
+      "evidence_summary": "La ubica como activacion operativa y punto de medicion del pipeline"
+    },
+    {
+      "app_name": "Anclora Nexus",
+      "source_note": "sistemas/Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones.md",
+      "source_type": "system-plan",
+      "evidence_summary": "La eleva a corazon operativo del sistema comercial y prioriza flujos de retorno rapido"
+    },
+    {
+      "app_name": "Anclora Private Estates",
+      "source_note": "Anclora Command Center.md",
+      "source_type": "dashboard",
+      "evidence_summary": "La marca como nodo activo y prioriza su propuesta de valor y dependencia con Nexus"
+    },
+    {
+      "app_name": "Anclora Private Estates",
+      "source_note": "proyectos/anclora-private-estates.md",
+      "source_type": "project",
+      "evidence_summary": "Recoge objetivo, estado, riesgos y proximos pasos del vertical premium"
+    },
+    {
+      "app_name": "Anclora Private Estates",
+      "source_note": "resources/anclora-group.md",
+      "source_type": "resource",
+      "evidence_summary": "Se define como puerta de entrada inmobiliaria premium y matriz del vertical"
+    },
+    {
+      "app_name": "Anclora Private Estates",
+      "source_note": "sistemas/Arquitectura de Integración Anclora.md",
+      "source_type": "system",
+      "evidence_summary": "La situa como lugar donde la maquinaria del ecosistema genera valor economico visible"
+    },
+    {
+      "app_name": "Anclora Synergi",
+      "source_note": "playbooks/flujo-comercial-inteligente.md",
+      "source_type": "playbook",
+      "evidence_summary": "La integra como capa de coordinacion privada y onboarding"
+    },
+    {
+      "app_name": "Anclora Synergi",
+      "source_note": "research/anclora/anclora-synergi.md",
+      "source_type": "research",
+      "evidence_summary": "Detalla su rol relacional, valor y dudas frente a Nexus"
+    },
+    {
+      "app_name": "Anclora Synergi",
+      "source_note": "resources/anclora-group.md",
+      "source_type": "resource",
+      "evidence_summary": "La define como plataforma de gestion de partners y workspaces privados"
+    },
+    {
+      "app_name": "Anclora Synergi",
+      "source_note": "sistemas/Arquitectura de Integración Anclora.md",
+      "source_type": "system",
+      "evidence_summary": "La situa en la continuidad relacional y onboarding de partners"
+    },
+    {
+      "app_name": "dataset_scope",
+      "source_note": "Anclora Group - apps relacionadas con Real Estate excluyendo Anclora Advisor AI por instruccion del usuario",
+      "source_type": "metadata",
+      "evidence_summary": "Workbook metadata row for dataset scope"
     },
     {
       "app_name": "generated_from",
       "source_note": "Boveda de Obsidian local",
-      "source_type": "",
-      "evidence_summary": ""
+      "source_type": "metadata",
+      "evidence_summary": "Workbook metadata row for source environment"
+    },
+    {
+      "app_name": "generation_date",
+      "source_note": "2026-03-31",
+      "source_type": "metadata",
+      "evidence_summary": "Workbook metadata row for generation date"
     },
     {
       "app_name": "output_file",
       "source_note": "output/spreadsheet/anclora-group-real-estate-dataset.xlsx",
-      "source_type": "",
-      "evidence_summary": ""
+      "source_type": "metadata",
+      "evidence_summary": "Workbook metadata row for output file"
     }
   ],
   "derived": {
@@ -646,9 +647,9 @@
         "priority_band": "critical",
         "app_type": "luxury-real-estate-platform",
         "documented_state": "activo",
-        "action_now": "Precisar posicionamiento premium y mapear dependencia operativa con Nexus, Synergi y Data Lab",
+        "action_now": "Precisar posicionamiento premium y coordinar la landing publica con Nexus, Synergi y Data Lab",
         "main_risks": "Propuesta de valor aun poco precisa; relaciones operativas todavia incompletas",
-        "next_focus": "Precisar posicionamiento premium y mapear dependencia operativa con Nexus, Synergi y Data Lab"
+        "next_focus": "Precisar posicionamiento premium y coordinar la landing publica con Nexus, Synergi y Data Lab"
       },
       {
         "rank": 3,
@@ -701,7 +702,7 @@
         "app_name": "Anclora Private Estates",
         "priority_band": "critical",
         "title": "Anclora Private Estates",
-        "action_now": "Precisar posicionamiento premium y mapear dependencia operativa con Nexus, Synergi y Data Lab",
+        "action_now": "Precisar posicionamiento premium y coordinar la landing publica con Nexus, Synergi y Data Lab",
         "why_now": "Propuesta de valor aun poco precisa; relaciones operativas todavia incompletas"
       },
       {
@@ -750,7 +751,7 @@
     ],
     "layerDistribution": [
       {
-        "label": "commercial-vertical",
+        "label": "content",
         "value": 1
       },
       {
@@ -758,15 +759,15 @@
         "value": 1
       },
       {
-        "label": "partnerships",
-        "value": 1
-      },
-      {
         "label": "operations",
         "value": 1
       },
       {
-        "label": "content",
+        "label": "commercial-vertical",
+        "value": 1
+      },
+      {
+        "label": "partnerships",
         "value": 1
       }
     ],
@@ -783,9 +784,9 @@
     "dependencyMap": {
       "nodes": [
         {
-          "id": "APE",
-          "label": "Anclora Private Estates",
-          "layer": "commercial-vertical",
+          "id": "ACG",
+          "label": "Anclora Content Generator AI",
+          "layer": "content",
           "band": "critical"
         },
         {
@@ -795,25 +796,37 @@
           "band": "medium"
         },
         {
-          "id": "ASY",
-          "label": "Anclora Synergi",
-          "layer": "partnerships",
-          "band": "medium"
-        },
-        {
           "id": "ANX",
           "label": "Anclora Nexus",
           "layer": "operations",
           "band": "critical"
         },
         {
-          "id": "ACG",
-          "label": "Anclora Content Generator AI",
-          "layer": "content",
+          "id": "APE",
+          "label": "Anclora Private Estates",
+          "layer": "commercial-vertical",
           "band": "critical"
+        },
+        {
+          "id": "ASY",
+          "label": "Anclora Synergi",
+          "layer": "partnerships",
+          "band": "medium"
         }
       ],
       "links": [
+        {
+          "source": "ACG",
+          "target": "ANX",
+          "type": "content_activation",
+          "label": "Content Generator produce emails, briefs y activos por etapa"
+        },
+        {
+          "source": "ACG",
+          "target": "APE",
+          "type": "authority_assets",
+          "label": "Content Generator suministra activos de autoridad y captacion"
+        },
         {
           "source": "ADL",
           "target": "ACG",
@@ -827,16 +840,22 @@
           "label": "Data Lab aporta contexto premium y priorizacion"
         },
         {
-          "source": "ACG",
-          "target": "ANX",
-          "type": "content_activation",
-          "label": "Content Generator produce emails, briefs y activos por etapa"
+          "source": "ANX",
+          "target": "ADL",
+          "type": "feedback_loop",
+          "label": "Nexus devuelve resultados comerciales y fricciones"
         },
         {
           "source": "ANX",
           "target": "ASY",
           "type": "partner_handoff",
           "label": "Nexus transfiere oportunidad madura a relacion/partnership"
+        },
+        {
+          "source": "APE",
+          "target": "ADL",
+          "type": "commercial_demand",
+          "label": "Private Estates expresa necesidades de inteligencia territorial"
         },
         {
           "source": "APE",
@@ -851,28 +870,10 @@
           "label": "Private Estates alimenta casos y contexto para partners premium"
         },
         {
-          "source": "APE",
-          "target": "ADL",
-          "type": "commercial_demand",
-          "label": "Private Estates expresa necesidades de inteligencia territorial"
-        },
-        {
-          "source": "ANX",
-          "target": "ADL",
-          "type": "feedback_loop",
-          "label": "Nexus devuelve resultados comerciales y fricciones"
-        },
-        {
           "source": "ASY",
           "target": "ANX",
           "type": "relationship_feedback",
           "label": "Synergi devuelve contexto de partnership y onboarding"
-        },
-        {
-          "source": "ACG",
-          "target": "APE",
-          "type": "authority_assets",
-          "label": "Content Generator suministra activos de autoridad y captacion"
         }
       ]
     }

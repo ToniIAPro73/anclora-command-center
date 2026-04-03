@@ -9,7 +9,10 @@ const vaultRoot = path.resolve(dashboardRoot, '..')
 const preferredPort = 5173
 const cleanupPorts = [5173, 5174]
 
-const syncCommand = ['node', ['./scripts/sync-vault-data.mjs']]
+const syncCommand =
+  process.platform === 'win32'
+    ? ['npm.cmd', ['run', 'sync:all']]
+    : ['npm', ['run', 'sync:all']]
 const viteCommand =
   process.platform === 'win32'
     ? ['npm.cmd', ['run', 'dev:vite', '--', '--host', '127.0.0.1', '--port', String(preferredPort), '--strictPort']]

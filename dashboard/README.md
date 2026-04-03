@@ -12,8 +12,15 @@
 - `npm run dev`
 - `npm run build`
 - `npm run lint`
+- `npm run generate:workbook`
+- `npm run sync:notes`
 - `npm run sync:vault`
 - `npm run sync:real-estate`
+- `npm run sync:all`
+- `npm run watch:notes`
+- `node --test ./scripts/read-dashboard-notes.test.mjs`
+- `node --test ./scripts/generate-workbook-from-notes.test.mjs`
+- `node --test ./scripts/watch-notes-and-sync.smoke.test.mjs`
 - `node --test ./scripts/sync-real-estate-dataset.test.mjs`
 
 ## Contratos UX/UI

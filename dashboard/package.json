@@ -4,16 +4,22 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "generate:workbook": "node ./scripts/generate-workbook-from-notes.mjs",
+    "sync:notes": "node ./scripts/watch-notes-and-sync.mjs --once",
     "sync:vault": "node ./scripts/sync-vault-data.mjs",
     "sync:real-estate": "node ./scripts/sync-real-estate-dataset.mjs",
+    "sync:all": "npm run sync:vault && npm run sync:notes",
+    "watch:notes": "node ./scripts/watch-notes-and-sync.mjs",
     "dev:vite": "vite",
     "dev": "node ./scripts/dev-with-sync.mjs",
-    "build": "npm run sync:vault && npm run sync:real-estate && tsc -b && vite build",
+    "build": "npm run sync:all && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "chokidar": "^4.0.3",
     "exceljs": "^4.4.0",
+    "gray-matter": "^4.0.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
