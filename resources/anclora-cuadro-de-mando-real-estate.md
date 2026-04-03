@@ -4,7 +4,7 @@ aliases: [Cuadro de Mando Real Estate, Dashboard Cuadro de Mando]
 type: resource
 estado: activo
 scope: dashboard-operativo
-repo_local: dashboard-cuadro-de-mando
+repo_local: dashboard
 url: https://anclora-command-center.vercel.app/real-estate
 tags: [resource, dashboard, anclora, real-estate]
 related:
@@ -28,25 +28,26 @@ Es la capa visual específica para el dataset de apps Real Estate. Complementa a
 ## URL
 
 - Producción Vercel: `https://anclora-command-center.vercel.app/real-estate`
+- Repo GitHub del app contenedor: `https://github.com/ToniIAPro73/anclora-command-center`
 
 ## Fuente de datos
 
 - Workbook fuente: `output/spreadsheet/anclora-group-real-estate-dataset.xlsx`
-- Pipeline de ingestión: `xlsx -> json`
-- App local: `dashboard-cuadro-de-mando/`
+- Pipeline de ingestión: `notas -> workbook -> json`
+- App local: `dashboard/`
 
 ## Fuente de verdad
 
 La capa canonica para esta version del cuadro de mando vive en [[Indice Dashboard Real Estate]] y en `resources/dashboard-real-estate/`.
 
-El workbook `output/spreadsheet/anclora-group-real-estate-dataset.xlsx` y `dashboard-cuadro-de-mando/src/generated/dataset.json` son artefactos derivados. No se editan a mano salvo para una investigacion puntual; se regeneran desde las notas canonicas.
+El workbook `output/spreadsheet/anclora-group-real-estate-dataset.xlsx` y `dashboard/src/generated/dataset.json` son artefactos derivados. No se editan a mano salvo para una investigacion puntual; se regeneran desde las notas canonicas.
 
 ## Flujo operativo de verdad
 
 1. Editar primero las notas canonicas en `resources/dashboard-real-estate/`.
-2. Regenerar el workbook con `npm run generate:workbook` desde `dashboard-cuadro-de-mando/`.
-3. Sincronizar el dataset con `npm run sync:data`.
-4. Validar el estado con `npm test` y `npm run build` en `dashboard-cuadro-de-mando/`.
+2. Regenerar el workbook con `npm run generate:workbook` desde `dashboard/`.
+3. Sincronizar notas y dataset con `npm run sync:notes`.
+4. Validar el estado con `node --test ./scripts/read-dashboard-notes.test.mjs ./scripts/generate-workbook-from-notes.test.mjs ./scripts/watch-notes-and-sync.smoke.test.mjs ./scripts/sync-real-estate-dataset.test.mjs` y `npm run build` en `dashboard/`.
 5. Si una comparacion no cuadra, revisar las notas origen antes de tocar el workbook o el JSON generado.
 
 ## Notas de mantenimiento

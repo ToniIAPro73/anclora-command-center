@@ -85,20 +85,16 @@ Los resultados deben volver al sistema para refinar:
 - Sin `Synergi`, la relación con partners queda fuera del sistema.
 - Sin `Boveda-Anclora`, el ecosistema pierde fuente de verdad documental.
 
-## Rol de los dashboards
+## Rol del dashboard
 
-### Dashboard 1: Anclora Command Center
+### Anclora Command Center
 
 - Ubicación: `Boveda-Anclora/dashboard`
 - Nombre de aplicación: `anclora-command-center`
 - Función: vista premium conectada a la bóveda para visualización operativa y sincronización de contexto
-- Lectura útil: panorama transversal del sistema
-
-### Dashboard 2: Anclora Cuadro de Mando Real Estate
-
-- Ubicación: `Boveda-Anclora/dashboard-cuadro-de-mando`
-- Función: lectura específica del dataset inmobiliario
 - Lectura útil:
+  - panorama transversal del sistema
+  - lectura específica del dataset inmobiliario mediante la vista `real-estate`
   - prioridad actual por app
   - siguiente acción recomendada
   - riesgos y bloqueos

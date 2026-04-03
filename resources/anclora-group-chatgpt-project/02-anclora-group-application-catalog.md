@@ -70,17 +70,11 @@ tags: [resource, anclora, catalogo]
 ### Anclora Command Center
 
 - Repo local: `Boveda-Anclora/dashboard`
+- Repo GitHub: `https://github.com/ToniIAPro73/anclora-command-center`
 - URL pública: `https://anclora-command-center.vercel.app/`
 - Rol: dashboard premium conectado a la bóveda
-- Función: visualización operativa y sincronización de contexto
+- Función: visualización operativa y sincronización de contexto, incluyendo la vista `Real Estate`
 - Naturaleza: aplicación premium interna de lectura y control
-
-### Anclora Cuadro de Mando Real Estate
-
-- Repo local: `Boveda-Anclora/dashboard-cuadro-de-mando`
-- Rol: dashboard del dataset inmobiliario
-- Función: leer prioridades, dependencias, riesgos y siguientes acciones del ecosistema real estate
-- Naturaleza: aplicación premium orientada a priorización operativa
 
 ## Capa documental y de gobierno
 
@@ -148,6 +142,6 @@ Si ChatGPT tiene que orientarse rápido, el orden recomendado es:
 5. `Anclora Content Generator AI`
 6. `Anclora Nexus`
 7. `Anclora Synergi`
-8. los dos dashboards de `Boveda-Anclora`
+8. `anclora-command-center` y sus vistas
 9. portfolio y showcases
 10. repos adyacentes

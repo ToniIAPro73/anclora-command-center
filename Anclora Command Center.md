@@ -42,6 +42,11 @@ related:
 > [!info] Superficies conectadas
 > [[Anclora Cuadro de Mando Real Estate]] · `https://anclora-command-center.vercel.app/real-estate`
 
+## URL y repo
+
+- Producción Vercel: `https://anclora-command-center.vercel.app/`
+- Repo GitHub: `https://github.com/ToniIAPro73/anclora-command-center`
+
 ## ⚡ Pulso Ejecutivo
 
 > [!tip] Lectura de 30 segundos

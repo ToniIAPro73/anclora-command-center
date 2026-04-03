@@ -11,7 +11,7 @@ tags: [resource, anclora, ecosystem]
 
 `Anclora Group` es el hub corporativo y operativo de un ecosistema de aplicaciones y activos digitales con foco principal en real estate premium, inteligencia aplicada, contenido, trazabilidad comercial y relaciones con partners.
 
-El centro documental del ecosistema es `Boveda-Anclora`, que funciona como segundo cerebro, fuente de verdad narrativa, gobierno de contratos y mapa de integración entre productos. Dentro de esa bóveda viven `dashboard/` como `anclora-command-center` y `dashboard-cuadro-de-mando/` como superficie legacy en retirada.
+El centro documental del ecosistema es `Boveda-Anclora`, que funciona como segundo cerebro, fuente de verdad narrativa, gobierno de contratos y mapa de integración entre productos. Dentro de esa bóveda vive `dashboard/` como `anclora-command-center`, incluyendo la vista `real-estate` dentro de la misma app.
 
 ## Núcleo del ecosistema
 
@@ -24,7 +24,7 @@ La lectura canónica del sistema es:
 5. `Anclora Content Generator AI` convierte esa inteligencia en activos editoriales y comerciales.
 6. `Anclora Nexus` actúa como núcleo operativo de pipeline, CRM y trazabilidad.
 7. `Anclora Synergi` estructura partners, admisiones y workspaces privados.
-8. `anclora-command-center` y `dashboard-cuadro-de-mando` aportan superficies de lectura, control y priorización.
+8. `anclora-command-center` aporta superficies de lectura, control y priorización, incluyendo el módulo `real-estate`.
 
 ## Qué contiene este proyecto
 
@@ -48,7 +48,6 @@ Este proyecto ChatGPT debe cubrir todo el workspace actual excepto estos repos e
 - `anclora-nexus`
 - `anclora-synergi`
 - `anclora-command-center`
-- `dashboard-cuadro-de-mando`
 - `Boveda-Anclora` como bóveda, gobierno y fuente de verdad
 
 ### Repos de showcase, portfolio o demostración comercial
@@ -75,17 +74,11 @@ La arquitectura sistémica documentada en la bóveda no debe leerse como un conj
 - `Anclora Private Estates Landing Page` convierte esa propuesta en una superficie pública de posicionamiento, captación y filtro.
 - `Anclora Group` agrupa el acceso interno y el marco corporativo.
 
-## Dashboards dentro de Boveda-Anclora
+## Dashboard dentro de Boveda-Anclora
 
 ### `dashboard/`
 
-Es `Anclora Command Center`, una superficie premium conectada a la bóveda para visualización operativa y sincronización de contexto.
-
-### `dashboard-cuadro-de-mando/`
-
-Es `Anclora Cuadro de Mando Real Estate`, un dashboard específico del dataset inmobiliario para leer prioridades, acciones, riesgos y dependencias entre aplicaciones.
-
-Ambos deben tratarse como aplicaciones válidas del ecosistema.
+Es `Anclora Command Center`, una superficie premium conectada a la bóveda para visualización operativa y sincronización de contexto. Incluye también la vista `Real Estate`, específica del dataset inmobiliario para leer prioridades, acciones, riesgos y dependencias entre aplicaciones.
 
 ## Principios de lectura para ChatGPT
 

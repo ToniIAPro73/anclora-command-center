@@ -18,7 +18,7 @@ Esta nota reúne consultas listas para copiar en la vista gráfica de Obsidian. 
 Usa esta consulta para trabajar la bóveda como segundo cerebro y no como mezcla de docs técnicas y assets de proyectos:
 
 ```text
-(path:daily-notes OR path:ideas OR path:inbox OR path:personas OR path:playbooks OR path:proyectos OR path:research OR path:resources OR path:sistemas) -path:docs -path:dashboard -path:dashboard-cuadro-de-mando -path:scripts -file:README -file:readme -file:LICENSE -file:license -file:CHANGELOG -file:CONTRIBUTING -file:SECURITY
+(path:daily-notes OR path:ideas OR path:inbox OR path:personas OR path:playbooks OR path:proyectos OR path:research OR path:resources OR path:sistemas) -path:docs -path:dashboard -path:scripts -file:README -file:readme -file:LICENSE -file:license -file:CHANGELOG -file:CONTRIBUTING -file:SECURITY
 ```
 
 ## Vista de diagnóstico de huérfanas
@@ -26,7 +26,7 @@ Usa esta consulta para trabajar la bóveda como segundo cerebro y no como mezcla
 Usa esta consulta cuando quieras revisar notas aisladas dentro de la capa de conocimiento:
 
 ```text
-(path:daily-notes OR path:ideas OR path:inbox OR path:personas OR path:playbooks OR path:proyectos OR path:research OR path:resources OR path:sistemas) -path:docs -path:dashboard -path:dashboard-cuadro-de-mando -path:scripts
+(path:daily-notes OR path:ideas OR path:inbox OR path:personas OR path:playbooks OR path:proyectos OR path:research OR path:resources OR path:sistemas) -path:docs -path:dashboard -path:scripts
 ```
 
 Sugerencia de visualización:

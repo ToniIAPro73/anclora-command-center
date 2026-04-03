@@ -32,14 +32,12 @@ Contrato de familia:
 Aplicaciones:
 - `anclora-impulso`
 - `anclora-command-center`
-- `dashboard-cuadro-de-mando`
 - `anclora-data-lab`
 - `anclora-synergi`
 - `anclora-talent`
 
 Nota operativa:
 - `anclora-command-center` sigue siendo la app premium canónica para el Command Center unificado.
-- `dashboard-cuadro-de-mando` no se clasifica como target arquitectónico nuevo; queda como superficie legacy en migración / phase-out.
 
 ### Ultra Premium
 
@@ -70,7 +68,6 @@ Aplicaciones:
 | `anclora-content-generator-ai` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
 | `anclora-impulso` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
 | `anclora-command-center` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
-| `dashboard-cuadro-de-mando` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
 | `anclora-data-lab` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
 | `anclora-synergi` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
 | `anclora-talent` | Premium | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PREMIUM` | Sí |
@@ -79,9 +76,6 @@ Aplicaciones:
 | `anclora-portfolio` | Portfolio / Showcase | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PORTFOLIO` | Sí |
 | `anclora-azure-bay-landing` | Portfolio / Showcase | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PORTFOLIO` | Sí |
 | `anclora-playa-viva-uniestate` | Portfolio / Showcase | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PORTFOLIO` | Sí |
-
-Superficie en migración:
-- `dashboard-cuadro-de-mando`: referencia legacy, no canónica, mantenida solo mientras se completa la consolidación dentro de `anclora-command-center`.
 
 ## Agrupación operativa
 
@@ -100,7 +94,6 @@ Superficie en migración:
 | --- | --- |
 | `anclora-impulso` | Universal + Premium |
 | `anclora-command-center` | Universal + Premium |
-| `dashboard-cuadro-de-mando` | Universal + Premium |
 | `anclora-data-lab` | Universal + Premium |
 | `anclora-synergi` | Universal + Premium |
 | `anclora-talent` | Universal + Premium |
