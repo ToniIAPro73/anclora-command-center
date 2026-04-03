@@ -90,6 +90,7 @@ Los resultados deben volver al sistema para refinar:
 ### Dashboard 1: Anclora Command Center
 
 - Ubicación: `Boveda-Anclora/dashboard`
+- Nombre de aplicación: `anclora-command-center`
 - Función: vista premium conectada a la bóveda para visualización operativa y sincronización de contexto
 - Lectura útil: panorama transversal del sistema
 

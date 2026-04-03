@@ -22,7 +22,7 @@ Aplicaciones internas:
 
 Aplicaciones premium:
 - `anclora-impulso`
-- `Boveda-Anclora/dashboard`
+- `anclora-command-center`
 - `anclora-synergi`
 - `anclora-data-lab`
 
@@ -94,7 +94,7 @@ Al crear una app nueva:
 | `anclora-nexus` | Interna | `es`, `en`, `de`, `ru` | `dark` operativo | Base + interno |
 | `anclora-content-generator-ai` | Interna | `es`, `en` | `dark/light/system` | Base + interno |
 | `anclora-impulso` | Premium | `es`, `en` | `dark/light` | Base + premium |
-| `Boveda-Anclora/dashboard` | Premium | `es`, `en`, `de` | `dark/light` | Base + premium |
+| `anclora-command-center` | Premium | `es`, `en`, `de` | `dark/light` | Base + premium |
 | `anclora-synergi` | Premium | `es`, `en`, `de` | tema editorial único | Base + premium |
 | `anclora-data-lab` | Premium | `es`, `en`, `de` | `dark/light/system` | Base + premium |
 | `anclora-private-estates` | Ultra premium | `es`, `en`, `de`, `fr` | premium multi-theme | Base + ultra premium |

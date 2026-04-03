@@ -19,7 +19,7 @@ Este proyecto cubre:
 
 - `Boveda-Anclora` como repositorio de conocimiento, gobierno, notas canónicas y fuente de verdad documental.
 - Las dos aplicaciones válidas dentro de `Boveda-Anclora`:
-  - `dashboard/` como `Anclora Command Center Dashboard`
+  - `dashboard/` como `Anclora Command Center`
   - `dashboard-cuadro-de-mando/` como `Anclora Cuadro de Mando Real Estate`
 - Los repositorios incluidos en el workspace:
   - `anclora-group`

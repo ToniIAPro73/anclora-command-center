@@ -35,7 +35,7 @@ Contrato de familia:
 
 ### Premium
 
-- `Boveda-Anclora/dashboard`
+- `anclora-command-center`
 - `anclora-data-lab`
 - `anclora-synergi`
 

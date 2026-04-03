@@ -1,6 +1,6 @@
-# Anclora Command Center Dashboard
+# Anclora Command Center
 
-`dashboard/` es la app premium canónica del Command Center dentro de esta bóveda. La unificación actual concentra dos vistas en una sola shell compartida:
+`dashboard/` es la app premium canónica `anclora-command-center` dentro de esta bóveda. La unificación actual concentra dos vistas en una sola shell compartida:
 
 - `Command Center`: vista principal de coordinación y lectura ejecutiva.
 - `Real Estate`: módulo migrado dentro de la misma app, accesible como segunda vista premium.
