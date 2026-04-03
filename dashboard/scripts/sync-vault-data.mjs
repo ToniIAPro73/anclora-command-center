@@ -535,7 +535,7 @@ function parsePartnerNote(filePath) {
 
   return {
     title: data.title,
-    status: data.status,
+    status: data.estado || data.status || '',
     influenceLevel: data.influence_level,
     company: data.company,
     role: data.role,
