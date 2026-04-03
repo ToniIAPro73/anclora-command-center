@@ -11,6 +11,7 @@ tags: [resource, anclora, corporate-hub]
 related:
   - "[[Anclora Command Center]]"
   - "[[Anclora Private Estates]]"
+  - "[[Anclora Private Estates Landing Page]]"
   - "[[Anclora Synergi]]"
   - "[[Anclora Data Lab]]"
   - "[[Anclora Nexus]]"
@@ -53,6 +54,7 @@ En la capa inmobiliaria, el posicionamiento operativo actual combina tecnologia,
 ## Mapa del Ecosistema
 
 - Puerta de Enlace Inmobiliaria: [[Anclora Private Estates]]
+- Superficie publica flagship del vertical: [[Anclora Private Estates Landing Page]]
 - Inteligencia y Datos: [[Anclora Data Lab]] | [[Anclora Content Generator AI]]
 - Superficie Editorial Premium: [[Anclora Talent]]
 - Gestión de Partners: [[Anclora Synergi]]
@@ -68,6 +70,7 @@ En la capa inmobiliaria, el posicionamiento operativo actual combina tecnologia,
 ## Ecosistema de Aplicaciones
 
 - [[Anclora Private Estates]]: Matriz del vertical inmobiliario premium. Puerta de entrada a [[Anclora Nexus]], [[Anclora Synergi]] y [[Anclora Data Lab]].
+- [[Anclora Private Estates Landing Page]]: Landing publica operativa del vertical. Convierte el posicionamiento premium y territorial en una superficie de autoridad, captacion y acceso selectivo alineada con el canon `dark/light` de Anclora.
 - [[Anclora Synergi]]: Plataforma de gestion de partners y workspaces privados.
 - [[Anclora Data Lab]]: Activos analiticos, senales territoriales e informes premium.
 - [[Anclora Nexus]]: Central operativa: pipeline, CRM y trazabilidad comercial.
@@ -93,6 +96,7 @@ En la capa inmobiliaria, el posicionamiento operativo actual combina tecnologia,
 ## Relacionado
 
 - [[Anclora Command Center]]
+- [[Anclora Private Estates Landing Page]]
 - [[MOC de Negocio]]
 - [[Prospección Avanzada con Nexus]]
 - [[Estrategia de Autoridad IA Inmobiliaria]]

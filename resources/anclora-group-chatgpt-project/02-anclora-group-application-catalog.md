@@ -25,6 +25,14 @@ tags: [resource, anclora, catalogo]
 - Naturaleza: aplicación ultra premium
 - Relación sistémica: conecta con `Nexus`, `Synergi` y `Data Lab`
 
+### Anclora Private Estates Landing Page
+
+- Repo: `anclora-private-estates-landing-page`
+- Rol: landing pública flagship del vertical `Private Estates`
+- Función: captar autoridad, posicionamiento territorial, leads cualificados y acceso selectivo antes de la experiencia completa del producto
+- Naturaleza: superficie pública operativa ultra premium asociada al vertical `Private Estates`
+- Relación sistémica: traduce el canon `dark/light` de Anclora al funnel público del vertical y deriva a `Private Estates`, `Data Lab` y `Synergi`
+
 ### Anclora Data Lab
 
 - Repo: `anclora-data-lab`
