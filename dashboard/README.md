@@ -5,8 +5,6 @@
 - `Command Center`: vista principal de coordinación y lectura ejecutiva.
 - `Real Estate`: módulo migrado dentro de la misma app, accesible como segunda vista premium.
 
-`dashboard-cuadro-de-mando/` no es el target arquitectónico. Se mantiene solo como superficie legacy en migración o phase-out hasta cerrar la transición.
-
 ## Scripts
 
 - `npm run dev`

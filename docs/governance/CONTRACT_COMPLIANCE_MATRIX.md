@@ -28,8 +28,7 @@ La referencia de condiciones es:
 | `anclora-nexus` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
 | `anclora-content-generator-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
 | `anclora-impulso` | Premium | PARTIAL | OK | PARTIAL | PARTIAL | N/A | Dashboard, Nutrition, Workouts, Profile, Progress y Gamificación auditados en local; producción parcial | PARTIAL | Falta pass final completo en producción y cierre fino de coherencia premium entre superficies | 2026-03-30 |
-| `anclora-command-center` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | Shell compartida y home principal auditadas; vista `real-estate` ya migrada pero pendiente de pass contractual completo | PARTIAL | Falta auditoría completa de las dos vistas del app unificado y cierre fino de coherencia premium | 2026-04-03 |
-| `dashboard-cuadro-de-mando` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | Superficie legacy en migración hacia `anclora-command-center`; clasificación contractual formalizada, sin auditoría propia cerrada | PARTIAL | Falta completar la retirada o, mientras exista, auditar sus vistas y responsive con criterio premium | 2026-04-03 |
+| `anclora-command-center` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | Shell compartida y vistas `command-center` y `real-estate` ya unificadas; falta auditoría contractual completa | PARTIAL | Falta auditoría completa de las dos vistas del app unificado y cierre fino de coherencia premium | 2026-04-04 |
 | `anclora-data-lab` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Login y backoffice `access-requests` auditados en desktop/móvil; workspace pendiente | PARTIAL | Falta auditoría completa del workspace y cierre de coherencia premium de cards/surfaces | 2026-03-30 |
 | `anclora-synergi` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Login y backoffice `partner-admissions` auditados en desktop/móvil; resto del backoffice parcial | PARTIAL | Falta auditoría completa del backoffice y cierre de coherencia premium de cards/surfaces | 2026-03-30 |
 | `anclora-talent` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | Clasificada como premium en bóveda; landing, auth y workspace con contrato dark-first e i18n es/en en progreso de cierre | PARTIAL | Falta auditoría visual completa y cierre de persistencia de tema/idioma en toda la app | 2026-04-02 |
@@ -46,8 +45,7 @@ La referencia de condiciones es:
 | Aplicación | Evidencia actual | Riesgo principal | Próxima acción |
 | --- | --- | --- | --- |
 | `anclora-impulso` | Flujos autenticados auditados mayoritariamente en local; producción validada de forma parcial | Diferencias finas entre local y Vercel y coherencia premium entre cards/surfaces | Ejecutar pass completo en producción y cerrar criterios de cards premium |
-| `anclora-command-center` | Shell compartida activa; Command Center auditado de forma parcial y `real-estate` ya dentro del mismo app | Falta pass contractual completo de ambas vistas y validación fina de densidad/card hierarchy | Auditar el app unificado completo y retirar dependencia operativa del legacy `dashboard-cuadro-de-mando` |
-| `dashboard-cuadro-de-mando` | Superficie legacy todavía presente; clasificación premium formalizada, pero sin evidencia contractual propia consolidada | Mantener una app residual sin auditoría ni destino claro incrementa duplicación y deuda | Completar migración al app unificado o cerrar una auditoría mínima mientras siga viva |
+| `anclora-command-center` | Shell compartida activa; Command Center y `real-estate` ya operan dentro del mismo app | Falta pass contractual completo de ambas vistas y validación fina de densidad/card hierarchy | Auditar el app unificado completo y cerrar criterios premium de ambas vistas |
 | `anclora-data-lab` | Login y backoffice de accesos auditados; claro/oscuro e i18n corregidos | Workspace pendiente y cards premium todavía sin criterio final de grupo | Auditar workspace y cerrar criterio de cards premium |
 | `anclora-synergi` | Login y backoffice de admisiones auditados; claro/oscuro e i18n corregidos | Backoffice completo pendiente y cards premium todavía sin criterio final de grupo | Auditar resto del backoffice y cerrar criterio de cards premium |
 | `anclora-talent` | Clasificada como premium en la bóveda; cuenta con shell, auth y dashboard definidos | Falta cierre visual y validación completa de dark default, theme toggle y locale toggle | Completar auditoría y cerrar contrato de preferencias e i18n en toda la app |
@@ -88,7 +86,6 @@ La referencia de condiciones es:
 | `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-impulso` | PARTIAL | PARTIAL | OK | PARTIAL | PARTIAL | OK |
 | `anclora-command-center` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
-| `dashboard-cuadro-de-mando` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-data-lab` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-talent` | PARTIAL | N/A | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -108,7 +105,6 @@ La referencia de condiciones es:
 | `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-impulso` | OK | OK | PARTIAL | OK | OK | OK |
 | `anclora-command-center` | N/A | N/A | N/A | N/A | N/A | N/A |
-| `dashboard-cuadro-de-mando` | N/A | N/A | N/A | N/A | N/A | N/A |
 | `anclora-data-lab` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-talent` | N/A | N/A | N/A | N/A | N/A | N/A |
@@ -128,7 +124,6 @@ La referencia de condiciones es:
 | `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-impulso` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-command-center` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
-| `dashboard-cuadro-de-mando` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-data-lab` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-talent` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -153,7 +148,6 @@ La referencia de condiciones es:
 | --- | --- | --- | --- | --- | --- |
 | `anclora-impulso` | PARTIAL | OK | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-command-center` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
-| `dashboard-cuadro-de-mando` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-data-lab` | PARTIAL | OK | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-synergi` | PARTIAL | OK | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-talent` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -178,9 +172,6 @@ La referencia de condiciones es:
 | ID | Ámbito | Aplicaciones | Gap |
 | --- | --- | --- | --- |
 | `CHG-0003` | `PREMIUM` | `anclora-impulso`, `anclora-data-lab`, `anclora-synergi`, `anclora-command-center` | Falta decidir si la coherencia visual de cards premium debe pasar a contrato de familia o resolverse como ajustes locales por app |
-
-Nota de alcance:
-- `dashboard-cuadro-de-mando` no se audita aquí como app objetivo separada. Mientras exista, se considera una superficie legacy en migración hacia `anclora-command-center`.
 
 ## Uso
 
