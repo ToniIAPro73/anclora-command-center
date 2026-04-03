@@ -7,6 +7,7 @@ tags: [dashboard, anclora, management]
 related:
   - "[[Anclora Group]]"
   - "[[Anclora Private Estates]]"
+  - "[[Anclora Private Estates Landing Page]]"
   - "[[Anclora Nexus]]"
   - "[[Anclora Synergi]]"
   - "[[Anclora Talent]]"
@@ -83,6 +84,7 @@ related:
 | Nodo | Estado documentado | Repositorio | Siguiente foco |
 | :--- | :--- | :--- | :--- |
 | [[Anclora Private Estates]] | activo | [GitHub](https://github.com/ToniIAPro73/Anclora-Private-Estates.git) | Definir mejor propuesta de valor y mapear dependencia con [[Anclora Nexus]]. |
+| [[Anclora Private Estates Landing Page]] | activo | [GitHub](https://github.com/ToniIAPro73/anclora-private-estates-landing-page.git) | Implementar la primera superficie publica ultra premium del vertical y validar canon `dark/light`, i18n `es/en/de/fr` y funnel de captacion. |
 | [[Anclora Nexus]] | activo | [GitHub](https://github.com/ToniIAPro73/Anclora-Nexus.git) | Consolidar etapas reales del pipeline y su uso con contenido e inteligencia. |
 | [[Anclora Advisor AI]] | activo | [GitHub](https://github.com/ToniIAPro73/Anclora-Advisor-AI.git) | Priorizar casos de uso y documentar mejor branding y UI. |
 | [[Anclora Impulso]] | activo | [GitHub](https://github.com/ToniIAPro73/Anclora-Impulso.git) | Traducir su madurez técnica en propuesta de valor y activos reutilizables. |
@@ -98,6 +100,7 @@ related:
 - `anclora-synergi`: último push el **26 de marzo de 2026**
 - `Anclora-Nexus`: último push el **25 de marzo de 2026**
 - `Anclora-Private-Estates`: último push el **25 de marzo de 2026**
+- `anclora-private-estates-landing-page`: alta operativa documentada el **3 de abril de 2026**
 - `Anclora-Advisor-AI`: último push el **25 de marzo de 2026**
 - `Anclora-Impulso`: último push el **25 de marzo de 2026**
 - `anclora-content-generator-ai`: último push el **25 de marzo de 2026**
@@ -121,6 +124,7 @@ related:
 
 - Decidir qué partner deja de ser “semilla” y pasa a onboarding real en [[Anclora Synergi]].
 - Convertir insights de [[Anclora Data Lab]] en un activo comercial medible dentro de [[Anclora Nexus]].
+- Alinear [[Anclora Private Estates Landing Page]] con la propuesta de valor real del vertical y con el acceso selectivo a `Data Lab` y `Synergi`.
 - Traducir la logica de CRM y nurturing con IA a vistas reales dentro de [[Anclora Nexus]] y [[Coda]].
 - Decidir si `n8n` sera el orquestador oficial de automatizacion de Anclora.
 - Mantener sincronizadas las notas de proyectos con sus README y actividad reciente en GitHub.

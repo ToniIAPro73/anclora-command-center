@@ -15,14 +15,14 @@ primary_users: Clientes premium, compradores/vendedores de alto nivel, operador 
 primary_goal: Consolidar el vertical inmobiliario premium como matriz operativa y comercial del ecosistema
 business_value: Centraliza propuesta de valor, acceso premium y conexion con datos, pipeline y partnerships
 main_inputs: Insights de Data Lab, pipeline de Nexus, partnerships de Synergi, estrategia territorial
-main_outputs: Propuesta de valor premium, captacion y contexto comercial para leads y partners
+main_outputs: Propuesta de valor premium, landing publica operativa, captacion y contexto comercial para leads y partners
 upstream_dependencies: Anclora Group | Anclora Data Lab | Anclora Nexus | Anclora Synergi
 downstream_dependencies: Anclora Nexus | Anclora Synergi | Anclora Data Lab
-key_workflows: Captacion premium | posicionamiento territorial | coordinacion comercial
+key_workflows: Captacion premium | posicionamiento territorial | landing flagship publica | coordinacion comercial
 documented_state: activo
-state_summary: Proyecto definido como vertical principal; falta mayor consolidacion operativa y comercial
+state_summary: Proyecto definido como vertical principal; ya dispone de landing publica operativa en repo separado, pero falta consolidacion completa entre producto, captacion y circuito comercial
 main_risks: Propuesta de valor aun poco precisa; relaciones operativas todavia incompletas
-next_focus: Precisar posicionamiento premium y mapear dependencia operativa con Nexus, Synergi y Data Lab
+next_focus: Precisar posicionamiento premium y coordinar la landing publica con Nexus, Synergi y Data Lab
 territory_focus: Suroeste de Mallorca
 repo_url: https://github.com/ToniIAPro73/Anclora-Private-Estates.git
 primary_note: proyectos/anclora-private-estates.md
@@ -30,6 +30,7 @@ supporting_notes:
   - resources/anclora-group.md
   - sistemas/Arquitectura de Integración Anclora.md
   - Anclora Command Center.md
+  - proyectos/anclora-private-estates-landing-page.md
 source_confidence: high
 related:
   - "[[Indice Dashboard Real Estate]]"
@@ -41,6 +42,11 @@ related:
 ## Resumen
 
 Puerta de entrada premium y matriz comercial del vertical inmobiliario.
+
+La lectura operativa actual debe considerar dos superficies coordinadas:
+
+- el repo matriz `anclora-private-estates`
+- la landing publica asociada `anclora-private-estates-landing-page`
 
 ## Referencias
 
@@ -62,18 +68,18 @@ Puerta de entrada premium y matriz comercial del vertical inmobiliario.
 - Goal: Consolidar el vertical inmobiliario premium como matriz operativa y comercial del ecosistema
 - Value: Centraliza propuesta de valor, acceso premium y conexion con datos, pipeline y partnerships
 - Inputs: Insights de Data Lab, pipeline de Nexus, partnerships de Synergi, estrategia territorial
-- Outputs: Propuesta de valor premium, captacion y contexto comercial para leads y partners
+- Outputs: Propuesta de valor premium, landing publica operativa, captacion y contexto comercial para leads y partners
 - Upstream: [[Anclora Group]] | [[Dashboard Real Estate - ADL - Anclora Data Lab]] | [[Dashboard Real Estate - ANX - Anclora Nexus]] | [[Dashboard Real Estate - ASY - Anclora Synergi]]
 - Downstream: [[Dashboard Real Estate - ANX - Anclora Nexus]] | [[Dashboard Real Estate - ASY - Anclora Synergi]] | [[Dashboard Real Estate - ADL - Anclora Data Lab]]
-- Workflows: Captacion premium | posicionamiento territorial | coordinacion comercial
+- Workflows: Captacion premium | posicionamiento territorial | landing flagship publica | coordinacion comercial
 - Documented state: activo
-- State summary: Proyecto definido como vertical principal; falta mayor consolidacion operativa y comercial
+- State summary: Proyecto definido como vertical principal; ya dispone de landing publica operativa en repo separado, pero falta consolidacion completa entre producto, captacion y circuito comercial
 - Risks: Propuesta de valor aun poco precisa; relaciones operativas todavia incompletas
-- Next focus: Precisar posicionamiento premium y mapear dependencia operativa con Nexus, Synergi y Data Lab
+- Next focus: Precisar posicionamiento premium y coordinar la landing publica con Nexus, Synergi y Data Lab
 - Territory: Suroeste de Mallorca
 - Repo: https://github.com/ToniIAPro73/Anclora-Private-Estates.git
 - Primary note: [[Anclora Private Estates]]
-- Supporting notes: [[Anclora Group]] | [[Arquitectura de Integración Anclora]] | [[Anclora Command Center]]
+- Supporting notes: [[Anclora Group]] | [[Arquitectura de Integración Anclora]] | [[Anclora Command Center]] | [[Anclora Private Estates Landing Page]]
 - Confidence: high
 
 ## Interacciones

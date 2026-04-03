@@ -19,11 +19,12 @@ La lectura canónica del sistema es:
 
 1. `Anclora Group` organiza acceso interno, roles y superficie corporativa.
 2. `Anclora Private Estates` es la matriz comercial del vertical inmobiliario premium.
-3. `Anclora Data Lab` concentra señales, activos analíticos e inteligencia territorial.
-4. `Anclora Content Generator AI` convierte esa inteligencia en activos editoriales y comerciales.
-5. `Anclora Nexus` actúa como núcleo operativo de pipeline, CRM y trazabilidad.
-6. `Anclora Synergi` estructura partners, admisiones y workspaces privados.
-7. `Boveda-Anclora/dashboard` y `dashboard-cuadro-de-mando` aportan superficies de lectura, control y priorización.
+3. `Anclora Private Estates Landing Page` actúa como superficie pública flagship de autoridad, captación y acceso selectivo del vertical.
+4. `Anclora Data Lab` concentra señales, activos analíticos e inteligencia territorial.
+5. `Anclora Content Generator AI` convierte esa inteligencia en activos editoriales y comerciales.
+6. `Anclora Nexus` actúa como núcleo operativo de pipeline, CRM y trazabilidad.
+7. `Anclora Synergi` estructura partners, admisiones y workspaces privados.
+8. `Boveda-Anclora/dashboard` y `dashboard-cuadro-de-mando` aportan superficies de lectura, control y priorización.
 
 ## Qué contiene este proyecto
 
@@ -41,6 +42,7 @@ Este proyecto ChatGPT debe cubrir todo el workspace actual excepto estos repos e
 
 - `anclora-group`
 - `anclora-private-estates`
+- `anclora-private-estates-landing-page`
 - `anclora-data-lab`
 - `anclora-content-generator-ai`
 - `anclora-nexus`
@@ -70,6 +72,7 @@ La arquitectura sistémica documentada en la bóveda no debe leerse como un conj
 - `Nexus` activa y mide la operativa comercial.
 - `Synergi` sostiene la continuidad relacional y el trabajo con partners.
 - `Private Estates` es el vertical premium donde esa maquinaria genera valor económico visible.
+- `Anclora Private Estates Landing Page` convierte esa propuesta en una superficie pública de posicionamiento, captación y filtro.
 - `Anclora Group` agrupa el acceso interno y el marco corporativo.
 
 ## Dashboards dentro de Boveda-Anclora
