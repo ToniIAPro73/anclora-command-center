@@ -25,6 +25,18 @@ Proyecto de asesoria fiscal, laboral y de mercado inmobiliario orientado a uso p
 
 Contar con una capacidad de asesoria util, clara y contextualizada para decisiones personales y operativas vinculadas a actividad profesional.
 
+## Branding canónico
+
+- Familia visual: `Internal`
+- Rol: baseline de referencia interna del ecosistema Anclora
+- Tipografía display: `Cormorant Garamond`
+- Tipografía body: `Source Sans 3`
+- Accent placeholder: `#1dab89` mint
+- Base palette placeholder: `#162944` navy
+- Prefijo de assets: `advisor_`
+- Assets finales: pendientes de sustitución cuando el usuario los entregue
+- Alcance de esta fase: dejar la app preparada estructuralmente para recibir esos activos sin rehacer el wiring
+
 ## 🎯 Objetivos
 
 - Objetivo principal: estructurar una capa de asesoria personal asistida.
