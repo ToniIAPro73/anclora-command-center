@@ -68,24 +68,25 @@ Este documento separa:
 
 ### Estado actual observado
 - i18n visible con `es/en/de/ru`.
-- Selector de idioma detectado.
-- Layout en dark fijo.
-- No se detecta toggle de tema.
+- Selector de idioma visible y ya operativo.
+- `dark` fijo como contrato operativo real.
+- `light` queda como posible evolución, no como requisito vigente.
 - Tiene modales explícitos (`LeadFormModal`, `PropertyFormModal`, `TaskFormModal`).
 - Tiene `button` y `card` propios.
 
 ### Contrato objetivo
-- Mantener multilenguaje amplio.
-- Mantener dark como contrato operativo actual.
-- No forzar toggle de tema si estratégicamente no corresponde todavía.
-- Sí obligar a que semántica de botones, cards y modales coincida con el ecosistema interno.
+- Mantener excepción controlada de idiomas: `es/en/de/ru`.
+- Mantener `dark` como contrato operativo vigente.
+- No exigir `light` en esta fase; queda como posible futuro.
+- Alinear branding `dark`, shell y surfaces con el sistema interno.
+- Hacer coincidir semántica de botones, cards y modales con el ecosistema interno.
 
 ### Gap
 - Gap bajo en idioma.
-- Gap bajo-medio en tema si el producto va a seguir dark-only.
-- Gap alto en contratos de modales: hay que auditar los tres modales y alinearlos.
-- Gap medio-alto en botones/cards: tiene sistema propio y habrá que mapearlo a la semántica común.
-- Gap medio en shell: hay header, sidebar, selector de idioma, user menu y notification panel, pero falta confirmar consistencia con el grupo interno.
+- Gap intencional en `light`, porque no es requisito actual.
+- Gap medio-alto en branding `dark`: wiring de logo, metadata y tipografía aún no estaba formalizado.
+- Gap medio-alto en modales: hay que confirmar el cierre visual y acciones finales.
+- Gap medio en shell: header, sidebar, selector de idioma, user menu y notification panel existen, pero requieren auditoría de coherencia.
 
 ### Qué habría que hacer
 1. Auditar `frontend/src/components/ui/button.tsx`.
@@ -94,14 +95,14 @@ Este documento separa:
    - `TaskFormModal.tsx`
    - `PropertyFormModal.tsx`
    - `LeadFormModal.tsx`
-4. Decidir explícitamente si Nexus sigue `dark-only` por contrato o si debe evolucionar a `dark/light`.
-5. Alinear spacing, footer actions y cierre de modales con el contrato interno.
+4. Mantener `dark-only` como contrato actual y documentar `light` como futuro posible.
+5. Alinear spacing, footer actions, logo wiring y cierre de modales con el contrato interno.
 
 ### Prioridad
-- `P0`: modales.
+- `P0`: branding `dark` y semántica de modales.
 - `P0`: semántica de botones.
 - `P1`: cards y shell.
-- `P2`: decisión estratégica sobre tema.
+- `P2`: decisión futura sobre `light` si llegara a activarse.
 
 ---
 
