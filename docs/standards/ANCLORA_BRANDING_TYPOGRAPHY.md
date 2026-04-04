@@ -17,76 +17,140 @@ related:
 
 Definir los stacks tipográficos por categoría de aplicación. La tipografía es un diferenciador de grupo y debe mantenerse consistente dentro de cada categoría.
 
+---
+
 ## Stacks por categoría
 
-### Group · entidad única
-
-| Rol | Fuente | Peso | Fallback |
-|-----|--------|------|----------|
-| Body / UI | Georgia | `400` | `serif` |
-| Labels / Caps | Georgia | `700` | `serif` |
-
-Justificación: `anclora-group` usa serif para diferenciarse de las apps operativas. Transmite institucionalidad y autoridad corporativa.
-
-### Internas
+### Entidad Matriz
 
 | Rol | Fuente | Peso | Fallback | Variable CSS |
 |-----|--------|------|----------|-------------|
-| Display / H1-H2 | Inter | `600-700` | `system-ui, sans-serif` | `--font-sans` |
-| Body / UI | Inter | `400-500` | `system-ui, sans-serif` | `--font-sans` |
-| Monospace | JetBrains Mono | `400` | `monospace` | `--font-mono` |
+| Body / UI | Georgia | 400 | serif | — (body directo) |
+| Labels / Caps | Georgia | 700 | serif | — |
 
-Justificación: Inter es adecuada para interfaces operativas densas. Ya está en uso en Nexus y reduce la carga de fuentes.
+Justificación: `anclora-group` usa serif para diferenciarse de todas las apps operativas. Transmite institucionalidad y autoridad corporativa. Es el único punto del ecosistema donde se usa serif como fuente principal de body.
+
+```css
+body { font-family: Georgia, 'Times New Roman', serif; }
+```
+
+| App | Estado actual | Acción |
+|-----|--------------|--------|
+| `anclora-group` | Georgia ✓ | Sin cambios |
+
+---
+
+### Internas (Advisor AI, Nexus, Content Generator AI)
+
+| Rol | Fuente | Peso | Fallback | Variable CSS |
+|-----|--------|------|----------|-------------|
+| Display / H1-H2 | Inter | 600-700 | system-ui, sans-serif | `--font-sans` |
+| Body / UI | Inter | 400-500 | system-ui, sans-serif | `--font-sans` |
+| Monospace | JetBrains Mono | 400 | monospace | `--font-mono` |
+
+Justificación: Inter es la fuente más adecuada para interfaces operativas densas. Excelente legibilidad a tamaños pequeños, amplio soporte de pesos.
 
 ```css
 --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 --font-mono: 'JetBrains Mono', monospace;
 ```
 
-### Premium
+| App | Estado actual | Acción |
+|-----|--------------|--------|
+| `anclora-advisor-ai` | Sin fuente custom | Añadir Inter como `--font-sans` |
+| `anclora-nexus` | Inter ✓ + Playfair Display | Eliminar Playfair (reservada para ultra premium) |
+| `anclora-content-generator-ai` | DM Sans + Bricolage Grotesque | Eliminar ambas, migrar a Inter |
+
+---
+
+### Premium (Impulso, Data Lab, Talent, Synergi, Command Center)
 
 | Rol | Fuente | Peso | Fallback | Variable CSS |
 |-----|--------|------|----------|-------------|
-| Display / H1-H2 | DM Sans | `600-700` | `system-ui, sans-serif` | `--font-sans` |
-| Body / UI | DM Sans | `400-500` | `system-ui, sans-serif` | `--font-sans` |
-| Monospace | JetBrains Mono | `400` | `monospace` | `--font-mono` |
+| Display / H1-H2 | DM Sans | 600-700 | system-ui, sans-serif | `--font-sans` |
+| Body / UI | DM Sans | 400-500 | system-ui, sans-serif | `--font-sans` |
+| Monospace | JetBrains Mono | 400 | monospace | `--font-mono` |
 
-Justificación: DM Sans aporta un carácter más redondo y accesible, adecuado para productos orientados a usuario final.
+Justificación: DM Sans aporta un carácter más redondo y accesible que Inter, adecuado para productos orientados a usuario final. Sus formas geométricas suaves transmiten modernidad y cercanía, diferenciándose de la Inter operativa de las internas.
 
 ```css
 --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
 --font-mono: 'JetBrains Mono', monospace;
 ```
 
-### Ultra Premium
+| App | Estado actual | Acción |
+|-----|--------------|--------|
+| `anclora-impulso` | Sin fuente custom | Añadir DM Sans |
+| `anclora-data-lab` | Georgia, serif | Migrar a DM Sans. Georgia queda reservada para `anclora-group`. |
+| `anclora-talent` | Sin fuente custom | Añadir DM Sans |
+| `anclora-synergi` | Cardo (display) + Inter (body) | Eliminar Cardo (reservada para ultra premium). Migrar a DM Sans. |
+| `anclora-command-center` | Sin fuente custom | Añadir DM Sans |
+
+---
+
+### Ultra Premium (Private Estates, Private Estates Landing)
 
 | Rol | Fuente | Peso | Fallback | Variable CSS |
 |-----|--------|------|----------|-------------|
-| Display / H1-H2 | Playfair Display | `500-600` | `Georgia, serif` | `--font-display` |
-| Body / UI | Inter | `400` | `system-ui, sans-serif` | `--font-sans` |
+| Display / H1-H2 | Cardo | 400-700 | Georgia, serif | `--font-display` |
+| Body / UI | Inter | 400-500 | system-ui, sans-serif | `--font-sans` |
+| Acentos editoriales | Fraunces | 400-600 | Georgia, serif | `--font-accent` |
 
-Justificación: Playfair Display aporta la elegancia editorial que requiere el lujo inmobiliario. El cuerpo mantiene claridad con Inter.
+Justificación: Contraste serif (display) + sans-serif (body) clásico de marcas de lujo. Cardo aporta elegancia mediterránea. Fraunces añade un tercer registro para citas y acentos narrativos.
 
 ```css
---font-display: 'Playfair Display', Georgia, serif;
+--font-display: 'Cardo', Georgia, serif;
 --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+--font-accent: 'Fraunces', Georgia, serif;
 ```
-
-## Reglas de uso
-
-1. No mezclar stacks entre grupos.
-2. Los pesos son estrictos: display `600-700`, body `400-500`.
-3. `letter-spacing`: `0.05em` para body, `0.12em` para labels uppercase, `0.02em` para headings.
-4. Tamaño mínimo de body: `14px` en desktop, `16px` en móvil.
-5. `line-height`: `1.5` para body, `1.2` para headings, `1.0` para labels uppercase.
-
-## Migración requerida
 
 | App | Estado actual | Acción |
 |-----|--------------|--------|
-| `anclora-group` | Georgia ✓ | Sin cambios |
-| `anclora-advisor-ai` | Sin fuente declarada | Añadir Inter |
-| `anclora-nexus` | Inter + Playfair Display | Eliminar Playfair, mantener Inter |
-| `anclora-content-generator-ai` | DM Sans + Bricolage Grotesque | Migrar a Inter |
-| Apps premium | Varias o sin definir | Adoptar DM Sans |
-| `anclora-private-estates` | Por confirmar | Adoptar Playfair + Inter |
+| `anclora-private-estates` | Cardo ✓ + Inter ✓ + Fraunces ✓ + Cormorant Garamond | Eliminar Cormorant (de 4 a 3 fuentes) |
+| `anclora-private-estates-landing-page` | `font-serif` genérico | Adoptar Cardo y Fraunces explícitamente |
+
+---
+
+## Reglas de uso
+
+1. **No mezclar stacks entre grupos.** Una app interna no puede usar DM Sans ni Cardo. Una app premium no puede usar Inter como body. Ultra premium no puede usar DM Sans.
+2. **Pesos estrictos.** Display: 600-700. Body: 400-500.
+3. **Letter-spacing:** Body `0.00em`, labels uppercase `0.08-0.12em`, headings `-0.02em`.
+4. **Tamaño mínimo body:** 14px desktop, 16px móvil.
+5. **Line-height:** 1.5 body, 1.2 headings, 1.0 labels uppercase.
+
+## Reserva de fuentes
+
+| Fuente | Categoría reservada | Rol |
+|--------|--------------------|----|
+| Georgia | Entidad Matriz | Body + display |
+| Inter | Internas + Ultra Premium (body) | Sans-serif operativa |
+| JetBrains Mono | Internas + Premium | Monospace |
+| DM Sans | Premium | Body + display |
+| Cardo | Ultra Premium | Display serif |
+| Fraunces | Ultra Premium | Acentos editoriales |
+
+## Tabla de migración completa
+
+| App | Categoría | Fuentes a añadir | Fuentes a eliminar |
+|-----|-----------|-------------------|-------------------|
+| `anclora-group` | Entidad Matriz | — | — |
+| `anclora-advisor-ai` | Interna | Inter | — |
+| `anclora-nexus` | Interna | — | Playfair Display |
+| `anclora-content-generator-ai` | Interna | Inter | DM Sans, Bricolage Grotesque |
+| `anclora-impulso` | Premium | DM Sans | — |
+| `anclora-data-lab` | Premium | DM Sans | Georgia |
+| `anclora-talent` | Premium | DM Sans | — |
+| `anclora-synergi` | Premium | DM Sans | Cardo, Inter |
+| `anclora-command-center` | Premium | DM Sans | — |
+| `anclora-private-estates` | Ultra Premium | — | Cormorant Garamond |
+| `anclora-private-estates-landing-page` | Ultra Premium | Cardo, Fraunces | — |
+
+## Criterio de cumplimiento
+
+Una app no cumple este contrato si:
+- Usa una fuente no asignada a su categoría
+- Mezcla fuentes de dos categorías en la misma vista
+- No declara `--font-sans` explícitamente en CSS
+- Usa pesos fuera del rango (100-300 o 800-900) en UI operativa
+- No respeta tamaño mínimo de body
