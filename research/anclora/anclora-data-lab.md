@@ -50,6 +50,16 @@ Sin una capa de inteligencia bien definida, el ecosistema pierde diferenciacion 
 - En [[Prospección Avanzada con Nexus]] puede alimentar lectura territorial y priorización de oportunidades.
 - En [[Reportes Automáticos para Inmobiliarias]] su valor se materializa cuando los insights llegan a decisiones por rol.
 
+## Branding canónico
+
+- Familia visual: `Premium`
+- Accent objetivo: `#2DA078` esmeralda
+- Tipografía objetivo: `DM Sans`
+- Borde de icono: cobre
+- Interior de icono: navy verde `#12201C`
+- Assets finales: pendientes de sustitución cuando el usuario los entregue
+- Alcance de esta fase: dejar la app preparada estructuralmente para recibir esos activos sin rehacer el wiring
+
 ## 🔍 Evidencia o notas destacadas
 
 - Dato clave: se define por activos analiticos, senales territoriales e informes premium.
