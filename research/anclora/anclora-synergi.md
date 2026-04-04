@@ -28,6 +28,16 @@ Definir el papel de Anclora Synergi dentro del ecosistema como plataforma para p
 
 Anclora Synergi representa la capa de inteligencia relacional y operativa vinculada a partnerships. Su valor esta en estructurar colaboraciones, espacios privados de trabajo y coordinacion entre actores del ecosistema. Tiene especial relevancia para [[Anclora Private Estates]] y su capacidad de expansion premium.
 
+## Branding canónico
+
+- Familia visual: `Premium`
+- Accent objetivo: `#8C5AB4` púrpura
+- Tipografía objetivo: `DM Sans`
+- Borde de icono: cobre
+- Interior de icono: navy púrpura `#1C162A`
+- Assets finales: pendientes de sustitución cuando el usuario los entregue
+- Alcance de esta fase: dejar la app preparada estructuralmente para recibir esos activos sin rehacer el wiring
+
 ## 💡 Insights principales
 
 - Insight 1: puede actuar como capa de partnership management del ecosistema.
