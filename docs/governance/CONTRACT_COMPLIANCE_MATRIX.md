@@ -24,7 +24,7 @@ La referencia de condiciones es:
 | Aplicación | Familia | Universal Motion | Universal Modal | Universal Localization | Family Contract | Overrides locales | Cobertura auditada | Estado global | Gaps abiertos | Última auditoría |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `anclora-group` | Entidad Matriz | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Portal corporativo con branding propio; contratos de entidad matriz y branding recién alineados en bóveda | PARTIAL | Falta auditoría visual completa del repo real y cierre de assets finales si aplica | 2026-04-04 |
-| `anclora-advisor-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
+| `anclora-advisor-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Branding interno estructural alineado en el repo real: módulo centralizado de marca, metadata y favicon wiring preparado; assets finales y paleta definitiva pendientes | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive; assets finales pendientes | 2026-04-04 |
 | `anclora-nexus` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Nota canónica actualizada y repo real alineado en branding dark, metadata, tipografía e i18n explícito `es/en/de/ru` | PARTIAL | Quedan pendientes los assets definitivos de logo/favicon del usuario y una auditoría visual pantalla por pantalla | 2026-04-04 |
 | `anclora-content-generator-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
 | `anclora-impulso` | Premium | PARTIAL | OK | PARTIAL | PARTIAL | N/A | Branding premium estructural alineado en el repo real: DM Sans, wiring centralizado de marca, metadata y paleta naranja/cobre; assets finales pendientes | PARTIAL | Falta pass final completo en producción y cierre fino de coherencia premium entre superficies | 2026-04-04 |
@@ -60,7 +60,7 @@ La referencia de condiciones es:
 
 | Aplicación | Evidencia actual | Riesgo principal | Próxima acción |
 | --- | --- | --- | --- |
-| `anclora-advisor-ai` | Sólo sincronización contractual | Sin evidencia visual real | Auditoría end-to-end de shell y pantallas principales |
+| `anclora-advisor-ai` | Branding interno estructural alineado en el repo real: módulo centralizado de marca, metadata y favicon wiring preparado; assets finales pendientes | Siguen pendientes los assets finales de logo/favicon y la auditoría visual completa del shell y pantallas principales | Sustituir logo/favicon cuando el usuario entregue assets y ejecutar auditoría visual completa |
 | `anclora-nexus` | Excepción multilenguaje documentada; frontend verificado con `lint`, `vitest` y `build`; branding dark e i18n explícito ya alineados | Faltan solo los assets finales de marca y un pass visual completo pantalla por pantalla | Sustituir logo/favicon cuando el usuario entregue assets finales y ejecutar auditoría visual completa |
 | `anclora-content-generator-ai` | Sólo sincronización contractual | Sin evidencia visual real | Auditoría end-to-end de shell y pantallas principales |
 
