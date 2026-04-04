@@ -119,6 +119,9 @@ Al crear una app nueva:
 Entidad transversal fuera de familias de app:
 - `anclora-group` se trata como entidad matriz y portal corporativo, con branding propio definido en `ANCLORA_BRANDING_*`, no como app interna del grupo.
 
+Regla complementaria:
+- `anclora-group` mantiene contratos universales, pero su branding se gobierna como caso único en la capa `ANCLORA_BRANDING_*`.
+
 ## Política de excepciones
 
 - Una excepción local no puede contradecir la semántica base de botones, cards, modales, tema o localización.

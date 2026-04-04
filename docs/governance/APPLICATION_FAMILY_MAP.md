@@ -13,6 +13,18 @@ Aplican a todas las apps:
 - `MODAL_CONTRACT.md`
 - `LOCALIZATION_CONTRACT.md`
 
+### Entidad Matriz
+
+Contrato de entidad:
+- `ANCLORA_BRANDING_MASTER_CONTRACT.md`
+- `ANCLORA_BRANDING_ICON_SYSTEM.md`
+- `ANCLORA_BRANDING_COLOR_TOKENS.md`
+- `ANCLORA_BRANDING_TYPOGRAPHY.md`
+- `ANCLORA_BRANDING_FAVICON_SPEC.md`
+
+Aplicaciones:
+- `anclora-group`
+
 ### Internal
 
 Contrato de familia:
@@ -61,6 +73,7 @@ Aplicaciones:
 
 | Aplicación | Familia | Contratos universales | Contrato de familia | Override local permitido |
 | --- | --- | --- | --- | --- |
+| `anclora-group` | Entidad Matriz | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `N/A` | Sí |
 | `anclora-advisor-ai` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
 | `anclora-nexus` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
 | `anclora-content-generator-ai` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
@@ -76,6 +89,12 @@ Aplicaciones:
 | `anclora-playa-viva-uniestate` | Portfolio / Showcase | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `PORTFOLIO` | Sí |
 
 ## Agrupación operativa
+
+### Entidad Matriz
+
+| Aplicación | Set mínimo de contratos |
+| --- | --- |
+| `anclora-group` | Universal + Branding propio |
 
 ### Internal
 

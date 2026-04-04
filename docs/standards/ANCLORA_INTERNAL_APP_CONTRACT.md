@@ -4,11 +4,13 @@
 Unificar la UX/UI de las aplicaciones internas sin borrar la identidad de cada producto. La lógica de interacción debe sentirse igual; la identidad puede variar en acento, tipografía secundaria y tono editorial.
 
 Ámbito:
-- `anclora-group`
 - `anclora-advisor-ai`
 - `anclora-nexus`
 - `anclora-content-generator-ai`
 - `anclora-impulso`
+
+Nota:
+- `anclora-group` no forma parte de este contrato. Se gobierna como `Entidad Matriz` con branding propio.
 
 ## Invariantes de grupo
 
@@ -78,13 +80,6 @@ Unificar la UX/UI de las aplicaciones internas sin borrar la identidad de cada p
 - Si una app usa `dark/light/system`, las familias semánticas de botones y controles deben conservar una lógica estable de foreground, contraste y prioridad entre temas.
 
 ## Reglas particulares por aplicación
-
-### `anclora-group`
-- Contrato objetivo de producto:
-  - `es` y `en`
-  - toggle visible de idioma
-  - toggle visible de tema `dark/light`
-- La experiencia debe dejar de depender de capacidad interna no expuesta al usuario.
 
 ### `anclora-advisor-ai`
 - Baseline interna para:

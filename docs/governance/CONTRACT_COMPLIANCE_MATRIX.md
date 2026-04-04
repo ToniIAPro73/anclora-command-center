@@ -23,6 +23,7 @@ La referencia de condiciones es:
 
 | Aplicación | Familia | Universal Motion | Universal Modal | Universal Localization | Family Contract | Overrides locales | Cobertura auditada | Estado global | Gaps abiertos | Última auditoría |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `anclora-group` | Entidad Matriz | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Portal corporativo con branding propio; contratos de entidad matriz y branding recién alineados en bóveda | PARTIAL | Falta auditoría visual completa del repo real y cierre de assets finales si aplica | 2026-04-04 |
 | `anclora-advisor-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
 | `anclora-nexus` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
 | `anclora-content-generator-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
@@ -38,6 +39,12 @@ La referencia de condiciones es:
 | `anclora-playa-viva-uniestate` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría detallada | PARTIAL | Falta auditoría visual y de conversión en desktop/móvil | 2026-03-30 |
 
 ## Evidencia resumida por familia
+
+### Entidad Matriz
+
+| Aplicación | Evidencia actual | Riesgo principal | Próxima acción |
+| --- | --- | --- | --- |
+| `anclora-group` | Portal corporativo clasificado como Entidad Matriz; nota canónica y gobernanza ya regularizadas en bóveda | Falta validar el repo real contra los contratos nuevos de branding | Auditar el repo `anclora-group` y cerrar wiring de tokens, favicon y metadata |
 
 ### Premium
 

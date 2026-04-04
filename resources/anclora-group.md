@@ -1,14 +1,18 @@
 ---
 title: Anclora Group
 aliases: [Anclora Group]
-repo: https://github.com/ToniIAPro73/Anclora-Group.git
-type: corporate-hub
+repo: https://github.com/ToniIAPro73/anclora-group.git
+type: corporate-parent
 estado: activo
+familia_contractual: Entidad Matriz
+branding_categoria: Única
 verticals: [Real Estate, AI, Health]
 arquitecto_jefe: "[[personas/Toni|Toni]]"
 territorio_foco: Suroeste de Mallorca
-tags: [resource, anclora, corporate-hub]
+tags: [resource, anclora, corporate-parent, entidad-matriz]
 related:
+  - "[[APPLICATION_FAMILY_MAP]]"
+  - "[[ANCLORA_BRANDING_MASTER_CONTRACT]]"
   - "[[Anclora Command Center]]"
   - "[[Anclora Private Estates]]"
   - "[[Anclora Private Estates Landing Page]]"
@@ -34,11 +38,11 @@ related:
 
 # Anclora Group
 
-Es el nucleo gravitatorio y entorno corporativo unificado desde el cual se organiza el acceso interno a aplicaciones, equipos y herramientas estrategicas.
+`Anclora Group` es la empresa matriz y el portal corporativo del ecosistema Anclora. Desde aquí se organiza el acceso, la memoria relacional y la coordinación entre verticales, equipos y herramientas estratégicas.
 
 ## ¿Qué es Anclora Group?
 
-Es el hub corporativo del ecosistema. Su arquitectura permite un control granular por rol y una trazabilidad total de las operaciones entre verticales, inteligencia, herramientas y memoria relacional.
+Es el nodo institucional superior del ecosistema. Su arquitectura permite un control granular por rol y una trazabilidad total de las operaciones entre verticales, inteligencia, herramientas y memoria relacional.
 
 En la capa inmobiliaria, el posicionamiento operativo actual combina tecnologia, consultoria y prospeccion territorial con foco en el suroeste de Mallorca.
 
@@ -50,6 +54,20 @@ En la capa inmobiliaria, el posicionamiento operativo actual combina tecnologia,
 - **Escalabilidad de Aplicaciones**: permite que herramientas como [[Anclora Nexus]] o [[Anclora Synergi]] compartan una logica de negocio comun.
 - **Multiplicador de IA**: integra generadores de contenido y asesores inteligentes directamente en el flujo de trabajo operativo.
 - **Gobierno Corporativo**: centraliza la propiedad de activos, repositorios y conocimiento canonico de la marca.
+
+## Clasificación canónica
+
+- Familia contractual: `Entidad Matriz`
+- Contratos UX/UI aplicables: `UI_MOTION_CONTRACT.md`, `MODAL_CONTRACT.md`, `LOCALIZATION_CONTRACT.md`
+- Branding aplicable: `ANCLORA_BRANDING_MASTER_CONTRACT.md`, `ANCLORA_BRANDING_ICON_SYSTEM.md`, `ANCLORA_BRANDING_COLOR_TOKENS.md`, `ANCLORA_BRANDING_TYPOGRAPHY.md`, `ANCLORA_BRANDING_FAVICON_SPEC.md`
+- Categoría de identidad: `Única`
+
+## Estado de branding
+
+- estructura contractual: alineada
+- tipografía: alineada a `Georgia`
+- tokens base: alineados con `ANCLORA_BRANDING_COLOR_TOKENS`
+- favicon package final: pendiente de sustitución por assets definitivos del usuario si aplica
 
 ## Mapa del Ecosistema
 
