@@ -25,7 +25,7 @@ La referencia de condiciones es:
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `anclora-group` | Entidad Matriz | PARTIAL | PARTIAL | PARTIAL | N/A | PARTIAL | Portal corporativo con branding propio; contratos de entidad matriz y branding recién alineados en bóveda | PARTIAL | Falta auditoría visual completa del repo real y cierre de assets finales si aplica | 2026-04-04 |
 | `anclora-advisor-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
-| `anclora-nexus` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
+| `anclora-nexus` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contrato `dark` operativo y excepción `es/en/de/ru` reconocidos; falta auditoría real del frontend | PARTIAL | Falta validación del branding dark, shell y surfaces principales | 2026-04-04 |
 | `anclora-content-generator-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
 | `anclora-impulso` | Premium | PARTIAL | OK | PARTIAL | PARTIAL | N/A | Dashboard, Nutrition, Workouts, Profile, Progress y Gamificación auditados en local; producción parcial | PARTIAL | Falta pass final completo en producción y cierre fino de coherencia premium entre superficies | 2026-03-30 |
 | `anclora-command-center` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | Shell compartida y vistas `command-center` y `real-estate` ya unificadas; falta auditoría contractual completa | PARTIAL | Falta auditoría completa de las dos vistas del app unificado y cierre fino de coherencia premium | 2026-04-04 |
@@ -61,7 +61,7 @@ La referencia de condiciones es:
 | Aplicación | Evidencia actual | Riesgo principal | Próxima acción |
 | --- | --- | --- | --- |
 | `anclora-advisor-ai` | Sólo sincronización contractual | Sin evidencia visual real | Auditoría end-to-end de shell y pantallas principales |
-| `anclora-nexus` | Sólo sincronización contractual | Sin evidencia visual real | Auditoría end-to-end de shell y pantallas principales |
+| `anclora-nexus` | Excepción multilenguaje y contrato `dark` ya documentados en la bóveda | Branding dark y shell aún no validados contra el repo real | Auditar `frontend/` y cerrar alineación visual y contractual |
 | `anclora-content-generator-ai` | Sólo sincronización contractual | Sin evidencia visual real | Auditoría end-to-end de shell y pantallas principales |
 
 ### Ultra Premium
