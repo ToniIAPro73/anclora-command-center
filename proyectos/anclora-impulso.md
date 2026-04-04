@@ -25,6 +25,15 @@ Proyecto activo del vertical Health and Fitness del ecosistema, con foco en nutr
 
 Construir un vertical claro y accionable en salud y fitness que combine conocimiento, seguimiento y herramientas inteligentes.
 
+## 🎨 Branding canónico
+- Familia visual: `Premium`
+- Accent objetivo: `#FF6A00` naranja
+- Tipografía objetivo: `DM Sans`
+- Borde de icono: cobre
+- Interior de icono: navy `#1A1C2B`
+- Assets finales: pendientes de sustitución cuando el usuario los entregue
+- Alcance de esta fase: dejar la app preparada estructuralmente para recibir esos activos sin rehacer el wiring
+
 ## 🎯 Objetivos
 
 - Objetivo principal: desarrollar el vertical Health and Fitness del grupo.
