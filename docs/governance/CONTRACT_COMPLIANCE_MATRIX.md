@@ -23,7 +23,6 @@ La referencia de condiciones es:
 
 | Aplicación | Familia | Universal Motion | Universal Modal | Universal Localization | Family Contract | Overrides locales | Cobertura auditada | Estado global | Gaps abiertos | Última auditoría |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `anclora-group` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
 | `anclora-advisor-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
 | `anclora-nexus` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
 | `anclora-content-generator-ai` | Internal | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría pantalla por pantalla | PARTIAL | Falta auditoría visual real de shell, toggles, modales y responsive | 2026-03-30 |
@@ -54,7 +53,6 @@ La referencia de condiciones es:
 
 | Aplicación | Evidencia actual | Riesgo principal | Próxima acción |
 | --- | --- | --- | --- |
-| `anclora-group` | Sólo sincronización contractual | Sin evidencia visual real | Auditoría end-to-end de shell y pantallas principales |
 | `anclora-advisor-ai` | Sólo sincronización contractual | Sin evidencia visual real | Auditoría end-to-end de shell y pantallas principales |
 | `anclora-nexus` | Sólo sincronización contractual | Sin evidencia visual real | Auditoría end-to-end de shell y pantallas principales |
 | `anclora-content-generator-ai` | Sólo sincronización contractual | Sin evidencia visual real | Auditoría end-to-end de shell y pantallas principales |
@@ -80,7 +78,6 @@ La referencia de condiciones es:
 
 | Aplicación | M1 | M2 | M3 | M4 | M5 | M6 |
 | --- | --- | --- | --- | --- | --- | --- |
-| `anclora-group` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-advisor-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-nexus` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -99,7 +96,6 @@ La referencia de condiciones es:
 
 | Aplicación | D1 | D2 | D3 | D4 | D5 | D6 |
 | --- | --- | --- | --- | --- | --- | --- |
-| `anclora-group` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-advisor-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-nexus` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -118,7 +114,6 @@ La referencia de condiciones es:
 
 | Aplicación | L1 | L2 | L3 | L4 | L5 |
 | --- | --- | --- | --- | --- | --- |
-| `anclora-group` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-advisor-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-nexus` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -137,7 +132,6 @@ La referencia de condiciones es:
 
 | Aplicación | I1 | I2 | I3 |
 | --- | --- | --- | --- |
-| `anclora-group` | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-advisor-ai` | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-nexus` | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-content-generator-ai` | PARTIAL | PARTIAL | PARTIAL |

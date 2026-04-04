@@ -25,7 +25,7 @@ Según `docs/governance/APPLICATION_FAMILY_MAP.md`, las familias activas son:
 
 ### Internal
 
-- `anclora-group`
+- `anclora-advisor-ai`
 - `anclora-nexus`
 - `anclora-content-generator-ai`
 
@@ -68,6 +68,18 @@ Todas las apps se leen bajo tres contratos transversales:
 - `UI_MOTION_CONTRACT.md`
 - `MODAL_CONTRACT.md`
 - `LOCALIZATION_CONTRACT.md`
+
+## Branding transversal
+
+La identidad de marca ya no se resuelve solo con contratos UX/UI. Existe una capa de branding canónica en `docs/standards/`:
+
+- `ANCLORA_BRANDING_MASTER_CONTRACT.md`
+- `ANCLORA_BRANDING_ICON_SYSTEM.md`
+- `ANCLORA_BRANDING_COLOR_TOKENS.md`
+- `ANCLORA_BRANDING_TYPOGRAPHY.md`
+- `ANCLORA_BRANDING_FAVICON_SPEC.md`
+
+`anclora-group` debe leerse como entidad matriz con branding propio, no como app interna del grupo.
 
 ## Cómo debe razonar ChatGPT con esta gobernanza
 

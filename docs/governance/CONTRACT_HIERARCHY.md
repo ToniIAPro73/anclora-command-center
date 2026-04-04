@@ -37,6 +37,24 @@ Cobertura:
 - tratamiento del hero, topbar, toggles, filtros, cards y empty states
 - reglas de tono y presencia de marca
 
+### 2.5. Contratos de branding
+
+Definen la identidad visual transversal del ecosistema y su diferenciación por entidad o familia.
+
+Documentos:
+- `docs/standards/ANCLORA_BRANDING_MASTER_CONTRACT.md`
+- `docs/standards/ANCLORA_BRANDING_ICON_SYSTEM.md`
+- `docs/standards/ANCLORA_BRANDING_COLOR_TOKENS.md`
+- `docs/standards/ANCLORA_BRANDING_TYPOGRAPHY.md`
+- `docs/standards/ANCLORA_BRANDING_FAVICON_SPEC.md`
+
+Cobertura:
+- iconografía y símbolo fundacional
+- escalera visual entre entidad única, internas, premium y ultra premium
+- tokens de color
+- tipografía
+- favicon package
+
 ### 3. Contratos específicos de aplicación
 
 Sólo se admiten cuando una app necesita una excepción legítima por:
@@ -53,7 +71,8 @@ La precedencia contractual obligatoria es:
 
 1. `UNIVERSAL`
 2. `FAMILY`
-3. `APP-SPECIFIC`
+3. `BRANDING`
+4. `APP-SPECIFIC`
 
 Si dos condiciones parecen distintas:
 - gana la más específica
