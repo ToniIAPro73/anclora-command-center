@@ -3,7 +3,6 @@
 ## Objetivo
 Traducir los contratos internos del ecosistema a un plan de convergencia ejecutable para:
 
-- `anclora-group`
 - `anclora-advisor-ai`
 - `anclora-nexus`
 - `anclora-content-generator-ai`
@@ -25,49 +24,13 @@ Este documento separa:
 - Focus visible y contraste correcto.
 
 ### Idioma y tema por aplicación
-- `anclora-group`: `es/en` + toggle visible de idioma + toggle visible de tema.
 - `anclora-advisor-ai`: `es/en` + toggle visible de idioma + toggle visible de tema.
 - `anclora-nexus`: `es/en/de/ru` + selector visible de idioma + contrato dark actual gobernado.
 - `anclora-content-generator-ai`: `es/en` + toggle visible de idioma + toggle visible de tema.
 
 ---
 
-## 1. anclora-group
-
-### Estado actual observado
-- Soporte de locales en código: `es/en/de/fr`.
-- Soporte de tema en código: `dark/light`.
-- No se detecta toggle visible de idioma.
-- No se detecta toggle visible de tema.
-- La capa parece más launcher corporativo que dashboard operativo clásico.
-
-### Contrato objetivo
-- Reducir contrato público a `es/en`.
-- Exponer selector visible de idioma.
-- Exponer toggle visible de tema.
-- Mantenerse como launcher corporativo, pero con semántica interna compartida.
-
-### Gap
-- Gap alto en `idioma`: hay capacidad, pero no experiencia visible.
-- Gap alto en `tema`: hay capacidad, pero no control visible.
-- Gap medio en `shell`: necesita alinearse con la posición de accesos, cuenta, logout, idioma y tema.
-- Gap medio en `componentes`: falta confirmar si botón/card/modal siguen un sistema reusable o están ad hoc.
-
-### Qué habría que hacer
-1. Limitar el contrato operativo a `es/en`.
-2. Añadir `language toggle` visible en header o utility rail.
-3. Añadir `theme toggle` visible con persistencia.
-4. Definir variante base de botón primario corporativo.
-5. Auditar modales y formularios si existen o aparecerán en roadmap inmediato.
-
-### Prioridad
-- `P0`: idioma y tema visibles.
-- `P1`: sistema de botones/cards.
-- `P1`: shell y utility zone.
-
----
-
-## 2. anclora-advisor-ai
+## 1. anclora-advisor-ai
 
 ### Estado actual observado
 - Tiene `AppPreferencesProvider`.
@@ -101,7 +64,7 @@ Este documento separa:
 
 ---
 
-## 3. anclora-nexus
+## 2. anclora-nexus
 
 ### Estado actual observado
 - i18n visible con `es/en/de/ru`.
@@ -142,7 +105,7 @@ Este documento separa:
 
 ---
 
-## 4. anclora-content-generator-ai
+## 3. anclora-content-generator-ai
 
 ### Estado actual observado
 - Tiene `ThemeProvider` con `next-themes`.
@@ -181,14 +144,12 @@ Este documento separa:
 ## Priorización transversal
 
 ### Fase 1
-- `anclora-group`: toggle de idioma y tema.
 - `anclora-content-generator-ai`: i18n `es/en` + toggle de idioma.
 - `anclora-advisor-ai`: fijar baseline de contratos.
 
 ### Fase 2
 - `anclora-nexus`: auditoría y alineación de modales.
 - `anclora-content-generator-ai`: alineación de `button/card/dialog`.
-- `anclora-group`: alineación de semántica visual.
 
 ### Fase 3
 - Documentar la librería semántica interna compartida.
@@ -197,11 +158,6 @@ Este documento separa:
 ---
 
 ## Componentes a auditar repo por repo
-
-### anclora-group
-- `src/app/layout.tsx`
-- `src/app/globals.css`
-- `src/lib/group-ui.ts`
 
 ### anclora-advisor-ai
 - `src/components/providers/AppPreferencesProvider.tsx`
@@ -230,7 +186,6 @@ Este documento separa:
 
 ## Decisiones ya fijadas
 
-- `anclora-group` no se considera cumplidor por tener helpers de locale/theme sin toggle visible.
 - `anclora-advisor-ai` es la referencia funcional más cercana al contrato interno.
 - `anclora-content-generator-ai` debe converger a Advisor AI en idioma y tema.
 - `anclora-nexus` mantiene una excepción controlada: multilenguaje amplio y dark fijo actual, salvo decisión posterior.

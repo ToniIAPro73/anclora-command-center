@@ -26,6 +26,7 @@ Cobertura:
 Extienden a los universales con gramáticas y expectativas propias del tipo de producto.
 
 Documentos:
+- `docs/standards/ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
 - `docs/standards/ANCLORA_INTERNAL_APP_CONTRACT.md`
 - `docs/standards/ANCLORA_PREMIUM_APP_CONTRACT.md`
 - `docs/standards/ANCLORA_ULTRA_PREMIUM_APP_CONTRACT.md`
@@ -36,6 +37,10 @@ Cobertura:
 - densidad, ritmo visual y nivel de sofisticación
 - tratamiento del hero, topbar, toggles, filtros, cards y empty states
 - reglas de tono y presencia de marca
+
+### 2.3. Entidad Matriz
+
+`anclora-group` se gobierna como entidad matriz y portal corporativo. Mantiene los contratos universales, pero su branding propio se rige por el sistema `ANCLORA_BRANDING_*` y no por una familia de app operativa.
 
 ### 2.5. Contratos de branding
 

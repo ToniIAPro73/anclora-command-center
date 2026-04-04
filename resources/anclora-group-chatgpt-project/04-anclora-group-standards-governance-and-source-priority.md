@@ -23,6 +23,24 @@ tags: [resource, anclora, governance, standards]
 
 Según `docs/governance/APPLICATION_FAMILY_MAP.md`, las familias activas son:
 
+### Entidad Matriz
+
+- `anclora-group`
+
+Contrato de entidad:
+
+- `ANCLORA_BRANDING_MASTER_CONTRACT.md`
+- `ANCLORA_BRANDING_ICON_SYSTEM.md`
+- `ANCLORA_BRANDING_COLOR_TOKENS.md`
+- `ANCLORA_BRANDING_TYPOGRAPHY.md`
+- `ANCLORA_BRANDING_FAVICON_SPEC.md`
+
+Contratos universales:
+
+- `UI_MOTION_CONTRACT.md`
+- `MODAL_CONTRACT.md`
+- `LOCALIZATION_CONTRACT.md`
+
 ### Internal
 
 - `anclora-advisor-ai`
