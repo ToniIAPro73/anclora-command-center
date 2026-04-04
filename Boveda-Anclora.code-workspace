@@ -47,6 +47,9 @@
 		},
 		{
 			"path": "../anclora-private-estates-landing"
+		},
+		{
+			"path": "../anclora-private-estates-landing-emergent"
 		}
 	],
 	"settings": {}
