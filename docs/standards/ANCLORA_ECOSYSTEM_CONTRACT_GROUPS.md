@@ -14,7 +14,6 @@ Regla de publicación:
 ## Alcance de esta fase
 
 Aplicaciones internas:
-- `anclora-group`
 - `anclora-advisor-ai`
 - `anclora-nexus`
 - `anclora-content-generator-ai`
@@ -64,6 +63,13 @@ Por grupo:
 - `ANCLORA_ULTRA_PREMIUM_APP_CONTRACT.md`
 - `ANCLORA_PORTFOLIO_SHOWCASE_CONTRACT.md`
 
+Branding transversal:
+- `ANCLORA_BRANDING_MASTER_CONTRACT.md`
+- `ANCLORA_BRANDING_ICON_SYSTEM.md`
+- `ANCLORA_BRANDING_COLOR_TOKENS.md`
+- `ANCLORA_BRANDING_TYPOGRAPHY.md`
+- `ANCLORA_BRANDING_FAVICON_SPEC.md`
+
 Documentos de apoyo no normativos:
 - `ANCLORA_INTERNAL_APPS_GAP_ANALYSIS.md`
 
@@ -90,13 +96,13 @@ Al tocar modales:
 Al crear una app nueva:
 1. clasificarla como `interna`, `premium` o `ultra premium`
 2. copiar a `docs/standards/` el set base y el contrato de grupo
-3. documentar cualquier excepción local antes de implementar componentes nuevos
+3. leer la capa de branding correspondiente
+4. documentar cualquier excepción local antes de implementar componentes nuevos
 
 ## Mapa de asignación por aplicación
 
 | Aplicación | Grupo | Idiomas objetivo | Tema objetivo | Contratos mínimos |
 | --- | --- | --- | --- | --- |
-| `anclora-group` | Interna | `es`, `en` | `dark/light` con toggle | Base + interno |
 | `anclora-advisor-ai` | Interna | `es`, `en` | `dark/light/system` | Base + interno |
 | `anclora-nexus` | Interna | `es`, `en`, `de`, `ru` | `dark` operativo | Base + interno |
 | `anclora-content-generator-ai` | Interna | `es`, `en` | `dark/light/system` | Base + interno |
@@ -109,6 +115,9 @@ Al crear una app nueva:
 | `anclora-portfolio` | Portfolio / showcase | `es`, `en` | tema editorial único o dual diseñado | Base + portfolio |
 | `anclora-azure-bay-landing` | Portfolio / showcase | `es`, `en` | tema editorial único | Base + portfolio |
 | `anclora-playa-viva-uniestate` | Portfolio / showcase | `es`, `en` | tema editorial único | Base + portfolio |
+
+Entidad transversal fuera de familias de app:
+- `anclora-group` se trata como entidad matriz y portal corporativo, con branding propio definido en `ANCLORA_BRANDING_*`, no como app interna del grupo.
 
 ## Política de excepciones
 

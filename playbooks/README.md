@@ -11,3 +11,4 @@ Usa `templates/playbook.md` para cualquier flujo repetible.
 - [[Revisión Semanal del Segundo Cerebro]]
 - [[Anclora Command Center]]
 - [[MOC de Negocio]]
+- [[Alta de Nueva Aplicación Anclora]]

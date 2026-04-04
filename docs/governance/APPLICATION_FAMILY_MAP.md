@@ -19,7 +19,6 @@ Contrato de familia:
 - `ANCLORA_INTERNAL_APP_CONTRACT.md`
 
 Aplicaciones:
-- `anclora-group`
 - `anclora-advisor-ai`
 - `anclora-nexus`
 - `anclora-content-generator-ai`
@@ -62,7 +61,6 @@ Aplicaciones:
 
 | Aplicación | Familia | Contratos universales | Contrato de familia | Override local permitido |
 | --- | --- | --- | --- | --- |
-| `anclora-group` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
 | `anclora-advisor-ai` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
 | `anclora-nexus` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
 | `anclora-content-generator-ai` | Internal | `UI_MOTION` + `MODAL` + `LOCALIZATION` | `INTERNAL` | Sí |
@@ -83,7 +81,6 @@ Aplicaciones:
 
 | Aplicación | Set mínimo de contratos |
 | --- | --- |
-| `anclora-group` | Universal + Internal |
 | `anclora-advisor-ai` | Universal + Internal |
 | `anclora-nexus` | Universal + Internal |
 | `anclora-content-generator-ai` | Universal + Internal |
