@@ -33,7 +33,7 @@ La referencia de condiciones es:
 | `anclora-synergi` | Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Branding premium estructural alineado en el repo real: DM Sans, wiring centralizado de marca, metadata y paleta púrpura/cobre; assets finales pendientes | PARTIAL | Faltan los assets finales de logo/favicon del usuario y una auditoría visual completa del backoffice para cerrar el contrato premium más allá del branding | 2026-04-04 |
 | `anclora-talent` | Premium | PARTIAL | N/A | PARTIAL | PARTIAL | N/A | Clasificada como premium en bóveda; landing, auth y workspace con contrato dark-first e i18n es/en en progreso de cierre | PARTIAL | Falta auditoría visual completa y cierre de persistencia de tema/idioma en toda la app | 2026-04-02 |
 | `anclora-private-estates` | Ultra Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | Contratos sincronizados; falta auditoría editorial y validación de overrides | PARTIAL | Falta auditoría visual detallada y validación de overrides ultra premium | 2026-03-30 |
-| `anclora-private-estates-landing-page` | Ultra Premium | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | Landing pública clasificada como ultra premium; existe plan de refinamiento dark-only e i18n, pero falta auditoría contractual cerrada | PARTIAL | Falta auditoría visual detallada, validación de overrides y cierre de la capa pública ultra premium | 2026-04-03 |
+| `anclora-private-estates-landing` | Ultra Premium | PARTIAL | N/A | OK | PARTIAL | OK | Landing publicada en producción (dark-only, ES/EN/DE); dark-only y switcher de idioma operativos; `site-copy.ts` centralizado; excepciones documentadas (dark-only, sin fr); falta auditoría visual detallada desktop/mobile | PARTIAL | Falta auditoría visual completa en desktop y mobile; copy FR pendiente para cierre de cobertura plena | 2026-04-05 |
 | `anclora-portfolio` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría detallada | PARTIAL | Falta auditoría visual y de conversión en desktop/móvil | 2026-03-30 |
 | `anclora-azure-bay-landing` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría detallada | PARTIAL | Falta auditoría visual y de conversión en desktop/móvil | 2026-03-30 |
 | `anclora-playa-viva-uniestate` | Portfolio / Showcase | PARTIAL | PARTIAL | PARTIAL | PARTIAL | N/A | Contratos sincronizados; falta auditoría detallada | PARTIAL | Falta auditoría visual y de conversión en desktop/móvil | 2026-03-30 |
@@ -69,7 +69,7 @@ La referencia de condiciones es:
 | Aplicación | Evidencia actual | Riesgo principal | Próxima acción |
 | --- | --- | --- | --- |
 | `anclora-private-estates` | Sólo sincronización contractual | Overrides no validados y falta de auditoría editorial | Auditoría ultra premium pantalla por pantalla |
-| `anclora-private-estates-landing-page` | Plan de refinamiento dark-only e i18n existente; falta cierre contractual auditado | Capa pública ultra premium sin validación completa de responsive, localización y overrides | Auditoría ultra premium de landing pública y validación final de overrides |
+| `anclora-private-estates-landing` | Landing publicada en producción (dark-only, ES/EN/DE, Vercel); excepciones documentadas en `ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md` | Falta auditoría visual completa pantalla por pantalla en desktop y mobile; FR aplazado | Auditoría visual ultra premium de landing pública en desktop/mobile y revisión editorial del copy en tres idiomas |
 
 ### Portfolio / Showcase
 
@@ -94,7 +94,7 @@ La referencia de condiciones es:
 | `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-talent` | PARTIAL | N/A | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
-| `anclora-private-estates-landing-page` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-private-estates-landing` | PARTIAL | PARTIAL | OK | OK | PARTIAL | PARTIAL |
 | `anclora-portfolio` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-azure-bay-landing` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-playa-viva-uniestate` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -112,7 +112,7 @@ La referencia de condiciones es:
 | `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-talent` | N/A | N/A | N/A | N/A | N/A | N/A |
 | `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
-| `anclora-private-estates-landing-page` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-private-estates-landing` | N/A | N/A | N/A | N/A | N/A | N/A |
 | `anclora-portfolio` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-azure-bay-landing` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-playa-viva-uniestate` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -130,7 +130,7 @@ La referencia de condiciones es:
 | `anclora-synergi` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-talent` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
-| `anclora-private-estates-landing-page` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-private-estates-landing` | OK | OK | OK | OK | PARTIAL |
 | `anclora-portfolio` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-azure-bay-landing` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
 | `anclora-playa-viva-uniestate` | PARTIAL | PARTIAL | PARTIAL | PARTIAL | PARTIAL |
@@ -158,7 +158,7 @@ La referencia de condiciones es:
 | Aplicación | U1 | U2 | U3 |
 | --- | --- | --- | --- |
 | `anclora-private-estates` | PARTIAL | PARTIAL | PARTIAL |
-| `anclora-private-estates-landing-page` | PARTIAL | PARTIAL | PARTIAL |
+| `anclora-private-estates-landing` | OK | OK | PARTIAL |
 
 ### Family · Portfolio / Showcase
 
