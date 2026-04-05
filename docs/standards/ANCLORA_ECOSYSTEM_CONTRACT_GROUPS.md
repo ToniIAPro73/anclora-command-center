@@ -28,6 +28,7 @@ Aplicaciones premium:
 
 Aplicaciones ultra premium:
 - `anclora-private-estates`
+- `anclora-private-estates-landing` (landing pública — dark-only, ES/EN/DE)
 
 Fuera de alcance en esta fase:
 - ninguno
@@ -49,6 +50,7 @@ Contratos implícitos pero claros en código y UX:
 - patrón premium editorial en `anclora-synergi`
 - patrón ultra premium oro/teal en `anclora-private-estates`
 - patrón de botones/cards/modales de `anclora-impulso` para producto interno denso
+- patrón dark-only + switcher de idioma en `anclora-private-estates-landing` (emergente, 2026-04-05)
 
 ## Contratos canónicos del ecosistema
 
@@ -112,6 +114,7 @@ Al crear una app nueva:
 | `anclora-data-lab` | Premium | `es`, `en`, `de` | `dark/light/system` | Base + premium |
 | `anclora-talent` | Premium | `es`, `en` | `dark/light` | Base + premium |
 | `anclora-private-estates` | Ultra premium | `es`, `en`, `de`, `fr` | premium multi-theme | Base + ultra premium |
+| `anclora-private-estates-landing` | Ultra premium (landing pública) | `es`, `en`, `de` ¹ | `dark-only` ² | Base + ultra premium |
 | `anclora-portfolio` | Portfolio / showcase | `es`, `en` | tema editorial único o dual diseñado | Base + portfolio |
 | `anclora-azure-bay-landing` | Portfolio / showcase | `es`, `en` | tema editorial único | Base + portfolio |
 | `anclora-playa-viva-uniestate` | Portfolio / showcase | `es`, `en` | tema editorial único | Base + portfolio |
@@ -121,6 +124,12 @@ Entidad transversal fuera de familias de app:
 
 Regla complementaria:
 - `anclora-group` mantiene contratos universales, pero su branding se gobierna como caso único en la capa `ANCLORA_BRANDING_*`.
+
+Excepciones documentadas activas:
+
+¹ `anclora-private-estates-landing` cubre `es/en/de`. El idioma `fr` está aplazado a una iteración futura. Esta excepción es válida porque el copy en francés no está validado al nivel de calidad exigido por el contrato ultra premium. La cobertura de `fr` se activa cuando el copy esté revisado editorialmente.
+
+² `anclora-private-estates-landing` opera exclusivamente en modo oscuro (`dark-only`). El toggle de tema fue eliminado deliberadamente y reemplazado por un selector de idioma `ES / EN / DE`. Esta decisión es una excepción documentada al contrato `ANCLORA_ULTRA_PREMIUM_APP_CONTRACT`, que permite multi-theme. La excepción es válida porque la landing es una superficie de captación editorial y no una aplicación operativa que el usuario usa en distintos entornos. El modo único refuerza la firma visual, simplifica el mantenimiento y reduce el riesgo de degradación visual entre modos.
 
 ## Política de excepciones
 
