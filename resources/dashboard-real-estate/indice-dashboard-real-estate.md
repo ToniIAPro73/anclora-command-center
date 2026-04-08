@@ -6,6 +6,8 @@ estado: activo
 tags: [resource, dashboard, real-estate]
 related:
   - "[[Anclora Cuadro de Mando Real Estate]]"
+  - "[[Anclora Command Center]]"
+  - "[[MOC Real Estate Comercial]]"
 ---
 
 # Indice Dashboard Real Estate
@@ -36,3 +38,5 @@ Esta carpeta concentra la migracion a notas canonicas para comparar el workbook 
 ## Relacionado
 
 - [[Anclora Cuadro de Mando Real Estate]]
+- [[Anclora Command Center]]
+- [[MOC Real Estate Comercial]]

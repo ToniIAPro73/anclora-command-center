@@ -1,6 +1,6 @@
 ---
 title: MOC de Negocio
-aliases: [MOC de Negocio]
+aliases: [MOC de Negocio, moc-de-negocio]
 type: business-moc
 estado: activo
 arquitecto_jefe: "[[personas/Toni|Toni]]"
@@ -20,11 +20,14 @@ Mapa de contenido orientado a negocio para conectar nodos corporativos, vertical
 
 - [[Anclora Group]]
 
-## Verticales y Operación
+## Real Estate y operación
 
 - [[Anclora Private Estates]]
 - [[Anclora Nexus]]
 - [[Anclora Advisor AI]]
+
+## Apps premium fuera de Real Estate
+
 - [[Anclora Impulso]]
 - [[Anclora Talent]]
 
@@ -39,6 +42,7 @@ Mapa de contenido orientado a negocio para conectar nodos corporativos, vertical
 
 - [[MOC Real Estate Comercial]]
 - [[MOC Stack Operativo Anclora]]
+- [[MOC - Fichas de producto Real Estate de Anclora Group]]
 - [[MOC Toni - Marca Personal y Autoridad]]
 
 ## Memoria relacional
@@ -49,5 +53,6 @@ Mapa de contenido orientado a negocio para conectar nodos corporativos, vertical
 
 - [[Mapa del Sistema de Agentes]]
 - [[Anclora Group]]
+- [[MOC - Fichas de producto Real Estate de Anclora Group]]
 
 #resource #moc/negocio

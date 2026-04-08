@@ -74,10 +74,11 @@ En la capa inmobiliaria, el posicionamiento operativo actual combina tecnologia,
 - Puerta de Enlace Inmobiliaria: [[Anclora Private Estates]]
 - Superficie publica flagship del vertical: [[Anclora Private Estates Landing Page]]
 - Inteligencia y Datos: [[Anclora Data Lab]] | [[Anclora Content Generator AI]]
-- Superficie Editorial Premium: [[Anclora Talent]]
+- Superficie Editorial Premium fuera de Real Estate: [[Anclora Talent]]
 - Gestión de Partners: [[Anclora Synergi]]
 - Motor Operativo: [[Anclora Nexus]]
-- Verticales de Valor Personal: [[Anclora Advisor AI]] | [[Anclora Impulso]]
+- Apps premium fuera de Real Estate: [[Anclora Talent]] | [[Anclora Impulso]]
+- Verticales de Valor Personal: [[Anclora Advisor AI]]
 
 ## Capa eXp + Herramientas de Verdad
 
@@ -93,9 +94,9 @@ En la capa inmobiliaria, el posicionamiento operativo actual combina tecnologia,
 - [[Anclora Data Lab]]: Activos analiticos, senales territoriales e informes premium.
 - [[Anclora Nexus]]: Central operativa: pipeline, CRM y trazabilidad comercial.
 - [[Anclora Content Generator AI]]: Motor editorial de inteligencia de contenido.
-- [[Anclora Talent]]: Plataforma editorial premium con autenticación, dashboard, editor, preview y estudio de portada para proyectos canónicos. Contrato objetivo: `es/en`, `dark/light`, con `dark` por defecto.
+- [[Anclora Talent]]: Plataforma editorial premium fuera de Real Estate con autenticación, dashboard, editor, preview y estudio de portada para proyectos canónicos. Evoluciona desde la etapa previa de `Anclora Press` y es el nombre que debe usarse en la bóveda. Contrato objetivo: `es/en`, `dark/light`, con `dark` por defecto.
 - [[Anclora Advisor AI]]: Asesoria fiscal y laboral para uso personal y pluriactividad.
-- [[Anclora Impulso]]: Ecosistema Health and Fitness centrado en nutricion e IA.
+- [[Anclora Impulso]]: Ecosistema Health and Fitness premium fuera de Real Estate, centrado en nutricion e IA.
 - [[Flujo Comercial Inteligente Anclora]]: Playbook de integracion entre datos, contenido, pipeline y partnerships.
 - [[Arquitectura de Integración Anclora]]: Recorrido extremo a extremo del dato, desde insight hasta venta o colaboracion.
 - [[Prospección Avanzada con Nexus]]: Flujo de prospeccion real para detectar oportunidades en SW Mallorca con datos y filtros de IA.
@@ -113,6 +114,8 @@ En la capa inmobiliaria, el posicionamiento operativo actual combina tecnologia,
 
 ## Relacionado
 
+- [[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]
+- [[MOC - Fichas de producto Real Estate de Anclora Group]]
 - [[Anclora Command Center]]
 - [[Anclora Private Estates Landing Page]]
 - [[MOC de Negocio]]

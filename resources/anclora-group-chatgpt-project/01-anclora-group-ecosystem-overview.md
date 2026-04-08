@@ -25,12 +25,16 @@ La lectura canónica del sistema es:
 6. `Anclora Nexus` actúa como núcleo operativo de pipeline, CRM y trazabilidad.
 7. `Anclora Synergi` estructura partners, admisiones y workspaces privados.
 8. `anclora-command-center` aporta superficies de lectura, control y priorización, incluyendo el módulo `real-estate`.
+9. `Anclora Talent` es la app editorial premium del ecosistema fuera de Real Estate, vigente bajo ese nombre canónico y no como `Anclora Press`.
 
 ## Qué contiene este proyecto
 
-Este proyecto ChatGPT debe cubrir todo el workspace actual excepto estos repos excluidos por decisión explícita:
+Este proyecto ChatGPT debe cubrir el workspace núcleo del ecosistema y tratar como incluidos también los nodos premium fuera de Real Estate que ya forman parte del mapa canónico:
 
 - `anclora-talent`
+
+Quedan fuera por decisión explícita:
+
 - `anclora-agent-skills`
 - `anclora-awesome-skills`
 - `anclora-impulso`
@@ -48,6 +52,7 @@ Este proyecto ChatGPT debe cubrir todo el workspace actual excepto estos repos e
 - `anclora-nexus`
 - `anclora-synergi`
 - `anclora-command-center`
+- `anclora-talent`
 - `Boveda-Anclora` como bóveda, gobierno y fuente de verdad
 
 ### Repos de showcase, portfolio o demostración comercial

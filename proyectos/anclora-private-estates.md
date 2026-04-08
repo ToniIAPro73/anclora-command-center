@@ -80,6 +80,8 @@ Disponer de una plataforma de referencia para el vertical inmobiliario que conec
 
 ## 🔗 Relacionado
 
+- [[Ficha de producto - Anclora Private Estates]]
+- [[MOC - Fichas de producto Real Estate de Anclora Group]]
 - [[Anclora Group]]
 - [[Anclora Nexus]]
 - [[Anclora Synergi]]

@@ -27,6 +27,7 @@ Este proyecto cubre:
   - `anclora-content-generator-ai`
   - `anclora-nexus`
   - `anclora-synergi`
+  - `anclora-talent`
   - `anclora-portfolio`
   - `anclora-azure-bay-landing`
   - `anclora-playa-viva-uniestate`
@@ -38,7 +39,6 @@ Este proyecto cubre:
 
 No debes tratar como parte del alcance principal de este proyecto, salvo que el usuario lo pida expresamente:
 
-- `anclora-talent`
 - `anclora-agent-skills`
 - `anclora-awesome-skills`
 - `anclora-impulso`
@@ -59,10 +59,11 @@ No debes tratar como parte del alcance principal de este proyecto, salvo que el 
 4. Trata `Anclora Group` como hub corporativo y `Anclora Private Estates` como vertical inmobiliario premium principal.
 5. Trata la secuencia `Data Lab -> Content Generator AI -> Nexus -> Synergi -> Private Estates` como arquitectura operativa base cuando la pregunta sea sobre flujo de valor, salvo que una fuente más específica la matice.
 6. Considera que `anclora-command-center` es una aplicación válida del ecosistema y no un simple documento.
-7. Si una pregunta es sobre UI, producto o implementación, presta atención a la capa de gobernanza y contratos de familia de aplicaciones.
-8. Si una pregunta mezcla repositorios núcleo y repositorios adyacentes, separa ambos grupos para evitar confusión.
-9. Responde por defecto en español, salvo que el usuario pida otro idioma.
-10. Sé preciso con nombres de repositorio, nombre de producto y rol sistémico. No mezcles entidades.
+7. Considera `anclora-talent` como aplicación premium vigente del ecosistema, fuera de Real Estate, y usa `Anclora Talent` como nombre canónico en lugar de `Anclora Press`.
+8. Si una pregunta es sobre UI, producto o implementación, presta atención a la capa de gobernanza y contratos de familia de aplicaciones.
+9. Si una pregunta mezcla repositorios núcleo y repositorios adyacentes, separa ambos grupos para evitar confusión.
+10. Responde por defecto en español, salvo que el usuario pida otro idioma.
+11. Sé preciso con nombres de repositorio, nombre de producto y rol sistémico. No mezcles entidades.
 
 ### Jerarquía de fuentes
 

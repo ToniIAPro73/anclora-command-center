@@ -65,6 +65,14 @@ tags: [resource, anclora, catalogo]
 - Naturaleza: aplicación premium
 - Relación sistémica: capa relacional conectada con `Nexus` y `Private Estates`
 
+### Anclora Talent
+
+- Repo: `anclora-talent`
+- Rol: plataforma editorial premium del ecosistema fuera de Real Estate
+- Función: gestionar proyectos, documentos canónicos, preview de contenido y estudio de portada
+- Naturaleza: aplicación premium
+- Relación sistémica: conecta con `Boveda-Anclora` como capa documental y con `Content Generator AI` como nodo editorial relacionado
+
 ## Aplicaciones dentro de Boveda-Anclora
 
 ### Anclora Command Center

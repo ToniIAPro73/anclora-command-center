@@ -87,8 +87,13 @@ Contar con una capacidad de asesoria util, clara y contextualizada para decision
 
 Aunque su foco es personal, [[Anclora Advisor AI]] cuelga de [[Anclora Group]] como capa de soporte a decisiones de pluriactividad, contexto profesional y continuidad operativa de [[personas/Toni|Toni]].
 
+En la capa Real Estate de la bóveda conviene tratarlo además como nodo beta vinculado a decisión y asesoría para inversores, tal como queda recogido en [[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]] y en su [[Ficha de producto - Anclora Advisor AI]].
+
 ## 🔗 Relacionado
 
+- [[Ficha de producto - Anclora Advisor AI]]
+- [[MOC - Fichas de producto Real Estate de Anclora Group]]
+- [[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]
 - [[Anclora Group]]
 - [[personas/Toni|Toni]]
 

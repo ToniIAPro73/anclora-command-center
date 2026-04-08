@@ -1,6 +1,6 @@
 ---
 title: MOC Stack Operativo Anclora
-aliases: [MOC Stack Operativo Anclora]
+aliases: [MOC Stack Operativo Anclora, moc-stack-operativo-anclora]
 type: business-moc
 estado: activo
 tags: [resource, moc, stack, operaciones]
@@ -44,9 +44,11 @@ Mapa de navegación del stack que convierte señal, contenido y coordinación en
 - [[Flujo Comercial Inteligente Anclora]]
 - [[Arquitectura de Integración Anclora]]
 - [[Arquitectura Implementable de Automatización Anclora]]
+- [[MOC - Fichas de producto Real Estate de Anclora Group]]
 
 ## Relacionado
 
 - [[MOC de Negocio]]
 - [[Anclora Group]]
 - [[Anclora Cuadro de Mando Real Estate]]
+- [[MOC - Fichas de producto Real Estate de Anclora Group]]
