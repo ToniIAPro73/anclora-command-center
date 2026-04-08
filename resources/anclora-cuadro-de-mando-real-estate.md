@@ -1,6 +1,6 @@
 ---
 title: Anclora Cuadro de Mando Real Estate
-aliases: [Cuadro de Mando Real Estate, Dashboard Cuadro de Mando]
+aliases: [Cuadro de Mando Real Estate, Dashboard Cuadro de Mando, Dashboard Real Estate, Anclora Dashboard Real Estate]
 type: resource
 estado: activo
 scope: dashboard-operativo

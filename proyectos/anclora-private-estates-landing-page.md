@@ -112,6 +112,8 @@ Disponer de una landing ultra premium alineada con el sistema canónico de Anclo
 
 ## Relacionado
 
+- [[Ficha de producto - Anclora Private Estates Landing]]
+- [[MOC - Fichas de producto Real Estate de Anclora Group]]
 - [[Anclora Private Estates]]
 - [[Sistema canónico de landing premium Anclora]]
 - [[ANCLORA_ECOSYSTEM_CONTRACT_GROUPS|Anclora Ecosystem Contract Groups]]

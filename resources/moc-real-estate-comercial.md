@@ -1,6 +1,6 @@
 ---
 title: MOC Real Estate Comercial
-aliases: [MOC Real Estate Comercial]
+aliases: [MOC Real Estate Comercial, moc-real-estate-comercial]
 type: business-moc
 estado: activo
 tags: [resource, moc, real-estate, comercial]
@@ -26,6 +26,7 @@ Mapa de navegacion para la capa inmobiliaria y comercial del ecosistema Anclora.
 - [[Anclora Private Estates Landing Page]]
 - [[Anclora Command Center]]
 - [[Anclora Cuadro de Mando Real Estate]]
+- [[MOC - Fichas de producto Real Estate de Anclora Group]]
 
 ## Captacion y autoridad
 
@@ -46,3 +47,4 @@ Mapa de navegacion para la capa inmobiliaria y comercial del ecosistema Anclora.
 - [[MOC de Negocio]]
 - [[Anclora Group]]
 - [[Mapa de Stakeholders de Anclora Group]]
+- [[MOC - Fichas de producto Real Estate de Anclora Group]]

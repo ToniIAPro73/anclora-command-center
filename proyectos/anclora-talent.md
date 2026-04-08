@@ -1,6 +1,6 @@
 ---
 title: Anclora Talent
-aliases: [Anclora Talent]
+aliases: [Anclora Talent, Anclora Press]
 estado: activo
 fecha_inicio: 2026-03-31
 fecha_objetivo:
@@ -25,6 +25,8 @@ related:
 
 Aplicación editorial del ecosistema Anclora orientada a gestionar proyectos, documentos canónicos, preview de contenido y estudio de portada desde una base moderna en `Next.js App Router`.
 
+Es la evolución vigente de la etapa previa de [[Anclora Press]] dentro de la memoria del sistema. A efectos canónicos de la bóveda, la app que debe usarse y enlazarse es [[Anclora Talent]].
+
 ## 🏁 Resultado esperado
 
 Disponer de una plataforma editorial operativa que permita crear y administrar proyectos con autenticación, persistencia, edición, preview y gestión básica de assets.
@@ -48,6 +50,7 @@ Disponer de una plataforma editorial operativa que permita crear y administrar p
 - Tema objetivo: `dark/light`, con `dark` por defecto.
 - Contratos aplicables: [[ANCLORA_ECOSYSTEM_CONTRACT_GROUPS]], [[ANCLORA_PREMIUM_APP_CONTRACT]], [[UI_MOTION_CONTRACT]], [[MODAL_CONTRACT]], [[LOCALIZATION_CONTRACT]].
 - Criterio de lectura: la app debe sentirse como una plataforma editorial premium y no como un dashboard interno genérico.
+- Encaje de ecosistema: app premium fuera del vertical Real Estate, igual que [[Anclora Impulso]].
 
 ## 📌 Decisiones clave
 
@@ -55,6 +58,7 @@ Disponer de una plataforma editorial operativa que permita crear y administrar p
 |-------|----------|----------|
 | 2026-03-31 | Se incorpora Anclora Talent a la bóveda como proyecto activo del ecosistema. | Ya dispone de repo propio y despliegue en Vercel. |
 | 2026-03-31 | Se documenta como plataforma editorial, no como simple experimento UI. | El README define un flujo MVP funcional con autenticación, dashboard, editor, preview y cover. |
+| 2026-04-08 | Se consolida `Anclora Talent` como nombre canónico en la bóveda. | Sustituye la etapa previa de `Anclora Press` dentro del ecosistema ya formalizado de [[Anclora Group]]. |
 
 ## 🧱 Arquitectura técnica real
 
@@ -84,6 +88,7 @@ Disponer de una plataforma editorial operativa que permita crear y administrar p
 - Sistema o principio: [[Anclora Group]]
 - Nodo editorial relacionado: [[Anclora Content Generator AI]]
 - Contrato de referencia: [[ANCLORA_PREMIUM_APP_CONTRACT]]
+- App premium hermana fuera de Real Estate: [[Anclora Impulso]]
 
 ## 🔗 Relacionado
 

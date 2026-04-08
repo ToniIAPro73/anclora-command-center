@@ -56,6 +56,7 @@ Contrato de familia:
 - `anclora-command-center`
 - `anclora-data-lab`
 - `anclora-synergi`
+- `anclora-talent`
 
 Contrato de familia:
 
@@ -130,7 +131,6 @@ ChatGPT debe:
 
 Aunque formen parte del universo Anclora en sentido amplio, estos repos no deben contaminar el contexto base del proyecto:
 
-- `anclora-talent`
 - `anclora-agent-skills`
 - `anclora-awesome-skills`
 - `anclora-impulso`
