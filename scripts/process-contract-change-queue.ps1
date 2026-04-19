@@ -1,5 +1,5 @@
 ﻿param(
-  [string]$VaultRoot = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\Boveda-Anclora",
+  [string]$VaultRoot = (Split-Path -Parent $PSScriptRoot),
   [string[]]$OnlyIds,
   [switch]$WhatIfOnly
 )

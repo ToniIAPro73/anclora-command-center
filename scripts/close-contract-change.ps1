@@ -3,7 +3,7 @@
   [string]$ChangeId,
   [Parameter(Mandatory = $true)]
   [string]$ClosureNote,
-  [string]$VaultRoot = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\Boveda-Anclora"
+  [string]$VaultRoot = (Split-Path -Parent $PSScriptRoot)
 )
 
 $ErrorActionPreference = "Stop"

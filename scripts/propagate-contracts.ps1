@@ -1,13 +1,16 @@
 ﻿param(
   [string]$VaultRoot = (Split-Path -Parent $PSScriptRoot),
   [string[]]$Families,
+  [string[]]$Tiers,
+  [string[]]$Domains,
+  [string[]]$EcosystemClusters,
   [string[]]$IncludeFiles,
   [switch]$WhatIfOnly
 )
 
 $ErrorActionPreference = "Stop"
 
-function Get-ContractFamily {
+function Get-LegacyContractFamily {
   param([string]$Family)
 
   switch ($Family) {
@@ -17,6 +20,17 @@ function Get-ContractFamily {
     "portfolio_showcase" { return "Portfolio" }
     default { return $null }
   }
+}
+
+function Get-RepoContractBucket {
+  param($Repo)
+
+  if ($Repo.tier -eq "internal") { return "Internal" }
+  if ($Repo.tier -eq "premium" -and $Repo.product_archetype -eq "landing") { return "Portfolio" }
+  if ($Repo.tier -eq "premium") { return "Premium" }
+  if ($Repo.tier -eq "ultra_premium") { return "UltraPremium" }
+
+  return (Get-LegacyContractFamily -Family $Repo.family)
 }
 
 function Get-ContractRepoMap {
@@ -32,15 +46,20 @@ function Get-ContractRepoMap {
         $_.contracts_role -match "consumer"
       } |
       ForEach-Object {
-        $normalizedFamily = Get-ContractFamily -Family $_.family
-        if (-not $normalizedFamily) {
+        $contractBucket = Get-RepoContractBucket -Repo $_
+        if (-not $contractBucket) {
           return
         }
 
         [pscustomobject]@{
           Name = $_.id
           Path = $_.path_windows
-          Family = $normalizedFamily
+          Tier = $_.tier
+          Domain = $_.domain
+          ProductArchetype = $_.product_archetype
+          SystemRole = $_.system_role
+          EcosystemClusters = @($_.ecosystem_clusters)
+          ContractBucket = $contractBucket
         }
       }
   )
@@ -73,15 +92,27 @@ $selectedFiles = if ($IncludeFiles -and $IncludeFiles.Count -gt 0) { @($IncludeF
 
 foreach ($repoEntry in $repoMap) {
   $repo = $repoEntry.Path
-  $family = $repoEntry.Family
+  $family = $repoEntry.ContractBucket
   $targetStandards = Join-Path $repo "docs\standards"
 
   if ($family -notin @("Internal", "Premium", "UltraPremium", "Portfolio")) {
     continue
   }
 
-  if ($family -notin $selectedFamilies) {
-    continue
+  if ($selectedFamilies -and $selectedFamilies.Count -gt 0) {
+    if ($repoEntry.ContractBucket -notin $selectedFamilies) { continue }
+  }
+
+  if ($Tiers -and $Tiers.Count -gt 0) {
+    if ($repoEntry.Tier -notin $Tiers) { continue }
+  }
+
+  if ($Domains -and $Domains.Count -gt 0) {
+    if ($repoEntry.Domain -notin $Domains) { continue }
+  }
+
+  if ($EcosystemClusters -and $EcosystemClusters.Count -gt 0) {
+    if (-not (@($repoEntry.EcosystemClusters) | Where-Object { $_ -in $EcosystemClusters })) { continue }
   }
 
   if (-not (Test-Path -LiteralPath $repo)) {
