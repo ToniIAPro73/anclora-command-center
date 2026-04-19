@@ -40,6 +40,18 @@ La única excepción de este inventario base es `anclora-command-center`, porque
 3. Si el cambio afecta tokens, patrones o componentes compartidos, la referencia obligatoria es `anclora-design-system`.
 4. Si el cambio afecta contratos, decisiones o excepciones, la referencia obligatoria sigue siendo la bóveda.
 
+## Taxonomía del ecosistema
+
+- `tier`: nivel de producto (`core`, `shared`, `internal`, `premium`, `ultra_premium`)
+- `domain`: vertical de negocio (`real_estate`, `fitness_wellness`, `human_capital`, `group_ops`, `cross_domain`, `brand_system`)
+- `product_archetype`: tipo de superficie (`app`, `portal`, `workspace`, `landing`, `system`, `command_center`)
+- `system_role`: papel sistémico (`source`, `consumer`, `reference`, `orchestration`, `matrix`)
+- `ecosystem_clusters`: pertenencia operativa (`real_estate`, `premium_apps`, `brand_governance`, `design_system`, `group_ops`, `internal_ops`, `showcase`)
+
+- `anclora-impulso`: sigue siendo Premium, pero sale del dominio Real Estate y pasa a `fitness_wellness`.
+- `anclora-talent`: sigue siendo Premium, pero se clasifica en `human_capital`.
+- `anclora-command-center`: se clasifica como `cross_domain` con foco operativo actual en el cluster `real_estate`.
+
 ## Repos principales
 
 | Repo | Familia | Tier | Ruta WSL | Nota principal del vault | Rol design system | Rol contratos | Estado |

@@ -12,6 +12,13 @@
       "family": "matrix",
       "family_label": "Entidad Matriz",
       "tier": "core",
+      "domain": "group_ops",
+      "product_archetype": "system",
+      "system_role": "matrix",
+      "ecosystem_clusters": [
+        "brand_governance",
+        "group_ops"
+      ],
       "obsidian_note": "resources/anclora-group.md",
       "design_system_role": "reference",
       "design_system_roles": [
@@ -47,7 +54,13 @@
       "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-advisor-ai",
       "family": "internal",
       "family_label": "Internal",
-      "tier": "app",
+      "tier": "internal",
+      "domain": "cross_domain",
+      "product_archetype": "app",
+      "system_role": "consumer",
+      "ecosystem_clusters": [
+        "internal_ops"
+      ],
       "obsidian_note": "proyectos/anclora-advisor-ai.md",
       "design_system_role": "consumer",
       "design_system_roles": [
@@ -83,7 +96,14 @@
       "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-nexus",
       "family": "internal",
       "family_label": "Internal",
-      "tier": "app",
+      "tier": "internal",
+      "domain": "real_estate",
+      "product_archetype": "workspace",
+      "system_role": "consumer",
+      "ecosystem_clusters": [
+        "real_estate",
+        "internal_ops"
+      ],
       "obsidian_note": "resources/anclora-nexus.md",
       "design_system_role": "consumer",
       "design_system_roles": [
@@ -121,7 +141,14 @@
       "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-content-generator-ai",
       "family": "internal",
       "family_label": "Internal",
-      "tier": "app",
+      "tier": "internal",
+      "domain": "real_estate",
+      "product_archetype": "app",
+      "system_role": "consumer",
+      "ecosystem_clusters": [
+        "real_estate",
+        "internal_ops"
+      ],
       "obsidian_note": "research/anclora/anclora-content-generator.md",
       "design_system_role": "consumer",
       "design_system_roles": [
@@ -158,7 +185,13 @@
       "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-impulso",
       "family": "premium",
       "family_label": "Premium",
-      "tier": "app",
+      "tier": "premium",
+      "domain": "fitness_wellness",
+      "product_archetype": "app",
+      "system_role": "consumer",
+      "ecosystem_clusters": [
+        "premium_apps"
+      ],
       "obsidian_note": "proyectos/anclora-impulso.md",
       "design_system_role": "consumer",
       "design_system_roles": [
@@ -189,13 +222,62 @@
       }
     },
     {
+      "id": "anclora-talent",
+      "name": "Anclora Talent",
+      "path_wsl": "/home/toni/projects/anclora-talent",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-talent",
+      "family": "premium",
+      "family_label": "Premium",
+      "tier": "premium",
+      "domain": "human_capital",
+      "product_archetype": "app",
+      "system_role": "consumer",
+      "ecosystem_clusters": [
+        "premium_apps"
+      ],
+      "obsidian_note": "proyectos/anclora-talent.md",
+      "design_system_role": "consumer",
+      "design_system_roles": [
+        "consumer"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "app/",
+          "components/",
+          "lib/theme/",
+          "lib/brand/"
+        ],
+        "contracts": [
+          "docs/standards/",
+          "docs/contracts/",
+          "docs/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/"
+        ]
+      }
+    },
+    {
       "id": "anclora-data-lab",
       "name": "Anclora Data Lab",
       "path_wsl": "/home/toni/projects/anclora-data-lab",
       "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-data-lab",
       "family": "premium",
       "family_label": "Premium",
-      "tier": "app",
+      "tier": "premium",
+      "domain": "real_estate",
+      "product_archetype": "workspace",
+      "system_role": "consumer",
+      "ecosystem_clusters": [
+        "real_estate",
+        "premium_apps"
+      ],
       "obsidian_note": "research/anclora/anclora-data-lab.md",
       "design_system_role": "consumer",
       "design_system_roles": [
@@ -231,7 +313,14 @@
       "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-synergi",
       "family": "premium",
       "family_label": "Premium",
-      "tier": "app",
+      "tier": "premium",
+      "domain": "real_estate",
+      "product_archetype": "portal",
+      "system_role": "consumer",
+      "ecosystem_clusters": [
+        "real_estate",
+        "premium_apps"
+      ],
       "obsidian_note": "research/anclora/anclora-synergi.md",
       "design_system_role": "consumer",
       "design_system_roles": [
@@ -267,7 +356,14 @@
       "path_windows": "C:\\Users\\antonio.ballesterosa\\Desktop\\Proyectos\\Boveda-Anclora\\dashboard",
       "family": "premium",
       "family_label": "Premium",
-      "tier": "app",
+      "tier": "premium",
+      "domain": "cross_domain",
+      "product_archetype": "command_center",
+      "system_role": "orchestration",
+      "ecosystem_clusters": [
+        "real_estate",
+        "premium_apps"
+      ],
       "obsidian_note": "proyectos/anclora-command-center.md",
       "design_system_role": "consumer",
       "design_system_roles": [
@@ -306,7 +402,13 @@
       "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-private-estates",
       "family": "ultra_premium",
       "family_label": "Ultra Premium",
-      "tier": "app",
+      "tier": "ultra_premium",
+      "domain": "real_estate",
+      "product_archetype": "portal",
+      "system_role": "consumer",
+      "ecosystem_clusters": [
+        "real_estate"
+      ],
       "obsidian_note": "proyectos/anclora-private-estates.md",
       "design_system_role": "consumer",
       "design_system_roles": [
@@ -342,7 +444,14 @@
       "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-portfolio",
       "family": "portfolio_showcase",
       "family_label": "Portfolio / Showcase",
-      "tier": "app",
+      "tier": "premium",
+      "domain": "real_estate",
+      "product_archetype": "landing",
+      "system_role": "consumer",
+      "ecosystem_clusters": [
+        "real_estate",
+        "showcase"
+      ],
       "obsidian_note": "resources/Anclora Portfolio - Base técnica reutilizable.md",
       "design_system_role": "consumer",
       "design_system_roles": [
@@ -378,7 +487,14 @@
       "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-azure-bay-landing",
       "family": "portfolio_showcase",
       "family_label": "Portfolio / Showcase",
-      "tier": "app",
+      "tier": "premium",
+      "domain": "real_estate",
+      "product_archetype": "landing",
+      "system_role": "consumer",
+      "ecosystem_clusters": [
+        "real_estate",
+        "showcase"
+      ],
       "obsidian_note": "resources/Azure Bay - Caso de estudio de landing premium.md",
       "design_system_role": "consumer",
       "design_system_roles": [
@@ -414,7 +530,14 @@
       "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-playa-viva-uniestate",
       "family": "portfolio_showcase",
       "family_label": "Portfolio / Showcase",
-      "tier": "app",
+      "tier": "premium",
+      "domain": "real_estate",
+      "product_archetype": "landing",
+      "system_role": "consumer",
+      "ecosystem_clusters": [
+        "real_estate",
+        "showcase"
+      ],
       "obsidian_note": "resources/Playa Viva - Landing real con HubSpot y dossier personalizado.md",
       "design_system_role": "consumer",
       "design_system_roles": [
@@ -451,6 +574,13 @@
       "family": "system",
       "family_label": "system",
       "tier": "shared",
+      "domain": "brand_system",
+      "product_archetype": "system",
+      "system_role": "source",
+      "ecosystem_clusters": [
+        "brand_governance",
+        "design_system"
+      ],
       "obsidian_note": "resources/Anclora Design System.md",
       "design_system_role": "source",
       "design_system_roles": [

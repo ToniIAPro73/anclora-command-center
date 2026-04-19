@@ -5,7 +5,7 @@
 
 $ErrorActionPreference = "Stop"
 
-function Get-ContractFamily {
+function Get-LegacyContractFamily {
   param([string]$Family)
 
   switch ($Family) {
@@ -15,6 +15,17 @@ function Get-ContractFamily {
     "portfolio_showcase" { return "Portfolio" }
     default { return $null }
   }
+}
+
+function Get-RepoContractBucket {
+  param($Repo)
+
+  if ($Repo.tier -eq "internal") { return "Internal" }
+  if ($Repo.tier -eq "premium" -and $Repo.product_archetype -eq "landing") { return "Portfolio" }
+  if ($Repo.tier -eq "premium") { return "Premium" }
+  if ($Repo.tier -eq "ultra_premium") { return "UltraPremium" }
+
+  return (Get-LegacyContractFamily -Family $Repo.family)
 }
 
 function Get-ContractRepoMap {
@@ -30,15 +41,20 @@ function Get-ContractRepoMap {
         $_.contracts_role -match "consumer"
       } |
       ForEach-Object {
-        $normalizedFamily = Get-ContractFamily -Family $_.family
-        if (-not $normalizedFamily) {
+        $contractBucket = Get-RepoContractBucket -Repo $_
+        if (-not $contractBucket) {
           return
         }
 
         [pscustomobject]@{
           Name = $_.id
           Path = $_.path_windows
-          Family = $normalizedFamily
+          Tier = $_.tier
+          Domain = $_.domain
+          ProductArchetype = $_.product_archetype
+          SystemRole = $_.system_role
+          EcosystemClusters = @($_.ecosystem_clusters)
+          ContractBucket = $contractBucket
         }
       }
   )
@@ -78,12 +94,12 @@ $repoMap = Get-ContractRepoMap -VaultRoot $VaultRoot
 $results = @()
 
 foreach ($repo in $repoMap) {
-  if ($repo.Family -notin @("Internal", "Premium", "UltraPremium", "Portfolio")) {
+  if ($repo.ContractBucket -notin @("Internal", "Premium", "UltraPremium", "Portfolio")) {
     continue
   }
 
   $targetStandards = Join-Path $repo.Path "docs\standards"
-  $expectedFiles = @($universalFiles + $familyFiles[$repo.Family] | Select-Object -Unique)
+  $expectedFiles = @($universalFiles + $familyFiles[$repo.ContractBucket] | Select-Object -Unique)
 
   foreach ($fileName in $expectedFiles) {
     $sourceFile = Join-Path $sourceStandards $fileName
@@ -98,7 +114,7 @@ foreach ($repo in $repoMap) {
 
     $results += [pscustomobject]@{
       Repo = $repo.Name
-      Family = $repo.Family
+      Family = $repo.ContractBucket
       Contract = $fileName
       Status = $status
       SourceHash = $sourceHash

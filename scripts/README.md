@@ -2,6 +2,8 @@
 
 Esta carpeta contiene utilidades de mantenimiento del repositorio que no forman parte directa del contenido de la bóveda, pero sí de su operativa.
 
+Salvo que se indique lo contrario, los scripts resuelven `VaultRoot` automáticamente como la carpeta padre de `scripts/`. Solo hace falta pasar `-VaultRoot` si se quiere apuntar a otra bóveda.
+
 ## `sync-skills.ps1`
 
 Sincroniza `.claude/skills/` desde `.codex/skills/`.
@@ -140,6 +142,8 @@ Procesa la cola de cambios contractual y distingue entre:
 - cambios de gobernanza de `docs/governance/`
 - cambios de seguimiento de `docs/cambios/`
 
+Los scripts de gobierno contractual deben preferir la nueva taxonomía del inventario (`tier`, `domain`, `product_archetype`, `system_role`, `ecosystem_clusters`) y usar `family` solo como compatibilidad transitoria.
+
 Solo ejecuta cambios con:
 - `Status = APPROVED`, `IN_PROGRESS` o `VERIFYING`
 - y decision compatible con ejecucion
@@ -160,6 +164,42 @@ powershell -ExecutionPolicy Bypass -File .\scripts\process-contract-change-queue
 
 Los cambios de gobernanza se dejan dentro de la bóveda y no se propagan a repos de aplicaciones.
 Los cambios en `DETECTED`, `ANALYSIS_REQUIRED` o `PLAN_READY` se listan, pero no se ejecutan.
+
+## `propagate-contracts.ps1`
+
+Propaga contratos maestros desde `docs/standards/` hacia los repos consumidores del ecosistema.
+
+### Selectores soportados
+
+- `-Families` mantiene compatibilidad con el bucket contractual legado: `Internal`, `Premium`, `UltraPremium`, `Portfolio`
+- `-Tiers` filtra por `tier` del inventario
+- `-Domains` filtra por `domain`
+- `-EcosystemClusters` filtra por cualquier valor presente en `ecosystem_clusters`
+- los filtros se pueden combinar; `-Families` sigue siendo opcional y actúa como compatibilidad hacia atrás
+
+### Ejemplos
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\propagate-contracts.ps1 -Families @('Premium') -WhatIfOnly
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\propagate-contracts.ps1 -Tiers @('premium') -Domains @('real_estate') -IncludeFiles @('ANCLORA_PREMIUM_APP_CONTRACT.md') -WhatIfOnly
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\propagate-contracts.ps1 -Domains @('fitness_wellness') -IncludeFiles @('ANCLORA_PREMIUM_APP_CONTRACT.md') -WhatIfOnly
+```
+
+## `audit-contract-sync.ps1`
+
+Audita el estado de sincronización entre los contratos maestros y cada repo consumidor usando la taxonomía actual del inventario para resolver el bucket contractual de destino.
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\audit-contract-sync.ps1
+```
 
 ## `detect-contract-changes.ps1`
 
