@@ -1,11 +1,50 @@
-param(
-  [string]$VaultRoot = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\Boveda-Anclora",
+﻿param(
+  [string]$VaultRoot = (Split-Path -Parent $PSScriptRoot),
   [string[]]$Families,
   [string[]]$IncludeFiles,
   [switch]$WhatIfOnly
 )
 
 $ErrorActionPreference = "Stop"
+
+function Get-ContractFamily {
+  param([string]$Family)
+
+  switch ($Family) {
+    "internal" { return "Internal" }
+    "premium" { return "Premium" }
+    "ultra_premium" { return "UltraPremium" }
+    "portfolio_showcase" { return "Portfolio" }
+    default { return $null }
+  }
+}
+
+function Get-ContractRepoMap {
+  param([string]$VaultRoot)
+
+  $inventoryPath = Join-Path $VaultRoot "docs\governance\ecosystem-repos.json"
+  $inventory = Get-Content -Raw -LiteralPath $inventoryPath | ConvertFrom-Json
+
+  return @(
+    $inventory.repos |
+      Where-Object {
+        $_.status -eq "active" -and
+        $_.contracts_role -match "consumer"
+      } |
+      ForEach-Object {
+        $normalizedFamily = Get-ContractFamily -Family $_.family
+        if (-not $normalizedFamily) {
+          return
+        }
+
+        [pscustomobject]@{
+          Name = $_.id
+          Path = $_.path_windows
+          Family = $normalizedFamily
+        }
+      }
+  )
+}
 
 $sourceStandards = Join-Path $VaultRoot "docs\standards"
 $universalFiles = @(
@@ -22,26 +61,13 @@ $familyFiles = @{
   Portfolio = @("ANCLORA_PORTFOLIO_SHOWCASE_CONTRACT.md")
 }
 
-$repoMap = @(
-  @{ Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-group"; Family = "Internal" },
-  @{ Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-advisor-ai"; Family = "Internal" },
-  @{ Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-nexus"; Family = "Internal" },
-  @{ Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-content-generator-ai"; Family = "Internal" },
-  @{ Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-impulso"; Family = "Premium" },
-  @{ Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-data-lab"; Family = "Premium" },
-  @{ Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-synergi"; Family = "Premium" },
-  @{ Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\Boveda-Anclora\dashboard"; Family = "Premium" },
-  @{ Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-private-estates"; Family = "UltraPremium" },
-  @{ Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-portfolio"; Family = "Portfolio" },
-  @{ Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-azure-bay-landing"; Family = "Portfolio" },
-  @{ Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-playa-viva-uniestate"; Family = "Portfolio" }
-)
+$repoMap = Get-ContractRepoMap -VaultRoot $VaultRoot
 
-if (-not (Test-Path $sourceStandards)) {
+if (-not (Test-Path -LiteralPath $sourceStandards)) {
   throw "No existe la ruta de contratos maestra: $sourceStandards"
 }
 
-$allKnownFiles = Get-ChildItem -Path $sourceStandards -File | Select-Object -ExpandProperty Name
+$allKnownFiles = Get-ChildItem -LiteralPath $sourceStandards -File | Select-Object -ExpandProperty Name
 $selectedFamilies = if ($Families -and $Families.Count -gt 0) { @($Families) } else { @("Internal", "Premium", "UltraPremium", "Portfolio") }
 $selectedFiles = if ($IncludeFiles -and $IncludeFiles.Count -gt 0) { @($IncludeFiles | Select-Object -Unique) } else { $null }
 
@@ -50,16 +76,20 @@ foreach ($repoEntry in $repoMap) {
   $family = $repoEntry.Family
   $targetStandards = Join-Path $repo "docs\standards"
 
+  if ($family -notin @("Internal", "Premium", "UltraPremium", "Portfolio")) {
+    continue
+  }
+
   if ($family -notin $selectedFamilies) {
     continue
   }
 
-  if (-not (Test-Path $repo)) {
+  if (-not (Test-Path -LiteralPath $repo)) {
     Write-Warning "Repositorio no encontrado: $repo"
     continue
   }
 
-  if (-not (Test-Path $targetStandards)) {
+  if (-not (Test-Path -LiteralPath $targetStandards)) {
     if ($WhatIfOnly) {
       Write-Host "[WhatIf] Crearía carpeta: $targetStandards"
     } else {

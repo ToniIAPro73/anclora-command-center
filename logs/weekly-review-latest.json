@@ -1,0 +1,16 @@
+{
+    "generated_at":  "2026-04-19T11:32:29.6207320+02:00",
+    "vault_root":  "C:\\Users\\antonio.ballesterosa\\Desktop\\Proyectos\\Boveda-Anclora",
+    "total_repos":  13,
+    "accessible_repos":  13,
+    "limited_access_repos":  0,
+    "inaccessible_repos":  0,
+    "recent_activity_repos":  1,
+    "sync_alert_candidates":  2,
+    "accessible_repo_ids":  "anclora-advisor-ai, anclora-azure-bay-landing, anclora-command-center, anclora-content-generator-ai, anclora-data-lab, anclora-design-system, anclora-group, anclora-impulso, anclora-nexus, anclora-playa-viva-uniestate, anclora-portfolio, anclora-private-estates, anclora-synergi",
+    "limited_access_repo_ids":  "",
+    "inaccessible_repo_ids":  "",
+    "recent_repo_ids":  "anclora-design-system",
+    "sync_alert_repo_ids":  "anclora-design-system, anclora-group",
+    "next_action":  "Revisar las alertas candidatas antes de cerrar la revisión semanal."
+}

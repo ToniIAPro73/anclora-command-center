@@ -21,15 +21,71 @@ powershell -ExecutionPolicy Bypass -File .\scripts\sync-skills.ps1 -Clean
 
 La fuente canónica de skills del repositorio es `.codex/skills/`. La carpeta `.claude/skills/` se considera una capa de compatibilidad.
 
+## `scan-ecosystem-repos.ps1`
+
+Lee `docs/governance/ecosystem-repos.json` y genera un estado minimo por repositorio para la revision semanal.
+
+### Que reporta
+
+- `repo_id` y `repo_name`
+- estado de acceso del path del repo
+- rama actual cuando el repo es accesible
+- ultimo commit con hash corto, fecha, autor y mensaje
+- estado de dirty
+- si existe `README.md`
+- una clasificacion inicial basada en metadatos del inventario y archivos cambiados cuando hay git disponible
+
+### Comando
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\scan-ecosystem-repos.ps1 -AsJson
+```
+
+### Salida
+
+- con `-AsJson` emite un objeto estructurado con `summary` y `repos`
+- si un repo no es accesible, devuelve una entrada estructurada con `access_status` y `access_detail`
+- si se ejecuta sin `-AsJson`, muestra un resumen en tabla
+
+### Estados de acceso
+
+- `accessible`: el repo existe y Git se pudo consultar
+- `inaccessible`: la ruta definida en el inventario no existe o no está montada
+- `not_git_repo`: la ruta existe, pero no es un work tree de Git
+- `git_untrusted`: Git detecta un problema de `safe.directory` o confianza sobre el repo
+- `git_error`: Git respondió con error distinto del caso de confianza
+- `error`: la ejecución encontró una excepción no prevista
+
+## `build-weekly-review-summary.ps1`
+
+Transforma el escaneo del inventario en un bloque markdown listo para insertar en la daily note semanal.
+
+### Comandos
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\build-weekly-review-summary.ps1
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\build-weekly-review-summary.ps1 -AsJson
+```
+
+### Qué devuelve
+
+- en modo normal, el bloque `## 🐙 Estado Semanal de Repositorios`
+- en modo `-AsJson`, un resumen máquina-legible con conteos y siguiente acción sugerida
+
 ## `start-weekly-review.ps1`
 
-Prepara la revisión semanal completa con baja fricción.
+Prepara la revisión semanal completa con el pipeline WSL-aware.
 
 ### Qué hace
 
 - crea la nota diaria del día si no existe
-- añade los bloques `## 🧹 Mantenimiento de Bóveda` y `## 🐙 Estado Semanal de Repositorios`
-- actualiza un bloque visible `## 🤖 Resultado de tarea automática` dentro de la daily note
+- asegura el bloque `## 🧹 Mantenimiento de Bóveda`
+- genera el bloque `## 🐙 Estado Semanal de Repositorios` desde `build-weekly-review-summary.ps1`
+- actualiza el bloque visible `## 🤖 Resultado de tarea automática` con conteos reales del escaneo
+- guarda el estado máquina en `logs/weekly-review-latest.json`
 - escribe un rastro técnico en `logs/weekly-review.log`
 - sincroniza skills antes de empezar
 - deja lista la sesión para ejecutar el playbook semanal

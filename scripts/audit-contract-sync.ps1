@@ -1,14 +1,53 @@
-param(
-  [string]$VaultRoot = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\Boveda-Anclora",
+﻿param(
+  [string]$VaultRoot = (Split-Path -Parent $PSScriptRoot),
   [switch]$AsJson
 )
 
 $ErrorActionPreference = "Stop"
 
+function Get-ContractFamily {
+  param([string]$Family)
+
+  switch ($Family) {
+    "internal" { return "Internal" }
+    "premium" { return "Premium" }
+    "ultra_premium" { return "UltraPremium" }
+    "portfolio_showcase" { return "Portfolio" }
+    default { return $null }
+  }
+}
+
+function Get-ContractRepoMap {
+  param([string]$VaultRoot)
+
+  $inventoryPath = Join-Path $VaultRoot "docs\governance\ecosystem-repos.json"
+  $inventory = Get-Content -Raw -LiteralPath $inventoryPath | ConvertFrom-Json
+
+  return @(
+    $inventory.repos |
+      Where-Object {
+        $_.status -eq "active" -and
+        $_.contracts_role -match "consumer"
+      } |
+      ForEach-Object {
+        $normalizedFamily = Get-ContractFamily -Family $_.family
+        if (-not $normalizedFamily) {
+          return
+        }
+
+        [pscustomobject]@{
+          Name = $_.id
+          Path = $_.path_windows
+          Family = $normalizedFamily
+        }
+      }
+  )
+}
+
 function Get-FileHashSafe {
   param([string]$Path)
 
-  if (-not (Test-Path $Path)) {
+  if (-not (Test-Path -LiteralPath $Path)) {
     return $null
   }
 
@@ -17,7 +56,7 @@ function Get-FileHashSafe {
 
 $sourceStandards = Join-Path $VaultRoot "docs\standards"
 
-if (-not (Test-Path $sourceStandards)) {
+if (-not (Test-Path -LiteralPath $sourceStandards)) {
   throw "No existe la ruta de contratos maestra: $sourceStandards"
 }
 
@@ -35,24 +74,14 @@ $familyFiles = @{
   Portfolio = @("ANCLORA_PORTFOLIO_SHOWCASE_CONTRACT.md")
 }
 
-$repoMap = @(
-  @{ Name = "anclora-group"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-group"; Family = "Internal" },
-  @{ Name = "anclora-advisor-ai"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-advisor-ai"; Family = "Internal" },
-  @{ Name = "anclora-nexus"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-nexus"; Family = "Internal" },
-  @{ Name = "anclora-content-generator-ai"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-content-generator-ai"; Family = "Internal" },
-  @{ Name = "anclora-impulso"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-impulso"; Family = "Premium" },
-  @{ Name = "anclora-data-lab"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-data-lab"; Family = "Premium" },
-  @{ Name = "anclora-synergi"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-synergi"; Family = "Premium" },
-  @{ Name = "anclora-command-center"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\Boveda-Anclora\dashboard"; Family = "Premium" },
-  @{ Name = "anclora-private-estates"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-private-estates"; Family = "UltraPremium" },
-  @{ Name = "anclora-portfolio"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-portfolio"; Family = "Portfolio" },
-  @{ Name = "anclora-azure-bay-landing"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-azure-bay-landing"; Family = "Portfolio" },
-  @{ Name = "anclora-playa-viva-uniestate"; Path = "C:\Users\antonio.ballesterosa\Desktop\Proyectos\anclora-playa-viva-uniestate"; Family = "Portfolio" }
-)
-
+$repoMap = Get-ContractRepoMap -VaultRoot $VaultRoot
 $results = @()
 
 foreach ($repo in $repoMap) {
+  if ($repo.Family -notin @("Internal", "Premium", "UltraPremium", "Portfolio")) {
+    continue
+  }
+
   $targetStandards = Join-Path $repo.Path "docs\standards"
   $expectedFiles = @($universalFiles + $familyFiles[$repo.Family] | Select-Object -Unique)
 

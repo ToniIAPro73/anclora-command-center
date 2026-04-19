@@ -1,8 +1,52 @@
-param(
+﻿param(
     [string]$Date = (Get-Date -Format 'yyyy-MM-dd')
 )
 
 $ErrorActionPreference = "Stop"
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+
+function Get-Utf8FileContent {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    return [System.IO.File]::ReadAllText($Path, [System.Text.Encoding]::UTF8)
+}
+
+function Set-Utf8FileContent {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path,
+        [Parameter(Mandatory = $true)]
+        [string]$Content
+    )
+
+    [System.IO.File]::WriteAllText($Path, ($Content.TrimEnd() + "`r`n"), $Utf8NoBom)
+}
+
+function Set-MarkdownSection {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Content,
+        [Parameter(Mandatory = $true)]
+        [string]$HeadingPattern,
+        [Parameter(Mandatory = $true)]
+        [string]$SectionBody
+    )
+
+    $replacement = $SectionBody.Trim() + "`r`n`r`n"
+    $escapedHeading = [regex]::Escape($HeadingPattern)
+    $pattern = '(?ms)^## [^\r\n]*' + $escapedHeading + '[^\r\n]*\r?\n.*?(?=^## |\z)'
+
+    if ($Content -match $pattern) {
+        return [regex]::Replace($Content, $pattern, $replacement)
+    }
+
+    return $Content.TrimEnd() + "`r`n`r`n" + $replacement
+}
 
 function Send-ReviewNotification {
     param(
@@ -41,6 +85,7 @@ $dailyDir = Join-Path $repoRoot "daily-notes"
 $dailyPath = Join-Path $dailyDir "$Date.md"
 $logDir = Join-Path $repoRoot "logs"
 $logPath = Join-Path $logDir "weekly-review.log"
+$summaryStatePath = Join-Path $logDir "weekly-review-latest.json"
 
 if (-not (Test-Path $dailyDir)) {
     New-Item -ItemType Directory -Force $dailyDir | Out-Null
@@ -79,55 +124,49 @@ if (-not (Test-Path $dailyPath)) {
         '',
         '#daily'
     )
-    Set-Content -LiteralPath $dailyPath -Value $dailyTemplate
+    Set-Utf8FileContent -Path $dailyPath -Content ($dailyTemplate -join "`r`n")
 }
 
-$content = Get-Content -Raw $dailyPath
+$content = Get-Utf8FileContent -Path $dailyPath
 
-if ($content -notmatch '## 🧹 Mantenimiento de Bóveda') {
-    Add-Content -LiteralPath $dailyPath -Value @(
-        '',
-        '## 🧹 Mantenimiento de Bóveda',
-        '',
-        '- Notas Promovidas:',
-        '- Enlaces Reparados:',
-        '- Nuevas Entidades:',
-        '- Estado de Salud:',
-        '',
-        '## 🐙 Estado Semanal de Repositorios',
-        '',
-        '- Repositorios Verificados:',
-        '- Alertas de Actividad:',
-        '- Sincronización de Documentación:',
-        '- Nuevos Contribuyentes:'
-    )
-}
+$maintenanceBlock = @(
+    '## 🧹 Mantenimiento de Bóveda',
+    '',
+    '- Notas Promovidas:',
+    '- Enlaces Reparados:',
+    '- Nuevas Entidades:',
+    '- Estado de Salud:'
+) -join "`r`n"
+
+$content = Set-MarkdownSection -Content $content -HeadingPattern 'Mantenimiento de Bóveda' -SectionBody $maintenanceBlock
 
 & powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'sync-skills.ps1')
+
+$summaryMarkdown = ((& powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'build-weekly-review-summary.ps1') -VaultRoot $repoRoot) -join "`r`n").Trim()
+$scanResultJson = ((& powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'build-weekly-review-summary.ps1') -VaultRoot $repoRoot -AsJson) -join "`r`n")
+$scanResult = $scanResultJson | ConvertFrom-Json
+[System.IO.File]::WriteAllText($summaryStatePath, (($scanResult | ConvertTo-Json -Depth 8).TrimEnd() + "`r`n"), $Utf8NoBom)
 
 $runTimestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
 $resultBlock = @(
     '## 🤖 Resultado de tarea automática',
     '',
     "- Última ejecución automática: $runTimestamp",
-    '- Estado: preparación completada correctamente',
-    '- Acciones ejecutadas: sincronización de skills, validación/creación de daily note y preparación de bloques semanales',
+    '- Estado: revisión semanal preparada con escaneo WSL',
+    "- Repos auditados: $($scanResult.total_repos)",
+    "- Repos accesibles: $($scanResult.accessible_repos)",
+    "- Repos con acceso limitado: $($scanResult.limited_access_repos)",
+    "- Alertas detectadas: $($scanResult.sync_alert_candidates)",
+    "- Siguiente acción sugerida: $($scanResult.next_action)",
+    "- Estado máquina: [[logs/weekly-review-latest.json]]",
     '- Playbook sugerido: [[Revisión Semanal Completa de la Bóveda y Repositorios]]'
 ) -join "`r`n"
 
-$updatedContent = Get-Content -Raw $dailyPath
+$updatedContent = $content
+$updatedContent = Set-MarkdownSection -Content $updatedContent -HeadingPattern 'Estado Semanal de Repositorios' -SectionBody $summaryMarkdown
+$updatedContent = Set-MarkdownSection -Content $updatedContent -HeadingPattern 'Resultado de tarea automática' -SectionBody $resultBlock
 
-if ($updatedContent -match '(?ms)^## 🤖 Resultado de tarea automática\s*.*?(?=^## |\z)') {
-    $updatedContent = [regex]::Replace(
-        $updatedContent,
-        '(?ms)^## 🤖 Resultado de tarea automática\s*.*?(?=^## |\z)',
-        $resultBlock + "`r`n`r`n"
-    )
-} else {
-    $updatedContent = $updatedContent.TrimEnd() + "`r`n`r`n" + $resultBlock + "`r`n"
-}
-
-Set-Content -LiteralPath $dailyPath -Value $updatedContent
+Set-Utf8FileContent -Path $dailyPath -Content $updatedContent
 
 Add-Content -LiteralPath $logPath -Value "[$runTimestamp] Weekly review prepared for $Date"
 

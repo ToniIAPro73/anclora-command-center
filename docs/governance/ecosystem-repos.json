@@ -1,0 +1,487 @@
+{
+  "version": 1,
+  "generated_for": "ecosystem-repo-inventory-v1",
+  "generated_for_id": "ecosystem-repo-inventory-v1",
+  "generated_for_label": "Mapa de repos del ecosistema Anclora",
+  "repos": [
+    {
+      "id": "anclora-group",
+      "name": "Anclora Group",
+      "path_wsl": "/home/toni/projects/anclora-group",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-group",
+      "family": "matrix",
+      "family_label": "Entidad Matriz",
+      "tier": "core",
+      "obsidian_note": "resources/anclora-group.md",
+      "design_system_role": "reference",
+      "design_system_roles": [
+        "reference"
+      ],
+      "contracts_role": "reference",
+      "contracts_roles": [
+        "reference"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "assets/brand/",
+          "src/styles/",
+          "src/theme/"
+        ],
+        "contracts": [
+          "docs/contracts/",
+          "docs/governance/",
+          "docs/standards/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/",
+          "resources/"
+        ]
+      }
+    },
+    {
+      "id": "anclora-advisor-ai",
+      "name": "Anclora Advisor AI",
+      "path_wsl": "/home/toni/projects/anclora-advisor-ai",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-advisor-ai",
+      "family": "internal",
+      "family_label": "Internal",
+      "tier": "app",
+      "obsidian_note": "proyectos/anclora-advisor-ai.md",
+      "design_system_role": "consumer",
+      "design_system_roles": [
+        "consumer"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "app/",
+          "components/",
+          "lib/theme/",
+          "lib/brand/"
+        ],
+        "contracts": [
+          "docs/standards/",
+          "docs/contracts/",
+          "docs/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/"
+        ]
+      }
+    },
+    {
+      "id": "anclora-nexus",
+      "name": "Anclora Nexus",
+      "path_wsl": "/home/toni/projects/anclora-nexus",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-nexus",
+      "family": "internal",
+      "family_label": "Internal",
+      "tier": "app",
+      "obsidian_note": "resources/anclora-nexus.md",
+      "design_system_role": "consumer",
+      "design_system_roles": [
+        "consumer"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "src/components/ui/",
+          "src/design-system/",
+          "src/theme/",
+          "src/styles/"
+        ],
+        "contracts": [
+          "sdd/contracts/",
+          "src/i18n/",
+          "src/modals/",
+          "src/shell/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/",
+          "sdd/"
+        ]
+      }
+    },
+    {
+      "id": "anclora-content-generator-ai",
+      "name": "Anclora Content Generator AI",
+      "path_wsl": "/home/toni/projects/anclora-content-generator-ai",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-content-generator-ai",
+      "family": "internal",
+      "family_label": "Internal",
+      "tier": "app",
+      "obsidian_note": "research/anclora/anclora-content-generator.md",
+      "design_system_role": "consumer",
+      "design_system_roles": [
+        "consumer"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "app/",
+          "components/",
+          "lib/theme/",
+          "lib/brand/"
+        ],
+        "contracts": [
+          "docs/standards/",
+          "docs/contracts/",
+          "prompts/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/",
+          "prompts/"
+        ]
+      }
+    },
+    {
+      "id": "anclora-impulso",
+      "name": "Anclora Impulso",
+      "path_wsl": "/home/toni/projects/anclora-impulso",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-impulso",
+      "family": "premium",
+      "family_label": "Premium",
+      "tier": "app",
+      "obsidian_note": "proyectos/anclora-impulso.md",
+      "design_system_role": "consumer",
+      "design_system_roles": [
+        "consumer"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "app/",
+          "components/",
+          "lib/theme/",
+          "lib/brand/",
+          "public/brand/"
+        ],
+        "contracts": [
+          "docs/standards/",
+          "docs/contracts/",
+          "docs/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/"
+        ]
+      }
+    },
+    {
+      "id": "anclora-data-lab",
+      "name": "Anclora Data Lab",
+      "path_wsl": "/home/toni/projects/anclora-data-lab",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-data-lab",
+      "family": "premium",
+      "family_label": "Premium",
+      "tier": "app",
+      "obsidian_note": "research/anclora/anclora-data-lab.md",
+      "design_system_role": "consumer",
+      "design_system_roles": [
+        "consumer"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "app/",
+          "components/",
+          "lib/theme/",
+          "lib/brand/"
+        ],
+        "contracts": [
+          "docs/standards/",
+          "docs/contracts/",
+          "docs/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/"
+        ]
+      }
+    },
+    {
+      "id": "anclora-synergi",
+      "name": "Anclora Synergi",
+      "path_wsl": "/home/toni/projects/anclora-synergi",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-synergi",
+      "family": "premium",
+      "family_label": "Premium",
+      "tier": "app",
+      "obsidian_note": "research/anclora/anclora-synergi.md",
+      "design_system_role": "consumer",
+      "design_system_roles": [
+        "consumer"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "app/",
+          "components/",
+          "lib/theme/",
+          "lib/brand/"
+        ],
+        "contracts": [
+          "docs/standards/",
+          "docs/contracts/",
+          "docs/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/"
+        ]
+      }
+    },
+    {
+      "id": "anclora-command-center",
+      "name": "Anclora Command Center",
+      "path_wsl": "/mnt/c/Users/antonio.ballesterosa/Desktop/Proyectos/Boveda-Anclora/dashboard",
+      "path_windows": "C:\\Users\\antonio.ballesterosa\\Desktop\\Proyectos\\Boveda-Anclora\\dashboard",
+      "family": "premium",
+      "family_label": "Premium",
+      "tier": "app",
+      "obsidian_note": "proyectos/anclora-command-center.md",
+      "design_system_role": "consumer",
+      "design_system_roles": [
+        "consumer",
+        "reference"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer",
+        "reference"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "src/shell/",
+          "src/modules/",
+          "src/components/",
+          "src/generated/"
+        ],
+        "contracts": [
+          "docs/standards/",
+          "docs/contracts/",
+          "scripts/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/",
+          "src/generated/"
+        ]
+      }
+    },
+    {
+      "id": "anclora-private-estates",
+      "name": "Anclora Private Estates",
+      "path_wsl": "/home/toni/projects/anclora-private-estates",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-private-estates",
+      "family": "ultra_premium",
+      "family_label": "Ultra Premium",
+      "tier": "app",
+      "obsidian_note": "proyectos/anclora-private-estates.md",
+      "design_system_role": "consumer",
+      "design_system_roles": [
+        "consumer"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "app/",
+          "components/",
+          "lib/theme/",
+          "public/brand/"
+        ],
+        "contracts": [
+          "docs/standards/",
+          "docs/contracts/",
+          "docs/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/"
+        ]
+      }
+    },
+    {
+      "id": "anclora-portfolio",
+      "name": "Anclora Portfolio",
+      "path_wsl": "/home/toni/projects/anclora-portfolio",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-portfolio",
+      "family": "portfolio_showcase",
+      "family_label": "Portfolio / Showcase",
+      "tier": "app",
+      "obsidian_note": "resources/Anclora Portfolio - Base técnica reutilizable.md",
+      "design_system_role": "consumer",
+      "design_system_roles": [
+        "consumer"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "app/",
+          "components/",
+          "lib/theme/",
+          "public/"
+        ],
+        "contracts": [
+          "docs/standards/",
+          "docs/contracts/",
+          "content/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/"
+        ]
+      }
+    },
+    {
+      "id": "anclora-azure-bay-landing",
+      "name": "Anclora Azure Bay Landing",
+      "path_wsl": "/home/toni/projects/anclora-azure-bay-landing",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-azure-bay-landing",
+      "family": "portfolio_showcase",
+      "family_label": "Portfolio / Showcase",
+      "tier": "app",
+      "obsidian_note": "resources/Azure Bay - Caso de estudio de landing premium.md",
+      "design_system_role": "consumer",
+      "design_system_roles": [
+        "consumer"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "app/",
+          "components/",
+          "lib/theme/",
+          "public/"
+        ],
+        "contracts": [
+          "docs/standards/",
+          "docs/contracts/",
+          "content/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/"
+        ]
+      }
+    },
+    {
+      "id": "anclora-playa-viva-uniestate",
+      "name": "Anclora Playa Viva Uniestate",
+      "path_wsl": "/home/toni/projects/anclora-playa-viva-uniestate",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-playa-viva-uniestate",
+      "family": "portfolio_showcase",
+      "family_label": "Portfolio / Showcase",
+      "tier": "app",
+      "obsidian_note": "resources/Playa Viva - Landing real con HubSpot y dossier personalizado.md",
+      "design_system_role": "consumer",
+      "design_system_roles": [
+        "consumer"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "app/",
+          "components/",
+          "lib/theme/",
+          "public/"
+        ],
+        "contracts": [
+          "docs/standards/",
+          "docs/contracts/",
+          "content/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/"
+        ]
+      }
+    },
+    {
+      "id": "anclora-design-system",
+      "name": "Anclora Design System",
+      "path_wsl": "/home/toni/projects/anclora-design-system",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-design-system",
+      "family": "system",
+      "family_label": "system",
+      "tier": "shared",
+      "obsidian_note": "resources/Anclora Design System.md",
+      "design_system_role": "source",
+      "design_system_roles": [
+        "source"
+      ],
+      "contracts_role": "consumer",
+      "contracts_roles": [
+        "consumer",
+        "reference"
+      ],
+      "status": "active",
+      "high_impact_paths": {
+        "design_system": [
+          "colors_and_type.css",
+          "packages/tokens/",
+          "packages/react/",
+          "assets/",
+          "ui_kits/",
+          "tokens/"
+        ],
+        "contracts": [
+          "docs/standards/",
+          "docs/contracts/",
+          "docs/governance/"
+        ],
+        "docs": [
+          "README.md",
+          "docs/",
+          "preview/"
+        ]
+      }
+    }
+  ]
+}
