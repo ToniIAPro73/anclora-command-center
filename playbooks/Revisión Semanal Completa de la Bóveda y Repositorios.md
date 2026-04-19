@@ -35,8 +35,9 @@ Mantener bajo control la entropía del segundo cerebro y asegurar la coherencia 
 ### Fase 1. Preparación
 
 1. Ejecuta `.\scripts\start-weekly-review.ps1`.
-2. Revisa la nota diaria generada o actualizada para hoy.
-3. Confirma si la sesión incluye también auditoría GitHub completa.
+2. Revisa el brief generado en la nota diaria.
+3. Valida alertas `DOC_SYNC`, `DESIGN_SYSTEM_SYNC`, `CONTRACT_SYNC` o `INVESTIGATE`.
+4. Confirma si la sesión incluye también auditoría GitHub completa.
 
 ### Fase 2. Bóveda
 
@@ -52,16 +53,14 @@ Mantener bajo control la entropía del segundo cerebro y asegurar la coherencia 
 
 ### Fase 3. Repositorios
 
-1. Escanear notas en `proyectos/` y `research/anclora/` con propiedad `repo`.
-2. Validar:
-   - accesibilidad de URL
-   - fecha del último commit
-   - cambios relevantes en README
-   - autores recientes no registrados en `personas/`
-3. Marcar:
-   - `#stale-repo` si no hubo actividad en 14 días
-   - `#update-readme-sync` si README cambió y la nota no refleja ese cambio
-4. Actualizar la nota diaria con el bloque `## 🐙 Estado Semanal de Repositorios`.
+1. El inventario canónico vive en `docs/governance/ecosystem-repos.json`.
+2. Los repos del ecosistema se auditan desde WSL mediante `scan-ecosystem-repos.ps1`.
+3. `anclora-design-system` se trata como infraestructura de diseño compartida, no como una app más.
+4. Revisa el bloque `## 🐙 Estado Semanal de Repositorios` y confirma:
+   - accesibilidad real o acceso limitado
+   - actividad reciente
+   - alertas candidatas a documentación, contratos o design system
+5. Solo después decide si el cambio es `APP_ONLY` o requiere sincronización con la bóveda.
 
 ### Fase 4. Consolidación
 
