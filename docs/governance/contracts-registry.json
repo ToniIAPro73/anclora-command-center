@@ -39,6 +39,7 @@
         "assets"
       ],
       "applies_to_repos": [
+        "anclora-group",
         "anclora-advisor-ai",
         "anclora-nexus",
         "anclora-content-generator-ai",
@@ -243,6 +244,7 @@
         "foundations"
       ],
       "applies_to_repos": [
+        "anclora-group",
         "anclora-advisor-ai",
         "anclora-nexus",
         "anclora-content-generator-ai",

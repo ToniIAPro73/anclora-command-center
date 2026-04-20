@@ -154,7 +154,7 @@ function Get-ScopeTargets {
         $items |
           Where-Object {
             $_.status -eq "active" -and
-            $_.contracts_role -match "consumer"
+            $_.contracts_role -match "consumer|reference"
           } |
           Sort-Object id
       )
