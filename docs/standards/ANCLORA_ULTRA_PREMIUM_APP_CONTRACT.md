@@ -6,6 +6,22 @@ Definir el contrato UX/UI de la capa más exclusiva del ecosistema. La experienc
 Ámbito:
 - `anclora-private-estates`
 
+## Autoridad
+
+- Registro operativo: `docs/governance/contracts-registry.json`
+- Inventario aplicable: `docs/governance/ecosystem-repos.json`
+- Fuente ejecutable relacionada: `anclora-design-system`
+
+## Repos a los que aplica
+
+- `anclora-private-estates`
+
+## Sincronización con repos consumidores
+
+- Contrato fuente en la bóveda: `docs/standards/ANCLORA_ULTRA_PREMIUM_APP_CONTRACT.md`
+- Target normal de propagación: `docs/standards/`
+- Dependencia de auditoría y propagación desde `docs/governance/contracts-registry.json`
+
 ## Piezas canónicas del design system
 
 La capa ultra premium no autoriza implementaciones aisladas sin sistema. Debe apoyarse en `anclora-design-system` para:

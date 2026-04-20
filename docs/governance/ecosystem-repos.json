@@ -586,9 +586,8 @@
       "design_system_roles": [
         "source"
       ],
-      "contracts_role": "consumer",
+      "contracts_role": "reference",
       "contracts_roles": [
-        "consumer",
         "reference"
       ],
       "status": "active",
