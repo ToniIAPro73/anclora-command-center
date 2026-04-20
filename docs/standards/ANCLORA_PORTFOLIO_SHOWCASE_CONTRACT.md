@@ -8,6 +8,24 @@ Definir el contrato UX/UI para repos públicos de portfolio, landings de demostr
 - `anclora-azure-bay-landing`
 - `anclora-playa-viva-uniestate`
 
+## Piezas canónicas del design system
+
+Las superficies `portfolio / showcase` deben apoyarse en `anclora-design-system` para:
+
+- `tokens` y `themes` editoriales
+- `foundations` de tipografía, spacing, media ratios y surface rhythm
+- `components` de button, card, form field, dialog y media controls
+- `patterns` de:
+  - hero
+  - section layout
+  - gallery/lightbox
+  - lead form
+  - CTA strip
+  - credibility blocks
+
+Regla:
+- una landing puede tener identidad propia, pero no puede inventar su propio mini design system al margen del repo canónico.
+
 ## Naturaleza del grupo
 - Son superficies públicas de marca y conversión.
 - Deben priorizar narrativa, credibilidad y CTA.
@@ -122,3 +140,4 @@ Una feature de este grupo no está lista si:
 - usa un formulario que rompe confianza o claridad
 - mezcla idiomas en navegación, formulario o assets de conversión
 - introduce modales o galerías que dificultan la navegación del usuario
+- rehace CTAs, forms, cards o bloques de hero fuera de las piezas y patterns compartidos cuando ya existen en `anclora-design-system`
