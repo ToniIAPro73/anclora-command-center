@@ -16,6 +16,7 @@
       "auth_model": "public_no_auth",
       "distribution_model": "seo",
       "design_system_role": "custom",
+      "governance_contract": "docs/standards/INDEPENDENT_PUBLIC_UTILITY_APP_CONTRACT.md",
       "status": "active",
       "obsidian_note": "resources/anclora-calculadora-fiscal-183.md",
       "high_impact_paths": {
