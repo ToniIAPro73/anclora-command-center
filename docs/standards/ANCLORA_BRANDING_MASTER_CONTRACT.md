@@ -37,6 +37,7 @@ Definir el sistema de identidad visual completo del ecosistema Anclora: logos, p
 
 ## Repos a los que aplica
 
+- `anclora-group`
 - `anclora-advisor-ai`
 - `anclora-nexus`
 - `anclora-content-generator-ai`
@@ -48,7 +49,7 @@ Definir el sistema de identidad visual completo del ecosistema Anclora: logos, p
 - `anclora-private-estates`
 
 Nota:
-- `anclora-group` actúa como referencia matriz de branding, no como target normal de propagación contractual.
+- `anclora-group` actúa como referencia matriz de branding y puede recibir contratos de branding o gobernanza cuando el registro central lo indique.
 - Las superficies `portfolio` se gobiernan con `ANCLORA_PORTFOLIO_SHOWCASE_CONTRACT.md`, no con este contrato maestro de branding.
 
 ## Sincronización con repos consumidores
