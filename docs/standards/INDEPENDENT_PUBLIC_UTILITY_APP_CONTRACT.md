@@ -10,6 +10,12 @@ Definir la base UX/UI y de producto para apps públicas ligeras fuera de `Anclor
 - no iconografía Anclora por defecto
 - no gramática premium de Anclora por defecto
 
+## Autoridad
+
+- Registro operativo: `docs/governance/contracts-registry.json`
+- Inventario aplicable: `docs/governance/independent-products.json`
+- Fuente ejecutable relacionada: ninguna por defecto
+
 ## Tipo de producto
 
 Este contrato aplica a productos que suelen ser:
@@ -19,6 +25,17 @@ Este contrato aplica a productos que suelen ser:
 - `public_no_auth`
 - orientados a `seo`
 - monetizados con Ads, afiliación o captación
+
+## Repos a los que aplica
+
+- `anclora-calculadora-fiscal-183`
+
+## Sincronización con repos consumidores
+
+- Contrato fuente en la bóveda: `docs/standards/INDEPENDENT_PUBLIC_UTILITY_APP_CONTRACT.md`
+- Target normal de propagación: `docs/standards/`
+- Dependencia de auditoría y propagación desde `docs/governance/contracts-registry.json`
+- Este contrato no hereda automáticamente branding ni contratos de `Anclora Group`
 
 ## Reglas obligatorias
 

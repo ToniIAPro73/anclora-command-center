@@ -18,6 +18,12 @@ related:
 
 Definir el sistema de identidad visual completo del ecosistema Anclora: logos, paletas de color, tipografía, iconografía y reglas de uso. Este contrato es la referencia única para cualquier decisión de branding en cualquier aplicación del ecosistema.
 
+## Autoridad
+
+- Registro operativo: `docs/governance/contracts-registry.json`
+- Inventario aplicable: `docs/governance/ecosystem-repos.json`
+- Fuente ejecutable relacionada: `anclora-design-system`
+
 ## Ruta canónica
 
 - Obsidian: Bóveda maestra (copia de referencia)
@@ -28,6 +34,28 @@ Definir el sistema de identidad visual completo del ecosistema Anclora: logos, p
 - La bóveda Obsidian mantiene la copia maestra.
 - Cada aplicación debe referenciar este contrato en su propio `docs/standards/`.
 - Si se modifica un token de branding a nivel ecosistema, todas las aplicaciones afectadas deben actualizarse en la misma ronda.
+
+## Repos a los que aplica
+
+- `anclora-advisor-ai`
+- `anclora-nexus`
+- `anclora-content-generator-ai`
+- `anclora-impulso`
+- `anclora-command-center`
+- `anclora-synergi`
+- `anclora-data-lab`
+- `anclora-talent`
+- `anclora-private-estates`
+
+Nota:
+- `anclora-group` actúa como referencia matriz de branding, no como target normal de propagación contractual.
+- Las superficies `portfolio` se gobiernan con `ANCLORA_PORTFOLIO_SHOWCASE_CONTRACT.md`, no con este contrato maestro de branding.
+
+## Sincronización con repos consumidores
+
+- Contrato fuente en la bóveda: `docs/standards/ANCLORA_BRANDING_MASTER_CONTRACT.md`
+- Target normal de propagación: `docs/standards/`
+- Dependencia de auditoría y propagación desde `docs/governance/contracts-registry.json`
 
 ## Documentos del sistema de branding
 
@@ -62,7 +90,7 @@ Al modificar la identidad de una app existente:
 | Entidad Matriz | `anclora-group` | Plata monocromática | Georgia, serif | Portal corporativo y entidad matriz del ecosistema. Identidad exclusiva fuera de grupos. |
 | Interna | `anclora-advisor-ai`, `anclora-nexus`, `anclora-content-generator-ai` | Plata cromada | Inter | Herramientas operativas internas. |
 | Premium | `anclora-impulso`, `anclora-talent`, `anclora-data-lab`, `anclora-synergi`, `anclora-command-center` | Cobre rosado | DM Sans | Productos de valor añadido. |
-| Ultra Premium | `anclora-private-estates`, `anclora-private-estates-landing-page` | Oro pulido | Cardo + Inter + Fraunces | Marca de lujo inmobiliario. |
+| Ultra Premium | `anclora-private-estates` | Oro pulido | Cardo + Inter + Fraunces | Marca de lujo inmobiliario. |
 | Portfolio | `anclora-portfolio`, `anclora-azure-bay-landing`, `anclora-playa-viva-uniestate` | Por proyecto | Por proyecto | Fuera de alcance de este contrato. |
 
 ## Regla de escalera visual
