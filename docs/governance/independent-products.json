@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "generated_for": "independent-products-inventory-v1",
+  "generated_for_id": "independent-products-inventory-v1",
+  "generated_for_label": "Independent Products",
+  "products": [
+    {
+      "id": "anclora-calculadora-fiscal-183",
+      "name": "Anclora Calculadora Fiscal 183",
+      "path_wsl": "/home/toni/projects/anclora-calculadora-fiscal-183",
+      "path_windows": "\\\\wsl$\\Ubuntu\\home\\toni\\projects\\anclora-calculadora-fiscal-183",
+      "portfolio": "independent_products",
+      "domain": "fiscal_finance",
+      "business_model": "ads",
+      "product_archetype": "calculator",
+      "auth_model": "public_no_auth",
+      "distribution_model": "seo",
+      "design_system_role": "custom",
+      "status": "active",
+      "obsidian_note": "resources/anclora-calculadora-fiscal-183.md",
+      "high_impact_paths": {
+        "product": [
+          "app/",
+          "components/",
+          "lib/",
+          "public/"
+        ],
+        "content": [
+          "content/",
+          "data/",
+          "docs/"
+        ],
+        "ads": [
+          "app/",
+          "components/",
+          "public/"
+        ]
+      }
+    }
+  ]
+}
