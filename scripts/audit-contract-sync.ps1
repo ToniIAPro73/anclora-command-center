@@ -1,5 +1,6 @@
-﻿param(
+param(
   [string]$VaultRoot = (Split-Path -Parent $PSScriptRoot),
+  [string[]]$Scopes,
   [switch]$AsJson
 )
 
@@ -28,36 +29,172 @@ function Get-RepoContractBucket {
   return (Get-LegacyContractFamily -Family $Repo.family)
 }
 
-function Get-ContractRepoMap {
+function Get-JsonFile {
+  param([string]$Path)
+
+  if (-not (Test-Path -LiteralPath $Path)) {
+    throw "No existe el archivo JSON requerido: $Path"
+  }
+
+  return (Get-Content -Raw -LiteralPath $Path | ConvertFrom-Json)
+}
+
+function Resolve-RelativePathFromVault {
+  param(
+    [string]$VaultRoot,
+    [string]$RelativePath
+  )
+
+  if ([System.IO.Path]::IsPathRooted($RelativePath)) {
+    return $RelativePath
+  }
+
+  $normalizedRelativePath = $RelativePath -replace "/", "\"
+  return (Join-Path $VaultRoot $normalizedRelativePath)
+}
+
+function Get-ContractRegistry {
   param([string]$VaultRoot)
 
-  $inventoryPath = Join-Path $VaultRoot "docs\governance\ecosystem-repos.json"
-  $inventory = Get-Content -Raw -LiteralPath $inventoryPath | ConvertFrom-Json
+  $registryPath = Join-Path $VaultRoot "docs\governance\contracts-registry.json"
+  return (Get-JsonFile -Path $registryPath)
+}
+
+function Get-RegistryInventoryConfig {
+  param(
+    $Registry,
+    [string]$Scope
+  )
+
+  $inventoryConfig = $null
+
+  if ($Registry.inventories) {
+    foreach ($property in $Registry.inventories.PSObject.Properties) {
+      if ($property.Name -eq $Scope) {
+        $inventoryConfig = $property.Value
+        break
+      }
+    }
+  }
+
+  return $inventoryConfig
+}
+
+function Get-RegistryInventoryItems {
+  param(
+    [string]$VaultRoot,
+    $Registry,
+    [string]$Scope
+  )
+
+  $inventoryConfig = Get-RegistryInventoryConfig -Registry $Registry -Scope $Scope
+  if (-not $inventoryConfig) {
+    Write-Warning "No existe configuración de inventario para el scope '$Scope' en contracts-registry.json"
+    return @()
+  }
+
+  $inventoryPath = Resolve-RelativePathFromVault -VaultRoot $VaultRoot -RelativePath $inventoryConfig.path
+  if (-not (Test-Path -LiteralPath $inventoryPath)) {
+    Write-Warning "No existe el inventario '$inventoryPath' para el scope '$Scope'"
+    return @()
+  }
+
+  $inventory = Get-JsonFile -Path $inventoryPath
+  $collectionName = $inventoryConfig.collection
+
+  if (-not $collectionName) {
+    Write-Warning "Falta el campo 'collection' para el scope '$Scope' en contracts-registry.json"
+    return @()
+  }
+
+  $collection = $inventory.$collectionName
+  if (-not $collection) {
+    Write-Warning "No existe la colección '$collectionName' en el inventario '$inventoryPath'"
+    return @()
+  }
+
+  return @($collection)
+}
+
+function Get-ApplicableContracts {
+  param(
+    $Item,
+    $Registry,
+    [string]$Scope
+  )
 
   return @(
-    $inventory.repos |
+    $Registry.contracts |
       Where-Object {
         $_.status -eq "active" -and
-        $_.contracts_role -match "consumer"
+        $_.scope -eq $Scope -and
+        $Item.id -in @($_.applies_to_repos)
       } |
-      ForEach-Object {
-        $contractBucket = Get-RepoContractBucket -Repo $_
-        if (-not $contractBucket) {
-          return
-        }
-
-        [pscustomobject]@{
-          Name = $_.id
-          Path = $_.path_windows
-          Tier = $_.tier
-          Domain = $_.domain
-          ProductArchetype = $_.product_archetype
-          SystemRole = $_.system_role
-          EcosystemClusters = @($_.ecosystem_clusters)
-          ContractBucket = $contractBucket
-        }
-      }
+      Sort-Object id
   )
+}
+
+function Get-ScopeTargets {
+  param(
+    [string]$VaultRoot,
+    $Registry,
+    [string]$Scope
+  )
+
+  $items = Get-RegistryInventoryItems -VaultRoot $VaultRoot -Registry $Registry -Scope $Scope
+
+  switch ($Scope) {
+    "anclora_group" {
+      return @(
+        $items |
+          Where-Object {
+            $_.status -eq "active" -and
+            $_.contracts_role -match "consumer"
+          } |
+          Sort-Object id
+      )
+    }
+    "independent_products" {
+      return @(
+        $items |
+          Where-Object { $_.status -eq "active" } |
+          Sort-Object id
+      )
+    }
+    default {
+      return @(
+        $items |
+          Where-Object { $_.status -eq "active" } |
+          Sort-Object id
+      )
+    }
+  }
+}
+
+function Resolve-SafeTargetFolder {
+  param(
+    [string]$BasePath,
+    [string]$TargetRelativePath
+  )
+
+  if ([string]::IsNullOrWhiteSpace($TargetRelativePath)) {
+    $TargetRelativePath = "docs/standards/"
+  }
+
+  if ([System.IO.Path]::IsPathRooted($TargetRelativePath)) {
+    throw "propagation_target no puede ser absoluto: $TargetRelativePath"
+  }
+
+  $normalizedRelativePath = $TargetRelativePath -replace "/", "\"
+  $candidatePath = [System.IO.Path]::GetFullPath((Join-Path $BasePath $normalizedRelativePath))
+  $baseFullPath = [System.IO.Path]::GetFullPath($BasePath)
+  $basePrefix = if ($baseFullPath.EndsWith("\")) { $baseFullPath } else { "$baseFullPath\" }
+
+  if ($candidatePath -ne $baseFullPath -and -not $candidatePath.StartsWith($basePrefix, [System.StringComparison]::OrdinalIgnoreCase)) {
+    throw "propagation_target sale fuera del repo '$BasePath': $TargetRelativePath"
+  }
+
+  return $candidatePath
 }
 
 function Get-FileHashSafe {
@@ -70,61 +207,63 @@ function Get-FileHashSafe {
   return (Get-FileHash -Algorithm SHA256 -LiteralPath $Path).Hash
 }
 
-$sourceStandards = Join-Path $VaultRoot "docs\standards"
-
-if (-not (Test-Path -LiteralPath $sourceStandards)) {
-  throw "No existe la ruta de contratos maestra: $sourceStandards"
+$registry = Get-ContractRegistry -VaultRoot $VaultRoot
+$scopesToAudit = if ($Scopes -and $Scopes.Count -gt 0) {
+  @($Scopes | Select-Object -Unique)
+} else {
+  @($registry.inventories.PSObject.Properties.Name | Select-Object -Unique)
 }
 
-$universalFiles = @(
-  "ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md",
-  "UI_MOTION_CONTRACT.md",
-  "MODAL_CONTRACT.md",
-  "LOCALIZATION_CONTRACT.md"
-)
-
-$familyFiles = @{
-  Internal = @("ANCLORA_INTERNAL_APP_CONTRACT.md")
-  Premium = @("ANCLORA_PREMIUM_APP_CONTRACT.md")
-  UltraPremium = @("ANCLORA_ULTRA_PREMIUM_APP_CONTRACT.md")
-  Portfolio = @("ANCLORA_PORTFOLIO_SHOWCASE_CONTRACT.md")
-}
-
-$repoMap = Get-ContractRepoMap -VaultRoot $VaultRoot
 $results = @()
 
-foreach ($repo in $repoMap) {
-  if ($repo.ContractBucket -notin @("Internal", "Premium", "UltraPremium", "Portfolio")) {
-    continue
-  }
+foreach ($scope in $scopesToAudit) {
+  $targets = Get-ScopeTargets -VaultRoot $VaultRoot -Registry $registry -Scope $scope
 
-  $targetStandards = Join-Path $repo.Path "docs\standards"
-  $expectedFiles = @($universalFiles + $familyFiles[$repo.ContractBucket] | Select-Object -Unique)
+  foreach ($target in $targets) {
+    $applicableContracts = Get-ApplicableContracts -Item $target -Registry $registry -Scope $scope
 
-  foreach ($fileName in $expectedFiles) {
-    $sourceFile = Join-Path $sourceStandards $fileName
-    $targetFile = Join-Path $targetStandards $fileName
-    $sourceHash = Get-FileHashSafe -Path $sourceFile
-    $targetHash = Get-FileHashSafe -Path $targetFile
+    foreach ($contract in $applicableContracts) {
+      $sourceFile = Resolve-RelativePathFromVault -VaultRoot $VaultRoot -RelativePath $contract.path
+      $sourceHash = Get-FileHashSafe -Path $sourceFile
+      $fileName = [System.IO.Path]::GetFileName($contract.path)
+      $propagationTargets = @($contract.propagation_targets)
 
-    $status =
-      if (-not $targetHash) { "MISSING" }
-      elseif ($sourceHash -eq $targetHash) { "OK" }
-      else { "OUTDATED" }
+      if ($propagationTargets.Count -eq 0) {
+        $propagationTargets = @("docs/standards/")
+      }
 
-    $results += [pscustomobject]@{
-      Repo = $repo.Name
-      Family = $repo.ContractBucket
-      Contract = $fileName
-      Status = $status
-      SourceHash = $sourceHash
-      TargetHash = $targetHash
+      foreach ($targetRelativePath in $propagationTargets) {
+        $targetFolder = Resolve-SafeTargetFolder -BasePath $target.path_windows -TargetRelativePath $targetRelativePath
+        $targetFile = Join-Path $targetFolder $fileName
+        $targetHash = Get-FileHashSafe -Path $targetFile
+
+        $status =
+          if (-not $sourceHash) { "SOURCE_MISSING" }
+          elseif (-not $targetHash) { "MISSING" }
+          elseif ($sourceHash -eq $targetHash) { "OK" }
+          else { "OUTDATED" }
+
+        $results += [pscustomobject]@{
+          Repo = $target.id
+          Family = Get-RepoContractBucket -Repo $target
+          Tier = $target.tier
+          Domain = $target.domain
+          Scope = $contract.scope
+          ContractId = $contract.id
+          Contract = $fileName
+          Target = $targetRelativePath
+          Status = $status
+          SourceHash = $sourceHash
+          TargetHash = $targetHash
+          DesignSystemLayers = @($contract.design_system_layers) -join ", "
+        }
+      }
     }
   }
 }
 
 if ($AsJson) {
-  $results | ConvertTo-Json -Depth 4
+  $results | ConvertTo-Json -Depth 5
   exit 0
 }
 
@@ -135,9 +274,11 @@ $summary = $results |
     [pscustomobject]@{
       Repo = $_.Name
       Family = ($group | Select-Object -First 1).Family
+      Contracts = $group.Count
       OK = ($group | Where-Object Status -eq "OK").Count
       OUTDATED = ($group | Where-Object Status -eq "OUTDATED").Count
       MISSING = ($group | Where-Object Status -eq "MISSING").Count
+      SOURCE_MISSING = ($group | Where-Object Status -eq "SOURCE_MISSING").Count
     }
   }
 
@@ -149,7 +290,7 @@ $problems = $results | Where-Object { $_.Status -ne "OK" }
 if ($problems.Count -gt 0) {
   Write-Host ""
   Write-Host "=== Contract Sync Issues ==="
-  $problems | Format-Table Repo, Family, Contract, Status -AutoSize
+  $problems | Format-Table Repo, ContractId, Contract, Target, Status -AutoSize
 } else {
   Write-Host ""
   Write-Host "Todos los contratos auditados están sincronizados."
