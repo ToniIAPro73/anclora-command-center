@@ -24,8 +24,9 @@ related:
 
 ## Fuente de verdad
 
-- inventario canónico: `docs/governance/independent-products.json`
-- contrato base: `docs/standards/INDEPENDENT_PUBLIC_UTILITY_APP_CONTRACT.md`
+- inventario canónico: [[docs/governance/independent-products.json]] como archivo fuente en el repo.
+- contrato base: [[INDEPENDENT_PUBLIC_UTILITY_APP_CONTRACT]] (`docs/standards/INDEPENDENT_PUBLIC_UTILITY_APP_CONTRACT.md`).
+- navegación relacionada: [[Mapa de repos del ecosistema Anclora]] para ubicar este universo dentro del mapa operativo.
 
 ## Primer producto registrado
 
