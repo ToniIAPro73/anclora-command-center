@@ -32,11 +32,17 @@ related:
 
 ### `anclora-calculadora-fiscal-183`
 
+- nota canónica: [[anclora-calculadora-fiscal-183]]
 - `domain`: `fiscal_finance`
 - `business_model`: `ads`
 - `product_archetype`: `calculator`
 - `auth_model`: `public_no_auth`
 - `distribution_model`: `seo`
+- `status`: `active`
+- `design_system_role`: `custom`
+
+Nota:
+- el prefijo `anclora-` en este primer registro se conserva como identificador técnico del repo, no como compromiso de marca pública dentro de `Anclora Group`.
 
 ## Criterio operativo
 
