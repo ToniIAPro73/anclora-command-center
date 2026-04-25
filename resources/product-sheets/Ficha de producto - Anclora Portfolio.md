@@ -1,4 +1,9 @@
 ---
+title: Ficha de producto - Anclora Portfolio
+aliases:
+  - Anclora Portfolio Product Sheet
+  - Portfolio Product Sheet
+  - Ficha de producto - Portfolio
 tipo: recurso
 estado: activo
 fuente: "[[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]"
@@ -29,4 +34,3 @@ creado: 2026-04-08
 - [[Azure Bay - Caso de estudio de landing premium]]
 - [[Ficha de producto - Anclora Azure Bay Landing]]
 - [[MOC - Fichas de producto Real Estate de Anclora Group]]
-

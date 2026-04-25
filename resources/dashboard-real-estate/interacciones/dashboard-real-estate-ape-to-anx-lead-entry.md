@@ -1,6 +1,10 @@
 ---
-title: Dashboard Real Estate - APE to ANX - lead_entry
-aliases: [APE -> ANX, lead_entry]
+title: Dashboard Real Estate Interaction - APE to ANX - Lead Entry
+aliases:
+  - APE -> ANX
+  - APE to ANX
+  - lead_entry
+  - lead entry
 type: dashboard-real-estate-interaccion
 source_app: APE
 target_app: ANX

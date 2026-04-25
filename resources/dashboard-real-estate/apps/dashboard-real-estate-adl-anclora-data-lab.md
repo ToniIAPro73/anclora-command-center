@@ -1,6 +1,10 @@
 ---
 title: Dashboard Real Estate - ADL - Anclora Data Lab
-aliases: [ADL]
+aliases:
+  - ADL
+  - Anclora Data Lab
+  - Data Lab
+  - Dashboard ADL
 type: dashboard-real-estate-app
 app_id: ADL
 app_name: Anclora Data Lab

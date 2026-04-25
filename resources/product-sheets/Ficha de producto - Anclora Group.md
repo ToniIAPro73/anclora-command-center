@@ -1,4 +1,8 @@
 ---
+title: Ficha de producto - Anclora Group
+aliases:
+  - Anclora Group Product Sheet
+  - Ficha Anclora Group
 tipo: recurso
 estado: activo
 fuente: "[[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]"
@@ -29,4 +33,3 @@ creado: 2026-04-08
 - [[Ficha de producto - Anclora Private Estates]]
 - [[Ficha de producto - Anclora Command Center]]
 - [[MOC - Fichas de producto Real Estate de Anclora Group]]
-

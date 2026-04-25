@@ -2,6 +2,9 @@
 title: Anclora Nexus
 aliases:
   - Nexus
+  - ANX
+  - Anclora Nexus CRM
+  - CRM Inmobiliario con IA
   - anclora-nexus
 repo: https://github.com/ToniIAPro73/anclora-nexus.git
 type: resource

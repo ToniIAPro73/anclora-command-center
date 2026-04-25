@@ -1,6 +1,10 @@
 ---
-title: Dashboard Real Estate - ASY to ANX - relationship_feedback
-aliases: [ASY -> ANX, relationship_feedback]
+title: Dashboard Real Estate Interaction - ASY to ANX - Relationship Feedback
+aliases:
+  - ASY -> ANX
+  - ASY to ANX
+  - relationship_feedback
+  - relationship feedback
 type: dashboard-real-estate-interaccion
 source_app: ASY
 target_app: ANX

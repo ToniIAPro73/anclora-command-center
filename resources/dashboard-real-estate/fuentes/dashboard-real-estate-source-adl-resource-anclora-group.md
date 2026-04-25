@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ADL - resource - anclora-group
+title: Dashboard Real Estate Source - ADL - Resource - Anclora Group
+aliases:
+  - ADL resource
+  - ADL resource source
+  - Anclora Group source for ADL
 type: dashboard-real-estate-fuente
 app_name: Anclora Data Lab
 source_note: resources/anclora-group.md

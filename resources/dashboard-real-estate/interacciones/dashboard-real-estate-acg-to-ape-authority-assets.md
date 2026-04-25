@@ -1,6 +1,10 @@
 ---
-title: Dashboard Real Estate - ACG to APE - authority_assets
-aliases: [ACG -> APE, authority_assets]
+title: Dashboard Real Estate Interaction - ACG to APE - Authority Assets
+aliases:
+  - ACG -> APE
+  - ACG to APE
+  - authority_assets
+  - authority assets
 type: dashboard-real-estate-interaccion
 source_app: ACG
 target_app: APE

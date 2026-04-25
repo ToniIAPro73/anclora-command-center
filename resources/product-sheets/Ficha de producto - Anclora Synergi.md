@@ -1,4 +1,9 @@
 ---
+title: Ficha de producto - Anclora Synergi
+aliases:
+  - Anclora Synergi Product Sheet
+  - Synergi Product Sheet
+  - Ficha de producto - Synergi
 tipo: recurso
 estado: activo
 fuente: "[[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]"
@@ -29,4 +34,3 @@ creado: 2026-04-08
 - [[Anclora Nexus]]
 - [[Mapa de Stakeholders de Anclora Group]]
 - [[MOC - Fichas de producto Real Estate de Anclora Group]]
-

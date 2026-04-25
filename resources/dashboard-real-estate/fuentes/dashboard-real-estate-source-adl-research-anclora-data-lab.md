@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ADL - research - anclora-data-lab
+title: Dashboard Real Estate Source - ADL - Research - Anclora Data Lab
+aliases:
+  - ADL research
+  - ADL research source
+  - Anclora Data Lab source for ADL
 type: dashboard-real-estate-fuente
 app_name: Anclora Data Lab
 source_note: research/anclora/anclora-data-lab.md

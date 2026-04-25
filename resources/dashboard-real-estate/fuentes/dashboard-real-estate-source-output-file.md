@@ -1,5 +1,5 @@
 ---
-title: Dashboard Real Estate Source - output_file
+title: Dashboard Real Estate Source - Output File
 type: dashboard-real-estate-fuente
 app_name: output_file
 source_note: output/spreadsheet/anclora-group-real-estate-dataset.xlsx

@@ -1,5 +1,5 @@
 ---
-title: Dashboard Real Estate Source - generation_date
+title: Dashboard Real Estate Source - Generation Date
 type: dashboard-real-estate-fuente
 app_name: generation_date
 source_note: 2026-03-31

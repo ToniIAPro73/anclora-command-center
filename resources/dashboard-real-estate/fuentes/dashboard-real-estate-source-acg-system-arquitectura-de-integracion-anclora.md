@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ACG - system - Arquitectura de Integracion Anclora
+title: Dashboard Real Estate Source - ACG - System - Arquitectura de Integración Anclora
+aliases:
+  - ACG system
+  - ACG system source
+  - Arquitectura de Integracion Anclora source for ACG
 type: dashboard-real-estate-fuente
 app_name: Anclora Content Generator AI
 source_note: sistemas/Arquitectura de Integración Anclora.md

@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ACG - playbook - flujo-comercial-inteligente
+title: Dashboard Real Estate Source - ACG - Playbook - Flujo Comercial Inteligente
+aliases:
+  - ACG playbook
+  - ACG playbook source
+  - Flujo Comercial Inteligente source for ACG
 type: dashboard-real-estate-fuente
 app_name: Anclora Content Generator AI
 source_note: playbooks/flujo-comercial-inteligente.md

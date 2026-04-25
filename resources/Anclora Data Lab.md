@@ -1,6 +1,11 @@
 ---
 title: Anclora Data Lab
-aliases: [Anclora Data Lab]
+aliases:
+  - Anclora Data Lab
+  - Data Lab
+  - ADL
+  - Anclora DataLab
+  - anclora-data-lab
 tipo: recurso
 estado: activo
 fuente: "[[Ficha de producto - Anclora Data Lab]]"
@@ -34,4 +39,3 @@ No es una landing ni un CRM. Es el nodo donde entra la señal y se transforma en
 - [[Arquitectura de Integración Anclora]]
 - [[Anclora Content Generator AI]]
 - [[Anclora Nexus]]
-

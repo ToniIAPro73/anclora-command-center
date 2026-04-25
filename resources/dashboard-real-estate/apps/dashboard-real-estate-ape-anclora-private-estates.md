@@ -1,6 +1,10 @@
 ---
 title: Dashboard Real Estate - APE - Anclora Private Estates
-aliases: [APE]
+aliases:
+  - APE
+  - Anclora Private Estates
+  - Private Estates
+  - Dashboard APE
 type: dashboard-real-estate-app
 app_id: APE
 app_name: Anclora Private Estates

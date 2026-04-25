@@ -1,4 +1,9 @@
 ---
+title: Ficha de producto - Anclora Content Generator AI
+aliases:
+  - Anclora Content Generator AI Product Sheet
+  - Content Generator AI Product Sheet
+  - Ficha de producto - Content Generator AI
 tipo: recurso
 estado: activo
 fuente: "[[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]"
@@ -29,4 +34,3 @@ creado: 2026-04-08
 - [[Anclora Data Lab]]
 - [[Anclora Nexus]]
 - [[MOC - Fichas de producto Real Estate de Anclora Group]]
-

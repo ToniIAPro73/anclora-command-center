@@ -1,4 +1,9 @@
 ---
+title: Ficha de producto - Anclora Nexus
+aliases:
+  - Anclora Nexus Product Sheet
+  - Nexus Product Sheet
+  - Ficha de producto - Nexus
 tipo: recurso
 estado: activo
 fuente: "[[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]"
@@ -29,4 +34,3 @@ creado: 2026-04-08
 - [[Prospección Avanzada con Nexus]]
 - [[Ficha de producto - Anclora Synergi]]
 - [[MOC - Fichas de producto Real Estate de Anclora Group]]
-

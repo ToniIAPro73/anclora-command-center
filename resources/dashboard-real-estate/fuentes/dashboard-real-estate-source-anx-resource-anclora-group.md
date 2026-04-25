@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ANX - resource - anclora-group
+title: Dashboard Real Estate Source - ANX - Resource - Anclora Group
+aliases:
+  - ANX resource
+  - ANX resource source
+  - Anclora Group source for ANX
 type: dashboard-real-estate-fuente
 app_name: Anclora Nexus
 source_note: resources/anclora-group.md

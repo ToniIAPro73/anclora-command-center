@@ -112,6 +112,12 @@ if (-not (Test-Path $dailyPath)) {
         '2.',
         '3.',
         '',
+        '## 🤖 Estado de automatizaciones',
+        '',
+        '- Última ejecución relevante:',
+        '- Fallos detectados:',
+        '- Acción de seguimiento:',
+        '',
         '## 📝 Notas / Braindump',
         '',
         '## ✅ Completado',
@@ -139,41 +145,84 @@ $maintenanceBlock = @(
 ) -join "`r`n"
 
 $content = Set-MarkdownSection -Content $content -HeadingPattern 'Mantenimiento de Bóveda' -SectionBody $maintenanceBlock
-
-& powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'sync-skills.ps1')
-
-$summaryMarkdown = ((& powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'build-weekly-review-summary.ps1') -VaultRoot $repoRoot) -join "`r`n").Trim()
-$scanResultJson = ((& powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'build-weekly-review-summary.ps1') -VaultRoot $repoRoot -AsJson) -join "`r`n")
-$scanResult = $scanResultJson | ConvertFrom-Json
-[System.IO.File]::WriteAllText($summaryStatePath, (($scanResult | ConvertTo-Json -Depth 8).TrimEnd() + "`r`n"), $Utf8NoBom)
-
 $runTimestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
-$resultBlock = @(
-    '## 🤖 Resultado de tarea automática',
-    '',
-    "- Última ejecución automática: $runTimestamp",
-    '- Estado: revisión semanal preparada con escaneo WSL',
-    "- Repos auditados: $($scanResult.total_repos)",
-    "- Repos accesibles: $($scanResult.accessible_repos)",
-    "- Repos con acceso limitado: $($scanResult.limited_access_repos)",
-    "- Alertas detectadas: $($scanResult.sync_alert_candidates)",
-    "- Siguiente acción sugerida: $($scanResult.next_action)",
-    "- Estado máquina: [[logs/weekly-review-latest.json]]",
-    '- Playbook sugerido: [[Revisión Semanal Completa de la Bóveda y Repositorios]]'
-) -join "`r`n"
+$startedMessage = "[$runTimestamp] Weekly review started for $Date"
 
-$updatedContent = $content
-$updatedContent = Set-MarkdownSection -Content $updatedContent -HeadingPattern 'Estado Semanal de Repositorios' -SectionBody $summaryMarkdown
-$updatedContent = Set-MarkdownSection -Content $updatedContent -HeadingPattern 'Resultado de tarea automática' -SectionBody $resultBlock
+Set-Utf8FileContent -Path $dailyPath -Content $content
+Add-Content -LiteralPath $logPath -Value $startedMessage
 
-Set-Utf8FileContent -Path $dailyPath -Content $updatedContent
+try {
+    & powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'sync-skills.ps1')
 
-Add-Content -LiteralPath $logPath -Value "[$runTimestamp] Weekly review prepared for $Date"
+    $summaryPackageJson = & powershell -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot 'build-weekly-review-summary.ps1') -VaultRoot $repoRoot -AsPackage
+    if ([string]::IsNullOrWhiteSpace($summaryPackageJson)) {
+        throw 'Weekly review summary builder returned no output.'
+    }
 
-Write-Output "Weekly review prepared in: $dailyPath"
-Write-Output "Suggested playbook: [[Revisión Semanal Completa de la Bóveda y Repositorios]]"
-Write-Output "Recommended schedule: every Friday at 15:00"
-Write-Output "Run log written to: $logPath"
+    $summaryPackage = $summaryPackageJson | ConvertFrom-Json
+    $summaryMarkdown = ([string]$summaryPackage.markdown).Trim()
+    $scanResult = $summaryPackage.summary
+    [System.IO.File]::WriteAllText($summaryStatePath, (($scanResult | ConvertTo-Json -Depth 8).TrimEnd() + "`r`n"), $Utf8NoBom)
+
+    $resultBlock = @(
+        '## 🤖 Resultado de tarea automática',
+        '',
+        "- Última ejecución automática: $runTimestamp",
+        '- Estado: revisión semanal preparada con escaneo WSL',
+        "- Repos auditados: $($scanResult.total_repos)",
+        "- Repos accesibles: $($scanResult.accessible_repos)",
+        "- Repos con acceso limitado: $($scanResult.limited_access_repos)",
+        "- Alertas detectadas: $($scanResult.sync_alert_candidates)",
+        "- Siguiente acción sugerida: $($scanResult.next_action)",
+        "- Estado máquina: [[logs/weekly-review-latest.json]]",
+        '- Playbook sugerido: [[Revisión Semanal Completa de la Bóveda y Repositorios]]'
+    ) -join "`r`n"
+
+    $automationBlock = @(
+        '## 🤖 Estado de automatizaciones',
+        '',
+        "- Última ejecución relevante: Revisión semanal preparada el $runTimestamp",
+        "- Fallos detectados: ninguno en la ejecución actual",
+        "- Acción de seguimiento: $($scanResult.next_action)"
+    ) -join "`r`n"
+
+    $updatedContent = $content
+    $updatedContent = Set-MarkdownSection -Content $updatedContent -HeadingPattern 'Estado de automatizaciones' -SectionBody $automationBlock
+    $updatedContent = Set-MarkdownSection -Content $updatedContent -HeadingPattern 'Estado Semanal de Repositorios' -SectionBody $summaryMarkdown
+    $updatedContent = Set-MarkdownSection -Content $updatedContent -HeadingPattern 'Resultado de tarea automática' -SectionBody $resultBlock
+
+    Set-Utf8FileContent -Path $dailyPath -Content $updatedContent
+
+    Add-Content -LiteralPath $logPath -Value "[$runTimestamp] Weekly review prepared for $Date"
+
+    Write-Output "Weekly review prepared in: $dailyPath"
+    Write-Output "Suggested playbook: [[Revisión Semanal Completa de la Bóveda y Repositorios]]"
+    Write-Output "Recommended schedule: every Friday at 15:00"
+    Write-Output "Run log written to: $logPath"
+}
+catch {
+    $failureMessage = $_.Exception.Message
+    $errorBlock = @(
+        '## ⚠️ Revisión semanal incompleta',
+        '',
+        "- Error: $failureMessage",
+        '- Acción: Reintenta `scripts/start-weekly-review.ps1` y valida `logs/weekly-review-latest.json`.',
+        '- Estado máquina: [[logs/weekly-review-latest.json]]',
+        '- Playbook sugerido: [[Revisión Semanal Completa de la Bóveda y Repositorios]]'
+    ) -join "`r`n"
+
+    $failedContent = Set-MarkdownSection -Content $content -HeadingPattern 'Resultado de tarea automática' -SectionBody $errorBlock
+    $failedContent = Set-MarkdownSection -Content $failedContent -HeadingPattern 'Estado de automatizaciones' -SectionBody @(
+        '## 🤖 Estado de automatizaciones',
+        '',
+        "- Última ejecución relevante: Revisión semanal fallida el $runTimestamp",
+        "- Fallos detectados: $failureMessage",
+        '- Acción de seguimiento: Reintentar la ejecución y validar los logs'
+    ) -join "`r`n"
+    Set-Utf8FileContent -Path $dailyPath -Content $failedContent
+    Add-Content -LiteralPath $logPath -Value "[$runTimestamp] Weekly review failed for ${Date}: $failureMessage"
+    throw
+}
 
 Send-ReviewNotification `
     -Title "Anclora Weekly Review" `

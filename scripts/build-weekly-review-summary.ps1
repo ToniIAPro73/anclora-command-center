@@ -1,7 +1,8 @@
 ﻿param(
     [string]$VaultRoot = (Split-Path -Parent $PSScriptRoot),
     [int]$RecentDays = 7,
-    [switch]$AsJson
+    [switch]$AsJson,
+    [switch]$AsPackage
 )
 
 $ErrorActionPreference = 'Stop'
@@ -165,11 +166,6 @@ $summaryObject = [pscustomobject]@{
     }
 }
 
-if ($AsJson) {
-    $summaryObject | ConvertTo-Json -Depth 8
-    exit 0
-}
-
 function Format-RepoList {
     param(
         [object[]]$Items,
@@ -230,4 +226,19 @@ if ($syncAlertRepos.Count -gt 0) {
 } else {
     $lines.Add('- Alertas de sincronización candidatas: ninguna') | Out-Null
 }
-$lines -join "`r`n"
+$markdown = $lines -join "`r`n"
+
+if ($AsPackage) {
+    [pscustomobject]@{
+        markdown = $markdown
+        summary  = $summaryObject
+    } | ConvertTo-Json -Depth 8
+    exit 0
+}
+
+if ($AsJson) {
+    $summaryObject | ConvertTo-Json -Depth 8
+    exit 0
+}
+
+$markdown

@@ -1,6 +1,10 @@
 ---
-title: Dashboard Real Estate - ADL to ANX - insight_to_pipeline
-aliases: [ADL -> ANX, insight_to_pipeline]
+title: Dashboard Real Estate Interaction - ADL to ANX - Insight to Pipeline
+aliases:
+  - ADL -> ANX
+  - ADL to ANX
+  - insight_to_pipeline
+  - insight to pipeline
 type: dashboard-real-estate-interaccion
 source_app: ADL
 target_app: ANX

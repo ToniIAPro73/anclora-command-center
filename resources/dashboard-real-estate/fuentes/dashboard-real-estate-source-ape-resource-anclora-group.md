@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - APE - resource - anclora-group
+title: Dashboard Real Estate Source - APE - Resource - Anclora Group
+aliases:
+  - APE resource
+  - APE resource source
+  - Anclora Group source for APE
 type: dashboard-real-estate-fuente
 app_name: Anclora Private Estates
 source_note: resources/anclora-group.md

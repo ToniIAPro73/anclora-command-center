@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ANX - system - Arquitectura de Integracion Anclora
+title: Dashboard Real Estate Source - ANX - System - Arquitectura de Integración Anclora
+aliases:
+  - ANX system
+  - ANX system source
+  - Arquitectura de Integracion Anclora source for ANX
 type: dashboard-real-estate-fuente
 app_name: Anclora Nexus
 source_note: sistemas/Arquitectura de Integración Anclora.md

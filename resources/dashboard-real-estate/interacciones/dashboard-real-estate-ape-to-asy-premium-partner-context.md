@@ -1,6 +1,10 @@
 ---
-title: Dashboard Real Estate - APE to ASY - premium_partner_context
-aliases: [APE -> ASY, premium_partner_context]
+title: Dashboard Real Estate Interaction - APE to ASY - Premium Partner Context
+aliases:
+  - APE -> ASY
+  - APE to ASY
+  - premium_partner_context
+  - premium partner context
 type: dashboard-real-estate-interaccion
 source_app: APE
 target_app: ASY

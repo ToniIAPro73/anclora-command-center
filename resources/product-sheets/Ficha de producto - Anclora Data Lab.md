@@ -1,4 +1,9 @@
 ---
+title: Ficha de producto - Anclora Data Lab
+aliases:
+  - Anclora Data Lab Product Sheet
+  - Data Lab Product Sheet
+  - Ficha de producto - Data Lab
 tipo: recurso
 estado: activo
 fuente: "[[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]"
@@ -29,4 +34,3 @@ creado: 2026-04-08
 - [[Arquitectura de Integración Anclora]]
 - [[Ficha de producto - Anclora Content Generator AI]]
 - [[MOC - Fichas de producto Real Estate de Anclora Group]]
-

@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ANX - system-plan - Plan de Activacion Comercial - Content Generator, Nexus y Automatizaciones
+title: Dashboard Real Estate Source - ANX - System Plan - Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones
+aliases:
+  - ANX system-plan
+  - ANX system-plan source
+  - Plan de Activacion Comercial source for ANX
 type: dashboard-real-estate-fuente
 app_name: Anclora Nexus
 source_note: sistemas/Plan de Activación Comercial - Content Generator, Nexus y Automatizaciones.md
