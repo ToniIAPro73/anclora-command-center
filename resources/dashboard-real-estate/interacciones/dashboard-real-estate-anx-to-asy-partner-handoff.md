@@ -1,6 +1,10 @@
 ---
-title: Dashboard Real Estate - ANX to ASY - partner_handoff
-aliases: [ANX -> ASY, partner_handoff]
+title: Dashboard Real Estate Interaction - ANX to ASY - Partner Handoff
+aliases:
+  - ANX -> ASY
+  - ANX to ASY
+  - partner_handoff
+  - partner handoff
 type: dashboard-real-estate-interaccion
 source_app: ANX
 target_app: ASY

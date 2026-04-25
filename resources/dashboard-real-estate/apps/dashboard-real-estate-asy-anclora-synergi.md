@@ -1,6 +1,10 @@
 ---
 title: Dashboard Real Estate - ASY - Anclora Synergi
-aliases: [ASY]
+aliases:
+  - ASY
+  - Anclora Synergi
+  - Synergi
+  - Dashboard ASY
 type: dashboard-real-estate-app
 app_id: ASY
 app_name: Anclora Synergi

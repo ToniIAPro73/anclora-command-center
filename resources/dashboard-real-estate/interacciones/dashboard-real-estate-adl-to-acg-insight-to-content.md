@@ -1,6 +1,10 @@
 ---
-title: Dashboard Real Estate - ADL to ACG - insight_to_content
-aliases: [ADL -> ACG, insight_to_content]
+title: Dashboard Real Estate Interaction - ADL to ACG - Insight to Content
+aliases:
+  - ADL -> ACG
+  - ADL to ACG
+  - insight_to_content
+  - insight to content
 type: dashboard-real-estate-interaccion
 source_app: ADL
 target_app: ACG

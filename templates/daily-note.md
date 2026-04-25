@@ -20,6 +20,12 @@ Máximo 3 prioridades:
 - Reuniones o compromisos clave:
 - Seguimientos que no debo olvidar:
 
+## 🤖 Estado de automatizaciones
+
+- Última ejecución relevante:
+- Fallos detectados:
+- Acción de seguimiento:
+
 ## 📝 Notas / Braindump
 
 ## 📌 Decisiones

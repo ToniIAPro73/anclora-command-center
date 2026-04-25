@@ -1,6 +1,11 @@
 ---
 title: Anclora Synergi
-aliases: [Anclora Synergi]
+aliases:
+  - Anclora Synergi
+  - Synergi
+  - ASY
+  - Anclora Synergy
+  - anclora-synergi
 tipo: recurso
 estado: activo
 fuente: "[[Ficha de producto - Anclora Synergi]]"
@@ -33,4 +38,3 @@ No es el pipeline central ni una superficie pública. Es el espacio donde la rel
 - [[Anclora Nexus]]
 - [[Anclora Private Estates]]
 - [[Mapa de Stakeholders de Anclora Group]]
-

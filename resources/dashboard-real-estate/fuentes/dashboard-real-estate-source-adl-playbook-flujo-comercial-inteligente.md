@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ADL - playbook - flujo-comercial-inteligente
+title: Dashboard Real Estate Source - ADL - Playbook - Flujo Comercial Inteligente
+aliases:
+  - ADL playbook
+  - ADL playbook source
+  - Flujo Comercial Inteligente source for ADL
 type: dashboard-real-estate-fuente
 app_name: Anclora Data Lab
 source_note: playbooks/flujo-comercial-inteligente.md

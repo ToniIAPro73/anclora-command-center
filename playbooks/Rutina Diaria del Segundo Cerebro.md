@@ -37,7 +37,8 @@ Usar la bóveda cada día como apoyo real para decidir, capturar y cerrar el tra
    - si es acción con contexto, muévela a `proyectos/`
    - si es aprendizaje o exploración, muévela a `research/`
    - si es un procedimiento repetible, muévela a `playbooks/`
-5. Cierra la nota diaria dejando:
+5. Revisa el bloque `Estado de automatizaciones` si existe y deja solo señales reales: ejecución reciente, fallo o seguimiento.
+6. Cierra la nota diaria dejando:
    - qué se completó
    - qué sigue abierto
    - qué debería retomarse mañana
@@ -47,11 +48,12 @@ Usar la bóveda cada día como apoyo real para decidir, capturar y cerrar el tra
 - Existe una nota diaria útil, no solo decorativa
 - Los focos del día fueron explícitos
 - Hay al menos una conexión nueva relevante o una captura procesada
+- Si hubo automatización relevante, el bloque `Estado de automatizaciones` no quedó vacío
 
 ## ⚠️ Riesgos y rollback
 
 - Riesgo principal: usar la nota diaria como vertedero sin procesar nada
-- Corrección: limitar el cierre a 5-10 minutos y mover solo lo más valioso
+- Corrección: limitar el cierre a 5-10 minutos, mover solo lo más valioso y usar el bloque de automatizaciones únicamente cuando aporte contexto real
 
 ## 🔗 Relacionado
 

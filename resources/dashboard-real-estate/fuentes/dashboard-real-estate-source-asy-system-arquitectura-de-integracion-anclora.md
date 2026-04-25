@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ASY - system - Arquitectura de Integracion Anclora
+title: Dashboard Real Estate Source - ASY - System - Arquitectura de Integración Anclora
+aliases:
+  - ASY system
+  - ASY system source
+  - Arquitectura de Integracion Anclora source for ASY
 type: dashboard-real-estate-fuente
 app_name: Anclora Synergi
 source_note: sistemas/Arquitectura de Integración Anclora.md

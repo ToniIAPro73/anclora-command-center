@@ -1,4 +1,8 @@
 ---
+title: Ficha de producto - Anclora Private Estates Landing
+aliases:
+  - Ficha de producto - Anclora Private Estates Landing Page
+  - Anclora Private Estates Landing Product Sheet
 tipo: recurso
 estado: activo
 fuente: "[[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]"
@@ -29,4 +33,3 @@ La landing de [[Anclora Private Estates Landing Page]] funciona como puerta púb
 - [[Anclora Private Estates]]
 - [[Ficha de producto - Anclora Private Estates]]
 - [[MOC - Fichas de producto Real Estate de Anclora Group]]
-

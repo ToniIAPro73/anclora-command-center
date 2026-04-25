@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - APE - project - anclora-private-estates
+title: Dashboard Real Estate Source - APE - Project - Anclora Private Estates
+aliases:
+  - APE project
+  - APE project source
+  - Anclora Private Estates source for APE
 type: dashboard-real-estate-fuente
 app_name: Anclora Private Estates
 source_note: proyectos/anclora-private-estates.md

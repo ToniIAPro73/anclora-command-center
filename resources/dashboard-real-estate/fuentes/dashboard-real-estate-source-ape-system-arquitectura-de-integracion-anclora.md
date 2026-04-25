@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - APE - system - Arquitectura de Integracion Anclora
+title: Dashboard Real Estate Source - APE - System - Arquitectura de Integración Anclora
+aliases:
+  - APE system
+  - APE system source
+  - Arquitectura de Integracion Anclora source for APE
 type: dashboard-real-estate-fuente
 app_name: Anclora Private Estates
 source_note: sistemas/Arquitectura de Integración Anclora.md

@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ASY - resource - anclora-group
+title: Dashboard Real Estate Source - ASY - Resource - Anclora Group
+aliases:
+  - ASY resource
+  - ASY resource source
+  - Anclora Group source for ASY
 type: dashboard-real-estate-fuente
 app_name: Anclora Synergi
 source_note: resources/anclora-group.md

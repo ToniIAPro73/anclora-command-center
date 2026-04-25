@@ -1,4 +1,9 @@
 ---
+title: Ficha de producto - Anclora Advisor AI
+aliases:
+  - Anclora Advisor AI Product Sheet
+  - Advisor AI Product Sheet
+  - Ficha de producto - Advisor AI
 tipo: recurso
 estado: activo
 fuente: "[[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]"
@@ -33,4 +38,3 @@ Esta ficha recoge el criterio del documento fuente: tratarlo como app beta vincu
 - [[Anclora Group]]
 - [[Ficha de producto - Anclora Nexus]]
 - [[MOC - Fichas de producto Real Estate de Anclora Group]]
-

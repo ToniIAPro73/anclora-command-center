@@ -1,6 +1,10 @@
 ---
-title: Dashboard Real Estate - ANX to ADL - feedback_loop
-aliases: [ANX -> ADL, feedback_loop]
+title: Dashboard Real Estate Interaction - ANX to ADL - Feedback Loop
+aliases:
+  - ANX -> ADL
+  - ANX to ADL
+  - feedback_loop
+  - feedback loop
 type: dashboard-real-estate-interaccion
 source_app: ANX
 target_app: ADL

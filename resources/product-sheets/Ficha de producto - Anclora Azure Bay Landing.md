@@ -1,4 +1,9 @@
 ---
+title: Ficha de producto - Anclora Azure Bay Landing
+aliases:
+  - Azure Bay Landing Page
+  - Azure Bay Product Sheet
+  - Ficha de producto - Azure Bay Landing
 tipo: recurso
 estado: activo
 fuente: "[[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]"
@@ -29,4 +34,3 @@ creado: 2026-04-08
 - [[Anclora Portfolio - Base técnica reutilizable]]
 - [[Anclora Private Estates]]
 - [[MOC - Fichas de producto Real Estate de Anclora Group]]
-

@@ -1,6 +1,10 @@
 ---
-title: Dashboard Real Estate - ACG to ANX - content_activation
-aliases: [ACG -> ANX, content_activation]
+title: Dashboard Real Estate Interaction - ACG to ANX - Content Activation
+aliases:
+  - ACG -> ANX
+  - ACG to ANX
+  - content_activation
+  - content activation
 type: dashboard-real-estate-interaccion
 source_app: ACG
 target_app: ANX

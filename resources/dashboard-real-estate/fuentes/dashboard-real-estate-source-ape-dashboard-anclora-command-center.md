@@ -1,8 +1,12 @@
 ---
-title: Dashboard Real Estate Source - APE - dashboard - Anclora Command Center
+title: Dashboard Real Estate Source - APE - Dashboard - Anclora Command Center
+aliases:
+  - APE dashboard
+  - APE dashboard source
+  - Anclora Command Center source for APE
 type: dashboard-real-estate-fuente
 app_name: Anclora Private Estates
-source_note: Anclora Command Center.md
+source_note: resources/Anclora Command Center.md
 source_type: dashboard
 evidence_summary: La marca como nodo activo y prioriza su propuesta de valor y dependencia con Nexus
 related:

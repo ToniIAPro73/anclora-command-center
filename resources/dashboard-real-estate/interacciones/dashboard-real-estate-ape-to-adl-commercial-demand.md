@@ -1,6 +1,10 @@
 ---
-title: Dashboard Real Estate - APE to ADL - commercial_demand
-aliases: [APE -> ADL, commercial_demand]
+title: Dashboard Real Estate Interaction - APE to ADL - Commercial Demand
+aliases:
+  - APE -> ADL
+  - APE to ADL
+  - commercial_demand
+  - commercial demand
 type: dashboard-real-estate-interaccion
 source_app: APE
 target_app: ADL

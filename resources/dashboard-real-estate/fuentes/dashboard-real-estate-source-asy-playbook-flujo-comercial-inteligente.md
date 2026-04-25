@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ASY - playbook - flujo-comercial-inteligente
+title: Dashboard Real Estate Source - ASY - Playbook - Flujo Comercial Inteligente
+aliases:
+  - ASY playbook
+  - ASY playbook source
+  - Flujo Comercial Inteligente source for ASY
 type: dashboard-real-estate-fuente
 app_name: Anclora Synergi
 source_note: playbooks/flujo-comercial-inteligente.md

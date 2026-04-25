@@ -1,6 +1,10 @@
 ---
 title: Dashboard Real Estate - ACG - Anclora Content Generator AI
-aliases: [ACG]
+aliases:
+  - ACG
+  - Anclora Content Generator AI
+  - Content Generator AI
+  - Dashboard ACG
 type: dashboard-real-estate-app
 app_id: ACG
 app_name: Anclora Content Generator AI

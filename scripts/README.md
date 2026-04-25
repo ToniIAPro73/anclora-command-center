@@ -86,6 +86,8 @@ Prepara la revisión semanal completa con el pipeline WSL-aware.
 - crea la nota diaria del día si no existe
 - asegura el bloque `## 🧹 Mantenimiento de Bóveda`
 - genera el bloque `## 🐙 Estado Semanal de Repositorios` desde `build-weekly-review-summary.ps1`
+- hace una sola pasada de escaneo y reutiliza el mismo paquete de datos para markdown + estado máquina
+- si algo falla, deja un bloque visible de `## ⚠️ Revisión semanal incompleta` en vez de una nota vacía
 - actualiza el bloque visible `## 🤖 Resultado de tarea automática` con conteos reales del escaneo
 - guarda el estado máquina en `logs/weekly-review-latest.json`
 - escribe un rastro técnico en `logs/weekly-review.log`

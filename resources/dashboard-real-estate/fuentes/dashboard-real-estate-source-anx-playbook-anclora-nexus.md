@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ANX - playbook - anclora-nexus
+title: Dashboard Real Estate Source - ANX - Playbook - Anclora Nexus
+aliases:
+  - ANX playbook
+  - ANX playbook source
+  - Anclora Nexus playbook source
 type: dashboard-real-estate-fuente
 app_name: Anclora Nexus
 source_note: playbooks/anclora-nexus.md

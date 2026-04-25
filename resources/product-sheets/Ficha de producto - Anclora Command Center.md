@@ -1,4 +1,9 @@
 ---
+title: Ficha de producto - Anclora Command Center
+aliases:
+  - Anclora Command Center Product Sheet
+  - Command Center Product Sheet
+  - Ficha de producto - Command Center
 tipo: recurso
 estado: activo
 fuente: "[[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]"
@@ -29,4 +34,3 @@ creado: 2026-04-08
 - [[Anclora Cuadro de Mando Real Estate]]
 - [[Ficha de producto - Anclora Nexus]]
 - [[MOC - Fichas de producto Real Estate de Anclora Group]]
-

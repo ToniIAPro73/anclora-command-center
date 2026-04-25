@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ASY - research - anclora-synergi
+title: Dashboard Real Estate Source - ASY - Research - Anclora Synergi
+aliases:
+  - ASY research
+  - ASY research source
+  - Anclora Synergi source for ASY
 type: dashboard-real-estate-fuente
 app_name: Anclora Synergi
 source_note: research/anclora/anclora-synergi.md

@@ -1,6 +1,10 @@
 ---
 title: MOC Stack Operativo Anclora
-aliases: [MOC Stack Operativo Anclora, moc-stack-operativo-anclora]
+aliases:
+  - MOC Stack Operativo Anclora
+  - moc-stack-operativo-anclora
+  - Stack Operativo Anclora
+  - MOC Operativo Anclora
 type: business-moc
 estado: activo
 tags: [resource, moc, stack, operaciones]

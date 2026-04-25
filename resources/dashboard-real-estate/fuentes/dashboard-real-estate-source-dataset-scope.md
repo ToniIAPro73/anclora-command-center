@@ -1,5 +1,5 @@
 ---
-title: Dashboard Real Estate Source - dataset_scope
+title: Dashboard Real Estate Source - Dataset Scope
 type: dashboard-real-estate-fuente
 app_name: dataset_scope
 source_note: Anclora Group - apps relacionadas con Real Estate excluyendo Anclora Advisor AI por instruccion del usuario

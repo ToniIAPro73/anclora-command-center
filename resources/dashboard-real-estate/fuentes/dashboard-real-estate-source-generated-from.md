@@ -1,5 +1,5 @@
 ---
-title: Dashboard Real Estate Source - generated_from
+title: Dashboard Real Estate Source - Generated From
 type: dashboard-real-estate-fuente
 app_name: generated_from
 source_note: Boveda de Obsidian local

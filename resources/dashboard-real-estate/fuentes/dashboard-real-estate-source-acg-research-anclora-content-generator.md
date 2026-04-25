@@ -1,5 +1,9 @@
 ---
-title: Dashboard Real Estate Source - ACG - research - anclora-content-generator
+title: Dashboard Real Estate Source - ACG - Research - Anclora Content Generator AI
+aliases:
+  - ACG research
+  - ACG research source
+  - Anclora Content Generator AI source for ACG
 type: dashboard-real-estate-fuente
 app_name: Anclora Content Generator AI
 source_note: research/anclora/anclora-content-generator.md

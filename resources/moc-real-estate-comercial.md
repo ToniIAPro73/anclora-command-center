@@ -1,6 +1,10 @@
 ---
 title: MOC Real Estate Comercial
-aliases: [MOC Real Estate Comercial, moc-real-estate-comercial]
+aliases:
+  - MOC Real Estate Comercial
+  - moc-real-estate-comercial
+  - MOC Real Estate Commercial
+  - Real Estate Comercial MOC
 type: business-moc
 estado: activo
 tags: [resource, moc, real-estate, comercial]

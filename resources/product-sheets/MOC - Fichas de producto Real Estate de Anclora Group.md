@@ -1,4 +1,9 @@
 ---
+title: MOC - Fichas de producto Real Estate de Anclora Group
+aliases:
+  - MOC Fichas de producto Real Estate
+  - Product Sheets MOC Anclora
+  - MOC de fichas de producto Real Estate
 tipo: recurso
 estado: activo
 fuente: "[[Diagnóstico del ecosistema de apps Real Estate de Anclora Group]]"
@@ -44,4 +49,3 @@ Colección de fichas homogéneas para las apps y superficies del ecosistema Real
 - [[Anclora Group]]
 - [[Arquitectura de Integración Anclora]]
 - [[MOC de Negocio]]
-

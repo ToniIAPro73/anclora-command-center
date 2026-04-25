@@ -1,6 +1,10 @@
 ---
 title: Dashboard Real Estate - ANX - Anclora Nexus
-aliases: [ANX]
+aliases:
+  - ANX
+  - Anclora Nexus
+  - Nexus
+  - Dashboard ANX
 type: dashboard-real-estate-app
 app_id: ANX
 app_name: Anclora Nexus

@@ -1,6 +1,10 @@
 ---
 title: Indice Dashboard Real Estate
-aliases: [Indice Dashboard Real Estate, Dashboard Real Estate Index]
+aliases:
+  - Indice Dashboard Real Estate
+  - Dashboard Real Estate Index
+  - dashboard-real-estate-index
+  - Dashboard Real Estate
 type: resource
 estado: activo
 tags: [resource, dashboard, real-estate]

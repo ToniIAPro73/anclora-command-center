@@ -1,6 +1,10 @@
 ---
 title: MOC de Negocio
-aliases: [MOC de Negocio, moc-de-negocio]
+aliases:
+  - MOC de Negocio
+  - moc-de-negocio
+  - Business MOC
+  - MOC Negocio
 type: business-moc
 estado: activo
 arquitecto_jefe: "[[personas/Toni|Toni]]"
