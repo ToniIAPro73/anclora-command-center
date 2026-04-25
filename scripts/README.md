@@ -75,7 +75,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\build-weekly-review-summary.p
 ### Qué devuelve
 
 - en modo normal, el bloque `## 🐙 Estado Semanal de Repositorios`
-- en modo `-AsJson`, un resumen máquina-legible con conteos y siguiente acción sugerida
+- en modo `-AsJson`, un resumen máquina-legible con conteos, nodos vigilados y siguiente acción sugerida
 
 ## `start-weekly-review.ps1`
 
@@ -89,6 +89,7 @@ Prepara la revisión semanal completa con el pipeline WSL-aware.
 - hace una sola pasada de escaneo y reutiliza el mismo paquete de datos para markdown + estado máquina
 - si algo falla, deja un bloque visible de `## ⚠️ Revisión semanal incompleta` en vez de una nota vacía
 - actualiza el bloque visible `## 🤖 Resultado de tarea automática` con conteos reales del escaneo
+- distingue alertas reales de nodos de referencia vigilados
 - guarda el estado máquina en `logs/weekly-review-latest.json`
 - escribe un rastro técnico en `logs/weekly-review.log`
 - sincroniza skills antes de empezar

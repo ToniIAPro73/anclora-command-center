@@ -78,10 +78,6 @@ function Get-SyncAlertReason {
     switch ($primary) {
         'governance' { $reasons.Add('governance') | Out-Null }
         'docs' { $reasons.Add('docs') | Out-Null }
-        'reference' { $reasons.Add('reference') | Out-Null }
-        'design-system-source' { $reasons.Add('design-system-source') | Out-Null }
-        'shared-platform' { $reasons.Add('shared-platform') | Out-Null }
-        'core-reference' { $reasons.Add('core-reference') | Out-Null }
     }
 
     foreach ($category in @($Repo.classification.categories)) {
@@ -91,6 +87,24 @@ function Get-SyncAlertReason {
         if ($category -eq 'docs' -and -not ($reasons -contains 'docs')) {
             $reasons.Add('docs-category') | Out-Null
         }
+    }
+
+    return @($reasons | Select-Object -Unique)
+}
+
+function Get-SyncWatchReason {
+    param(
+        [Parameter(Mandatory = $true)]
+        [pscustomobject]$Repo
+    )
+
+    $reasons = New-Object System.Collections.Generic.List[string]
+
+    switch ($Repo.classification.primary) {
+        'reference' { $reasons.Add('reference') | Out-Null }
+        'design-system-source' { $reasons.Add('design-system-source') | Out-Null }
+        'shared-platform' { $reasons.Add('shared-platform') | Out-Null }
+        'core-reference' { $reasons.Add('core-reference') | Out-Null }
     }
 
     return @($reasons | Select-Object -Unique)
@@ -141,6 +155,23 @@ $syncAlertRepos = @(
         Sort-Object repo_id
 )
 
+$syncWatchRepos = @(
+    $accessibleRepos |
+        ForEach-Object {
+            $watchReasons = Get-SyncWatchReason -Repo $_
+            if ($watchReasons.Count -gt 0 -and -not ($syncAlertRepos.repo_id -contains $_.repo_id)) {
+                [pscustomobject]@{
+                    repo_id   = $_.repo_id
+                    repo_name = $_.repo_name
+                    reasons   = @($watchReasons)
+                    branch    = $_.branch
+                    dirty     = $_.dirty
+                }
+            }
+        } |
+        Sort-Object repo_id
+)
+
 $summaryObject = [pscustomobject]@{
     generated_at            = $scan.generated_at
     vault_root              = $scan.vault_root
@@ -150,13 +181,17 @@ $summaryObject = [pscustomobject]@{
     inaccessible_repos      = $inaccessibleRepos.Count
     recent_activity_repos   = $recentRepos.Count
     sync_alert_candidates   = $syncAlertRepos.Count
+    sync_watch_candidates   = $syncWatchRepos.Count
     accessible_repo_ids     = ConvertTo-RepoIdText -Repos $accessibleRepos
     limited_access_repo_ids = ConvertTo-RepoIdText -Repos $limitedAccessRepos
     inaccessible_repo_ids   = ConvertTo-RepoIdText -Repos $inaccessibleRepos
     recent_repo_ids         = ConvertTo-RepoIdText -Repos $recentRepos
     sync_alert_repo_ids     = ConvertTo-RepoIdText -Repos $syncAlertRepos
+    sync_watch_repo_ids     = ConvertTo-RepoIdText -Repos $syncWatchRepos
     next_action             = if ($syncAlertRepos.Count -gt 0) {
         'Revisar las alertas candidatas antes de cerrar la revisión semanal.'
+    } elseif ($syncWatchRepos.Count -gt 0) {
+        'Revisar los nodos de referencia de alto impacto antes de cerrar la revisión semanal.'
     } elseif ($limitedAccessRepos.Count -gt 0) {
         'Resolver el acceso limitado para recuperar visibilidad completa.'
     } elseif ($inaccessibleRepos.Count -gt 0) {
@@ -225,6 +260,15 @@ if ($syncAlertRepos.Count -gt 0) {
     }))) | Out-Null
 } else {
     $lines.Add('- Alertas de sincronización candidatas: ninguna') | Out-Null
+}
+
+if ($syncWatchRepos.Count -gt 0) {
+    $lines.Add(('- Nodos de referencia vigilados: {0}' -f (Format-RepoList -Items $syncWatchRepos -Formatter {
+        param($Repo)
+        '{0} ({1})' -f $Repo.repo_id, ($Repo.reasons -join ', ')
+    }))) | Out-Null
+} else {
+    $lines.Add('- Nodos de referencia vigilados: ninguno') | Out-Null
 }
 $markdown = $lines -join "`r`n"
 
