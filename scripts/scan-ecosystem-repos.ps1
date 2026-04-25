@@ -213,8 +213,8 @@ function Get-Classification {
         if ($categories.Contains('governance')) { 'governance' }
         elseif ($categories.Contains('docs')) { 'docs' }
         elseif ($categories.Contains('code')) { 'code' }
-        elseif ($Repo.contracts_role -eq 'reference' -or $Repo.design_system_role -eq 'reference') { 'reference' }
         elseif ($Repo.design_system_role -eq 'source') { 'design-system-source' }
+        elseif ($Repo.contracts_role -eq 'reference' -or $Repo.design_system_role -eq 'reference') { 'reference' }
         elseif ($Repo.tier -eq 'shared') { 'shared-platform' }
         elseif ($Repo.tier -eq 'core') { 'core-reference' }
         else { 'consumer-app' }

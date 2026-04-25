@@ -32,7 +32,15 @@ Repositorio central del sistema de diseño de Anclora Group. Es la fuente ejecut
 
 ## Estado actual
 
-Existe como referencia conceptual y visual, pero debe evolucionar hacia una estructura más operativa con tokens, paquete React oficial y documentación de consumo.
+Repositorio operativo y consumible como paquete CSS. Ya actúa como fuente ejecutable de verdad para tokens, foundations, componentes y patterns compartidos del ecosistema.
+
+El siguiente foco no es "hacerlo existir", sino ampliar la validación de consumidores y cerrar, solo si hace falta, la capa JS/React encima de la base CSS.
+
+## Implicación contractual
+
+- La bóveda sigue gobernando contratos, decisiones, excepciones y cumplimiento.
+- `anclora-design-system` materializa la base ejecutable que esos contratos requieren.
+- La alerta semanal sobre este repo es esperable por su rol de `source` y `reference`; no implica por sí sola una rotura contractual.
 
 ## Relacionado
 

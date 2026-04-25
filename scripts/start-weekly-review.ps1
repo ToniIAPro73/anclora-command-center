@@ -173,6 +173,7 @@ try {
         "- Repos accesibles: $($scanResult.accessible_repos)",
         "- Repos con acceso limitado: $($scanResult.limited_access_repos)",
         "- Alertas detectadas: $($scanResult.sync_alert_candidates)",
+        "- Nodos de referencia vigilados: $($scanResult.sync_watch_candidates)",
         "- Siguiente acción sugerida: $($scanResult.next_action)",
         "- Estado máquina: [[logs/weekly-review-latest.json]]",
         '- Playbook sugerido: [[Revisión Semanal Completa de la Bóveda y Repositorios]]'
