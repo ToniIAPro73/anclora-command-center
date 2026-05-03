@@ -1,0 +1,40 @@
+{
+  "name": "anclora-command-center",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "generate:workbook": "node ./scripts/generate-workbook-from-notes.mjs",
+    "sync:notes": "node ./scripts/watch-notes-and-sync.mjs --once",
+    "sync:vault": "node ./scripts/sync-vault-data.mjs",
+    "sync:real-estate": "node ./scripts/sync-real-estate-dataset.mjs",
+    "sync:all": "npm run sync:vault && npm run sync:notes",
+    "watch:notes": "node ./scripts/watch-notes-and-sync.mjs",
+    "dev:vite": "vite",
+    "dev": "node ./scripts/dev-with-sync.mjs",
+    "build": "npm run sync:all && tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "chokidar": "^4.0.3",
+    "exceljs": "^4.4.0",
+    "gray-matter": "^4.0.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@types/node": "^24.12.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "eslint": "^9.39.4",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.4.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.57.0",
+    "vite": "^8.0.1"
+  }
+}
