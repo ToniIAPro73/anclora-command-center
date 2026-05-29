@@ -8,7 +8,7 @@ Ruta canónica:
 
 ## Autoridad
 
-- Registro operativo: `docs/governance/contracts-registry.json`
+- Registro operativo: `contracts/governance/contracts-registry.json`
 - Inventario de repos Anclora: `docs/governance/ecosystem-repos.json`
 - Fuente ejecutable de UI: `anclora-design-system`
 
@@ -75,9 +75,9 @@ Fuera de alcance en esta fase:
 ## Fuentes auditadas
 
 Contratos documentados detectados:
-- `docs/standards/UI_MOTION_CONTRACT.md` en `anclora-impulso`
-- `docs/standards/MODAL_CONTRACT.md` en `anclora-impulso`
-- `docs/standards/LOCALIZATION_CONTRACT.md` en `anclora-impulso`
+- `contracts/components/UI_MOTION_CONTRACT.md` en `anclora-impulso`
+- `contracts/components/MODAL_CONTRACT.md` en `anclora-impulso`
+- `contracts/logic/LOCALIZATION_CONTRACT.md` en `anclora-impulso`
 - `sdd/contracts/UI-SURFACE-INTERACTION-CONTRACT.md` en `anclora-nexus`
 - `sdd/contracts/UI-PAGE-PRIMITIVES-CONTRACT.md` en `anclora-nexus`
 - `sdd/contracts/UI-EXTERNAL-PORTAL-PREMIUM-CONTRACT.md` en `anclora-nexus`
@@ -139,9 +139,9 @@ Documentos de apoyo no normativos:
 
 ## Sincronización con repos consumidores
 
-- Contrato fuente en la bóveda: `docs/standards/ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
+- Contrato fuente en la bóveda: `contracts/core/ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
 - Target normal de propagación: `docs/standards/`
-- La auditoría y la propagación se resuelven desde `docs/governance/contracts-registry.json`
+- La auditoría y la propagación se resuelven desde `contracts/governance/contracts-registry.json`
 - Este contrato no aplica a `Independent Products` salvo mención explícita
 
 ## Orden de lectura obligatorio
@@ -223,3 +223,4 @@ Una app no cumple el contrato si:
 - crea nuevas superficies fuera de la gramática del grupo
 - reintroduce hardcoded strings donde el contrato exige i18n
 - cambia el foreground o el contraste de una familia de botón entre temas sin mantener semántica estable o sin documentar una variante real por tema
+

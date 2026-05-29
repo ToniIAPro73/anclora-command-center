@@ -25,8 +25,9 @@
 
 Lectura mínima antes de tocar interfaz:
 
-1. `docs/standards/ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
-2. `docs/standards/ANCLORA_PREMIUM_APP_CONTRACT.md`
-3. `docs/standards/UI_MOTION_CONTRACT.md`
-4. `docs/standards/MODAL_CONTRACT.md`
-5. `docs/standards/LOCALIZATION_CONTRACT.md`
+1. `contracts/core/ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
+2. `contracts/core/ANCLORA_PREMIUM_APP_CONTRACT.md`
+3. `contracts/components/UI_MOTION_CONTRACT.md`
+4. `contracts/components/MODAL_CONTRACT.md`
+5. `contracts/logic/LOCALIZATION_CONTRACT.md`
+

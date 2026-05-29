@@ -15,7 +15,7 @@ Regla:
 
 ## Autoridad
 
-- Registro operativo: `docs/governance/contracts-registry.json`
+- Registro operativo: `contracts/governance/contracts-registry.json`
 - Inventario aplicable: `docs/governance/ecosystem-repos.json`
 - Fuente ejecutable relacionada: `anclora-design-system`
 
@@ -54,9 +54,9 @@ Nota:
 
 ## Sincronización con repos consumidores
 
-- Contrato fuente en la bóveda: `docs/standards/LOCALIZATION_CONTRACT.md`
+- Contrato fuente en la bóveda: `contracts/logic/LOCALIZATION_CONTRACT.md`
 - Target normal de propagación: `docs/standards/`
-- Dependencia de auditoría y propagación desde `docs/governance/contracts-registry.json`
+- Dependencia de auditoría y propagación desde `contracts/governance/contracts-registry.json`
 
 ## Reglas obligatorias
 - No mezclar idiomas en una misma vista salvo contenido de terceros o nombres propios.
@@ -99,3 +99,4 @@ Una feature no está lista si:
 - la vista mezcla idiomas
 - el selector de idioma existe pero no gobierna toda la superficie afectada
 - una traducción rompe layout y se ignora como “caso raro”
+

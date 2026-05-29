@@ -20,14 +20,14 @@ Definir el sistema de identidad visual completo del ecosistema Anclora: logos, p
 
 ## Autoridad
 
-- Registro operativo: `docs/governance/contracts-registry.json`
+- Registro operativo: `contracts/governance/contracts-registry.json`
 - Inventario aplicable: `docs/governance/ecosystem-repos.json`
 - Fuente ejecutable relacionada: `anclora-design-system`
 
 ## Ruta canónica
 
 - Obsidian: Bóveda maestra (copia de referencia)
-- Repos: `docs/standards/ANCLORA_BRANDING_MASTER_CONTRACT.md`
+- Repos: `contracts/core/ANCLORA_BRANDING_MASTER_CONTRACT.md`
 
 ## Regla de publicación
 
@@ -54,9 +54,9 @@ Nota:
 
 ## Sincronización con repos consumidores
 
-- Contrato fuente en la bóveda: `docs/standards/ANCLORA_BRANDING_MASTER_CONTRACT.md`
+- Contrato fuente en la bóveda: `contracts/core/ANCLORA_BRANDING_MASTER_CONTRACT.md`
 - Target normal de propagación: `docs/standards/`
-- Dependencia de auditoría y propagación desde `docs/governance/contracts-registry.json`
+- Dependencia de auditoría y propagación desde `contracts/governance/contracts-registry.json`
 
 ## Documentos del sistema de branding
 
@@ -140,3 +140,4 @@ Una app no cumple el contrato de branding si:
 - Introduce tipografía no declarada en [[ANCLORA_BRANDING_TYPOGRAPHY]]
 - No incluye el favicon package completo según [[ANCLORA_BRANDING_FAVICON_SPEC]]
 - Usa una fuente reservada para otra categoría
+
