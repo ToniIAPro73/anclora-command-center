@@ -106,8 +106,17 @@ export async function generateWorkbookFromNotes({
   dashboardRoot: inputDashboardRoot = defaultDashboardRoot,
 } = {}) {
   const { dashboardRoot, workbookPath } = resolvePaths(inputDashboardRoot);
-  const data = readDashboardNotes({ dashboardRoot });
-  validateDashboardNotes(data);
+
+  if (process.env.VERCEL === "1" || process.env.CI === "true") {
+    const vaultRoot = path.resolve(dashboardRoot, "..");
+    const checkDir = path.join(vaultRoot, "resources", "dashboard-real-estate", "apps");
+    if (!fs.existsSync(checkDir)) {
+      process.stdout.write("Skipping notes workbook generation (CI/Vercel environment without vault access)\n");
+      return workbookPath;
+    }
+  }
+
+  const data = readDashboardNotes({ dashboardRoot });  validateDashboardNotes(data);
 
   const workbook = createWorkbook(data);
   ensureDir(path.dirname(workbookPath));
