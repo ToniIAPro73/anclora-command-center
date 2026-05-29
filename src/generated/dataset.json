@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-03T23:07:05.399Z",
+  "generatedAt": "2026-05-29T01:08:03.137Z",
   "sourceWorkbook": "output/spreadsheet/anclora-group-real-estate-dataset.xlsx",
   "apps": [
     {
@@ -44,7 +44,7 @@
         "generacion editorial",
         "reciclaje multicanal"
       ],
-      "priority_score": 75,
+      "priority_score": 79,
       "priority_band": "critical",
       "action_now": "Definir outputs canonicos, plantillas por canal y conexion explicita con CTA/comercializacion"
     },
@@ -91,9 +91,60 @@
         "destilacion de inteligencia",
         "soporte a decision comercial"
       ],
-      "priority_score": 52,
-      "priority_band": "medium",
+      "priority_score": 56,
+      "priority_band": "high",
       "action_now": "Definir outputs clave, informes y senales utiles para negocio"
+    },
+    {
+      "app_id": "AES",
+      "app_name": "Anclora EnergyScan",
+      "scope_status": "in_scope_extension",
+      "ecosystem_role": "Prediagnóstico energético orientativo, PDF Premium y activación de proveedores",
+      "app_type": "premium-app",
+      "maturity_status": "mvp_funcional_en_evolucion",
+      "validation_status": "parcial; contratos técnicos preparados y QA visual pendiente",
+      "ecosystem_layer": "Premium / Intelligence / Activation",
+      "real_estate_focus": "Energía, vivienda, eficiencia, documentación, proveedores",
+      "primary_users": "propietarios, compradores, agentes, partners técnicos, operadores Anclora",
+      "primary_goal": "Prediagnóstico energético orientativo y activación de informes Premium/proveedores",
+      "business_value": "Monetización directa con informe Premium y generación de oportunidades para partners",
+      "main_inputs": "dirección | RC | datos vivienda | sistemas | superficies | adjuntos | CEE aportado | imágenes",
+      "main_outputs": "scoring energético | escenarios | informe PDF Premium | lead proveedor | señales analíticas",
+      "upstream_dependencies": "Catastro | usuario | adjuntos | Stripe | Auth.js | Design System",
+      "downstream_dependencies": "Anclora Nexus | Anclora Data Lab | Anclora Synergi | Anclora Private Estates",
+      "key_workflows": "wizard de vivienda | scoring orientativo | PDF Premium | proveedor/partner lead",
+      "documented_state": "registrado_en_boveda",
+      "state_summary": "App Premium funcional que amplía el vertical Real Estate hacia inteligencia energética orientativa",
+      "main_risks": "Confundir prediagnóstico con CEE oficial; adopción visual del Design System todavía no auditada",
+      "next_focus": "QA visual Premium, conexión productiva de endpoints y dashboard comercial",
+      "territory_focus": "Vivienda y eficiencia energética, inicialmente España con preferencias ES/EN/DE",
+      "repo_url": "/home/toni/projects/anclora-energyscan",
+      "primary_note": "proyectos/anclora-energyscan.md",
+      "supporting_notes": "resources/Anclora EnergyScan.md | resources/product-sheets/Ficha de producto - Anclora EnergyScan.md",
+      "source_confidence": "alta para repo actual, media para integraciones futuras",
+      "upstream_list": [
+        "Catastro",
+        "usuario",
+        "adjuntos",
+        "Stripe",
+        "Auth.js",
+        "Design System"
+      ],
+      "downstream_list": [
+        "Anclora Nexus",
+        "Anclora Data Lab",
+        "Anclora Synergi",
+        "Anclora Private Estates"
+      ],
+      "workflow_list": [
+        "wizard de vivienda",
+        "scoring orientativo",
+        "PDF Premium",
+        "proveedor/partner lead"
+      ],
+      "priority_score": 38,
+      "priority_band": "medium",
+      "action_now": "QA visual Premium, conexión productiva de endpoints y dashboard comercial"
     },
     {
       "app_id": "ANX",
@@ -187,7 +238,7 @@
         "landing flagship publica",
         "coordinacion comercial"
       ],
-      "priority_score": 87,
+      "priority_score": 91,
       "priority_band": "critical",
       "action_now": "Precisar posicionamiento premium y coordinar la landing publica con Nexus, Synergi y Data Lab"
     },
@@ -232,9 +283,52 @@
         "coordinacion privada",
         "gestion de colaboraciones"
       ],
-      "priority_score": 48,
+      "priority_score": 52,
       "priority_band": "medium",
       "action_now": "Clarificar modelo de partners, usuarios y workspaces"
+    },
+    {
+      "app_id": "HERMES",
+      "app_name": "Hermes-Agent",
+      "scope_status": "in_scope",
+      "ecosystem_role": "Agente especializado en curación, revisión y normalización de copy",
+      "app_type": "ai-agent-capability",
+      "maturity_status": "active",
+      "validation_status": "repo_signals",
+      "ecosystem_layer": "content",
+      "real_estate_focus": "Normalización de copy multilingüe y coherencia de marca en activos inmobiliarios",
+      "primary_users": "Anclora Content Generator AI, desarrolladores, marca personal",
+      "primary_goal": "Garantizar que todo copy del ecosistema cumpla con los estándares de marca, legales y de localización",
+      "business_value": "Elimina errores de copy, mejora la calidad percibida y reduce el riesgo legal en comunicaciones",
+      "main_inputs": "Texto bruto | contexto de superficie | reglas de marca | contratos de localización",
+      "main_outputs": "Copy curado | scoring editorial | alternativas de tono",
+      "upstream_dependencies": "Anclora Content Generator AI | Anclora Group Brand IP Contract",
+      "downstream_dependencies": "Todos los repos del ecosistema (vía ACG)",
+      "key_workflows": "Curación de copy | QA lingüístico | Revisión legal de claims",
+      "documented_state": "activo",
+      "state_summary": "Capacidad operativa alojada en ACG pero con identidad transversal en el ecosistema",
+      "main_risks": "Alucinaciones en claims legales si no hay supervisión humana",
+      "next_focus": "Integración profunda con el flujo de propagación de contratos",
+      "territory_focus": "Transversal",
+      "repo_url": "https://github.com/ToniIAPro73/anclora-content-generator-ai.git",
+      "primary_note": "proyectos/hermes-agent.md",
+      "supporting_notes": "contracts/logic/HERMES_COPY_CURATOR_CONTRACT.md | contracts/core/ANCLORA_GROUP_BRAND_IP_CONTRACT.md",
+      "source_confidence": "high",
+      "upstream_list": [
+        "Anclora Content Generator AI",
+        "Anclora Group Brand IP Contract"
+      ],
+      "downstream_list": [
+        "Todos los repos del ecosistema (vía ACG)"
+      ],
+      "workflow_list": [
+        "Curación de copy",
+        "QA lingüístico",
+        "Revisión legal de claims"
+      ],
+      "priority_score": 58,
+      "priority_band": "high",
+      "action_now": "Integración profunda con el flujo de propagación de contratos"
     }
   ],
   "interactions": [
@@ -253,6 +347,13 @@
       "business_reason": "Refuerza propuesta premium y visibilidad del vertical"
     },
     {
+      "source_app": "ACG",
+      "target_app": "HERMES",
+      "interaction_type": "copy_curation",
+      "what_flows": "Anclora Content Generator AI invoca Hermes-Agent para generar, curar, revisar y normalizar copy",
+      "business_reason": "Mantiene coherencia editorial, legal, multilingüe y de marca antes de propagar copy a apps consumidoras"
+    },
+    {
       "source_app": "ADL",
       "target_app": "ACG",
       "interaction_type": "insight_to_content",
@@ -265,6 +366,27 @@
       "interaction_type": "insight_to_pipeline",
       "what_flows": "Data Lab aporta contexto premium y priorizacion",
       "business_reason": "Mejora la clasificacion de oportunidades y la lectura territorial"
+    },
+    {
+      "source_app": "AES",
+      "target_app": "ADL",
+      "interaction_type": "energy_insights",
+      "what_flows": "EnergySignalAggregate con señales agregadas y anonimizadas de score, tipología, territorio, potencial de mejora y conversión Premium/proveedor.",
+      "business_reason": "Data Lab puede detectar patrones energéticos territoriales y convertirlos en criterio comercial o analítico."
+    },
+    {
+      "source_app": "AES",
+      "target_app": "ANX",
+      "interaction_type": "energy_lead",
+      "what_flows": "EnergyScan transfiere EnergyAssessmentLead con estado de assessment, score orientativo, preferencia premium, datos mínimos de inmueble y consentimiento.",
+      "business_reason": "Nexus permite seguimiento operativo, CRM y trazabilidad de oportunidades energéticas cualificadas."
+    },
+    {
+      "source_app": "AES",
+      "target_app": "ASY",
+      "interaction_type": "provider_handoff",
+      "what_flows": "ProviderHandoffRequest con solicitud cualificada, servicios solicitados, contexto técnico mínimo, contacto y consentimiento explícito.",
+      "business_reason": "Synergi puede coordinar proveedores, partners o certificadores con oportunidades nacidas del diagnóstico."
     },
     {
       "source_app": "ANX",
@@ -286,6 +408,13 @@
       "interaction_type": "commercial_demand",
       "what_flows": "Private Estates expresa necesidades de inteligencia territorial",
       "business_reason": "Data Lab orienta que senales e informes son valiosos"
+    },
+    {
+      "source_app": "APE",
+      "target_app": "AES",
+      "interaction_type": "property_energy_context",
+      "what_flows": "Activo inmobiliario, datos de vivienda, documentación, necesidades de mejora y contexto comercial.",
+      "business_reason": "Private Estates puede enriquecer activos con una lectura energética orientativa sin desplazar su rol como plataforma principal del vertical."
     },
     {
       "source_app": "APE",
@@ -523,8 +652,26 @@
       "evidence_summary": "La coloca al inicio de la cadena de transformacion del dato al negocio"
     },
     {
+      "app_name": "Anclora EnergyScan",
+      "source_note": "/home/toni/projects/anclora-energyscan/README.md",
+      "source_type": "repo-readme",
+      "evidence_summary": "Documenta stack, wizard, scoring, Catastro, adjuntos, PDF Premium, Stripe, i18n y limitación legal."
+    },
+    {
+      "app_name": "Anclora EnergyScan",
+      "source_note": "/home/toni/projects/anclora-energyscan",
+      "source_type": "repo",
+      "evidence_summary": "Código Next.js 14 con Prisma, Auth.js, Stripe, Blob, Catastro, OCR, PDF Premium y localización ES/EN/DE."
+    },
+    {
+      "app_name": "Anclora EnergyScan",
+      "source_note": "/home/toni/projects/anclora-energyscan/sdd/features",
+      "source_type": "sdd",
+      "evidence_summary": "Specs y gates documentan hardening, plan end-to-end, preferencias/i18n, monetización, data ingestion, costes reales y partners/demo assets."
+    },
+    {
       "app_name": "Anclora Nexus",
-      "source_note": "Anclora Command Center.md",
+      "source_note": "resources/Anclora Command Center.md",
       "source_type": "dashboard",
       "evidence_summary": "La marca como nucleo a consolidar y aplicacion activa con foco claro"
     },
@@ -554,7 +701,7 @@
     },
     {
       "app_name": "Anclora Private Estates",
-      "source_note": "Anclora Command Center.md",
+      "source_note": "resources/Anclora Command Center.md",
       "source_type": "dashboard",
       "evidence_summary": "La marca como nodo activo y prioriza su propuesta de valor y dependencia con Nexus"
     },
@@ -643,7 +790,7 @@
         "rank": 2,
         "app_id": "APE",
         "app_name": "Anclora Private Estates",
-        "priority_score": 87,
+        "priority_score": 91,
         "priority_band": "critical",
         "app_type": "luxury-real-estate-platform",
         "documented_state": "activo",
@@ -655,7 +802,7 @@
         "rank": 3,
         "app_id": "ACG",
         "app_name": "Anclora Content Generator AI",
-        "priority_score": 75,
+        "priority_score": 79,
         "priority_band": "critical",
         "app_type": "content-intelligence-platform",
         "documented_state": "pendiente",
@@ -665,10 +812,22 @@
       },
       {
         "rank": 4,
+        "app_id": "HERMES",
+        "app_name": "Hermes-Agent",
+        "priority_score": 58,
+        "priority_band": "high",
+        "app_type": "ai-agent-capability",
+        "documented_state": "activo",
+        "action_now": "Integración profunda con el flujo de propagación de contratos",
+        "main_risks": "Alucinaciones en claims legales si no hay supervisión humana",
+        "next_focus": "Integración profunda con el flujo de propagación de contratos"
+      },
+      {
+        "rank": 5,
         "app_id": "ADL",
         "app_name": "Anclora Data Lab",
-        "priority_score": 52,
-        "priority_band": "medium",
+        "priority_score": 56,
+        "priority_band": "high",
         "app_type": "analytics-platform",
         "documented_state": "pendiente",
         "action_now": "Definir outputs clave, informes y senales utiles para negocio",
@@ -676,16 +835,28 @@
         "next_focus": "Definir outputs clave, informes y senales utiles para negocio"
       },
       {
-        "rank": 5,
+        "rank": 6,
         "app_id": "ASY",
         "app_name": "Anclora Synergi",
-        "priority_score": 48,
+        "priority_score": 52,
         "priority_band": "medium",
         "app_type": "partnership-platform",
         "documented_state": "pendiente",
         "action_now": "Clarificar modelo de partners, usuarios y workspaces",
         "main_risks": "Difuminacion con Nexus y falta de definicion de usuarios/workspaces reales",
         "next_focus": "Clarificar modelo de partners, usuarios y workspaces"
+      },
+      {
+        "rank": 7,
+        "app_id": "AES",
+        "app_name": "Anclora EnergyScan",
+        "priority_score": 38,
+        "priority_band": "medium",
+        "app_type": "premium-app",
+        "documented_state": "registrado_en_boveda",
+        "action_now": "QA visual Premium, conexión productiva de endpoints y dashboard comercial",
+        "main_risks": "Confundir prediagnóstico con CEE oficial; adopción visual del Design System todavía no auditada",
+        "next_focus": "QA visual Premium, conexión productiva de endpoints y dashboard comercial"
       }
     ],
     "actionCards": [
@@ -714,12 +885,12 @@
         "why_now": "Generar volumen sin criterio comercial y quedar desconectado del pipeline"
       },
       {
-        "app_id": "ADL",
-        "app_name": "Anclora Data Lab",
-        "priority_band": "medium",
-        "title": "Anclora Data Lab",
-        "action_now": "Definir outputs clave, informes y senales utiles para negocio",
-        "why_now": "Outputs canonicos indefinidos y baja definicion de frecuencia/formato de produccion"
+        "app_id": "HERMES",
+        "app_name": "Hermes-Agent",
+        "priority_band": "high",
+        "title": "Hermes-Agent",
+        "action_now": "Integración profunda con el flujo de propagación de contratos",
+        "why_now": "Alucinaciones en claims legales si no hay supervisión humana"
       }
     ],
     "riskSummary": [
@@ -739,23 +910,37 @@
         "main_risks": "Generar volumen sin criterio comercial y quedar desconectado del pipeline"
       },
       {
+        "app_name": "Hermes-Agent",
+        "priority_band": "high",
+        "main_risks": "Alucinaciones en claims legales si no hay supervisión humana"
+      },
+      {
         "app_name": "Anclora Data Lab",
-        "priority_band": "medium",
+        "priority_band": "high",
         "main_risks": "Outputs canonicos indefinidos y baja definicion de frecuencia/formato de produccion"
       },
       {
         "app_name": "Anclora Synergi",
         "priority_band": "medium",
         "main_risks": "Difuminacion con Nexus y falta de definicion de usuarios/workspaces reales"
+      },
+      {
+        "app_name": "Anclora EnergyScan",
+        "priority_band": "medium",
+        "main_risks": "Confundir prediagnóstico con CEE oficial; adopción visual del Design System todavía no auditada"
       }
     ],
     "layerDistribution": [
       {
         "label": "content",
-        "value": 1
+        "value": 2
       },
       {
         "label": "intelligence",
+        "value": 1
+      },
+      {
+        "label": "Premium / Intelligence / Activation",
         "value": 1
       },
       {
@@ -774,11 +959,15 @@
     "confidenceSummary": [
       {
         "label": "high",
-        "value": 3
+        "value": 4
       },
       {
         "label": "medium",
         "value": 2
+      },
+      {
+        "label": "alta para repo actual, media para integraciones futuras",
+        "value": 1
       }
     ],
     "dependencyMap": {
@@ -793,6 +982,12 @@
           "id": "ADL",
           "label": "Anclora Data Lab",
           "layer": "intelligence",
+          "band": "high"
+        },
+        {
+          "id": "AES",
+          "label": "Anclora EnergyScan",
+          "layer": "Premium / Intelligence / Activation",
           "band": "medium"
         },
         {
@@ -812,6 +1007,12 @@
           "label": "Anclora Synergi",
           "layer": "partnerships",
           "band": "medium"
+        },
+        {
+          "id": "HERMES",
+          "label": "Hermes-Agent",
+          "layer": "content",
+          "band": "high"
         }
       ],
       "links": [
@@ -828,6 +1029,12 @@
           "label": "Content Generator suministra activos de autoridad y captacion"
         },
         {
+          "source": "ACG",
+          "target": "HERMES",
+          "type": "copy_curation",
+          "label": "Anclora Content Generator AI invoca Hermes-Agent para generar, curar, revisar y normalizar copy"
+        },
+        {
           "source": "ADL",
           "target": "ACG",
           "type": "insight_to_content",
@@ -838,6 +1045,24 @@
           "target": "ANX",
           "type": "insight_to_pipeline",
           "label": "Data Lab aporta contexto premium y priorizacion"
+        },
+        {
+          "source": "AES",
+          "target": "ADL",
+          "type": "energy_insights",
+          "label": "EnergySignalAggregate con señales agregadas y anonimizadas de score, tipología, territorio, potencial de mejora y conversión Premium/proveedor."
+        },
+        {
+          "source": "AES",
+          "target": "ANX",
+          "type": "energy_lead",
+          "label": "EnergyScan transfiere EnergyAssessmentLead con estado de assessment, score orientativo, preferencia premium, datos mínimos de inmueble y consentimiento."
+        },
+        {
+          "source": "AES",
+          "target": "ASY",
+          "type": "provider_handoff",
+          "label": "ProviderHandoffRequest con solicitud cualificada, servicios solicitados, contexto técnico mínimo, contacto y consentimiento explícito."
         },
         {
           "source": "ANX",
@@ -856,6 +1081,12 @@
           "target": "ADL",
           "type": "commercial_demand",
           "label": "Private Estates expresa necesidades de inteligencia territorial"
+        },
+        {
+          "source": "APE",
+          "target": "AES",
+          "type": "property_energy_context",
+          "label": "Activo inmobiliario, datos de vivienda, documentación, necesidades de mejora y contexto comercial."
         },
         {
           "source": "APE",
