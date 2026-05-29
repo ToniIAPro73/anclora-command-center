@@ -135,6 +135,10 @@ export async function syncDataset({ dashboardRoot: inputDashboardRoot = dashboar
   const resolvedOutputPath = path.join(resolvedGeneratedDir, "dataset.json");
 
   if (!fs.existsSync(resolvedWorkbookPath)) {
+    if (process.env.VERCEL === "1" || process.env.CI === "true") {
+      process.stdout.write("Skipping real estate dataset sync (CI/Vercel environment without workbook access)\n");
+      return resolvedOutputPath;
+    }
     throw new Error(`Workbook not found: ${resolvedWorkbookPath}`);
   }
 

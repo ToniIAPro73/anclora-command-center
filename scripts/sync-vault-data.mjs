@@ -592,6 +592,13 @@ function ensureDir(directory) {
 }
 
 function sync() {
+  const isVercel = process.env.VERCEL === '1' || process.env.CI === 'true'
+
+  if (isVercel && !fs.existsSync(fileMap.commandCenter)) {
+    process.stdout.write('Skipping vault sync (CI/Vercel environment without vault access)\n')
+    return
+  }
+
   ensureDir(generatedDir)
 
   const commandCenter = parseCommandCenter(fileMap.commandCenter)
