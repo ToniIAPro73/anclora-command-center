@@ -71,9 +71,9 @@ test("generate-workbook-from-notes writes the canonical workbook sheets", async 
       .map((row) => Object.fromEntries(INTERACTION_FIELDS.map((field, index) => [field, row[index] ?? ""])));
     const sources = sourceRows.slice(1).map((row) => Object.fromEntries(SOURCE_FIELDS.map((field, index) => [field, row[index] ?? ""])));
 
-    assert.equal(apps.length, 5);
-    assert.equal(interactions.length, 10);
-    assert.equal(sources.length, 26);
+    assert.equal(apps.length, 7);
+    assert.equal(interactions.length, 15);
+    assert.equal(sources.length, 29);
 
     const anx = apps.find((item) => item.app_id === "ANX");
     const ape = apps.find((item) => item.app_id === "APE");

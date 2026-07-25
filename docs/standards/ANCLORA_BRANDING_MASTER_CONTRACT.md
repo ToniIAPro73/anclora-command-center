@@ -12,6 +12,8 @@ related:
   - "[[ANCLORA_ECOSYSTEM_CONTRACT_GROUPS]]"
 ---
 
+> Snapshot de la Bóveda a fecha 2026-07-25. Fuente canónica: Boveda-Anclora.
+
 # ANCLORA_BRANDING_MASTER_CONTRACT
 
 ## Objetivo

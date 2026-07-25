@@ -15,10 +15,10 @@ const dashboardRoot = path.resolve(import.meta.dirname, "..");
 test("readDashboardNotes reads the canonical dashboard note sets", () => {
   const data = readDashboardNotes({ dashboardRoot });
 
-  assert.equal(data.apps.length, 5);
-  assert.equal(data.interactions.length, 10);
+  assert.equal(data.apps.length, 7);
+  assert.equal(data.interactions.length, 15);
   assert.equal(data.fields.length, 26);
-  assert.equal(data.sources.length, 26);
+  assert.equal(data.sources.length, 29);
 
   assert.deepEqual(Object.keys(data.apps[0]).sort(), [...APP_FIELDS].sort());
   assert.deepEqual(Object.keys(data.interactions[0]).sort(), [...INTERACTION_FIELDS].sort());

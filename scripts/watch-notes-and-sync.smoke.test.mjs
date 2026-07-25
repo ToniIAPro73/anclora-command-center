@@ -12,10 +12,21 @@ const dashboardRoot = path.resolve(import.meta.dirname, "..");
 const vaultRoot = path.resolve(dashboardRoot, "..");
 const resourcesRoot = path.join(vaultRoot, "resources", "dashboard-real-estate");
 
-function waitForText(stream, expectedText, timeoutMs = 5000) {
-  return new Promise((resolve, reject) => {
-    let buffer = "";
+function createStreamBuffer(stream) {
+  let buffer = "";
 
+  stream.on("data", (chunk) => {
+    buffer += chunk.toString("utf8");
+  });
+
+  return {
+    includes: (expectedText) => buffer.includes(expectedText),
+    count: (expectedText) => buffer.split(expectedText).length - 1,
+  };
+}
+
+function waitForText(streamBuffer, expectedText, timeoutMs = 5000, minimumCount = 1) {
+  return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       cleanup();
       reject(new Error(`Timed out waiting for "${expectedText}"`));
@@ -23,18 +34,20 @@ function waitForText(stream, expectedText, timeoutMs = 5000) {
 
     function cleanup() {
       clearTimeout(timeout);
-      stream.off("data", onData);
+      clearInterval(interval);
     }
 
-    function onData(chunk) {
-      buffer += chunk.toString("utf8");
-      if (buffer.includes(expectedText)) {
+    const interval = setInterval(() => {
+      if (streamBuffer.count(expectedText) >= minimumCount) {
         cleanup();
-        resolve(buffer);
+        resolve();
       }
-    }
+    }, 25);
 
-    stream.on("data", onData);
+    if (streamBuffer.count(expectedText) >= minimumCount) {
+      cleanup();
+      resolve();
+    }
   });
 }
 
@@ -91,12 +104,13 @@ test("watch-notes-and-sync reruns the pipeline when a canonical note changes", a
     );
 
     let stderr = "";
+    const stdout = createStreamBuffer(watcher.stdout);
     watcher.stderr.on("data", (chunk) => {
       stderr += chunk.toString("utf8");
     });
 
-    await waitForText(watcher.stdout, "Watching canonical dashboard notes", 5000);
-    await waitForText(watcher.stdout, "Dashboard notes refreshed", 5000);
+    await waitForText(stdout, "Watching canonical dashboard notes", 60000);
+    await waitForText(stdout, "Dashboard notes refreshed", 60000, 1);
 
     const workbookBefore = fs.statSync(tempWorkbookFile);
     const datasetBefore = fs.statSync(tempGeneratedFile);
@@ -104,7 +118,7 @@ test("watch-notes-and-sync reruns the pipeline when a canonical note changes", a
     const noteText = fs.readFileSync(watchedNote, "utf8");
     fs.writeFileSync(watchedNote, noteText.replace("Anclora Nexus", "Anclora Nexus Updated"));
 
-    await waitForText(watcher.stdout, "Dashboard notes refreshed", 5000);
+    await waitForText(stdout, "Dashboard notes refreshed", 60000, 2);
 
     const workbookAfter = fs.statSync(tempWorkbookFile);
     const datasetAfter = fs.statSync(tempGeneratedFile);

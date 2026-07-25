@@ -234,8 +234,8 @@ export function ExecutiveView({
           <aside className="hero__signal">
             <p className="hero__signal-label">{t.executivePulse}</p>
             <ul>
-              {commandCenter.executivePulse.map((item) => (
-                <li key={item}>{stripWikilinks(item)}</li>
+              {commandCenter.executivePulse.map((item, index) => (
+                <li key={`${index}-${item}`}>{stripWikilinks(item)}</li>
               ))}
             </ul>
           </aside>
@@ -296,8 +296,8 @@ export function ExecutiveView({
 
         <Panel eyebrow={t.stackEyebrow} title={t.stackTitle}>
           <div className="stack-list">
-            {commandCenter.stack.map((item) => (
-              <div className="stack-item" key={item.label}>
+            {commandCenter.stack.map((item, index) => (
+              <div className="stack-item" key={`${index}-${item.label}`}>
                 <span>{item.label}</span>
                 <strong>{stripWikilinks(item.value)}</strong>
               </div>
@@ -306,8 +306,8 @@ export function ExecutiveView({
           <div className="route">
             <h3>{t.routeTitle}</h3>
             <ol>
-              {commandCenter.route.map((step) => (
-                <li key={step}>{stripWikilinks(step)}</li>
+              {commandCenter.route.map((step, index) => (
+                <li key={`${index}-${step}`}>{stripWikilinks(step)}</li>
               ))}
             </ol>
           </div>
@@ -327,7 +327,7 @@ export function ExecutiveView({
               </thead>
               <tbody>
                 {commandCenter.projects.map((row, index) => (
-                  <tr key={Object.values(row)[0] ?? index}>
+                  <tr key={`${index}-${Object.values(row)[0] ?? 'row'}`}>
                     {Object.entries(row).map(([key, value]) => (
                       <td key={`${Object.values(row)[0] ?? index}-${key}`}>{stripWikilinks(value)}</td>
                     ))}
@@ -345,14 +345,14 @@ export function ExecutiveView({
           </div>
           <h3>{t.alertsTitle}</h3>
           <ul className="signal-list">
-            {commandCenter.monitorAlerts.map((alert) => (
-              <li key={alert}>{stripWikilinks(alert)}</li>
+            {commandCenter.monitorAlerts.map((alert, index) => (
+              <li key={`${index}-${alert}`}>{stripWikilinks(alert)}</li>
             ))}
           </ul>
           <h3>{t.objectiveTitle}</h3>
           <ul className="signal-list">
-            {commandCenter.swObjective.map((item) => (
-              <li key={item}>{stripWikilinks(item)}</li>
+            {commandCenter.swObjective.map((item, index) => (
+              <li key={`${index}-${item}`}>{stripWikilinks(item)}</li>
             ))}
           </ul>
         </Panel>
@@ -361,8 +361,8 @@ export function ExecutiveView({
       <section className="grid grid--bottom">
         <Panel eyebrow={t.githubEyebrow} title={t.githubTitle}>
           <div className="activity-list">
-            {commandCenter.activity.map((item) => (
-              <article className="activity-item" key={item.repo}>
+            {commandCenter.activity.map((item, index) => (
+              <article className="activity-item" key={`${index}-${item.repo}`}>
                 <p>{item.repo}</p>
                 <strong>{item.pushedAt}</strong>
               </article>
@@ -375,32 +375,32 @@ export function ExecutiveView({
             <div>
               <h3>{t.synergiesTitle}</h3>
               <ul>
-                {commandCenter.synergies.map((item) => (
-                  <li key={item}>{stripWikilinks(item)}</li>
+                {commandCenter.synergies.map((item, index) => (
+                  <li key={`${index}-${item}`}>{stripWikilinks(item)}</li>
                 ))}
               </ul>
             </div>
             <div>
               <h3>{t.decisionsTitle}</h3>
               <ul>
-                {commandCenter.decisions.map((item) => (
-                  <li key={item}>{stripWikilinks(item)}</li>
+                {commandCenter.decisions.map((item, index) => (
+                  <li key={`${index}-${item}`}>{stripWikilinks(item)}</li>
                 ))}
               </ul>
             </div>
             <div>
               <h3>{t.communicationTitle}</h3>
               <ul>
-                {commandCenter.communicationAssets.map((item) => (
-                  <li key={item}>{stripWikilinks(item)}</li>
+                {commandCenter.communicationAssets.map((item, index) => (
+                  <li key={`${index}-${item}`}>{stripWikilinks(item)}</li>
                 ))}
               </ul>
             </div>
             <div>
               <h3>{t.quickActionsTitle}</h3>
               <ul>
-                {commandCenter.quickActions.map((item) => (
-                  <li key={item}>{stripWikilinks(item)}</li>
+                {commandCenter.quickActions.map((item, index) => (
+                  <li key={`${index}-${item}`}>{stripWikilinks(item)}</li>
                 ))}
               </ul>
             </div>

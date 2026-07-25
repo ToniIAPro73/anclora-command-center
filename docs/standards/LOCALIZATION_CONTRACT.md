@@ -1,5 +1,7 @@
 # Localization Contract
 
+> Snapshot de la Bóveda a fecha 2026-07-25. Fuente canónica: Boveda-Anclora.
+
 ## Objetivo
 Garantizar que cada aplicación del ecosistema respete su cobertura real de idiomas y que ninguna feature nueva introduzca mezcla de idioma, deuda de traducción o layouts rotos por expansión de copy.
 

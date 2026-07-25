@@ -1,5 +1,7 @@
 # Anclora Ecosystem Contract Groups
 
+> Snapshot de la Bóveda a fecha 2026-07-25. Fuente canónica: Boveda-Anclora.
+
 ## Objetivo
 Definir el marco contractual UX/UI del ecosistema Anclora y fijar una ruta única de consulta para cualquier modificación visual o creación de una nueva aplicación.
 

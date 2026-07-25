@@ -1,5 +1,7 @@
 # Anclora Premium App Contract
 
+> Snapshot de la Bóveda a fecha 2026-07-25. Fuente canónica: Boveda-Anclora.
+
 ## Objetivo
 Fijar una gramática premium compartida para productos públicos o semi-públicos que deben transmitir valor, criterio y confianza sin perder claridad operativa.
 

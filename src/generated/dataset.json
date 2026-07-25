@@ -1,5 +1,6 @@
 {
-  "generatedAt": "2026-05-29T01:08:03.137Z",
+  "synthetic": true,
+  "generatedAt": "2026-07-25T08:36:21.813Z",
   "sourceWorkbook": "output/spreadsheet/anclora-group-real-estate-dataset.xlsx",
   "apps": [
     {
@@ -118,7 +119,7 @@
       "main_risks": "Confundir prediagnóstico con CEE oficial; adopción visual del Design System todavía no auditada",
       "next_focus": "QA visual Premium, conexión productiva de endpoints y dashboard comercial",
       "territory_focus": "Vivienda y eficiencia energética, inicialmente España con preferencias ES/EN/DE",
-      "repo_url": "/home/toni/projects/anclora-energyscan",
+      "repo_url": "https://github.com/ToniIAPro73/anclora-energyscan.git",
       "primary_note": "proyectos/anclora-energyscan.md",
       "supporting_notes": "resources/Anclora EnergyScan.md | resources/product-sheets/Ficha de producto - Anclora EnergyScan.md",
       "source_confidence": "alta para repo actual, media para integraciones futuras",
@@ -653,19 +654,19 @@
     },
     {
       "app_name": "Anclora EnergyScan",
-      "source_note": "/home/toni/projects/anclora-energyscan/README.md",
+      "source_note": "repos/anclora-energyscan/README.md",
       "source_type": "repo-readme",
       "evidence_summary": "Documenta stack, wizard, scoring, Catastro, adjuntos, PDF Premium, Stripe, i18n y limitación legal."
     },
     {
       "app_name": "Anclora EnergyScan",
-      "source_note": "/home/toni/projects/anclora-energyscan",
+      "source_note": "repos/anclora-energyscan",
       "source_type": "repo",
       "evidence_summary": "Código Next.js 14 con Prisma, Auth.js, Stripe, Blob, Catastro, OCR, PDF Premium y localización ES/EN/DE."
     },
     {
       "app_name": "Anclora EnergyScan",
-      "source_note": "/home/toni/projects/anclora-energyscan/sdd/features",
+      "source_note": "repos/anclora-energyscan/sdd/features",
       "source_type": "sdd",
       "evidence_summary": "Specs y gates documentan hardening, plan end-to-end, preferencias/i18n, monetización, data ingestion, costes reales y partners/demo assets."
     },
