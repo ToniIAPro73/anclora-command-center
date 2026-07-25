@@ -7,7 +7,7 @@ Fuente canónica consultada: Bóveda Anclora en
 
 ## Desviaciones Detectadas
 
-- `src/index.css` define la plantilla base con paleta púrpura:
+- `src/index.css` define la plantilla base con paleta púrpura antigua:
   `#121021`, `#ece7ff` y `#e6e2fb`.
 - `src/App.css` contiene colores hardcodeados de la paleta anterior:
   `#8a7cff`, `#6c63ff`, `#b886ff`, `#eae8f5`, `#ece7ff`,
@@ -21,9 +21,9 @@ Fuente canónica consultada: Bóveda Anclora en
   esta app herede una estética serif de plantilla.
 - `index.html` declara `lang="en"`. La app debe arrancar en español y mantener
   cobertura `es`, `en`, `de`.
-- `index.html` referencia `/favicon.svg`, que actualmente es un placeholder de
-  Vite con paleta púrpura. Falta el paquete favicon `commandcenter_` definido
-  por `ANCLORA_BRANDING_FAVICON_SPEC.md`.
+- `index.html` referenciaba `/favicon.svg`, que era un placeholder.
+  El paquete favicon `commandcenter_` debe generarse desde el logo real
+  disponible en `public/brand/logo-anclora-command-center.png`.
 - `src/generated/dataset.json` está versionado como dataset de demostración.
   Falta marca raíz `"synthetic": true`.
 - No se ha encontrado una ruta absoluta Windows `C:\Users\...` dentro de
@@ -40,9 +40,9 @@ Fuente canónica consultada: Bóveda Anclora en
 
 - App: `anclora-command-center`.
 - Familia: Premium.
-- Accent canónico: `#CC4455`.
-- Secondary: `#E89098`.
-- Interior icono: `#1A1218`.
-- Borde icono: cobre `#C07860`.
+- Accent canónico: `#6C63FF`.
+- Secondary: `#5FA8FF`.
+- Hover: `#8A7CFF`.
+- Fondos canónicos: `#1E1A2E` y `#121021`.
 - Tipografía: `DM Sans` y `JetBrains Mono`.
 - Visibilidad: privada permanente.

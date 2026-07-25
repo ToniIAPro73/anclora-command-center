@@ -29,19 +29,20 @@ Servidor usado: `npm run dev` en `http://127.0.0.1:5173/`.
 
 ## Conformidad
 
-- Paleta premium granate aplicada: el accent contractual `#CC4455` es visible en
-  navegación activa, controles, pills y marca provisional.
-- Tema oscuro conforme a tokens: fondos carbón rojo, superficies elevadas y borde
-  premium discreto.
+- Paleta premium azul/violeta aplicada: el accent contractual `#6C63FF`, el
+  secondary `#5FA8FF` y el hover `#8A7CFF` son visibles en navegación activa,
+  controles, pills y marca real.
+- Tema oscuro conforme a tokens: fondos navy/púrpura `#121021` y `#1E1A2E`,
+  superficies elevadas y borde premium discreto.
 - Tema claro conforme a tokens: fondo claro `#FAF5F6`, superficies blancas,
-  acento granate oscuro y textos legibles.
+  acento violeta y textos legibles.
 - Contraste revisado visualmente en títulos, cards, tablas, chips y navegación;
   no se detectan pares críticos fuera de AA en el recorrido capturado.
 - Tipografía alineada al contrato: `DM Sans` como sans principal y
   `JetBrains Mono` para código.
-- Marca presente en topbar y favicon: isotipo placeholder con borde cobre,
-  interior carbón rojo y ondas granate. Queda pendiente sustituirlo por el logo
-  3D definitivo del pipeline de marca.
+- Marca presente en topbar y favicon: se usa el logo real
+  `public/brand/logo-anclora-command-center.png` y los favicons se regeneran
+  desde ese asset.
 - Idioma inicial: español. `index.html` declara `lang="es"`.
 - No hay restos visuales de la paleta púrpura anterior en la UI React. Los únicos
   colores literales quedan centralizados en variables de tema, manifest y assets

@@ -4,8 +4,8 @@
   "description": "Dashboard operativo interno del ecosistema Anclora.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#10080E",
-  "theme_color": "#CC4455",
+  "background_color": "#121021",
+  "theme_color": "#6C63FF",
   "icons": [
     {
       "src": "/commandcenter_favicon-32.png",

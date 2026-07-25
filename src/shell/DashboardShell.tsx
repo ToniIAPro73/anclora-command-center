@@ -51,42 +51,6 @@ function ScreenIcon() {
   )
 }
 
-function CommandCenterPlaceholderLogo() {
-  return (
-    // PLACEHOLDER marca — pendiente logo corporativo
-    <svg
-      className="topbar__brand-logo topbar__brand-mark"
-      viewBox="0 0 64 64"
-      role="img"
-      aria-label="Logo provisional Anclora Command Center"
-    >
-      <circle cx="32" cy="32" r="27" fill="var(--card)" stroke="var(--brand-copper)" strokeWidth="2.4" />
-      <circle cx="32" cy="32" r="21" fill="var(--brand-inner)" stroke="var(--accent-border)" />
-      <path
-        d="M18 27c4-3.4 8-3.4 12 0s8 3.4 12 0 8-3.4 12 0"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="3.2"
-      />
-      <path
-        d="M18 34c4-3.4 8-3.4 12 0s8 3.4 12 0 8-3.4 12 0"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="3.2"
-      />
-      <path
-        d="M18 41c4-3.4 8-3.4 12 0s8 3.4 12 0 8-3.4 12 0"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="3.2"
-      />
-    </svg>
-  )
-}
-
 function LanguageToggle({
   language,
   label,
@@ -141,7 +105,11 @@ export function DashboardShell({
         </a>
 
         <div className="topbar__brand">
-          <CommandCenterPlaceholderLogo />
+          <img
+            className="topbar__brand-logo topbar__brand-mark"
+            src="/brand/logo-anclora-command-center.png"
+            alt="Logo Anclora Command Center"
+          />
           <div>
             <p className="topbar__brand-name">ANCLORA COMMAND CENTER</p>
             <p className="topbar__brand-line">{brandLine}</p>

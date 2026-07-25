@@ -1,21 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
-  <title id="title">Anclora Command Center placeholder mark</title>
-  <desc id="desc">Isotipo provisional premium granate con borde cobre y tres ondas.</desc>
+  <title id="title">Anclora Command Center</title>
+  <desc id="desc">Isotipo azul y violeta de Anclora Command Center.</desc>
   <defs>
-    <radialGradient id="innerGlow" cx="50%" cy="42%" r="58%">
-      <stop offset="0%" stop-color="#281C2A"/>
-      <stop offset="100%" stop-color="#1A1218"/>
+    <radialGradient id="inner" cx="56%" cy="42%" r="62%">
+      <stop offset="0%" stop-color="#2A2544"/>
+      <stop offset="100%" stop-color="#121021"/>
     </radialGradient>
-    <linearGradient id="copper" x1="20%" x2="80%" y1="12%" y2="88%">
-      <stop offset="0%" stop-color="#E0A090"/>
-      <stop offset="52%" stop-color="#C07860"/>
-      <stop offset="100%" stop-color="#805040"/>
+    <linearGradient id="waves" x1="14%" x2="88%" y1="28%" y2="72%">
+      <stop offset="0%" stop-color="#5FA8FF"/>
+      <stop offset="52%" stop-color="#6C63FF"/>
+      <stop offset="100%" stop-color="#8A7CFF"/>
     </linearGradient>
   </defs>
-  <circle cx="256" cy="256" r="228" fill="#201422"/>
-  <circle cx="256" cy="256" r="214" fill="url(#innerGlow)" stroke="url(#copper)" stroke-width="22"/>
-  <circle cx="256" cy="256" r="176" fill="none" stroke="#CC4455" stroke-opacity="0.22" stroke-width="6"/>
-  <path d="M128 210c34-28 68-28 102 0s68 28 102 0 68-28 102 0" fill="none" stroke="#CC4455" stroke-linecap="round" stroke-width="28"/>
-  <path d="M128 258c34-28 68-28 102 0s68 28 102 0 68-28 102 0" fill="none" stroke="#E89098" stroke-linecap="round" stroke-width="28"/>
-  <path d="M128 306c34-28 68-28 102 0s68 28 102 0 68-28 102 0" fill="none" stroke="#CC4455" stroke-linecap="round" stroke-width="28"/>
+  <circle cx="256" cy="256" r="224" fill="#121021"/>
+  <circle cx="256" cy="256" r="206" fill="url(#inner)" stroke="url(#waves)" stroke-width="18"/>
+  <path d="M118 210c35-28 70-28 105 0s70 28 105 0 70-28 105 0" fill="none" stroke="url(#waves)" stroke-linecap="round" stroke-width="28"/>
+  <path d="M118 258c35-28 70-28 105 0s70 28 105 0 70-28 105 0" fill="none" stroke="url(#waves)" stroke-linecap="round" stroke-width="28"/>
+  <path d="M118 306c35-28 70-28 105 0s70 28 105 0 70-28 105 0" fill="none" stroke="url(#waves)" stroke-linecap="round" stroke-width="28"/>
 </svg>

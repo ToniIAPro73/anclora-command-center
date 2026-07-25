@@ -120,7 +120,7 @@ PLATA MONO (Entidad Matriz) → PLATA + color (internas) → COBRE (premium) →
 | `anclora-data-lab` | `#2DA078` esmeralda | 155° | Cobre |
 | `anclora-talent` | `#4A9FD8` azul cielo | 205° | Cobre |
 | `anclora-synergi` | `#8C5AB4` púrpura | 280° | Cobre |
-| `anclora-command-center` | `#CC4455` rojo granate | 355° | Cobre |
+| `anclora-command-center` | `#6C63FF` violeta premium + `#5FA8FF` azul luminoso | 245° | Azul/violeta |
 | `anclora-private-estates` | `#D4AF37` oro | 45° | Oro (mono) |
 
 ## Invariantes globales de branding
