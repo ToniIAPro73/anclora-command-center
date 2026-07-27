@@ -1,36 +1,81 @@
+<!-- markdownlint-disable MD001 MD013 MD033 MD041 MD060 -->
+
+<div align="center">
+
+<img src="./public/brand/logo-anclora-command-center.png" alt="Anclora Command Center" width="120" />
+
 # Anclora Command Center
 
-`dashboard/` es la app premium canónica `anclora-command-center` dentro de esta bóveda. La unificación actual concentra dos vistas en una sola shell compartida:
+### Repositorio interno del ecosistema Anclora para operaciones de familia premium
 
-- `Command Center`: vista principal de coordinación y lectura ejecutiva.
-- `Real Estate`: módulo migrado dentro de la misma app, accesible como segunda vista premium.
+**Español** · [English](./README.en.md)
 
-Los datos del dashboard son sintéticos, con fines de demostración, y no representan personas ni empresas reales.
+<br />
 
-## Scripts
+![Anclora](https://img.shields.io/badge/Anclora-ecosystem-111827)
+![Documentation](https://img.shields.io/badge/documentation-premium-BFA46A)
+![Languages](https://img.shields.io/badge/languages-ES%20%7C%20EN-047857)
 
-- `npm run dev`
-- `npm run build`
-- `npm run lint`
-- `npm run generate:workbook`
-- `npm run sync:notes`
-- `npm run sync:vault`
-- `npm run sync:real-estate`
-- `npm run sync:all`
-- `npm run watch:notes`
-- `node --test ./scripts/read-dashboard-notes.test.mjs`
-- `node --test ./scripts/generate-workbook-from-notes.test.mjs`
-- `node --test ./scripts/watch-notes-and-sync.smoke.test.mjs`
-- `node --test ./scripts/sync-real-estate-dataset.test.mjs`
+</div>
 
-## Contratos UX/UI
+---
 
-Lectura mínima antes de tocar interfaz:
+> [!IMPORTANT]
+> Repositorio interno del ecosistema Anclora. No publicar detalles operativos, credenciales,
+> datos reales ni logica sensible fuera de los canales autorizados.
 
-Las copias locales son snapshots versionados. La fuente canónica es la Bóveda Anclora.
+## Vista rapida
 
-1. `docs/standards/ANCLORA_ECOSYSTEM_CONTRACT_GROUPS.md`
-2. `docs/standards/ANCLORA_PREMIUM_APP_CONTRACT.md`
-3. `docs/standards/UI_MOTION_CONTRACT.md`
-4. `docs/standards/MODAL_CONTRACT.md`
-5. `docs/standards/LOCALIZATION_CONTRACT.md`
+| Area | Definicion |
+| --- | --- |
+| Proposito | Repositorio interno del ecosistema Anclora para operaciones de familia premium |
+| Familia | `premium` |
+| Visibilidad | `private` |
+| Rol | Repositorio de trabajo interno |
+
+## Flujo conceptual
+
+```text
+Contexto interno
+      ↓
+Configuracion y datos controlados
+      ↓
+Logica de producto
+      ↓
+Revision tecnica
+      ↓
+Entrega o soporte operativo
+```
+
+## Arranque local
+
+```bash
+npm install
+npm run dev
+```
+
+## Tecnologia
+
+| Area | Detalle |
+| --- | --- |
+| React | Detectado en el repositorio |
+| TypeScript | Detectado en el repositorio |
+
+## Documentacion
+
+- [Documentacion](./docs)
+
+## Gobernanza
+
+- Producto canonico: `anclora-command-center`
+- Boveda: `/mnt/c/Users/antonio.ballesterosa/Desktop/Proyectos/Boveda-Anclora`
+- Contratos: `contracts/` y `docs/governance/`
+- Asset de marca: `presente`
+
+---
+
+<div align="center">
+
+### Anclora Group · Uso interno
+
+</div>
