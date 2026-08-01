@@ -1,7 +1,5 @@
 # Modal Contract
 
-> Snapshot de la Bóveda a fecha 2026-07-25. Fuente canónica: Boveda-Anclora.
-
 ## Objetivo
 Garantizar un patrón único de modales en todo el ecosistema Anclora: jerarquía clara, acciones visibles y cero scroll evitable.
 

@@ -1,7 +1,5 @@
 # UI Motion Contract
 
-> Snapshot de la Bóveda a fecha 2026-07-25. Fuente canónica: Boveda-Anclora.
-
 ## Objetivo
 Definir la mecánica visual base de botones, cards y frames interactivos del ecosistema Anclora para que todas las apps compartan la misma lógica de respuesta aunque cambie la identidad de marca.
 
@@ -85,6 +83,7 @@ Aplicaciones ultra premium:
 - `anclora-command-center`
 - `anclora-synergi`
 - `anclora-data-lab`
+- `anclora-energyscan`
 - `anclora-talent`
 - `anclora-private-estates`
 - `anclora-portfolio`

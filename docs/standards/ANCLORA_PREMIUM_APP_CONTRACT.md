@@ -1,7 +1,5 @@
 # Anclora Premium App Contract
 
-> Snapshot de la Bóveda a fecha 2026-07-25. Fuente canónica: Boveda-Anclora.
-
 ## Objetivo
 Fijar una gramática premium compartida para productos públicos o semi-públicos que deben transmitir valor, criterio y confianza sin perder claridad operativa.
 
@@ -10,6 +8,7 @@ Fijar una gramática premium compartida para productos públicos o semi-público
 - `anclora-command-center`
 - `anclora-synergi`
 - `anclora-data-lab`
+- `anclora-energyscan`
 - `anclora-talent`
 
 ## Autoridad
@@ -24,6 +23,7 @@ Fijar una gramática premium compartida para productos públicos o semi-público
 - `anclora-command-center`
 - `anclora-synergi`
 - `anclora-data-lab`
+- `anclora-energyscan`
 - `anclora-talent`
 
 ## Sincronización con repos consumidores
@@ -158,6 +158,14 @@ Regla:
 - Mantener `es/en/de`.
 - Mantener `dark/light/system`.
 - Debe sentirse más analítica y precisa que Synergi, pero compartir la misma disciplina premium en botones, cards y modales.
+
+### `anclora-energyscan`
+- Mantener `es/en/de`.
+- Mantener coherencia de preferencias por idioma: `es/de` con EUR + m² y `en` con GBP + sq ft.
+- Su superficie pública, wizard, resultados, pricing, PDF Premium y sección de proveedores pertenecen a la familia `premium analytical / premium utility`.
+- Debe presentar siempre el carácter de prediagnóstico energético orientativo.
+- No puede sugerir emisión de Certificados de Eficiencia Energética oficiales ni documentación con validez administrativa.
+- El acceso Premium debe distinguir resultado básico, desbloqueo de informe y estado real de pago mediante `paidAt`.
 
 ### `anclora-talent`
 - Mantener `es/en` con `es` como idioma por defecto.
