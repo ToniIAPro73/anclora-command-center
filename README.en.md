@@ -2,18 +2,20 @@
 
 <div align="center">
 
-<img src="./public/brand/logo-anclora-command-center.png" alt="Anclora Command Center" width="120" />
+<img src="./public/brand/anclora-command-center.png" alt="Anclora Command Center" width="132" />
 
 # Anclora Command Center
 
-### Repositorio interno del ecosistema Anclora para operaciones de familia premium
+### Internal operational dashboard for the Anclora ecosystem
+
+Central control panel that syncs data from the Vault and provides a consolidated view of the Anclora ecosystem's status.
 
 [Español](./README.md) · **English**
 
 <br />
 
 ![Anclora](https://img.shields.io/badge/Anclora-ecosystem-111827)
-![Documentation](https://img.shields.io/badge/documentation-premium-BFA46A)
+![Category](https://img.shields.io/badge/category-Premium-6C63FF)
 ![Languages](https://img.shields.io/badge/languages-ES%20%7C%20EN-047857)
 
 </div>
@@ -21,61 +23,57 @@
 ---
 
 > [!IMPORTANT]
-> Internal Anclora ecosystem repository. Do not publish operational details, credentials,
-> real data or sensitive logic outside approved channels.
+> Internal Anclora ecosystem repository, hosted inside the Vault (`dashboard/`). Do not publish operational details, credentials, or sensitive logic outside authorized channels.
 
-## At a glance
+## What it is
 
-| Area | Definition |
-| --- | --- |
-| Purpose | Repositorio interno del ecosistema Anclora para operaciones de familia premium |
-| Family | `premium` |
-| Visibility | `private` |
-| Role | Internal working repository |
+Anclora Command Center is the ecosystem's internal operational dashboard: it syncs data and documentation from the Vault and presents them in a centralized visual panel for tracking project, contract, and governance status.
 
-## Conceptual workflow
+## Category in the ecosystem
 
-```text
-Internal context
-      ↓
-Controlled configuration and data
-      ↓
-Product logic
-      ↓
-Technical review
-      ↓
-Delivery or operational support
-```
+| Field | Value |
+|---|---|
+| Category | Premium |
+| Brand accent | `#6C63FF` |
+| Canonical repository | `anclora-command-center` |
+| Location | `dashboard/` inside the Anclora Vault |
 
-## Local start
+## Key features
+
+- Automatic data sync from the Vault (`chokidar`, `gray-matter`)
+- Visual ecosystem status panel
+- Data export/import (ExcelJS)
+
+## Technology stack
+
+| Area | Technology |
+|---|---|
+| Framework | Vite, React |
+| Sync | Chokidar (file watching), gray-matter (frontmatter) |
+| Data | ExcelJS |
+
+## Local setup
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Technology
+## Supported languages
 
-| Area | Detail |
-| --- | --- |
-| React | Detected in repository |
-| TypeScript | Detected in repository |
+- Español (default)
+- English
 
-## Documentation
+## Documentation and governance
 
-- [Documentacion](./docs)
-
-## Governance
-
-- Canonical product: `anclora-command-center`
-- Vault: `/mnt/c/Users/antonio.ballesterosa/Desktop/Proyectos/Boveda-Anclora`
-- Contracts: `contracts/` and `docs/governance/`
-- Brand asset: `present`
+- Anclora Vault (source of truth): `contracts/` and `docs/governance/`, at the root of this same repository
 
 ---
 
 <div align="center">
 
-### Anclora Group · Internal use
+### Anclora Group
+
+Internal use.
 
 </div>

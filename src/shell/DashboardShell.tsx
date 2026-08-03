@@ -107,7 +107,7 @@ export function DashboardShell({
         <div className="topbar__brand">
           <img
             className="topbar__brand-logo topbar__brand-mark"
-            src="/brand/logo-anclora-command-center.png"
+            src="/brand/anclora-command-center.png"
             alt="Logo Anclora Command Center"
           />
           <div>

@@ -2,50 +2,55 @@
 
 <div align="center">
 
-<img src="./public/brand/logo-anclora-command-center.png" alt="Anclora Command Center" width="120" />
+<img src="./public/brand/anclora-command-center.png" alt="Anclora Command Center" width="132" />
 
 # Anclora Command Center
 
-### Repositorio interno del ecosistema Anclora para operaciones de familia premium
+### Dashboard operativo interno del ecosistema Anclora
+
+Panel de control central que sincroniza datos de la Bóveda y ofrece una vista consolidada del estado del ecosistema Anclora.
 
 **Español** · [English](./README.en.md)
 
 <br />
 
 ![Anclora](https://img.shields.io/badge/Anclora-ecosystem-111827)
-![Documentation](https://img.shields.io/badge/documentation-premium-BFA46A)
-![Languages](https://img.shields.io/badge/languages-ES%20%7C%20EN-047857)
+![Categoría](https://img.shields.io/badge/categoría-Premium-6C63FF)
+![Idiomas](https://img.shields.io/badge/idiomas-ES%20%7C%20EN-047857)
 
 </div>
 
 ---
 
 > [!IMPORTANT]
-> Repositorio interno del ecosistema Anclora. No publicar detalles operativos, credenciales,
-> datos reales ni logica sensible fuera de los canales autorizados.
+> Repositorio interno del ecosistema Anclora, alojado dentro de la Bóveda (`dashboard/`). No publicar detalles operativos, credenciales ni lógica sensible fuera de canales autorizados.
 
-## Vista rapida
+## Qué es
 
-| Area | Definicion |
-| --- | --- |
-| Proposito | Repositorio interno del ecosistema Anclora para operaciones de familia premium |
-| Familia | `premium` |
-| Visibilidad | `private` |
-| Rol | Repositorio de trabajo interno |
+Anclora Command Center es el dashboard operativo interno del ecosistema: sincroniza datos y documentación desde la Bóveda y los presenta en un panel visual centralizado para seguimiento del estado de proyectos, contratos y gobernanza.
 
-## Flujo conceptual
+## Categoría en el ecosistema
 
-```text
-Contexto interno
-      ↓
-Configuracion y datos controlados
-      ↓
-Logica de producto
-      ↓
-Revision tecnica
-      ↓
-Entrega o soporte operativo
-```
+| Campo | Valor |
+|---|---|
+| Categoría | Premium |
+| Acento de marca | `#6C63FF` |
+| Repositorio canónico | `anclora-command-center` |
+| Ubicación | `dashboard/` dentro de la Bóveda Anclora |
+
+## Funcionalidades principales
+
+- Sincronización automática de datos desde la Bóveda (`chokidar`, `gray-matter`)
+- Panel visual de estado del ecosistema
+- Exportación e importación de datos (ExcelJS)
+
+## Stack tecnológico
+
+| Área | Tecnología |
+|---|---|
+| Framework | Vite, React |
+| Sincronización | Chokidar (watch de ficheros), gray-matter (frontmatter) |
+| Datos | ExcelJS |
 
 ## Arranque local
 
@@ -54,28 +59,21 @@ npm install
 npm run dev
 ```
 
-## Tecnologia
+## Idiomas soportados
 
-| Area | Detalle |
-| --- | --- |
-| React | Detectado en el repositorio |
-| TypeScript | Detectado en el repositorio |
+- Español (predeterminado)
+- English
 
-## Documentacion
+## Documentación y gobernanza
 
-- [Documentacion](./docs)
-
-## Gobernanza
-
-- Producto canonico: `anclora-command-center`
-- Boveda: `/mnt/c/Users/antonio.ballesterosa/Desktop/Proyectos/Boveda-Anclora`
-- Contratos: `contracts/` y `docs/governance/`
-- Asset de marca: `presente`
+- Bóveda Anclora (fuente de verdad): `contracts/` y `docs/governance/`, en la raíz de este mismo repositorio
 
 ---
 
 <div align="center">
 
-### Anclora Group · Uso interno
+### Anclora Group
+
+Uso interno.
 
 </div>
