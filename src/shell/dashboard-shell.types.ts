@@ -1,6 +1,6 @@
 export type DashboardTheme = 'dark' | 'light' | 'system'
 export type DashboardLanguage = 'es' | 'en' | 'de'
-export type DashboardSection = 'executive' | 'real-estate'
+export type DashboardSection = 'overview' | 'products' | 'repositories' | 'services' | 'knowledge'
 
 export type DashboardNavItem = {
   id: DashboardSection

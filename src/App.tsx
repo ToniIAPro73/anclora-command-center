@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react'
-import datasetData from './generated/dataset.json'
-import vaultData from './generated/vault-data.json'
 import './App.css'
-import { ExecutiveView, type ExecutiveDashboardData } from './modules/executive/ExecutiveView'
-import { RealEstateView, type RealEstateDataset } from './modules/real-estate/RealEstateView'
+import { OperationalView } from './modules/operational/OperationalView'
 import { DashboardShell } from './shell/DashboardShell'
 import type {
   DashboardLanguage,
@@ -11,51 +8,68 @@ import type {
   DashboardTheme,
 } from './shell/dashboard-shell.types'
 
-const executiveData = vaultData as ExecutiveDashboardData
-const realEstateData = datasetData as RealEstateDataset
-
 const shellMessages = {
   es: {
     backToGroup: 'VOLVER A ANCLORA GROUP',
-    brandLine: 'Control operativo del ecosistema',
+    brandLine: 'Interfaz operacional sobre AOS + Anclora Knowledge + AKG',
     topbarThemeAria: 'Selector de tema',
     topbarLanguageAria: 'Selector de idioma',
     moduleNavigationAria: 'Navegación interna del dashboard',
     themeDark: 'Tema oscuro',
     themeLight: 'Tema claro',
     themeSystem: 'Tema del sistema',
-    executiveLabel: 'Executive',
-    realEstateLabel: 'Real Estate',
+    overviewLabel: 'Overview',
+    productsLabel: 'Products',
+    repositoriesLabel: 'Repositories',
+    servicesLabel: 'Services',
+    knowledgeLabel: 'Knowledge',
   },
   en: {
     backToGroup: 'BACK TO ANCLORA GROUP',
-    brandLine: 'Operational control for the ecosystem',
+    brandLine: 'Operational interface over AOS + Anclora Knowledge + AKG',
     topbarThemeAria: 'Theme switcher',
     topbarLanguageAria: 'Language switcher',
     moduleNavigationAria: 'Dashboard internal navigation',
     themeDark: 'Dark theme',
     themeLight: 'Light theme',
     themeSystem: 'System theme',
-    executiveLabel: 'Executive',
-    realEstateLabel: 'Real Estate',
+    overviewLabel: 'Overview',
+    productsLabel: 'Products',
+    repositoriesLabel: 'Repositories',
+    servicesLabel: 'Services',
+    knowledgeLabel: 'Knowledge',
   },
   de: {
     backToGroup: 'ZURÜCK ZU ANCLORA GROUP',
-    brandLine: 'Operative Kontrolle des Ökosystems',
+    brandLine: 'Operative Schnittstelle über AOS + Anclora Knowledge + AKG',
     topbarThemeAria: 'Themenauswahl',
     topbarLanguageAria: 'Sprachauswahl',
     moduleNavigationAria: 'Interne Dashboard-Navigation',
     themeDark: 'Dunkles Thema',
     themeLight: 'Helles Thema',
     themeSystem: 'Systemthema',
-    executiveLabel: 'Executive',
-    realEstateLabel: 'Real Estate',
+    overviewLabel: 'Overview',
+    productsLabel: 'Produkte',
+    repositoriesLabel: 'Repositories',
+    servicesLabel: 'Dienste',
+    knowledgeLabel: 'Knowledge',
   },
 } as const
 
+const SECTION_PATHS: Record<DashboardSection, string> = {
+  overview: '/',
+  products: '/products',
+  repositories: '/repositories',
+  services: '/services',
+  knowledge: '/knowledge',
+}
+
 function resolveSection(pathname: string): DashboardSection {
   const normalizedPath = pathname.replace(/\/+$/, '') || '/'
-  return normalizedPath === '/real-estate' ? 'real-estate' : 'executive'
+  const match = (Object.entries(SECTION_PATHS) as [DashboardSection, string][]).find(
+    ([, path]) => path === normalizedPath,
+  )
+  return match ? match[0] : 'overview'
 }
 
 function App() {
@@ -66,7 +80,7 @@ function App() {
   })
   const [language, setLanguage] = useState<DashboardLanguage>('es')
   const [section, setSection] = useState<DashboardSection>(() => {
-    if (typeof window === 'undefined') return 'executive'
+    if (typeof window === 'undefined') return 'overview'
     return resolveSection(window.location.pathname)
   })
 
@@ -104,8 +118,11 @@ function App() {
 
   const t = shellMessages[language]
   const navItems = [
-    { id: 'executive' as const, href: '/', label: t.executiveLabel },
-    { id: 'real-estate' as const, href: '/real-estate', label: t.realEstateLabel },
+    { id: 'overview' as const, href: SECTION_PATHS.overview, label: t.overviewLabel },
+    { id: 'products' as const, href: SECTION_PATHS.products, label: t.productsLabel },
+    { id: 'repositories' as const, href: SECTION_PATHS.repositories, label: t.repositoriesLabel },
+    { id: 'services' as const, href: SECTION_PATHS.services, label: t.servicesLabel },
+    { id: 'knowledge' as const, href: SECTION_PATHS.knowledge, label: t.knowledgeLabel },
   ]
 
   const handleNavigate = (nextSection: DashboardSection, href: string) => {
@@ -138,11 +155,7 @@ function App() {
         system: t.themeSystem,
       }}
     >
-      {section === 'real-estate' ? (
-        <RealEstateView data={realEstateData} language={language} />
-      ) : (
-        <ExecutiveView data={executiveData} language={language} />
-      )}
+      <OperationalView section={section} language={language} />
     </DashboardShell>
   )
 }

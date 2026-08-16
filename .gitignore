@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Snapshots regenerados en build/dev time desde Knowledge/AOS (COMMAND_CENTER_REBUILD).
+# Nunca son fuente de verdad local: se descartan de git para evitar canonical data duplicada.
+src/generated/knowledge-snapshot.json
+src/generated/aos-status-snapshot.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
