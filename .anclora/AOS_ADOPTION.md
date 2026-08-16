@@ -9,14 +9,14 @@ Declaración de adopción AOS para `anclora-command-center`.
 - Adoption Status: Adopted With Exceptions
 - AOS Version: v0.2.0
 - Adoption Date: 2026-08-17
-- Last Reviewed: 2026-08-17
+- Last Reviewed: 2026-08-17 (post `COMMAND_CENTER_REBUILD`)
 - Governance Level: GL-1
 
 ## Propósito del repositorio
 
-`anclora-command-center` es el dashboard operativo interno del ecosistema Anclora: un shell Vite + React 19 + TypeScript que hoy sincroniza datos y documentación generados desde un vault personal externo (fuera de este workspace) y los presenta en un panel visual centralizado.
+`anclora-command-center` es la interfaz operacional del ecosistema Anclora: un shell Vite + React 19 + TypeScript que lee, en solo lectura, snapshots generados en build/dev time desde `anclora-infrastructure/knowledge` (Knowledge/AKG) y desde el CLI `aos status` (AOS Runtime), y los presenta en 5 vistas operacionales (Overview, Products, Repositories, Services, Knowledge). Ya **no** depende de ningún vault personal externo.
 
-Estado actual: `HOLD` (portfolio_status). Role fit del ecosistema: `REBUILD_RECOMMENDED` (ver `anclora-infrastructure/audit/ecosystem-scope-reconciliation/03_COMMAND_CENTER_ROLE_FIT.md`). El repo fue saneado de PII (`VAULT_PII_REVIEW`, `COMMAND_CENTER_PII_REMEDIATION`): `REAL_PII_IN_HEAD=0`, `REAL_PII_IN_HISTORY=0`.
+Estado actual: `HOLD` (portfolio_status; el rol pasa de "dataset local" a "interfaz operacional", pero el repo sigue sin runtime real gestionado por AOS — ver EX-CC-001). El repo fue saneado de PII (`VAULT_PII_REVIEW`, `COMMAND_CENTER_PII_REMEDIATION`): `REAL_PII_IN_HEAD=0`, `REAL_PII_IN_HISTORY=0`, reconfirmado tras `COMMAND_CENTER_REBUILD` (0 secretos, 0 PII en el código y datos añadidos).
 
 ## Excepción principal de esta adopción
 
@@ -31,6 +31,10 @@ Tras `COMMAND_CENTER_REBUILD`, Command Center debe operar como interfaz operacio
 - **AKG v0.1**: grafo de conocimiento consultable (`anclora_knowledge.query`).
 
 Esta relación es de **target arquitectónico**, no de consumo actual verificado — no se registran relaciones `USES` en el AKG hacia AOS/Knowledge/AKG hasta que exista integración real (ver gap semántico documentado en `anclora-infrastructure/audit/ecosystem-core-onboarding/01_COMMAND_CENTER_ONBOARDING.md`, sección de relaciones).
+
+## Estado tras COMMAND_CENTER_REBUILD (2026-08-17)
+
+Implementado en esta fase: `src/adapters/knowledgeAdapter.ts` y `src/adapters/aosAdapter.ts` leen snapshots de solo lectura (`src/generated/knowledge-snapshot.json`, `src/generated/aos-status-snapshot.json`), regenerados en cada `npm run build`/`npm run dev`/`npm run test` por `scripts/sync-knowledge-data.mjs` y `scripts/sync-aos-status.mjs` — nunca escriben en Knowledge/AOS. Este consumo real sigue sin modelarse como relación `USES` en el AKG porque el mecanismo actual es una copia de filesystem local, no una integración productiva (API/servicio) — ver gap en `anclora-infrastructure/audit/command-center-rebuild/03-data-sources.md`.
 
 ## Fuentes AOS referenciadas
 
@@ -50,9 +54,9 @@ Autoridad delegada relevante:
 | Tipo de conocimiento | Ruta local | Owner | Relación con AOS |
 | --- | --- | --- | --- |
 | Identidad del producto | [`../README.md`](../README.md) | AOS Chief Architect | Fuente local subordinada a AOS; actualizada en esta adopción para reflejar HOLD/REBUILD. |
-| Implementación actual (shell Vite/React) | [`../src/`](../src/) | AOS Chief Architect | Fuente técnica local, parcialmente reutilizable en el rebuild (ver `COMMAND_CENTER_REBUILD_READINESS`). |
-| Dataset generado local (legacy) | [`../src/generated/`](../src/generated/) | AOS Chief Architect | **No es fuente de verdad** de products/repos/contracts/services/endpoints — dataset legacy a eliminar en `COMMAND_CENTER_REBUILD` en favor de Anclora Knowledge/AKG. |
-| Package metadata | [`../package.json`](../package.json) | AOS Chief Architect | Fuente técnica local para scripts, dependencias y versión. |
+| Implementación actual (shell Vite/React + adapters) | [`../src/`](../src/) | AOS Chief Architect | Fuente técnica local. Shell (`shell/`) reutilizado del pre-rebuild; `adapters/`, `contracts/`, `modules/operational/` nuevos de esta fase. |
+| Snapshots regenerables (no versionados, `.gitignore`) | [`../src/generated/`](../src/generated/) | AOS Chief Architect | **No es fuente de verdad**: copia de solo lectura de Knowledge/AKG y `aos status`, regenerada en cada build/dev/test — nunca commiteada. |
+| Package metadata | [`../package.json`](../package.json) | AOS Chief Architect | Fuente técnica local para scripts, dependencias y versión. `chokidar`/`exceljs`/`gray-matter` eliminados (dependían del vault externo). |
 
 ## Política de decisiones locales
 
@@ -66,8 +70,9 @@ Una decisión local debe elevarse a AOS cuando:
 
 | ID | Regla afectada | Razón | Owner | Status | Creada | Trigger de revisión | Resolución |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| EX-CC-001 | No hay servicio AOS runtime-managed para este repo en `manifest.yaml`. | El repo está en `HOLD` pendiente de `COMMAND_CENTER_REBUILD`; no existe hoy un runtime operativo que registrar. | AOS Chief Architect | OPEN | 2026-08-17 | Se resuelve cuando `COMMAND_CENTER_REBUILD` entregue un runtime real y se registre en `manifest.yaml`. | — |
-| EX-CC-002 | `src/generated/` contiene datasets locales de products/repos/contracts/services/endpoints que duplican fuentes canónicas (Vault, AOS, Knowledge). | Arquitectura legacy previa a esta adopción. | AOS Chief Architect | OPEN | 2026-08-17 | Se resuelve eliminando `src/generated/` como fuente local durante `COMMAND_CENTER_REBUILD` en favor de un cliente Knowledge/AKG. | — |
+| EX-CC-001 | No hay servicio AOS runtime-managed para este repo en `manifest.yaml`. | El repo sigue en `HOLD`; ahora es interfaz operacional pero no tiene runtime propio que registrar. | AOS Chief Architect | OPEN | 2026-08-17 | Se resuelve cuando exista un runtime real desplegado y se registre en `manifest.yaml`. | — |
+| EX-CC-002 | `src/generated/` contenía datasets locales de products/repos/contracts/services/endpoints que duplicaban fuentes canónicas (Vault, AOS, Knowledge). | Arquitectura legacy previa a esta adopción. | AOS Chief Architect | **RESOLVED** | 2026-08-17 | — | Resuelta 2026-08-17 (`COMMAND_CENTER_REBUILD`): `src/generated/vault-data.json`, `src/generated/dataset.json` y los scripts que los generaban (`sync-vault-data.mjs`, `watch-notes-and-sync.mjs`, `sync-real-estate-dataset.mjs`, `generate-workbook-from-notes.mjs`) eliminados. `src/generated/` ahora solo contiene snapshots de solo lectura regenerables, gitignored. |
+| EX-CC-003 | AOS Runtime v2 es un CLI de texto plano sin API HTTP ni salida `--json`; `scripts/sync-aos-status.mjs` parsea la salida de `aos status` con un parser de ancho fijo sin contrato estable. | Limitación real de AOS Runtime v2 en esta fecha, no decisión de Command Center. | AOS Chief Architect | OPEN | 2026-08-17 | Se resuelve cuando AOS Runtime exponga una salida machine-readable estable (`--json` o API). | — |
 
 ## Política de upgrade AOS
 
@@ -83,6 +88,7 @@ Una decisión local debe elevarse a AOS cuando:
 | Fecha | AOS Version | Cambio | Owner |
 | --- | --- | --- | --- |
 | 2026-08-17 | v0.2.0 | Declaración inicial de adopción con excepciones, tras `VAULT_PII_REVIEW`/`COMMAND_CENTER_PII_REMEDIATION` y como parte de `ECOSYSTEM_CORE_ONBOARDING`. Estado HOLD, target REBUILD documentados. | AOS Chief Architect |
+| 2026-08-17 | v0.2.0 | `COMMAND_CENTER_REBUILD`: EX-CC-002 resuelta (datasets legacy eliminados); adapters de solo lectura hacia Knowledge/AKG y AOS implementados; nueva excepción EX-CC-003 registrada (AOS CLI sin salida machine-readable estable). Adoption Status se mantiene `Adopted With Exceptions` — no se declara `Fully Adopted` (EX-CC-001 y EX-CC-003 siguen abiertas). | AOS Chief Architect |
 
 ## Documentos relacionados
 

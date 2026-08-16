@@ -6,9 +6,9 @@
 
 # Anclora Command Center
 
-### Dashboard operativo interno del ecosistema Anclora
+### Interfaz operacional del ecosistema Anclora
 
-Panel de control central que sincroniza datos de la Bóveda y ofrece una vista consolidada del estado del ecosistema Anclora.
+Panel operativo que lee, en solo lectura, datos derivados de AOS, Anclora Knowledge y AKG v0.1, y los presenta en vistas de estado del ecosistema.
 
 **Español** · [English](./README.en.md)
 
@@ -16,28 +16,29 @@ Panel de control central que sincroniza datos de la Bóveda y ofrece una vista c
 
 ![Anclora](https://img.shields.io/badge/Anclora-ecosystem-111827)
 ![Categoría](https://img.shields.io/badge/categoría-Premium-6C63FF)
-![Idiomas](https://img.shields.io/badge/idiomas-ES%20%7C%20EN-047857)
+![Idiomas](https://img.shields.io/badge/idiomas-ES%20%7C%20EN%20%7C%20DE-047857)
 
 </div>
 
 ---
 
 > [!IMPORTANT]
-> Repositorio interno del ecosistema Anclora, alojado dentro de la Bóveda (`dashboard/`). No publicar detalles operativos, credenciales ni lógica sensible fuera de canales autorizados.
+> Repositorio interno del ecosistema Anclora. No es fuente de verdad de products, repositories, contracts, services ni endpoints — consume esos datos desde Anclora Knowledge/AKG y AOS. No publicar detalles operativos, credenciales ni lógica sensible fuera de canales autorizados.
 
 ## Qué es
 
-Anclora Command Center es el dashboard operativo interno del ecosistema: sincroniza datos y documentación desde un vault personal externo y los presenta en un panel visual centralizado para seguimiento del estado de proyectos, contratos y gobernanza.
+Anclora Command Center es la interfaz operacional del ecosistema: lee snapshots de solo lectura generados en build/dev time desde `anclora-infrastructure/knowledge` (Knowledge/AKG) y desde el CLI `aos status` (AOS Runtime), y los presenta en 5 vistas — Overview, Products, Repositories, Services, Knowledge.
+
+Reconstruido en `COMMAND_CENTER_REBUILD` (2026-08-17) para eliminar su papel histórico como almacén local de datos sincronizados desde un vault personal externo. Ver `anclora-infrastructure/audit/command-center-rebuild/` para la auditoría completa de la reconstrucción.
 
 ## Estado y rol en el ecosistema
 
 | Campo | Valor |
 |---|---|
 | Current status | `HOLD` |
-| Target | `REBUILD` (ver `COMMAND_CENTER_REBUILD_READINESS` en `anclora-infrastructure/audit/ecosystem-core-onboarding/`) |
-| Role objetivo | Operational UI — interfaz operacional de consumo, no fuente de datos |
-| Data sources futuros | AOS · Anclora Knowledge · AKG v0.1 |
-| Source of truth local | **NO**, para: products, repositories, contracts, services, endpoints — estos datasets viven hoy en `src/generated/` de forma legacy y deben eliminarse en el rebuild a favor de un cliente Knowledge/AKG |
+| Role | Operational UI — interfaz operacional de consumo, no fuente de datos |
+| Data sources | AOS (CLI `aos status`) · Anclora Knowledge · AKG v0.1 |
+| Source of truth local | **NO**, para: products, repositories, contracts, services, endpoints — consumidos vía `src/adapters/` desde snapshots regenerables (`src/generated/`, gitignored, nunca fuente) |
 | AOS adoption | `Adopted With Exceptions` (ver `.anclora/AOS_ADOPTION.md`) |
 
 ## Categoría en el ecosistema
@@ -49,37 +50,51 @@ Anclora Command Center es el dashboard operativo interno del ecosistema: sincron
 | Repositorio canónico | `anclora-command-center` |
 | Ubicación | `/home/toni/workspace/anclora/anclora-command-center` (checkout independiente) |
 
-## Funcionalidades principales
+## Arquitectura
 
-- Sincronización automática de datos desde la Bóveda (`chokidar`, `gray-matter`)
-- Panel visual de estado del ecosistema
-- Exportación e importación de datos (ExcelJS)
+```
+src/
+  adapters/       # unica frontera entre snapshots JSON crudos y los contratos UI
+  contracts/      # tipos UI estables (RepositorySummary, ProductSummary, ServiceSummary, ...)
+  modules/
+    operational/  # vistas: Overview, Products, Repositories, Services, Knowledge
+  shell/          # shell de navegacion/tema/idioma (reutilizado del pre-rebuild)
+```
 
-## Stack tecnológico
+Los componentes React nunca leen `src/generated/*.json` directamente ni recorren el schema interno de Knowledge/AKG — siempre pasan por `src/adapters/`. Ver `anclora-infrastructure/audit/command-center-rebuild/04-adapter-architecture.md`.
 
-| Área | Tecnología |
-|---|---|
-| Framework | Vite, React |
-| Sincronización | Chokidar (watch de ficheros), gray-matter (frontmatter) |
-| Datos | ExcelJS |
+## Fuentes de datos
+
+| Fuente | Cómo se lee | Escritura |
+|---|---|---|
+| Anclora Knowledge/AKG | `scripts/sync-knowledge-data.mjs` copia `anclora-infrastructure/knowledge/generated/knowledge-model.json` → `src/generated/knowledge-snapshot.json` en build/dev/test | Nunca — solo lectura |
+| AOS Runtime | `scripts/sync-aos-status.mjs` invoca `aos status` (CLI de texto plano, sin API) y lo normaliza a `src/generated/aos-status-snapshot.json` | Nunca — solo lectura, sin `up`/`down`/`restart` |
+
+Ambos snapshots son regenerables y están en `.gitignore` — nunca se versionan como dato canónico local.
 
 ## Arranque local
 
 ```bash
 npm install
-npm run dev
+npm run dev      # sincroniza Knowledge/AOS y arranca Vite
+npm run build    # sincroniza, typecheck y build de producción
+npm run test     # sincroniza y ejecuta la suite de adapters (vitest)
+npm run lint
 ```
 
 ## Idiomas soportados
 
 - Español (predeterminado)
 - English
+- Deutsch
 
 ## Documentación y gobernanza
 
 - Fuente de verdad canónica: `anclora-vault` (documentación) y `anclora-governance` (constitución/decisiones/estándares) — no este repositorio.
 - Registro de scope y metadata: `anclora-vault/00-governance/registry/ecosystem-repos.json`
+- Contratos de gobernanza: no se mantienen copias locales — ver `docs/standards/README.md`
 - AOS adoption de este repo: `.anclora/AOS_ADOPTION.md`
+- Auditoría de la reconstrucción: `anclora-infrastructure/audit/command-center-rebuild/`
 
 ---
 
