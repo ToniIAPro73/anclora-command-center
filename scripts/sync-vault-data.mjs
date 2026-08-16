@@ -13,13 +13,13 @@ const fileMap = {
   group: path.join(vaultRoot, 'resources', 'anclora-group.md'),
   stakeholders: path.join(vaultRoot, 'resources', 'mapa-stakeholders.md'),
   partnerTemplate: path.join(vaultRoot, 'templates', 'partner-synergi.md'),
-  ideasJorge: path.join(vaultRoot, 'ideas', 'propuesta-colaboracion-jorge.md'),
+  ideasCollab: path.join(vaultRoot, 'ideas', 'propuesta-colaboracion-ivan.md'),
   ideasLinkedIn: path.join(vaultRoot, 'ideas', 'post-linkedin-autoridad.md'),
   partners: [
     path.join(vaultRoot, 'personas', 'Elena Ejemplo.md'),
     path.join(vaultRoot, 'personas', 'Marco Modelo.md'),
     path.join(vaultRoot, 'personas', 'Nora Muestra.md'),
-    path.join(vaultRoot, 'personas', 'jorge-cifre.md'),
+    path.join(vaultRoot, 'personas', 'ivan-aliado.md'),
   ],
 }
 
@@ -605,7 +605,7 @@ function sync() {
   const group = parseResource(fileMap.group)
   const stakeholders = parseResource(fileMap.stakeholders)
   const partnerTemplate = parseResource(fileMap.partnerTemplate)
-  const ideas = [parseResource(fileMap.ideasJorge), parseResource(fileMap.ideasLinkedIn)]
+  const ideas = [parseResource(fileMap.ideasCollab), parseResource(fileMap.ideasLinkedIn)]
   const partners = fileMap.partners.filter((filePath) => fs.existsSync(filePath)).map(parsePartnerNote)
 
   const payload = {

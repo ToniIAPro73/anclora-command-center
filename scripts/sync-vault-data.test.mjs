@@ -16,10 +16,10 @@ test('sync-vault-data maps partner estado into status in generated payload', () 
   })
 
   const payload = JSON.parse(fs.readFileSync(generatedFile, 'utf8'))
-  const javier = payload.partners.find((partner) => partner.title === 'Marco Modelo')
+  const marco = payload.partners.find((partner) => partner.title === 'Marco Modelo')
 
-  assert.ok(javier, 'expected Marco Modelo in generated partners list')
-  assert.equal(javier.status, 'prospecto')
+  assert.ok(marco, 'expected Marco Modelo in generated partners list')
+  assert.equal(marco.status, 'prospecto')
   assert.ok(
     payload.partners.every((partner) => typeof partner.status === 'string' && partner.status.length > 0),
     'expected every generated partner to include a non-empty status',

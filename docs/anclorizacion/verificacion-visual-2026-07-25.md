@@ -6,14 +6,13 @@ Servidor usado: `npm run dev` en `http://127.0.0.1:5173/`.
 
 ## Capturas
 
-- `screenshots/executive-dark-desktop.png`: vista Executive en tema oscuro,
-  1440px.
-- `screenshots/executive-light-desktop.png`: vista Executive en tema claro,
-  1440px.
-- `screenshots/executive-dark-mobile.png`: vista Executive en tema oscuro,
-  390px.
-- `screenshots/executive-light-mobile.png`: vista Executive en tema claro,
-  390px.
+> **Nota de privacidad (2026-08-16):** las capturas de la vista Executive y del
+> topbar (`executive-*.png`, `topbar-*.png`) se eliminaron del repositorio
+> porque renderizaban datos personales del panel de partners. Ver
+> `anclora-infrastructure/audit/command-center-pii-remediation/` para el
+> detalle de la remediación. Las capturas de la vista Real Estate no se vieron
+> afectadas y se conservan.
+
 - `screenshots/real-estate-dark-desktop.png`: vista Real Estate en tema oscuro,
   1440px.
 - `screenshots/real-estate-light-desktop.png`: vista Real Estate en tema claro,
@@ -22,10 +21,6 @@ Servidor usado: `npm run dev` en `http://127.0.0.1:5173/`.
   390px.
 - `screenshots/real-estate-light-mobile.png`: vista Real Estate en tema claro,
   390px.
-- `screenshots/topbar-dark-desktop.png`: topbar con selectores de tema e idioma
-  en tema oscuro.
-- `screenshots/topbar-light-desktop.png`: topbar con selectores de tema e idioma
-  en tema claro.
 
 ## Conformidad
 
