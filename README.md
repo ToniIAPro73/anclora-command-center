@@ -27,7 +27,18 @@ Panel de control central que sincroniza datos de la Bóveda y ofrece una vista c
 
 ## Qué es
 
-Anclora Command Center es el dashboard operativo interno del ecosistema: sincroniza datos y documentación desde la Bóveda y los presenta en un panel visual centralizado para seguimiento del estado de proyectos, contratos y gobernanza.
+Anclora Command Center es el dashboard operativo interno del ecosistema: sincroniza datos y documentación desde un vault personal externo y los presenta en un panel visual centralizado para seguimiento del estado de proyectos, contratos y gobernanza.
+
+## Estado y rol en el ecosistema
+
+| Campo | Valor |
+|---|---|
+| Current status | `HOLD` |
+| Target | `REBUILD` (ver `COMMAND_CENTER_REBUILD_READINESS` en `anclora-infrastructure/audit/ecosystem-core-onboarding/`) |
+| Role objetivo | Operational UI — interfaz operacional de consumo, no fuente de datos |
+| Data sources futuros | AOS · Anclora Knowledge · AKG v0.1 |
+| Source of truth local | **NO**, para: products, repositories, contracts, services, endpoints — estos datasets viven hoy en `src/generated/` de forma legacy y deben eliminarse en el rebuild a favor de un cliente Knowledge/AKG |
+| AOS adoption | `Adopted With Exceptions` (ver `.anclora/AOS_ADOPTION.md`) |
 
 ## Categoría en el ecosistema
 
@@ -36,7 +47,7 @@ Anclora Command Center es el dashboard operativo interno del ecosistema: sincron
 | Categoría | Premium |
 | Acento de marca | `#6C63FF` |
 | Repositorio canónico | `anclora-command-center` |
-| Ubicación | `dashboard/` dentro de la Bóveda Anclora |
+| Ubicación | `/home/toni/workspace/anclora/anclora-command-center` (checkout independiente) |
 
 ## Funcionalidades principales
 
@@ -66,7 +77,9 @@ npm run dev
 
 ## Documentación y gobernanza
 
-- Bóveda Anclora (fuente de verdad): `contracts/` y `docs/governance/`, en la raíz de este mismo repositorio
+- Fuente de verdad canónica: `anclora-vault` (documentación) y `anclora-governance` (constitución/decisiones/estándares) — no este repositorio.
+- Registro de scope y metadata: `anclora-vault/00-governance/registry/ecosystem-repos.json`
+- AOS adoption de este repo: `.anclora/AOS_ADOPTION.md`
 
 ---
 
