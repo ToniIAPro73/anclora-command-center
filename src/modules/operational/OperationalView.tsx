@@ -554,7 +554,7 @@ function RepositoriesSection({ t, data }: { t: Copy; data: DataState<RepositoryS
                   {t.status}: {r.portfolioStatus} · {t.visibility}: {r.githubVisibility}
                 </span>
                 {r.sourceOfTruthLocal === false && (
-                  <span className="op-badge op-badge--info">{t.noSourceOfTruth}</span>
+                  <StatusBadge tone="info" label={t.noSourceOfTruth} />
                 )}
                 <span className="op-list__source">
                   {t.source}: {r.source}

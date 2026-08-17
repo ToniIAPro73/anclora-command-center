@@ -94,15 +94,6 @@
   color: var(--text-muted);
 }
 
-.op-badge {
-  font-size: 0.7rem;
-  padding: 0.15rem 0.5rem;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--secondary-border);
-  color: var(--secondary);
-  background: var(--secondary-soft);
-}
-
 .op-note {
   color: var(--text-muted);
   font-size: 0.85rem;
@@ -168,14 +159,8 @@
   cursor: default;
 }
 
-.op-badge--info {
-  color: var(--secondary);
-  background: var(--accent-soft);
-  border-color: var(--accent-border);
-}
-
-/* Estado semantico ahora vive en src/ui/StatusBadge.tsx + status-badge.css
-   (tokens del Design System). Sin duplicado local. */
+/* Estado semantico ahora vive en src/ui/StatusBadge.tsx, envoltorio fino
+   sobre @anclora/design-system/components/status-badge.css. Sin duplicado local. */
 
 .op-overview-header {
   display: flex;

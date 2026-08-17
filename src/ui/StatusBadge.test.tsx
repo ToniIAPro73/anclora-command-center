@@ -7,7 +7,7 @@ describe('StatusBadge', () => {
   it('renders the generic semantic tone class, never a domain-specific one', () => {
     render(<StatusBadge tone="danger" label="CRITICAL" />)
     const badge = screen.getByText('CRITICAL')
-    expect(badge.className).toContain('op-status-badge--danger')
+    expect(badge.className).toContain('ac-status-badge--danger')
     expect(badge.className).not.toMatch(/aos|running|stopped/)
   })
 
@@ -15,7 +15,7 @@ describe('StatusBadge', () => {
     'supports tone=%s',
     (tone) => {
       render(<StatusBadge tone={tone} label={tone} />)
-      expect(screen.getByText(tone).className).toContain(`op-status-badge--${tone}`)
+      expect(screen.getByText(tone).className).toContain(`ac-status-badge--${tone}`)
     },
   )
 })
