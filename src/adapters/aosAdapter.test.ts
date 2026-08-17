@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import {
   getAosRuntimeStatus,
   getAosSnapshotAge,
@@ -52,5 +52,23 @@ describe('aosAdapter', () => {
     const age = getAosSnapshotAge()
     if (age === null) return
     expect(Number.isNaN(new Date(age).getTime())).toBe(false)
+  })
+
+  it('returns ERROR instead of throwing when a READY snapshot has a malformed `services` field', async () => {
+    vi.resetModules()
+    vi.doMock('../generated/aos-status-snapshot.json', () => ({
+      default: {
+        generatedAt: '2026-08-17T00:00:00.000Z',
+        status: 'READY',
+        reason: null,
+        schemaVersion: '1.0',
+        services: null,
+      },
+    }))
+    const { getAosRuntimeStatus: getStatusWithMalformedSnapshot } = await import('./aosAdapter')
+    const state = getStatusWithMalformedSnapshot()
+    expect(state.status).toBe('ERROR')
+    vi.doUnmock('../generated/aos-status-snapshot.json')
+    vi.resetModules()
   })
 })

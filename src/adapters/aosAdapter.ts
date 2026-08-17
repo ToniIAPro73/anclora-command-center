@@ -66,6 +66,9 @@ export function getAosRuntimeStatus(): DataState<AosServiceRuntimeSummary[]> {
       message: `Schema AOS no soportado: ${raw.schemaVersion} (soportados: ${SUPPORTED_SCHEMA_VERSIONS.join(', ')})`,
     }
   }
+  if (!Array.isArray(raw.services)) {
+    return { status: 'ERROR', message: 'Snapshot de AOS malformado: `services` no es un array' }
+  }
   if (raw.services.length === 0) {
     return { status: 'EMPTY' }
   }
