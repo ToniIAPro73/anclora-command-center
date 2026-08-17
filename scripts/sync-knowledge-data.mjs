@@ -9,6 +9,12 @@
 //
 // No incluye datos de products/repos "canonicos" reescritos localmente: es una copia de
 // solo lectura del dataset ya normalizado, tomada tal cual, sin reinterpretar campos.
+//
+// Patron tolerante (igual que sync-aos-status.mjs): si el artefacto no existe — p.ej. en
+// un entorno de build aislado como Vercel, donde SOLO se clona este repositorio y no
+// existe el workspace con anclora-infrastructure — se escribe un snapshot VACIO marcado
+// como tal y el script termina con exit 0. El adapter devuelve EMPTY/UNAVAILABLE a la UI
+// en lugar de romper el deploy. En desarrollo/local el artefacto real se copia tal cual.
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
@@ -23,14 +29,47 @@ const KNOWLEDGE_MODEL_PATH = resolve(
 )
 const OUTPUT_PATH = resolve(REPO_ROOT, 'src/generated/knowledge-snapshot.json')
 
+function emptySnapshot(generatedAt, reason) {
+  return {
+    schema_version: 'unavailable',
+    metadata: {
+      generated_at: generatedAt,
+      rebuild_id: null,
+      counts: { entities: 0, relationships: 0, conflicts: 0 },
+      unavailable_reason: reason,
+    },
+    entities: {
+      repositories: [],
+      products: [],
+      services: [],
+      endpoints: [],
+      standards: [],
+      technologies: [],
+      'business-units': [],
+    },
+    relationships: [],
+    conflicts: [],
+  }
+}
+
 function main() {
+  const generatedAt = new Date().toISOString()
+
   if (!existsSync(KNOWLEDGE_MODEL_PATH)) {
-    console.error(
-      `[sync-knowledge-data] No se encontro ${KNOWLEDGE_MODEL_PATH}. ` +
-        'Ejecuta el build de anclora-infrastructure/knowledge antes de esta sincronizacion. ' +
-        'Este script no genera datos: solo copia el artefacto ya construido.',
+    // Entorno sin workspace (Vercel/CI aislado): no fallar el build, escribir
+    // snapshot vacio explícitamente marcado. La UI muestra EMPTY/UNAVAILABLE.
+    mkdirSync(dirname(OUTPUT_PATH), { recursive: true })
+    writeFileSync(
+      OUTPUT_PATH,
+      JSON.stringify(emptySnapshot(generatedAt, `No se encontro ${KNOWLEDGE_MODEL_PATH}`), null, 2) + '\n',
+      'utf-8',
     )
-    process.exit(1)
+    console.warn(
+      `[sync-knowledge-data] Artefacto Knowledge no disponible en ${KNOWLEDGE_MODEL_PATH} — ` +
+        'snapshot vacio escrito (UNAVAILABLE). En local: ejecuta el build de ' +
+        'anclora-infrastructure/knowledge antes de esta sincronizacion.',
+    )
+    return
   }
 
   const raw = JSON.parse(readFileSync(KNOWLEDGE_MODEL_PATH, 'utf-8'))
