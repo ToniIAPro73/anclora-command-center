@@ -108,6 +108,21 @@ export interface AosEndpointSummary {
   status: string
 }
 
+/** Registro de conflicto AKG (anclora_knowledge/conflicts.py:ConflictRecord). */
+export interface ConflictSummary extends SourceMetadata {
+  id: string
+  entityId: string
+  field: string
+  authoritativeValue: unknown
+  authoritativeSource: string
+  observedValue: unknown
+  observedSource: string
+  mode: string
+  status: string
+  detectedAt: string
+  reviewRequired: boolean
+}
+
 export interface SystemHealth {
   ecosystemRepoCount: number
   productCount: number

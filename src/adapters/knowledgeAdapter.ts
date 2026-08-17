@@ -16,6 +16,7 @@
 // Solo lectura: no expone ninguna operacion de escritura.
 
 import type {
+  ConflictSummary,
   DataState,
   EndpointSummary,
   ProductSummary,
@@ -58,7 +59,25 @@ interface RawSnapshot {
     'business-units': RawEntity[]
   }
   relationships: RawRelationship[]
-  conflicts: unknown[]
+  conflicts: RawConflict[]
+}
+
+// Forma real de anclora_knowledge/conflicts.py:ConflictRecord.to_dict() —
+// campos con valor None se omiten al serializar (resolution_note?, etc.),
+// por eso todos los opcionales aqui son tolerantes a ausencia.
+interface RawConflict {
+  conflict_id?: string
+  entity_id?: string
+  field?: string
+  authoritative_value?: unknown
+  authoritative_source?: string
+  observed_value?: unknown
+  observed_source?: string
+  mode?: string
+  status?: string
+  detected_at?: string
+  review_required?: boolean
+  resolution_note?: string
 }
 
 /** Umbral de frescura del snapshot antes de considerarlo STALE (Seccion 17). */
@@ -97,6 +116,7 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
   services: DataState<ServiceSummary[]>
   endpoints: DataState<EndpointSummary[]>
   health: DataState<SystemHealth>
+  conflicts: DataState<ConflictSummary[]>
   relationshipsFor: (entityId: string) => RelationshipSummary[]
 } {
   const unavailable: DataState<never> = {
@@ -111,6 +131,7 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
       services: unavailable,
       endpoints: unavailable,
       health: unavailable,
+      conflicts: unavailable,
       relationshipsFor: () => [],
     }
   }
@@ -237,7 +258,33 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
         sourceId: r.id,
       }))
 
-  return { repositories, products, services, endpoints, health, relationshipsFor }
+  // Conflictos AKG: previamente parseados y descartados antes de llegar a la
+  // UI. EMPTY (no CRITICAL/ERROR) cuando no hay conflictos — 0 es un estado
+  // valido y saludable, no una fuente caida.
+  const rawConflicts = Array.isArray(raw.conflicts) ? raw.conflicts : []
+  const conflicts: DataState<ConflictSummary[]> = !Array.isArray(raw.conflicts)
+    ? unavailable
+    : withFreshness(
+        raw.metadata,
+        rawConflicts.map((c, i) => ({
+          id: c.conflict_id ?? `conflict:${i}`,
+          entityId: c.entity_id ?? 'unknown',
+          field: c.field ?? 'unknown',
+          authoritativeValue: c.authoritative_value ?? null,
+          authoritativeSource: c.authoritative_source ?? 'unknown',
+          observedValue: c.observed_value ?? null,
+          observedSource: c.observed_source ?? 'unknown',
+          mode: c.mode ?? 'unknown',
+          status: c.status ?? 'unknown',
+          detectedAt: c.detected_at ?? raw.metadata?.generated_at ?? '',
+          reviewRequired: Boolean(c.review_required),
+          source: 'akg' as const,
+          sourceId: c.conflict_id ?? `conflict:${i}`,
+        })),
+        rawConflicts.length === 0,
+      )
+
+  return { repositories, products, services, endpoints, health, conflicts, relationshipsFor }
 }
 
 // ================================================================ PROXY (async)
@@ -270,6 +317,9 @@ export function getEndpoints(): DataState<EndpointSummary[]> {
 }
 export function getSystemHealth(): DataState<SystemHealth> {
   return mapKnowledgeSnapshot(currentKnowledge).health
+}
+export function getConflicts(): DataState<ConflictSummary[]> {
+  return mapKnowledgeSnapshot(currentKnowledge).conflicts
 }
 export function getRelationshipsFor(entityId: string): RelationshipSummary[] {
   return mapKnowledgeSnapshot(currentKnowledge).relationshipsFor(entityId)
