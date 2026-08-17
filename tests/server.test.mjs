@@ -50,6 +50,12 @@ if [ "$FAKE_MODE" = "wrongschema" ]; then echo '{"schemaVersion":"2.0","services
 if [ "$FAKE_MODE" = "noservices" ]; then echo '{"schemaVersion":"1.0","generatedAt":"2026-08-17T00:00:00Z","services":null}'; exit 0; fi
 if [ "$FAKE_MODE" = "fail" ]; then echo "boom" >&2; exit 2; fi
 if [ "$FAKE_MODE" = "v11" ]; then echo '{"schemaVersion":"1.1","generatedAt":"2026-08-17T00:00:00Z","summary":{"total":1,"running":1,"stopped":0},"services":[{"id":"fake-svc","status":"running","state":"running","health":"ok","pid":42,"managed":"aos","port":3999,"bindHost":"127.0.0.1","localUrl":"http://127.0.0.1:3999","publicUrl":"https://fake-svc.dev.anclora.com"}],"endpoints":[{"domain":"fake-svc.dev.anclora.com","service":"fake-svc","configured":true,"authRequired":true,"reachable":true,"https":true,"authProtected":true,"backendReachable":true,"status":"auth_protected"}]}'; exit 0; fi
+if [ "$1" = "up" ] || [ "$1" = "down" ] || [ "$1" = "restart" ]; then
+  if [ "$FAKE_ACTION_MODE" = "fail" ]; then echo "boom" >&2; exit 1; fi
+  echo "ok: $1 $2"
+  exit 0
+fi
+if [ "$FAKE_MODE" = "actions" ]; then echo '{"schemaVersion":"1.1","generatedAt":"2026-08-17T00:00:00Z","summary":{"total":3,"running":3,"stopped":0},"services":[{"id":"fake-svc","status":"running","state":"running","health":"ok","pid":42,"managed":"aos","port":3999,"bindHost":"127.0.0.1","localUrl":"http://127.0.0.1:3999","publicUrl":null},{"id":"command-center","status":"running","state":"running","health":"ok","pid":1,"managed":"aos","port":3024,"bindHost":"127.0.0.1","localUrl":"http://127.0.0.1:3024","publicUrl":null},{"id":"ninerouter","status":"running","state":"running","health":"ok","pid":2,"managed":"external","port":8080,"bindHost":"127.0.0.1","localUrl":"http://127.0.0.1:8080","publicUrl":null}],"endpoints":[]}'; exit 0; fi
 echo '{"schemaVersion":"1.0","generatedAt":"2026-08-17T00:00:00Z","summary":{"total":1,"running":1,"stopped":0},"services":[{"id":"fake-svc","status":"running","health":"ok","pid":42,"managed":"aos","port":3999,"bindHost":"127.0.0.1","localUrl":"http://127.0.0.1:3999","publicUrl":null}]}'
 `,
   { mode: 0o755 },
@@ -267,6 +273,139 @@ test('knowledge-model.json malformado -> /api/knowledge ERROR (503)', async () =
   assert.equal(res.status, 503)
   const j = await res.json()
   assert.equal(j.status, 'ERROR')
+})
+
+// --- POST /api/services/:id/action (COMMAND_CENTER_OPERATIONAL_CONSOLE_V1) ---
+test('action: known AOS-managed service -> allowed (200 OK)', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 200)
+  const j = await res.json()
+  assert.equal(j.status, 'OK')
+  assert.equal(j.service, 'fake-svc')
+  assert.equal(j.op, 'restart')
+})
+
+test('action: known AOS-managed service, aos verb fails -> 500', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions', FAKE_ACTION_MODE: 'fail' }))
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'start' }),
+  })
+  assert.equal(res.status, 500)
+  const j = await res.json()
+  assert.equal(j.status, 'ERROR')
+})
+
+test('action: external-managed service -> rejected (403)', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+  const res = await fetch(`${base}/api/services/ninerouter/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 403)
+})
+
+test('action: unknown service -> rejected (404)', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+  const res = await fetch(`${base}/api/services/does-not-exist/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'start' }),
+  })
+  assert.equal(res.status, 404)
+})
+
+test('action: unsupported op -> rejected (400)', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'delete' }),
+  })
+  assert.equal(res.status, 400)
+})
+
+test('action: self-stop policy blocks stop/restart of command-center (409)', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+  for (const op of ['stop', 'restart']) {
+    const res = await fetch(`${base}/api/services/command-center/action`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ op }),
+    })
+    assert.equal(res.status, 409, `op=${op}`)
+  }
+  // start no esta bloqueado por la self-stop policy (ya esta corriendo, pero
+  // la politica solo restringe stop/restart, no start).
+  const startRes = await fetch(`${base}/api/services/command-center/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'start' }),
+  })
+  assert.equal(startRes.status, 200)
+})
+
+test('action: command injection payloads in service id -> always rejected (400)', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+  const payloads = ['; rm -rf /', '&&', '|', '$(whoami)', '`whoami`', '../../../etc/passwd', 'foo;bar', 'foo|bar']
+  for (const payload of payloads) {
+    const res = await fetch(`${base}/api/services/${encodeURIComponent(payload)}/action`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ op: 'start' }),
+    })
+    assert.equal(res.status, 400, `payload=${payload} got ${res.status}`)
+  }
+})
+
+test('action: malformed body -> rejected (400)', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: 'not-json',
+  })
+  assert.equal(res.status, 400)
+})
+
+test('action: GET on action route -> 405', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+  const res = await fetch(`${base}/api/services/fake-svc/action`)
+  assert.equal(res.status, 405)
+})
+
+test('action: successful action is recorded in /api/audit', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+  await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  const res = await fetch(`${base}/api/audit`)
+  const j = await res.json()
+  assert.equal(j.status, 'READY')
+  const entry = j.entries.find((e) => e.service === 'fake-svc' && e.operation === 'restart')
+  assert.ok(entry, 'expected an audit entry for fake-svc restart')
+  assert.equal(entry.result, 'OK')
+  assert.ok(typeof entry.durationMs === 'number')
+  assert.ok(entry.timestamp)
 })
 
 test('cache por mtime: knowledge READY repetido usa cache', async () => {

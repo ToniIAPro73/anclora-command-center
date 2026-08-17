@@ -1,16 +1,26 @@
 #!/usr/bin/env node
 // Command Center local backend — ejecucion VPS-native (COMMAND_CENTER_VPS_NATIVE_DEPLOYMENT).
 //
-// Objetivo: servir la SPA (dist/) y exponer SOLO los datos operacionales reales
+// Objetivo: servir la SPA (dist/) y exponer los datos operacionales reales
 // que Command Center consume como interfaz operacional interna de AOS:
-//   GET /health          -> proceso vivo (healthcheck de AOS/systemd)
-//   GET /api/status      -> contrato `aos status --json` (schemaVersion 1.0) ejecutado en vivo
-//   GET /api/knowledge   -> knowledge-model.json derivado (Knowledge/AKG) con cache por mtime
+//   GET  /health                      -> proceso vivo (healthcheck de AOS/systemd)
+//   GET  /api/status                  -> contrato `aos status --json` (schemaVersion 1.x) ejecutado en vivo
+//   GET  /api/knowledge               -> knowledge-model.json derivado (Knowledge/AKG) con cache por mtime
+//   GET  /api/audit                   -> ultimas operaciones de escritura (en memoria, no persistente)
+//   POST /api/services/:id/action     -> UNICA operacion de escritura (COMMAND_CENTER_OPERATIONAL_CONSOLE_V1)
 //
 // Principios:
-//   - READ-ONLY: solo GET; cualquier otro metodo -> 405. Sin escrituras al runtime.
+//   - CASI READ-ONLY: todo es GET salvo `POST /api/services/:id/action`, que es
+//     la unica escritura permitida y esta estrictamente acotada (ver abajo).
+//     Cualquier otro metodo/ruta -> 405.
 //   - Loopback-only (127.0.0.1). Caddy es el unico entrypoint publico.
-//   - Sin ejecucion arbitraria: el unico comando permitido es `aos status --json`.
+//   - Sin ejecucion arbitraria: comandos fijos via execFile (nunca shell),
+//     el unico binario es `aos` y los unicos verbos son status/up/down/restart.
+//   - service :id SIEMPRE se valida contra el listado EN VIVO de
+//     `aos status --json` (managed=aos) antes de ejecutar nada — el id del
+//     request nunca se confia ciegamente, y jamas se interpola en un shell.
+//   - command-center NUNCA puede pararse/reiniciarse desde su propia UI
+//     (self-stop policy, Seccion 38) -> 409.
 //   - Sin acceso arbitrario a filesystem: rutas fijas desde config/env, nunca del request.
 //   - Sin secretos: solo rutas y estado operativo; nunca se lee .env del workspace.
 //   - Sin LLM, sin deps externas: Node nativo (node:http / node:fs / node:child_process).
@@ -45,8 +55,27 @@ const KNOWLEDGE_MODEL = join(
 const SUPPORTED_AOS_SCHEMAS = ['1.0', '1.1'] // 1.1 = + service.state + endpoints
 const HOST = '127.0.0.1'
 
+// Self-stop policy (Seccion 38): command-center jamas se para/reinicia desde
+// su propia UI. Bloqueo explicito, no implicito.
+const SELF_SERVICE_ID = 'command-center'
+const SERVICE_ID_PATTERN = /^[a-z0-9][a-z0-9-]*$/
+const ALLOWED_OPS = new Set(['start', 'stop', 'restart'])
+const OP_TO_AOS_VERB = { start: 'up', stop: 'down', restart: 'restart' }
+const MAX_ACTION_BODY_BYTES = 2048
+
 // Knowledge cache: se relee solo cuando cambia el mtime (Knowledge cambia poco).
 let knowledgeCache = { mtimeMs: 0, payload: null }
+
+// Audit log en memoria (Seccion 40): timestamp/operation/service/result/duration.
+// Sin persistencia, sin secretos, sin PII. Se pierde al reiniciar el proceso
+// (aceptable para esta fase — no es un sistema de auditoria de cumplimiento).
+const AUDIT_MAX_ENTRIES = 200
+const auditLog = []
+
+function recordAudit(entry) {
+  auditLog.unshift({ timestamp: new Date().toISOString(), ...entry })
+  if (auditLog.length > AUDIT_MAX_ENTRIES) auditLog.length = AUDIT_MAX_ENTRIES
+}
 
 function sendJson(res, statusCode, payload) {
   const body = JSON.stringify(payload)
@@ -99,6 +128,91 @@ function runAosStatus(cb) {
       services: contract.services,
       // aditivo en 1.1; tolerar ausencia (contrato 1.0)
       endpoints: Array.isArray(contract.endpoints) ? contract.endpoints : [],
+    })
+  })
+}
+
+// ------------------------------------------------------------------ write action
+function readJsonBody(req, cb) {
+  let size = 0
+  const chunks = []
+  req.on('data', (chunk) => {
+    size += chunk.length
+    if (size > MAX_ACTION_BODY_BYTES) {
+      req.destroy()
+      cb(new Error('body too large'), null)
+      return
+    }
+    chunks.push(chunk)
+  })
+  req.on('end', () => {
+    try {
+      const raw = Buffer.concat(chunks).toString('utf-8')
+      cb(null, raw ? JSON.parse(raw) : {})
+    } catch (err) {
+      cb(err, null)
+    }
+  })
+  req.on('error', (err) => cb(err, null))
+}
+
+function runAosVerb(verb, serviceId, cb) {
+  const startedAt = Date.now()
+  execFile(AOS_BIN, [verb, serviceId], { timeout: 20_000, encoding: 'utf-8' }, (err, stdout, stderr) => {
+    cb({ ok: !err, durationMs: Date.now() - startedAt, message: err ? (stderr || err.message) : stdout })
+  })
+}
+
+// POST /api/services/:id/action { op: 'start'|'stop'|'restart' }
+// El unico punto de escritura del backend. El :id del request NUNCA se confia:
+// se revalida contra el listado EN VIVO de `aos status --json` (managed=aos)
+// antes de tocar el runtime. Ningun valor del request llega a un shell —
+// execFile con argument array, nunca interpolacion de string.
+function handleServiceAction(req, res, serviceId) {
+  if (!SERVICE_ID_PATTERN.test(serviceId)) {
+    sendJson(res, 400, { status: 'ERROR', reason: `service id invalido: ${JSON.stringify(serviceId)}` })
+    return
+  }
+  readJsonBody(req, (bodyErr, body) => {
+    if (bodyErr) {
+      sendJson(res, 400, { status: 'ERROR', reason: 'body invalido (JSON esperado)' })
+      return
+    }
+    const op = body && typeof body.op === 'string' ? body.op : null
+    if (!op || !ALLOWED_OPS.has(op)) {
+      sendJson(res, 400, { status: 'ERROR', reason: `op invalida: ${JSON.stringify(op)} (permitidas: start, stop, restart)` })
+      return
+    }
+    if (serviceId === SELF_SERVICE_ID && (op === 'stop' || op === 'restart')) {
+      sendJson(res, 409, {
+        status: 'BLOCKED',
+        reason: `command-center no puede ${op === 'stop' ? 'pararse' : 'reiniciarse'} desde su propia UI (self-stop policy).`,
+      })
+      return
+    }
+    runAosStatus((statusPayload) => {
+      if (statusPayload.status !== 'READY') {
+        sendJson(res, 503, { status: 'ERROR', reason: 'AOS no disponible: no se puede validar el servicio antes de actuar.' })
+        return
+      }
+      const svc = (statusPayload.services || []).find((s) => s.id === serviceId)
+      if (!svc) {
+        sendJson(res, 404, { status: 'ERROR', reason: `Servicio desconocido en el runtime AOS: ${serviceId}` })
+        return
+      }
+      if (svc.managed !== 'aos') {
+        sendJson(res, 403, { status: 'ERROR', reason: `Servicio managed=${svc.managed ?? 'unknown'}: solo servicios AOS-managed aceptan acciones.` })
+        return
+      }
+      const verb = OP_TO_AOS_VERB[op]
+      runAosVerb(verb, serviceId, ({ ok, durationMs, message }) => {
+        recordAudit({ operation: op, service: serviceId, result: ok ? 'OK' : 'FAILED', durationMs })
+        if (!ok) {
+          sendJson(res, 500, { status: 'ERROR', reason: `aos ${verb} ${serviceId} fallo: ${message}` })
+          return
+        }
+        sendJson(res, 200, { status: 'OK', service: serviceId, op, durationMs })
+      })
     })
   })
 }
@@ -169,13 +283,28 @@ function serveStatic(req, res, urlPath) {
 }
 
 // ------------------------------------------------------------------ server
+const SERVICE_ACTION_ROUTE = /^\/api\/services\/([^/]+)\/action$/
+
 const server = createServer((req, res) => {
+  const url = new URL(req.url, `http://${HOST}:${PORT}`)
+  const path = url.pathname
+
+  // Unica ruta que acepta POST — todo lo demas sigue siendo GET-only.
+  const actionMatch = path.match(SERVICE_ACTION_ROUTE)
+  if (actionMatch) {
+    if (req.method !== 'POST') {
+      res.writeHead(405, { Allow: 'POST', 'Content-Type': 'text/plain; charset=utf-8' })
+      res.end('Method Not Allowed\n')
+      return
+    }
+    handleServiceAction(req, res, decodeURIComponent(actionMatch[1]))
+    return
+  }
+
   if (req.method !== 'GET') {
     sendMethodNotAllowed(res)
     return
   }
-  const url = new URL(req.url, `http://${HOST}:${PORT}`)
-  const path = url.pathname
 
   if (path === '/health') {
     sendJson(res, 200, { status: 'ok', service: 'anclora-command-center', port: PORT, uptimeSeconds: Math.round(process.uptime()) })
@@ -183,6 +312,10 @@ const server = createServer((req, res) => {
   }
   if (path === '/api/status') {
     runAosStatus((payload) => sendJson(res, 200, payload))
+    return
+  }
+  if (path === '/api/audit') {
+    sendJson(res, 200, { status: 'READY', entries: auditLog })
     return
   }
   if (path === '/api/knowledge') {

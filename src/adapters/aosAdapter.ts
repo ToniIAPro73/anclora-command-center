@@ -9,7 +9,11 @@
 // Misma estructura que knowledgeAdapter: MAPPER PURO (mapAosRuntimeStatus) +
 // proxy async alimentado por el hook useOperationalData.
 //
-// Solo lectura: no expone ninguna operacion de escritura (up/down/restart).
+// COMMAND_CENTER_OPERATIONAL_CONSOLE_V1: expone ademas postServiceAction(),
+// la UNICA operacion de escritura del adapter — start/stop/restart de un
+// servicio AOS-managed via POST /api/services/:id/action. Validacion real
+// (allowlist, self-stop, injection) vive en el backend (server/server.mjs);
+// este adapter solo hace el fetch y mapea la respuesta.
 
 import type { AosEndpointSummary, AosServiceRuntimeSummary, DataState } from '../contracts/types'
 
@@ -158,4 +162,36 @@ export async function fetchAosStatusFromApi(): Promise<RawAosSnapshot | null> {
   const payload = await res.json()
   if (payload == null || typeof payload !== 'object') return null
   return payload as RawAosSnapshot
+}
+
+// ================================================================ ACTIONS (write)
+export type ServiceActionOp = 'start' | 'stop' | 'restart'
+
+export interface ServiceActionResult {
+  ok: boolean
+  status: number
+  service: string
+  op: ServiceActionOp
+  reason?: string
+}
+
+/**
+ * Unica operacion de escritura: POST /api/services/:id/action { op }.
+ * El backend valida allowlist/managed/self-stop — este adapter solo
+ * traduce la respuesta HTTP a un resultado tipado, nunca asume exito.
+ */
+export async function postServiceAction(serviceId: string, op: ServiceActionOp): Promise<ServiceActionResult> {
+  const res = await fetch(`/api/services/${encodeURIComponent(serviceId)}/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op }),
+  })
+  let reason: string | undefined
+  try {
+    const payload = await res.json()
+    reason = payload?.reason
+  } catch {
+    /* respuesta no-JSON: se mantiene reason undefined */
+  }
+  return { ok: res.ok, status: res.status, service: serviceId, op, reason }
 }
