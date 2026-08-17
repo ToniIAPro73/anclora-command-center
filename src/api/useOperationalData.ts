@@ -21,6 +21,7 @@ import {
 } from '../adapters/aosAdapter'
 import {
   fetchKnowledgeFromApi,
+  getConflicts,
   getEndpoints,
   getProducts,
   getRepositories,
@@ -32,6 +33,7 @@ import {
 import type { DataState } from '../contracts/types'
 import type {
   AosEndpointSummary,
+  ConflictSummary,
   EndpointSummary,
   ProductSummary,
   RelationshipSummary,
@@ -39,6 +41,9 @@ import type {
   ServiceSummary,
   SystemHealth,
 } from '../contracts/types'
+import { deriveIssues } from '../domain/issues'
+import { computeGlobalStatus } from '../domain/operationalStatus'
+import type { GlobalOperationalStatus, OperationalIssue } from '../domain/types'
 
 export interface OperationalDataState {
   loadingInitial: boolean
@@ -50,6 +55,9 @@ export interface OperationalDataState {
   products: DataState<ProductSummary[]>
   services: DataState<ServiceSummary[]>
   endpoints: DataState<EndpointSummary[]>
+  conflicts: DataState<ConflictSummary[]>
+  issues: OperationalIssue[]
+  globalStatus: GlobalOperationalStatus
   relationshipsFor: (entityId: string) => RelationshipSummary[]
   refresh: (opts?: { forceKnowledge?: boolean }) => Promise<void>
 }
@@ -95,16 +103,26 @@ export function useOperationalData(): OperationalDataState {
 
   void tick // fuerza re-render cuando el snapshot cambia
 
+  const aos = getAosRuntimeStatus()
+  const aosEndpoints = getAosEndpointsStatus()
+  const knowledgeHealth = getSystemHealth()
+  const conflicts = getConflicts()
+  const issues = deriveIssues({ aos, aosEndpoints, knowledgeHealth, conflicts })
+  const globalStatus = computeGlobalStatus({ aos, knowledgeHealth, issues })
+
   return {
     loadingInitial,
     aosLastUpdatedAt,
-    aos: getAosRuntimeStatus(),
-    aosEndpoints: getAosEndpointsStatus(),
-    knowledgeHealth: getSystemHealth(),
+    aos,
+    aosEndpoints,
+    knowledgeHealth,
     repositories: getRepositories(),
     products: getProducts(),
     services: getServices(),
     endpoints: getEndpoints(),
+    conflicts,
+    issues,
+    globalStatus,
     relationshipsFor: getRelationshipsFor,
     refresh,
   }

@@ -168,53 +168,90 @@
   cursor: default;
 }
 
-/* Badges de estado semantico: reutilizan los tokens del theme existentes
-   (sin paleta nueva). Mapeo: ok -> success; neutral -> stopped;
-   danger -> unhealthy/unreachable; warning -> starting/unknown;
-   muted -> not_configured/configured. */
-.op-state-badge {
-  display: inline-block;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  padding: 0.12rem 0.5rem;
-  border-radius: var(--radius-full);
-  border: 1px solid transparent;
-  text-transform: uppercase;
-}
-
-.op-state-badge--ok {
-  color: #4ade80;
-  background: rgba(74, 222, 128, 0.12);
-  border-color: rgba(74, 222, 128, 0.35);
-}
-
-.op-state-badge--danger {
-  color: #f87171;
-  background: rgba(248, 113, 113, 0.12);
-  border-color: rgba(248, 113, 113, 0.35);
-}
-
-.op-state-badge--warning {
-  color: #fbbf24;
-  background: rgba(251, 191, 36, 0.12);
-  border-color: rgba(251, 191, 36, 0.35);
-}
-
-.op-state-badge--neutral {
-  color: var(--text-secondary);
-  background: var(--surface);
-  border-color: var(--border-default);
-}
-
-.op-state-badge--muted {
-  color: var(--text-muted);
-  background: transparent;
-  border-color: var(--border-subtle);
-}
-
 .op-badge--info {
   color: var(--secondary);
   background: var(--accent-soft);
   border-color: var(--accent-border);
+}
+
+/* Estado semantico ahora vive en src/ui/StatusBadge.tsx + status-badge.css
+   (tokens del Design System). Sin duplicado local. */
+
+.op-overview-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.op-list__actions {
+  margin-left: auto;
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.op-attention {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.op-issue-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+}
+
+.op-issue {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+}
+
+.op-issue__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.op-issue__title {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.op-issue__summary {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+}
+
+.op-issue__evidence {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.op-issue__evidence-label {
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.7rem;
+}
+
+.op-issue__evidence ul {
+  margin: 0.25rem 0 0;
+  padding-left: 1.1rem;
+  font-family: var(--font-mono);
+}
+
+.op-issue__action {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--accent, var(--text-secondary));
 }

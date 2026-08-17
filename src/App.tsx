@@ -170,6 +170,9 @@ function App() {
           products: operational.products,
           services: operational.services,
           endpoints: operational.endpoints,
+          conflicts: operational.conflicts,
+          issues: operational.issues,
+          globalStatus: operational.globalStatus,
           onRefresh: () => void operational.refresh(),
         }}
       />
