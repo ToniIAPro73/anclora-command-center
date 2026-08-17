@@ -86,6 +86,8 @@ export function DashboardShell({
   navAriaLabel,
   navItems,
   onNavigate,
+  onOpenSearch,
+  searchLabel,
   setLanguage,
   setTheme,
   theme,
@@ -117,6 +119,11 @@ export function DashboardShell({
         </div>
 
         <div className="topbar__controls">
+          <button type="button" className="topbar__search-trigger" onClick={onOpenSearch}>
+            <span aria-hidden="true">⌘K</span>
+            <span>{searchLabel}</span>
+          </button>
+
           <div className="topbar__toggle-group" aria-label={themeAriaLabel}>
             {(['dark', 'light', 'system'] as const).map((item) => {
               const Icon = themeIcons[item]

@@ -1,0 +1,102 @@
+/* GlobalSearch — layout composed on top of ac-modal-backdrop (Seccion 33
+   design-system decision documented in GlobalSearch.tsx). No new palette. */
+
+.op-search-overlay {
+  z-index: 70;
+  align-items: flex-start;
+  padding-top: clamp(60px, 10vh, 140px);
+}
+
+.op-search-panel {
+  width: min(560px, 100%);
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border-default);
+  border-radius: var(--surface-radius-panel, 20px);
+  background: var(--card);
+  box-shadow: var(--shadow-lg);
+}
+
+.op-search-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md, 10px);
+  border: 1px solid var(--border-default);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.op-search-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.op-search-hint {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.op-search-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 50vh;
+  overflow-y: auto;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.op-search-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.op-search-group__label {
+  margin: 0 0 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.op-search-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--radius-md, 10px);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.op-search-result.is-active,
+.op-search-result:hover {
+  background: var(--hover);
+  border-color: var(--accent-border);
+}
+
+.op-search-result__secondary {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.op-search-empty {
+  color: var(--text-muted);
+  padding: 0.5rem;
+}

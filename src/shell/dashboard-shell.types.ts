@@ -18,6 +18,8 @@ export type DashboardShellProps = {
   navAriaLabel: string
   navItems: DashboardNavItem[]
   onNavigate: (section: DashboardSection, href: string) => void
+  onOpenSearch: () => void
+  searchLabel: string
   setLanguage: (language: DashboardLanguage) => void
   setTheme: (theme: DashboardTheme) => void
   theme: DashboardTheme
