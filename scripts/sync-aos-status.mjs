@@ -1,13 +1,16 @@
 #!/usr/bin/env node
-// Snapshot de solo lectura de `aos status` (aos-runtime v2, CLI de texto plano, sin API HTTP).
+// Snapshot de solo lectura del contrato machine-readable de AOS.
 //
-// GAP DOCUMENTADO (ver anclora-infrastructure/audit/command-center-rebuild/03-data-sources.md):
-// AOS Runtime v1/v2 no expone una API programatica ni salida --json. Este script invoca el
-// CLI real y parsea su salida de texto de ancho fijo. Es deliberadamente minimo: si el formato
-// de `aos status` cambia, este script debe actualizarse (no hay contrato estable todavia).
+// Desde AOS_OPERATIONAL_INTERFACE (2026-08-17): AOS Runtime expone
+// `aos status --json` (schemaVersion 1.0, solo JSON en stdout) y este script
+// consume EL CONTRATO directamente. Ya NO existe pars de salida humana de
+// ancho fijo (el antiguo parseStatusTable fue eliminado: HUMAN_CLI_PARSER=0).
 //
-// Solo lectura. Este script NUNCA ejecuta `aos up`/`aos down`/`aos restart` ni ninguna
-// operacion de escritura (ver Seccion 9 de COMMAND_CENTER_REBUILD: READ > WRITE).
+// Si el formato humano de `aos status` cambia, este script NO se ve afectado.
+// Si el contrato JSON cambia de forma breaking, se actualiza schemaVersion
+// en el snapshot y el adapter decide (aosAdapter.ts valida version).
+//
+// Solo lectura. Este script NUNCA ejecuta `aos up`/`aos down`/`aos restart`.
 
 import { execFileSync } from 'node:child_process'
 import { writeFileSync, mkdirSync, existsSync } from 'node:fs'
@@ -20,26 +23,8 @@ const WORKSPACE_ROOT = resolve(REPO_ROOT, '..')
 const AOS_BIN = resolve(WORKSPACE_ROOT, 'anclora-infrastructure/aos-runtime/bin/aos')
 const OUTPUT_PATH = resolve(REPO_ROOT, 'src/generated/aos-status-snapshot.json')
 
-function parseStatusTable(stdout) {
-  const lines = stdout.trim().split('\n')
-  if (lines.length < 2) return []
-  // Cabecera de ancho fijo: "SERVICE  PORT  PROCESS  HEALTH" — parseo tolerante por whitespace.
-  const rows = lines.slice(1)
-  return rows
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .map((line) => {
-      const parts = line.split(/\s{2,}/).map((p) => p.trim())
-      const [service, port, processState, health] = parts
-      return {
-        service: service ?? null,
-        port: port ? Number.parseInt(port, 10) || port : null,
-        processState: processState ?? 'UNKNOWN',
-        health: health && health !== '-' ? health : 'UNKNOWN',
-      }
-    })
-    .filter((row) => row.service)
-}
+// Version minima del contrato AOS que este script sabe consumir.
+const MIN_SCHEMA_VERSION = '1.0'
 
 function main() {
   const generatedAt = new Date().toISOString()
@@ -49,6 +34,7 @@ function main() {
       generatedAt,
       status: 'UNAVAILABLE',
       reason: `aos CLI no encontrado en ${AOS_BIN}`,
+      schemaVersion: null,
       services: [],
     }
     mkdirSync(dirname(OUTPUT_PATH), { recursive: true })
@@ -58,22 +44,42 @@ function main() {
   }
 
   try {
-    const stdout = execFileSync(AOS_BIN, ['status'], { encoding: 'utf-8', timeout: 15_000 })
-    const services = parseStatusTable(stdout)
-    const snapshot = { generatedAt, status: 'READY', reason: null, services }
+    // stdout del CLI = SOLO el payload JSON (contrato v1.0). Sin preprocesamiento.
+    const stdout = execFileSync(AOS_BIN, ['status', '--json'], {
+      encoding: 'utf-8',
+      timeout: 15_000,
+    })
+    const contract = JSON.parse(stdout)
+    if (!contract || contract.schemaVersion !== MIN_SCHEMA_VERSION) {
+      throw new Error(
+        `contrato AOS no soportado: schemaVersion=${contract?.schemaVersion ?? 'missing'}`
+      )
+    }
+    const snapshot = {
+      generatedAt,
+      status: 'READY',
+      reason: null,
+      schemaVersion: contract.schemaVersion,
+      generatedByAos: contract.generatedAt,
+      summary: contract.summary,
+      services: contract.services,
+    }
     mkdirSync(dirname(OUTPUT_PATH), { recursive: true })
     writeFileSync(OUTPUT_PATH, JSON.stringify(snapshot, null, 2) + '\n', 'utf-8')
-    console.log(`[sync-aos-status] Snapshot escrito con ${services.length} servicios.`)
+    console.log(
+      `[sync-aos-status] Snapshot escrito con ${contract.services.length} servicios (schema ${contract.schemaVersion}).`
+    )
   } catch (err) {
     const snapshot = {
       generatedAt,
       status: 'ERROR',
       reason: err instanceof Error ? err.message : String(err),
+      schemaVersion: null,
       services: [],
     }
     mkdirSync(dirname(OUTPUT_PATH), { recursive: true })
     writeFileSync(OUTPUT_PATH, JSON.stringify(snapshot, null, 2) + '\n', 'utf-8')
-    console.warn('[sync-aos-status] Fallo al invocar aos status — snapshot marcado ERROR.')
+    console.warn('[sync-aos-status] Fallo al invocar aos status --json — snapshot marcado ERROR.')
   }
 }
 

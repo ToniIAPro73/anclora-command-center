@@ -74,11 +74,21 @@ export interface RelationshipSummary extends SourceMetadata {
   confidence: string
 }
 
+// Contrato UI del runtime AOS: mapeo plano del contrato machine-readable de
+// `aos status --json` (schemaVersion 1.0). El adapter (aosAdapter.ts) es la
+// unica frontera: traduce el JSON de AOS a esta forma, la UI nunca ve el CLI.
+// Vocabulario (cerrado, del contrato AOS):
+//   processState: running | stopped | starting | stale_pid | unknown
+//   health:       ok | failed | not_configured | unknown
 export interface AosServiceRuntimeSummary {
   service: string
-  port: number | string | null
+  port: number | null
   processState: string
   health: string
+  pid: number | null
+  managed: 'aos' | 'external' | null
+  localUrl: string | null
+  publicUrl: string | null
 }
 
 export interface SystemHealth {

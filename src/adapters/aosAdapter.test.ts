@@ -1,10 +1,16 @@
 import { describe, expect, it } from 'vitest'
-import { getAosRuntimeStatus, getAosSnapshotAge } from './aosAdapter'
+import {
+  getAosRuntimeStatus,
+  getAosSnapshotAge,
+  getAosSchemaVersion,
+} from './aosAdapter'
 
-// Tests de integracion contra el snapshot real generado por `npm run sync:aos`
-// (ver scripts/sync-aos-status.mjs). AOS Runtime v2 no tiene API estable — el estado
-// exacto de los servicios varia segun el entorno, asi que se verifica la forma del
-// contrato (DataState valido) en vez de valores puntuales.
+// Tests de integracion contra el snapshot REAL generado por `npm run sync:aos`
+// (scripts/sync-aos-status.mjs). Desde AOS_OPERATIONAL_INTERFACE el snapshot
+// contiene el contrato machine-readable de `aos status --json` (schemaVersion
+// 1.0); el estado exacto de los servicios varia segun el entorno, asi que se
+// verifica la forma del contrato (DataState + campos del vocabulario cerrado)
+// en vez de valores puntuales.
 
 describe('aosAdapter', () => {
   it('getAosRuntimeStatus returns a valid DataState variant', () => {
@@ -17,7 +23,28 @@ describe('aosAdapter', () => {
         expect(typeof svc.service).toBe('string')
         expect(typeof svc.processState).toBe('string')
         expect(typeof svc.health).toBe('string')
+        // vocabulario cerrado del contrato AOS v1.0
+        expect(['running', 'stopped', 'starting', 'stale_pid', 'unknown']).toContain(
+          svc.processState,
+        )
+        expect(['ok', 'failed', 'not_configured', 'unknown']).toContain(svc.health)
+        // nullability: pid/urls pueden ser null pero nunca strings falsos
+        if (svc.pid !== null) expect(typeof svc.pid).toBe('number')
+        if (svc.localUrl !== null) expect(typeof svc.localUrl).toBe('string')
+        if (svc.publicUrl !== null) expect(typeof svc.publicUrl).toBe('string')
+        expect(['aos', 'external', null]).toContain(svc.managed)
       }
+    }
+  })
+
+  it('snapshot exposes a supported schema version when READY', () => {
+    const schemaVersion = getAosSchemaVersion()
+    const state = getAosRuntimeStatus()
+    if (state.status === 'READY') {
+      expect(schemaVersion).toBe('1.0')
+    } else {
+      // UNAVAILABLE/ERROR pueden no tener version (snapshot vacio)
+      expect([null, '1.0']).toContain(schemaVersion)
     }
   })
 

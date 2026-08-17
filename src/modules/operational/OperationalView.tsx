@@ -187,7 +187,7 @@ function OverviewSection({ t }: { t: Copy }) {
       <DataStateView state={aos} labels={stateLabels(t)}>
         {(services) => (
           <p className="op-note">
-            {services.filter((s) => s.processState !== 'DOWN').length} / {services.length}{' '}
+            {services.filter((s) => s.processState !== 'stopped').length} / {services.length}{' '}
             {t.runtimeState.toLowerCase()}
           </p>
         )}
