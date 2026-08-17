@@ -108,6 +108,35 @@ export interface EndpointSummary extends SourceMetadata {
   host: string
   port: number | null
   endpointStatus: string
+  /** fields.app_key del snapshot — usado por la reconciliacion AOS<->Knowledge (COMMAND_CENTER_ENDPOINT_CROSS_NAVIGATION). */
+  appKey: string | null
+}
+
+// ================================================================ ENDPOINT RECONCILIATION
+// AOS endpoint (runtime) <-> Knowledge Endpoint (semantico). Deterministico,
+// nunca fuzzy. Ver src/domain/endpointReconciliation.ts.
+
+export type EndpointMatchResult = 'MATCHED' | 'UNMATCHED' | 'AMBIGUOUS' | 'NOT_APPLICABLE'
+export type EndpointMatchMethod = 'exact-domain' | 'unique-service' | 'none'
+export type EndpointStatusClass =
+  | 'protected'
+  | 'app-authenticated'
+  | 'local-only'
+  | 'unreachable'
+  | 'exposed'
+  | 'configured'
+  | 'unknown'
+
+export interface EndpointMatch {
+  /** Id de navegacion: el id Knowledge canonico si hay match unico, si no un id operacional sintetico "aos-endpoint:<domain-or-service>". */
+  id: string
+  aos: AosEndpointSummary
+  knowledgeId: string | null
+  /** Todos los candidatos Knowledge considerados (>1 solo si AMBIGUOUS). */
+  candidateIds: string[]
+  result: EndpointMatchResult
+  method: EndpointMatchMethod
+  evidence: string
 }
 
 export interface KnowledgeEntitySummary extends SourceMetadata {

@@ -182,6 +182,125 @@ describe('deriveIssues', () => {
     expect(issues.find((i) => i.category === 'endpoint-unreachable')?.severity).toBe('warning')
   })
 
+  // COMMAND_CENTER_ENDPOINT_CROSS_NAVIGATION: fix real de falso positivo —
+  // verificado en vivo que 10/13 endpoints reales disparaban esto antes.
+  it('endpoint backend unreachable because the underlying service is intentionally STOPPED (on-demand) -> NOT an issue', () => {
+    const issues = deriveIssues({
+      aos: {
+        status: 'READY',
+        data: [svc({ service: 'command-center' }), svc({ service: 'fiscal-web', state: 'stopped', processState: 'stopped' })],
+      },
+      aosEndpoints: {
+        status: 'READY',
+        data: [
+          {
+            domain: 'fiscal.dev.anclora.com',
+            service: 'fiscal-web',
+            configured: true,
+            authRequired: true,
+            reachable: true,
+            https: true,
+            authProtected: true,
+            backendReachable: false,
+            status: 'auth_protected',
+          },
+        ],
+      },
+      knowledgeHealth: READY_HEALTH,
+      conflicts: EMPTY_CONFLICTS,
+    })
+    expect(issues.find((i) => i.category === 'endpoint-unreachable')).toBeUndefined()
+  })
+
+  it('endpoint ambiguous match -> warning issue with candidate evidence, no auto-pick', () => {
+    const issues = deriveIssues({
+      aos: { status: 'READY', data: [svc({ service: 'command-center' })] },
+      aosEndpoints: EMPTY_ENDPOINTS,
+      knowledgeHealth: READY_HEALTH,
+      conflicts: EMPTY_CONFLICTS,
+      endpointMatches: [
+        {
+          id: 'aos-endpoint:fiscal.dev.anclora.com',
+          aos: {
+            domain: 'fiscal.dev.anclora.com',
+            service: 'fiscal-web',
+            configured: true,
+            authRequired: true,
+            reachable: true,
+            https: true,
+            authProtected: true,
+            backendReachable: true,
+            status: 'auth_protected',
+          },
+          knowledgeId: null,
+          candidateIds: ['endpoint:a', 'endpoint:b'],
+          result: 'AMBIGUOUS',
+          method: 'exact-domain',
+          evidence: '2 Knowledge endpoints share domain fiscal.dev.anclora.com',
+        },
+      ],
+    })
+    const issue = issues.find((i) => i.category === 'endpoint-ambiguous-match')
+    expect(issue?.severity).toBe('warning')
+    expect(issue?.evidence.join(' ')).toContain('endpoint:a')
+  })
+
+  it('UNMATCHED and NOT_APPLICABLE endpoint matches NEVER generate an issue (no alert fatigue)', () => {
+    const base = {
+      domain: null,
+      service: null,
+      configured: false,
+      authRequired: false,
+      reachable: false,
+      https: false,
+      authProtected: false,
+      backendReachable: null as boolean | null,
+      status: 'not_configured',
+    }
+    const issues = deriveIssues({
+      aos: { status: 'READY', data: [svc({ service: 'command-center' })] },
+      aosEndpoints: EMPTY_ENDPOINTS,
+      knowledgeHealth: READY_HEALTH,
+      conflicts: EMPTY_CONFLICTS,
+      endpointMatches: [
+        { id: 'aos-endpoint:unmatched-1', aos: { ...base, domain: 'x.dev.anclora.com', service: 'x', configured: true, status: 'exposed' }, knowledgeId: null, candidateIds: [], result: 'UNMATCHED', method: 'none', evidence: 'no match' },
+        { id: 'aos-endpoint:not-applicable-1', aos: base, knowledgeId: null, candidateIds: [], result: 'NOT_APPLICABLE', method: 'none', evidence: 'local-only' },
+      ],
+    })
+    expect(issues.filter((i) => i.category === 'endpoint-ambiguous-match')).toHaveLength(0)
+  })
+
+  it('duplicate domain in Knowledge -> warning issue, never silently picks one', () => {
+    const issues = deriveIssues({
+      aos: { status: 'READY', data: [svc({ service: 'command-center' })] },
+      aosEndpoints: EMPTY_ENDPOINTS,
+      knowledgeHealth: READY_HEALTH,
+      conflicts: EMPTY_CONFLICTS,
+      knowledgeEndpoints: [
+        { id: 'endpoint:a', host: 'fiscal.dev.anclora.com', appKey: 'fiscal-web' },
+        { id: 'endpoint:b', host: 'fiscal.dev.anclora.com', appKey: null },
+      ],
+    })
+    const issue = issues.find((i) => i.category === 'endpoint-duplicate-domain')
+    expect(issue?.severity).toBe('warning')
+    expect(issue?.evidence.join(' ')).toContain('endpoint:a')
+    expect(issue?.evidence.join(' ')).toContain('endpoint:b')
+  })
+
+  it('no duplicate domains in Knowledge -> no issue', () => {
+    const issues = deriveIssues({
+      aos: { status: 'READY', data: [svc({ service: 'command-center' })] },
+      aosEndpoints: EMPTY_ENDPOINTS,
+      knowledgeHealth: READY_HEALTH,
+      conflicts: EMPTY_CONFLICTS,
+      knowledgeEndpoints: [
+        { id: 'endpoint:a', host: 'fiscal.dev.anclora.com', appKey: 'fiscal-web' },
+        { id: 'endpoint:b', host: 'talent.dev.anclora.com', appKey: 'talent' },
+      ],
+    })
+    expect(issues.filter((i) => i.category === 'endpoint-duplicate-domain')).toHaveLength(0)
+  })
+
   it('local-only unconfigured endpoint is NOT an issue (false positive guard)', () => {
     const issues = deriveIssues({
       aos: { status: 'READY', data: [svc({ service: 'command-center' })] },

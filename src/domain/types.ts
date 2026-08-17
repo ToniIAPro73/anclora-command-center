@@ -16,6 +16,8 @@ export type IssueCategory =
   | 'knowledge-stale'
   | 'repository-diverged'
   | 'repository-unavailable'
+  | 'endpoint-ambiguous-match'
+  | 'endpoint-duplicate-domain'
 
 export interface OperationalIssue {
   id: string

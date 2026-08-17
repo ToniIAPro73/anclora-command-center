@@ -225,6 +225,7 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
           host: field<string>(e, 'host') ?? e.name,
           port: field(e, 'port'),
           endpointStatus: statusField(e, 'endpoint_status'),
+          appKey: field<string>(e, 'app_key'),
           source: 'aos' as const,
           sourceId: e.id,
         })),

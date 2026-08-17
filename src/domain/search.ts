@@ -5,7 +5,7 @@
 
 import type { EntityRef, SearchResult, SourceSystem } from '../contracts/types'
 
-interface SearchableSource {
+export interface SearchableSource {
   id: string
   entityType: string
   label: string
@@ -25,6 +25,8 @@ export function buildSearchIndex(sources: {
   repositories: { id: string; name: string; portfolioStatus: string }[]
   services: { id: string; name: string; serviceStatus: string }[]
   knowledgeEntities: EntityRef[]
+  /** Ya deduplicados aguas arriba (Seccion 21) — un endpoint MATCHED aparece una sola vez. */
+  endpoints?: SearchableSource[]
 }): SearchResult[] {
   const seen = new Set<string>()
   const index: SearchableSource[] = []
@@ -40,6 +42,11 @@ export function buildSearchIndex(sources: {
   for (const s of sources.services) {
     index.push({ id: s.id, entityType: 'Service', label: s.name, secondary: s.serviceStatus, source: 'aos' })
     seen.add(s.id)
+  }
+  for (const e of sources.endpoints ?? []) {
+    if (seen.has(e.id)) continue
+    index.push(e)
+    seen.add(e.id)
   }
   for (const e of sources.knowledgeEntities) {
     if (seen.has(e.id) || !e.found) continue

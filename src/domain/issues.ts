@@ -21,10 +21,12 @@ import type {
   AosServiceRuntimeSummary,
   ConflictSummary,
   DataState,
+  EndpointMatch,
   RepositoryRuntimeState,
   SystemHealth,
 } from '../contracts/types'
 import type { OperationalIssue } from './types'
+import { detectDuplicateKnowledgeDomains, type KnowledgeEndpointCandidate } from './endpointReconciliation'
 
 // Unico servicio confirmado CORE_REQUIRED (Seccion 23): Command Center es su
 // propia consola operacional — si no esta arriba, la consola misma no puede
@@ -41,9 +43,11 @@ export function deriveIssues(sources: {
   knowledgeHealth: DataState<SystemHealth>
   conflicts: DataState<ConflictSummary[]>
   repositoriesRuntime?: DataState<RepositoryRuntimeState[]>
+  endpointMatches?: EndpointMatch[]
+  knowledgeEndpoints?: KnowledgeEndpointCandidate[]
 }): OperationalIssue[] {
   const issues: OperationalIssue[] = []
-  const { aos, aosEndpoints, knowledgeHealth, conflicts, repositoriesRuntime } = sources
+  const { aos, aosEndpoints, knowledgeHealth, conflicts, repositoriesRuntime, endpointMatches, knowledgeEndpoints } = sources
 
   // -- AOS availability --------------------------------------------------
   if (aos.status === 'ERROR' || aos.status === 'UNAVAILABLE') {
@@ -114,6 +118,12 @@ export function deriveIssues(sources: {
   }
 
   // -- Endpoint reachability ----------------------------------------------
+  // COMMAND_CENTER_ENDPOINT_CROSS_NAVIGATION (Seccion 25): un endpoint cuyo
+  // backend esta "unreachable" porque el servicio subyacente esta STOPPED
+  // a proposito (on-demand, mismo criterio que la guarda de servicios de
+  // arriba) NO es un issue — es el mismo estado normal visto desde el
+  // endpoint. Antes de este fix, cualquier app on-demand parada generaba
+  // ruido aqui (verificado en vivo: 10/13 endpoints reales disparaban esto).
   const endpoints = dataOf(aosEndpoints)
   if (endpoints) {
     for (const ep of endpoints) {
@@ -121,6 +131,8 @@ export function deriveIssues(sources: {
       // endpoints no configurados intencionalmente (local-only).
       if (!ep.configured) continue
       if (ep.backendReachable === false) {
+        const backingService = ep.service && services ? services.find((s) => s.service === ep.service) : undefined
+        if (backingService && backingService.state === 'stopped') continue
         issues.push({
           id: `issue:endpoint-unreachable:${ep.domain ?? ep.service ?? 'unknown'}`,
           severity: 'warning',
@@ -220,6 +232,43 @@ export function deriveIssues(sources: {
           suggestedAction: 'Review the divergence in the Repositories view before merging or rebasing.',
         })
       }
+    }
+  }
+
+  // -- Endpoint reconciliation (COMMAND_CENTER_ENDPOINT_CROSS_NAVIGATION) --
+  // Solo AMBIGUOUS (bloquea navegacion/integridad de datos) y dominios
+  // duplicados en Knowledge (data-quality gap) son accionables. UNMATCHED
+  // y NOT_APPLICABLE son estados normales (endpoint solo-AOS, local-only) —
+  // nunca issues.
+  if (endpointMatches) {
+    for (const m of endpointMatches) {
+      if (m.result !== 'AMBIGUOUS') continue
+      issues.push({
+        id: `issue:endpoint-ambiguous-match:${m.id}`,
+        severity: 'warning',
+        category: 'endpoint-ambiguous-match',
+        title: `Ambiguous semantic match: ${m.aos.domain ?? m.aos.service ?? 'endpoint'}`,
+        summary: 'Multiple Knowledge Endpoint entities match this AOS endpoint — no automatic choice was made.',
+        source: 'aos',
+        entityId: m.aos.service,
+        evidence: [m.evidence, `candidates=${m.candidateIds.join(', ')}`],
+        suggestedAction: 'Review the Knowledge Endpoint entities for a duplicate or missing distinguishing field.',
+      })
+    }
+  }
+  if (knowledgeEndpoints) {
+    for (const dup of detectDuplicateKnowledgeDomains(knowledgeEndpoints)) {
+      issues.push({
+        id: `issue:endpoint-duplicate-domain:${dup.domain}`,
+        severity: 'warning',
+        category: 'endpoint-duplicate-domain',
+        title: `Duplicate domain in Knowledge: ${dup.domain}`,
+        summary: `${dup.ids.length} Knowledge Endpoint entities declare the same domain.`,
+        source: 'knowledge',
+        entityId: null,
+        evidence: [`domain=${dup.domain}`, `entities=${dup.ids.join(', ')}`],
+        suggestedAction: 'Deduplicate the Endpoint entities in Knowledge.',
+      })
     }
   }
 

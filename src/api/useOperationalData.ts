@@ -49,7 +49,9 @@ import type {
 } from '../contracts/types'
 import { deriveIssues } from '../domain/issues'
 import { computeGlobalStatus } from '../domain/operationalStatus'
+import { reconcileEndpoints } from '../domain/endpointReconciliation'
 import type { GlobalOperationalStatus, OperationalIssue } from '../domain/types'
+import type { EndpointMatch } from '../contracts/types'
 
 export interface OperationalDataState {
   loadingInitial: boolean
@@ -62,6 +64,7 @@ export interface OperationalDataState {
   products: DataState<ProductSummary[]>
   services: DataState<ServiceSummary[]>
   endpoints: DataState<EndpointSummary[]>
+  endpointMatches: EndpointMatch[]
   conflicts: DataState<ConflictSummary[]>
   issues: OperationalIssue[]
   globalStatus: GlobalOperationalStatus
@@ -117,7 +120,24 @@ export function useOperationalData(): OperationalDataState {
   const knowledgeHealth = getSystemHealth()
   const conflicts = getConflicts()
   const repositoriesRuntime = getRepositoriesRuntime()
-  const issues = deriveIssues({ aos, aosEndpoints, knowledgeHealth, conflicts, repositoriesRuntime })
+  const endpoints = getEndpoints()
+  const knowledgeEndpointCandidates =
+    endpoints.status === 'READY' || endpoints.status === 'STALE'
+      ? endpoints.data.map((e) => ({ id: e.id, host: e.host, appKey: e.appKey }))
+      : []
+  const endpointMatches =
+    aosEndpoints.status === 'READY' || aosEndpoints.status === 'STALE'
+      ? reconcileEndpoints(aosEndpoints.data, knowledgeEndpointCandidates)
+      : []
+  const issues = deriveIssues({
+    aos,
+    aosEndpoints,
+    knowledgeHealth,
+    conflicts,
+    repositoriesRuntime,
+    endpointMatches,
+    knowledgeEndpoints: knowledgeEndpointCandidates,
+  })
   const globalStatus = computeGlobalStatus({ aos, knowledgeHealth, issues })
 
   return {
@@ -130,7 +150,8 @@ export function useOperationalData(): OperationalDataState {
     repositoriesRuntime,
     products: getProducts(),
     services: getServices(),
-    endpoints: getEndpoints(),
+    endpoints,
+    endpointMatches,
     conflicts,
     issues,
     globalStatus,
