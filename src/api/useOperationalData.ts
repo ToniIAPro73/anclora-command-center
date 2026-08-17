@@ -30,6 +30,11 @@ import {
   getSystemHealth,
   setKnowledgeSnapshot,
 } from '../adapters/knowledgeAdapter'
+import {
+  fetchRepositoriesRuntimeFromApi,
+  getRepositoriesRuntime,
+  setRepositoriesRuntimeSnapshot,
+} from '../adapters/repositoryRuntimeAdapter'
 import type { DataState } from '../contracts/types'
 import type {
   AosEndpointSummary,
@@ -37,6 +42,7 @@ import type {
   EndpointSummary,
   ProductSummary,
   RelationshipSummary,
+  RepositoryRuntimeState,
   RepositorySummary,
   ServiceSummary,
   SystemHealth,
@@ -52,6 +58,7 @@ export interface OperationalDataState {
   aosEndpoints: DataState<AosEndpointSummary[]>
   knowledgeHealth: DataState<SystemHealth>
   repositories: DataState<RepositorySummary[]>
+  repositoriesRuntime: DataState<RepositoryRuntimeState[]>
   products: DataState<ProductSummary[]>
   services: DataState<ServiceSummary[]>
   endpoints: DataState<EndpointSummary[]>
@@ -78,6 +85,8 @@ export function useOperationalData(): OperationalDataState {
     }
     const aos = await fetchAosStatusFromApi()
     setAosSnapshot(aos)
+    const repositoriesRuntime = await fetchRepositoriesRuntimeFromApi()
+    setRepositoriesRuntimeSnapshot(repositoriesRuntime)
     setAosLastUpdatedAt(new Date())
     setTick((t) => t + 1)
   }, [])
@@ -107,7 +116,8 @@ export function useOperationalData(): OperationalDataState {
   const aosEndpoints = getAosEndpointsStatus()
   const knowledgeHealth = getSystemHealth()
   const conflicts = getConflicts()
-  const issues = deriveIssues({ aos, aosEndpoints, knowledgeHealth, conflicts })
+  const repositoriesRuntime = getRepositoriesRuntime()
+  const issues = deriveIssues({ aos, aosEndpoints, knowledgeHealth, conflicts, repositoriesRuntime })
   const globalStatus = computeGlobalStatus({ aos, knowledgeHealth, issues })
 
   return {
@@ -117,6 +127,7 @@ export function useOperationalData(): OperationalDataState {
     aosEndpoints,
     knowledgeHealth,
     repositories: getRepositories(),
+    repositoriesRuntime,
     products: getProducts(),
     services: getServices(),
     endpoints: getEndpoints(),

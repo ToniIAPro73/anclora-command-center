@@ -1,7 +1,41 @@
 import { describe, expect, it } from 'vitest'
 import { deriveIssues } from './issues'
 import { computeGlobalStatus } from './operationalStatus'
-import type { AosEndpointSummary, AosServiceRuntimeSummary, ConflictSummary, DataState, SystemHealth } from '../contracts/types'
+import type {
+  AosEndpointSummary,
+  AosServiceRuntimeSummary,
+  ConflictSummary,
+  DataState,
+  RepositoryRuntimeState,
+  SystemHealth,
+} from '../contracts/types'
+
+function repo(overrides: Partial<RepositoryRuntimeState>): RepositoryRuntimeState {
+  return {
+    repositoryId: 'anclora-fiscal',
+    knowledgeId: 'repo:ToniIAPro73/anclora-fiscal',
+    available: true,
+    observedAt: new Date().toISOString(),
+    errors: [],
+    branch: 'main',
+    detached: false,
+    head: 'a'.repeat(40),
+    shortHead: 'aaaaaaa',
+    clean: true,
+    modifiedCount: 0,
+    addedCount: 0,
+    deletedCount: 0,
+    renamedCount: 0,
+    untrackedCount: 0,
+    upstream: 'origin/main',
+    ahead: 0,
+    behind: 0,
+    divergence: 'SYNCED',
+    lastCommit: null,
+    cbm: { available: false },
+    ...overrides,
+  }
+}
 
 function svc(overrides: Partial<AosServiceRuntimeSummary>): AosServiceRuntimeSummary {
   return {
@@ -237,6 +271,75 @@ describe('deriveIssues', () => {
       conflicts: { status: 'READY', data: [{ ...conflict, reviewRequired: true }] },
     })
     expect(criticalIssues.find((i) => i.category === 'knowledge-conflicts')?.severity).toBe('critical')
+  })
+
+  // COMMAND_CENTER_REPOSITORY_RUNTIME_OBSERVABILITY: solo DIVERGED y
+  // UNAVAILABLE son accionables. dirty/ahead/behind/detached NUNCA generan
+  // issue (Seccion 18: "no alert fatigue").
+  it('diverged repository -> warning issue with evidence', () => {
+    const issues = deriveIssues({
+      aos: { status: 'READY', data: [svc({ service: 'command-center' })] },
+      aosEndpoints: EMPTY_ENDPOINTS,
+      knowledgeHealth: READY_HEALTH,
+      conflicts: EMPTY_CONFLICTS,
+      repositoriesRuntime: { status: 'READY', data: [repo({ divergence: 'DIVERGED', ahead: 2, behind: 3 })] },
+    })
+    const issue = issues.find((i) => i.category === 'repository-diverged')
+    expect(issue?.severity).toBe('warning')
+    expect(issue?.evidence).toContain('ahead=2')
+    expect(issue?.evidence).toContain('behind=3')
+  })
+
+  it('unavailable repository (git failed) -> warning issue', () => {
+    const issues = deriveIssues({
+      aos: { status: 'READY', data: [svc({ service: 'command-center' })] },
+      aosEndpoints: EMPTY_ENDPOINTS,
+      knowledgeHealth: READY_HEALTH,
+      conflicts: EMPTY_CONFLICTS,
+      repositoriesRuntime: { status: 'READY', data: [repo({ available: false, errors: ['git status fallo: boom'], divergence: 'UNKNOWN' })] },
+    })
+    const issue = issues.find((i) => i.category === 'repository-unavailable')
+    expect(issue?.severity).toBe('warning')
+    expect(issue?.evidence).toContain('git status fallo: boom')
+  })
+
+  it('dirty/ahead/behind/detached/no-upstream repos NEVER generate an issue (no alert fatigue)', () => {
+    const issues = deriveIssues({
+      aos: { status: 'READY', data: [svc({ service: 'command-center' })] },
+      aosEndpoints: EMPTY_ENDPOINTS,
+      knowledgeHealth: READY_HEALTH,
+      conflicts: EMPTY_CONFLICTS,
+      repositoriesRuntime: {
+        status: 'READY',
+        data: [
+          repo({ repositoryId: 'r-dirty', clean: false, modifiedCount: 3 }),
+          repo({ repositoryId: 'r-ahead', divergence: 'AHEAD', ahead: 4 }),
+          repo({ repositoryId: 'r-behind', divergence: 'BEHIND', behind: 2 }),
+          repo({ repositoryId: 'r-detached', detached: true, branch: null }),
+          repo({ repositoryId: 'r-no-upstream', divergence: 'NO_UPSTREAM', upstream: null, ahead: null, behind: null }),
+        ],
+      },
+    })
+    expect(issues.filter((i) => i.category === 'repository-diverged' || i.category === 'repository-unavailable')).toHaveLength(0)
+  })
+
+  it('clean synced repository -> no issue, and repositoriesRuntime is optional (backward compatible)', () => {
+    const withoutRepos = deriveIssues({
+      aos: { status: 'READY', data: [svc({ service: 'command-center' })] },
+      aosEndpoints: EMPTY_ENDPOINTS,
+      knowledgeHealth: READY_HEALTH,
+      conflicts: EMPTY_CONFLICTS,
+    })
+    expect(withoutRepos).toHaveLength(0)
+
+    const withClean = deriveIssues({
+      aos: { status: 'READY', data: [svc({ service: 'command-center' })] },
+      aosEndpoints: EMPTY_ENDPOINTS,
+      knowledgeHealth: READY_HEALTH,
+      conflicts: EMPTY_CONFLICTS,
+      repositoriesRuntime: { status: 'READY', data: [repo({})] },
+    })
+    expect(withClean).toHaveLength(0)
   })
 })
 

@@ -29,6 +29,7 @@
 .op-entity-section {
   display: grid;
   gap: 0.6rem;
+  min-width: 0;
 }
 
 .op-entity-section__title {
@@ -47,17 +48,21 @@
 
 .op-entity-props {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 0.4rem;
   margin: 0;
   font-size: 0.88rem;
+  min-width: 0;
 }
 
 .op-entity-props > div {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 0.25rem 1rem;
   padding: 0.3rem 0;
   border-bottom: 1px solid var(--border-subtle);
+  min-width: 0;
 }
 
 .op-entity-props dt {
@@ -69,6 +74,8 @@
   color: var(--text-primary);
   text-align: right;
   word-break: break-word;
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .op-rel-group {

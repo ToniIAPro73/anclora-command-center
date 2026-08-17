@@ -225,6 +225,7 @@ function App() {
           aosEndpoints: operational.aosEndpoints,
           knowledgeHealth: operational.knowledgeHealth,
           repositories: operational.repositories,
+          repositoriesRuntime: operational.repositoriesRuntime,
           products: operational.products,
           services: operational.services,
           endpoints: operational.endpoints,

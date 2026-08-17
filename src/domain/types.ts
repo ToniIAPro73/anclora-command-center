@@ -14,6 +14,8 @@ export type IssueCategory =
   | 'knowledge-unavailable'
   | 'knowledge-conflicts'
   | 'knowledge-stale'
+  | 'repository-diverged'
+  | 'repository-unavailable'
 
 export interface OperationalIssue {
   id: string

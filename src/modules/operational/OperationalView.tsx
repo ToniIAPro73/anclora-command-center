@@ -7,6 +7,7 @@ import type {
   DataState,
   EndpointSummary,
   ProductSummary,
+  RepositoryRuntimeState,
   RepositorySummary,
   ServiceSummary,
   SystemHealth,
@@ -81,6 +82,18 @@ interface Copy {
   actionFailed: (reason: string) => string
   conflictsTitle: string
   noConflicts: string
+  repoBranch: string
+  repoGitState: string
+  repoAheadBehind: string
+  repoProduct: string
+  repoCbm: string
+  repoDetached: string
+  repoNoUpstream: string
+  repoCleanState: string
+  repoDirtyState: string
+  repoUnavailableState: string
+  repoCbmNotIndexed: string
+  repoCbmAvailable: (freshness: string) => string
 }
 
 // Vocabulario UI de estados: labels humanas ESTABLES (mayusculas) para los
@@ -215,6 +228,18 @@ const copy: Record<DashboardLanguage, Copy> = {
     actionFailed: (reason) => `La acción falló: ${reason}`,
     conflictsTitle: 'Conflictos de Knowledge',
     noConflicts: 'Sin conflictos detectados.',
+    repoBranch: 'Rama',
+    repoGitState: 'Estado Git',
+    repoAheadBehind: 'Ahead/Behind',
+    repoProduct: 'Producto',
+    repoCbm: 'CBM',
+    repoDetached: 'HEAD DESACOPLADO',
+    repoNoUpstream: 'sin upstream',
+    repoCleanState: 'LIMPIO',
+    repoDirtyState: 'CON CAMBIOS',
+    repoUnavailableState: 'NO DISPONIBLE',
+    repoCbmNotIndexed: 'sin indexar',
+    repoCbmAvailable: (freshness) => freshness,
   },
   en: {
     loading: 'Loading…',
@@ -274,6 +299,18 @@ const copy: Record<DashboardLanguage, Copy> = {
     actionFailed: (reason) => `Action failed: ${reason}`,
     conflictsTitle: 'Knowledge conflicts',
     noConflicts: 'No conflicts detected.',
+    repoBranch: 'Branch',
+    repoGitState: 'Git state',
+    repoAheadBehind: 'Ahead/Behind',
+    repoProduct: 'Product',
+    repoCbm: 'CBM',
+    repoDetached: 'DETACHED HEAD',
+    repoNoUpstream: 'no upstream',
+    repoCleanState: 'CLEAN',
+    repoDirtyState: 'DIRTY',
+    repoUnavailableState: 'UNAVAILABLE',
+    repoCbmNotIndexed: 'not indexed',
+    repoCbmAvailable: (freshness) => freshness,
   },
   de: {
     loading: 'Wird geladen…',
@@ -333,6 +370,18 @@ const copy: Record<DashboardLanguage, Copy> = {
     actionFailed: (reason) => `Aktion fehlgeschlagen: ${reason}`,
     conflictsTitle: 'Knowledge-Konflikte',
     noConflicts: 'Keine Konflikte erkannt.',
+    repoBranch: 'Branch',
+    repoGitState: 'Git-Status',
+    repoAheadBehind: 'Voraus/Zurück',
+    repoProduct: 'Produkt',
+    repoCbm: 'CBM',
+    repoDetached: 'DETACHED HEAD',
+    repoNoUpstream: 'kein Upstream',
+    repoCleanState: 'SAUBER',
+    repoDirtyState: 'GEÄNDERT',
+    repoUnavailableState: 'NICHT VERFÜGBAR',
+    repoCbmNotIndexed: 'nicht indiziert',
+    repoCbmAvailable: (freshness) => freshness,
   },
 }
 
@@ -346,6 +395,7 @@ export interface OperationalDataProps {
   aosEndpoints: DataState<AosEndpointSummary[]>
   knowledgeHealth: DataState<SystemHealth>
   repositories: DataState<RepositorySummary[]>
+  repositoriesRuntime: DataState<RepositoryRuntimeState[]>
   products: DataState<ProductSummary[]>
   services: DataState<ServiceSummary[]>
   endpoints: DataState<EndpointSummary[]>
@@ -370,7 +420,15 @@ export function OperationalView({
   if (section === 'overview') return <OverviewSection t={t} {...data} />
   if (section === 'products') return <ProductsSection t={t} data={data.products} onOpenEntity={data.onOpenEntity} />
   if (section === 'repositories')
-    return <RepositoriesSection t={t} data={data.repositories} onOpenEntity={data.onOpenEntity} />
+    return (
+      <RepositoriesSection
+        t={t}
+        data={data.repositories}
+        runtime={data.repositoriesRuntime}
+        products={data.products}
+        onOpenEntity={data.onOpenEntity}
+      />
+    )
   if (section === 'services')
     return (
       <ServicesSection
@@ -561,15 +619,69 @@ function ProductsSection({
   )
 }
 
+// Git state (facet independiente de divergence, Seccion 17): un repo puede
+// estar DIRTY y AHEAD a la vez — esta funcion NO los colapsa, solo deriva el
+// badge de working-tree. Ahead/behind se muestra en su propia celda.
+function gitStateOf(runtime: RepositoryRuntimeState | null, t: Copy): { tone: StatusTone; label: string } {
+  if (!runtime || !runtime.available) return { tone: 'muted', label: t.repoUnavailableState }
+  if (runtime.detached) return { tone: 'warning', label: t.repoDetached }
+  if (runtime.clean === null) return { tone: 'muted', label: t.unavailable }
+  return runtime.clean ? { tone: 'success', label: t.repoCleanState } : { tone: 'warning', label: t.repoDirtyState }
+}
+
+function aheadBehindOf(runtime: RepositoryRuntimeState | null, t: Copy): string {
+  if (!runtime || !runtime.available) return '—'
+  switch (runtime.divergence) {
+    case 'SYNCED':
+      return '—'
+    case 'AHEAD':
+      return `↑${runtime.ahead}`
+    case 'BEHIND':
+      return `↓${runtime.behind}`
+    case 'DIVERGED':
+      return `↑${runtime.ahead} ↓${runtime.behind}`
+    case 'NO_UPSTREAM':
+      return t.repoNoUpstream
+    default:
+      return '—'
+  }
+}
+
+function cbmToneOf(cbm: RepositoryRuntimeState['cbm'] | undefined): StatusTone {
+  if (!cbm?.available) return 'muted'
+  if (cbm.freshness === 'FRESH') return 'success'
+  return 'info'
+}
+
+// REPOSITORY_LIST_DATATABLE_DECISION (Seccion 21/22, evaluado esta fase):
+// 6 columnas densas y escaneables (repo/branch/git state/ahead-behind/
+// product/CBM) sobre hasta ~14 repos activos — el patron de lista anterior
+// (op-list) obligaba a leer 3-4 lineas por fila para lo mismo. ac-data-table
+// ya viene con overflow-x horizontal (tablet) y semantica <table> accesible
+// nativa: se adopta aqui. Products/Services NO migran — sus filas son mas
+// cortas y la lista actual ya es clara (Seccion 28, documentado).
 function RepositoriesSection({
   t,
   data,
+  runtime,
+  products,
   onOpenEntity,
 }: {
   t: Copy
   data: DataState<RepositorySummary[]>
+  runtime: DataState<RepositoryRuntimeState[]>
+  products: DataState<ProductSummary[]>
   onOpenEntity: (id: string) => void
 }) {
+  const runtimeByCensusId = new Map<string, RepositoryRuntimeState>()
+  if (runtime.status === 'READY' || runtime.status === 'STALE') {
+    for (const r of runtime.data) runtimeByCensusId.set(r.repositoryId, r)
+  }
+  const productByRepoId = new Map<string, ProductSummary>()
+  if (products.status === 'READY' || products.status === 'STALE') {
+    for (const p of products.data) if (p.repoId) productByRepoId.set(p.repoId, p)
+  }
+
   return (
     <section className="op-section" aria-labelledby="repos-heading">
       <h2 id="repos-heading" className="op-section__title">
@@ -577,24 +689,62 @@ function RepositoriesSection({
       </h2>
       <DataStateView state={data} labels={stateLabels(t)}>
         {(items) => (
-          <ul className="op-list">
-            {items.map((r) => (
-              <li key={r.id} className="op-list__item">
-                <button type="button" className="op-list__name op-list__name--link" onClick={() => onOpenEntity(r.id)}>
-                  {r.name}
-                </button>
-                <span className="op-list__meta">
-                  {t.status}: {r.portfolioStatus} · {t.visibility}: {r.githubVisibility}
-                </span>
-                {r.sourceOfTruthLocal === false && (
-                  <StatusBadge tone="info" label={t.noSourceOfTruth} />
-                )}
-                <span className="op-list__source">
-                  {t.source}: {r.source}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="ac-data-table">
+            <div className="ac-data-table__scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">{t.reposTitle}</th>
+                    <th scope="col">{t.repoBranch}</th>
+                    <th scope="col">{t.repoGitState}</th>
+                    <th scope="col">{t.repoAheadBehind}</th>
+                    <th scope="col">{t.repoProduct}</th>
+                    <th scope="col">{t.repoCbm}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {items.map((r) => {
+                    const rt = r.censusId ? (runtimeByCensusId.get(r.censusId) ?? null) : null
+                    const state = gitStateOf(rt, t)
+                    const product = productByRepoId.get(r.id)
+                    return (
+                      <tr key={r.id}>
+                        <td>
+                          <button type="button" className="op-list__name--link ac-data-table__primary" onClick={() => onOpenEntity(r.id)}>
+                            {r.name}
+                          </button>
+                          {r.sourceOfTruthLocal === false && (
+                            <div className="ac-data-table__meta">{t.noSourceOfTruth}</div>
+                          )}
+                        </td>
+                        <td>{rt?.detached ? `${t.repoDetached} (${rt.shortHead ?? '?'})` : (rt?.branch ?? '—')}</td>
+                        <td>
+                          <StatusBadge tone={state.tone} label={state.label} />
+                        </td>
+                        <td>{aheadBehindOf(rt, t)}</td>
+                        <td>
+                          {product ? (
+                            <button type="button" className="op-list__name--link" onClick={() => onOpenEntity(product.id)}>
+                              {product.name}
+                            </button>
+                          ) : (
+                            '—'
+                          )}
+                        </td>
+                        <td>
+                          {rt?.cbm.available ? (
+                            <StatusBadge tone={cbmToneOf(rt.cbm)} label={t.repoCbmAvailable(rt.cbm.freshness ?? 'UNKNOWN')} />
+                          ) : (
+                            <StatusBadge tone="muted" label={t.repoCbmNotIndexed} />
+                          )}
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
         )}
       </DataStateView>
     </section>

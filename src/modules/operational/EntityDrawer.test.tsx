@@ -1,15 +1,25 @@
 // @vitest-environment jsdom
-import { describe, expect, it, vi, beforeEach } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { EntityDrawer } from './EntityDrawer'
 import { setKnowledgeSnapshot } from '../../adapters/knowledgeAdapter'
+import { setRepositoriesRuntimeSnapshot } from '../../adapters/repositoryRuntimeAdapter'
+import type { RepositoryRuntimeState } from '../../contracts/types'
 
 function rawSnapshot() {
   return {
     schema_version: '1.0',
     metadata: { generated_at: new Date().toISOString(), rebuild_id: 'test' },
     entities: {
-      repositories: [],
+      repositories: [
+        {
+          id: 'repo:ToniIAPro73/anclora-fiscal',
+          type: 'Repository',
+          name: 'Anclora Fiscal',
+          status: { portfolio_status: 'ACTIVE' },
+          fields: { census_id: 'anclora-fiscal' },
+        },
+      ],
       products: [
         {
           id: 'product:fiscal',
@@ -127,5 +137,107 @@ describe('EntityDrawer', () => {
     render(<EntityDrawer entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={onClose} onNavigate={() => {}} />)
     fireEvent.keyDown(document, { key: 'Escape' })
     expect(onClose).toHaveBeenCalledTimes(1)
+  })
+})
+
+function runtimeState(overrides: Partial<RepositoryRuntimeState> = {}): RepositoryRuntimeState {
+  return {
+    repositoryId: 'anclora-fiscal',
+    knowledgeId: 'repo:ToniIAPro73/anclora-fiscal',
+    available: true,
+    observedAt: new Date().toISOString(),
+    errors: [],
+    branch: 'main',
+    detached: false,
+    head: 'a'.repeat(40),
+    shortHead: 'aaaaaaa',
+    clean: false,
+    modifiedCount: 2,
+    addedCount: 0,
+    deletedCount: 0,
+    renamedCount: 0,
+    untrackedCount: 1,
+    upstream: 'origin/main',
+    ahead: 1,
+    behind: 2,
+    divergence: 'DIVERGED',
+    lastCommit: { hash: 'b'.repeat(40), shortHash: 'bbbbbbb', subject: 'fix: something', authorName: 'Toni', date: new Date().toISOString() },
+    cbm: { available: true, freshness: 'FRESH', indexedHead: 'aaaaaaaaaaaa', workingTree: 'clean' },
+    ...overrides,
+  }
+}
+
+describe('EntityDrawer (repository Git/CBM section)', () => {
+  beforeEach(() => {
+    setKnowledgeSnapshot(rawSnapshot() as never)
+    setRepositoriesRuntimeSnapshot(null)
+  })
+  afterEach(() => {
+    setRepositoriesRuntimeSnapshot(null)
+    vi.unstubAllGlobals()
+  })
+
+  it('shows Git branch/HEAD/working-tree/ahead-behind/last-commit and CBM freshness once the live probe resolves', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => ({ status: 200, json: async () => ({ status: 'READY', repository: runtimeState() }) })),
+    )
+    render(<EntityDrawer entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+
+    await waitFor(() => expect(screen.getByText(/bbbbbbb/)).toBeInTheDocument())
+    expect(screen.getByText('main')).toBeInTheDocument()
+    expect(screen.getByText('DIRTY')).toBeInTheDocument()
+    expect(screen.getByText('2 modified · 0 added · 0 deleted · 0 renamed · 1 untracked')).toBeInTheDocument()
+    expect(screen.getByText('Diverged — 1 ahead, 2 behind')).toBeInTheDocument()
+    expect(screen.getByText('Remote comparison based on local refs — no git fetch is executed.')).toBeInTheDocument()
+    expect(screen.getByText('fix: something', { exact: false })).toBeInTheDocument()
+    expect(screen.getByText('FRESH')).toBeInTheDocument()
+  })
+
+  it('paints the batch-loaded runtime immediately, before the live fetch resolves', () => {
+    setRepositoriesRuntimeSnapshot([runtimeState({ branch: 'batch-branch' })])
+    vi.stubGlobal('fetch', vi.fn(() => new Promise(() => {}))) // never resolves
+    render(<EntityDrawer entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    expect(screen.getByText('batch-branch')).toBeInTheDocument()
+  })
+
+  it('detached HEAD is shown explicitly, not as an empty branch', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => ({ status: 200, json: async () => ({ status: 'READY', repository: runtimeState({ detached: true, branch: null, divergence: 'NO_UPSTREAM', upstream: null, ahead: null, behind: null }) }) })),
+    )
+    render(<EntityDrawer entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    await waitFor(() => expect(screen.getByText('Detached HEAD')).toBeInTheDocument())
+  })
+
+  it('unavailable repository: shows the Git-unavailable empty state, not a crash', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => ({
+        status: 502,
+        json: async () => ({
+          status: 'ERROR',
+          repository: { repositoryId: 'anclora-fiscal', knowledgeId: 'repo:ToniIAPro73/anclora-fiscal', available: false, observedAt: new Date().toISOString(), errors: ['git status fallo: boom'], branch: null, detached: false, head: null, shortHead: null, clean: null, modifiedCount: 0, addedCount: 0, deletedCount: 0, renamedCount: 0, untrackedCount: 0, upstream: null, ahead: null, behind: null, divergence: 'UNKNOWN', lastCommit: null, cbm: { available: false } },
+        }),
+      })),
+    )
+    render(<EntityDrawer entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    await waitFor(() => expect(screen.getByText('Git unavailable: git status fallo: boom')).toBeInTheDocument())
+  })
+
+  it('CBM not indexed shows an explicit empty state, not a false freshness value', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => ({ status: 200, json: async () => ({ status: 'READY', repository: runtimeState({ cbm: { available: false } }) }) })),
+    )
+    render(<EntityDrawer entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    await waitFor(() => expect(screen.getByText('Not indexed')).toBeInTheDocument())
+  })
+
+  it('non-repository entities never trigger a repository runtime fetch', () => {
+    const fetchMock = vi.fn()
+    vi.stubGlobal('fetch', fetchMock)
+    render(<EntityDrawer entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    expect(fetchMock).not.toHaveBeenCalled()
   })
 })

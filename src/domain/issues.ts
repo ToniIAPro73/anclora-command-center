@@ -21,6 +21,7 @@ import type {
   AosServiceRuntimeSummary,
   ConflictSummary,
   DataState,
+  RepositoryRuntimeState,
   SystemHealth,
 } from '../contracts/types'
 import type { OperationalIssue } from './types'
@@ -39,9 +40,10 @@ export function deriveIssues(sources: {
   aosEndpoints: DataState<AosEndpointSummary[]>
   knowledgeHealth: DataState<SystemHealth>
   conflicts: DataState<ConflictSummary[]>
+  repositoriesRuntime?: DataState<RepositoryRuntimeState[]>
 }): OperationalIssue[] {
   const issues: OperationalIssue[] = []
-  const { aos, aosEndpoints, knowledgeHealth, conflicts } = sources
+  const { aos, aosEndpoints, knowledgeHealth, conflicts, repositoriesRuntime } = sources
 
   // -- AOS availability --------------------------------------------------
   if (aos.status === 'ERROR' || aos.status === 'UNAVAILABLE') {
@@ -181,6 +183,44 @@ export function deriveIssues(sources: {
         .map((c) => `${c.entityId}.${c.field}: authoritative(${c.authoritativeSource})=${JSON.stringify(c.authoritativeValue)} vs observed(${c.observedSource})=${JSON.stringify(c.observedValue)}`),
       suggestedAction: 'Review conflicts in the Knowledge view.',
     })
+  }
+
+  // -- Repository runtime (COMMAND_CENTER_REPOSITORY_RUNTIME_OBSERVABILITY) --
+  // Deliberadamente NO se genera issue por dirty/ahead/behind/detached — son
+  // estados normales durante trabajo activo (Seccion 18: "no alert fatigue").
+  // Solo DIVERGED (requiere reconciliacion manual real) y UNAVAILABLE (el
+  // comando git realmente fallo, repo roto/inaccesible) son accionables.
+  const repos = dataOf(repositoriesRuntime ?? { status: 'EMPTY' })
+  if (repos) {
+    for (const repo of repos) {
+      if (!repo.available) {
+        issues.push({
+          id: `issue:repository-unavailable:${repo.repositoryId}`,
+          severity: 'warning',
+          category: 'repository-unavailable',
+          title: `Repository unavailable: ${repo.repositoryId}`,
+          summary: `Command Center could not read live Git state for ${repo.repositoryId}.`,
+          source: 'knowledge',
+          entityId: repo.knowledgeId,
+          evidence: repo.errors.length > 0 ? repo.errors : ['git status failed'],
+          suggestedAction: 'Check the repository on disk (missing, corrupted, or permission issue).',
+        })
+        continue
+      }
+      if (repo.divergence === 'DIVERGED') {
+        issues.push({
+          id: `issue:repository-diverged:${repo.repositoryId}`,
+          severity: 'warning',
+          category: 'repository-diverged',
+          title: `Repository diverged: ${repo.repositoryId}`,
+          summary: `${repo.repositoryId} has local and remote commits that disagree — manual reconciliation needed.`,
+          source: 'knowledge',
+          entityId: repo.knowledgeId,
+          evidence: [`ahead=${repo.ahead ?? 0}`, `behind=${repo.behind ?? 0}`, `branch=${repo.branch ?? 'unknown'}`],
+          suggestedAction: 'Review the divergence in the Repositories view before merging or rebasing.',
+        })
+      }
+    }
   }
 
   return issues

@@ -31,6 +31,55 @@ export interface RepositorySummary extends SourceMetadata {
   productId: string | null
   targetRole: string | null
   sourceOfTruthLocal: boolean | null
+  /** Slug usado por el server-side repository registry (COMMAND_CENTER_REPOSITORY_RUNTIME_OBSERVABILITY). null si Knowledge no lo expone. */
+  censusId: string | null
+}
+
+// ================================================================ REPOSITORY RUNTIME
+// Estado Git en vivo (COMMAND_CENTER_REPOSITORY_RUNTIME_OBSERVABILITY).
+// SOLO LECTURA — nunca expone un path de filesystem al navegador; repositoryId
+// es el census_id validado server-side. Ver server/server.mjs.
+
+export type RepositoryDivergence = 'SYNCED' | 'AHEAD' | 'BEHIND' | 'DIVERGED' | 'NO_UPSTREAM' | 'UNKNOWN'
+
+export interface RepositoryLastCommit {
+  hash: string
+  shortHash: string
+  subject: string
+  authorName: string
+  date: string | null
+}
+
+export interface RepositoryCbmState {
+  available: boolean
+  freshness?: string
+  indexedHead?: string | null
+  headCommit?: string | null
+  workingTree?: string
+}
+
+export interface RepositoryRuntimeState {
+  repositoryId: string
+  knowledgeId: string
+  available: boolean
+  observedAt: string
+  errors: string[]
+  branch: string | null
+  detached: boolean
+  head: string | null
+  shortHead: string | null
+  clean: boolean | null
+  modifiedCount: number
+  addedCount: number
+  deletedCount: number
+  renamedCount: number
+  untrackedCount: number
+  upstream: string | null
+  ahead: number | null
+  behind: number | null
+  divergence: RepositoryDivergence
+  lastCommit: RepositoryLastCommit | null
+  cbm: RepositoryCbmState
 }
 
 export interface ProductSummary extends SourceMetadata {

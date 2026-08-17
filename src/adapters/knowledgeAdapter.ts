@@ -169,6 +169,7 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
           productId: null,
           targetRole: field(r, 'target_role'),
           sourceOfTruthLocal: field(r, 'source_of_truth_local'),
+          censusId: field<string>(r, 'census_id'),
           source: 'knowledge' as const,
           sourceId: r.id,
         })),

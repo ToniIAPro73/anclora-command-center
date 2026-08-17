@@ -31,7 +31,7 @@ const products: DataState<ProductSummary[]> = {
 }
 const repositories: DataState<RepositorySummary[]> = {
   status: 'READY',
-  data: [{ id: 'repo:anclora-fiscal', name: 'Anclora Fiscal', githubOwner: null, githubVisibility: 'public', repositoryStatus: 'active', portfolioStatus: 'ACTIVE', defaultBranch: 'main', productId: null, targetRole: null, sourceOfTruthLocal: null, source: 'knowledge', sourceId: 'repo:anclora-fiscal' }],
+  data: [{ id: 'repo:anclora-fiscal', name: 'Anclora Fiscal', githubOwner: null, githubVisibility: 'public', repositoryStatus: 'active', portfolioStatus: 'ACTIVE', defaultBranch: 'main', productId: null, targetRole: null, sourceOfTruthLocal: null, censusId: 'anclora-fiscal', source: 'knowledge', sourceId: 'repo:anclora-fiscal' }],
 }
 const aosService: AosServiceRuntimeSummary = { service: 'fiscal-api', port: 4001, processState: 'running', state: 'running', health: 'ok', pid: 1, managed: 'aos', localUrl: null, publicUrl: null }
 const aos: DataState<AosServiceRuntimeSummary[]> = { status: 'READY', data: [aosService] }
