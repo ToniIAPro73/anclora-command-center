@@ -11,11 +11,12 @@
 //
 // Solo lectura: no expone ninguna operacion de escritura (up/down/restart).
 
-import type { AosServiceRuntimeSummary, DataState } from '../contracts/types'
+import type { AosEndpointSummary, AosServiceRuntimeSummary, DataState } from '../contracts/types'
 
 interface RawAosService {
   id: string
   status: string
+  state?: string
   health: string
   pid: number | null
   managed: 'aos' | 'external' | null
@@ -25,22 +26,37 @@ interface RawAosService {
   publicUrl: string | null
 }
 
+interface RawAosEndpoint {
+  domain: string | null
+  service: string | null
+  configured: boolean
+  authRequired: boolean
+  reachable: boolean
+  https: boolean
+  authProtected: boolean
+  backendReachable: boolean | null
+  status: string
+}
+
 interface RawAosSnapshot {
   generatedAt: string
   status: 'READY' | 'ERROR' | 'UNAVAILABLE'
   reason: string | null
   schemaVersion: string | null
   services: RawAosService[]
+  endpoints?: RawAosEndpoint[]
 }
 
 // Versiones del contrato AOS que este adapter sabe consumir.
-const SUPPORTED_SCHEMA_VERSIONS = ['1.0']
+// 1.0 = vocabulario de proceso/health; 1.1 = + service.state + endpoints[].
+const SUPPORTED_SCHEMA_VERSIONS = ['1.0', '1.1']
 
 function toUiService(svc: RawAosService): AosServiceRuntimeSummary {
   return {
     service: svc.id,
     port: svc.port,
     processState: svc.status,
+    state: svc.state ?? svc.status,
     health: svc.health,
     pid: svc.pid,
     managed: svc.managed,
@@ -49,33 +65,63 @@ function toUiService(svc: RawAosService): AosServiceRuntimeSummary {
   }
 }
 
+function toUiEndpoint(ep: RawAosEndpoint): AosEndpointSummary {
+  return {
+    domain: ep.domain ?? null,
+    service: ep.service ?? null,
+    configured: Boolean(ep.configured),
+    authRequired: Boolean(ep.authRequired),
+    reachable: Boolean(ep.reachable),
+    https: Boolean(ep.https),
+    authProtected: Boolean(ep.authProtected),
+    backendReachable: ep.backendReachable ?? null,
+    status: ep.status,
+  }
+}
+
 /**
- * MAPPER PURO — dado el payload de /api/status (contrato AOS v1.0 en vivo),
- * devuelve el DataState UI. Sin side effects.
+ * MAPPER PURO — dado el payload de /api/status (contrato AOS v1.x en vivo),
+ * devuelve el DataState UI (servicios runtime + endpoints reconciliados).
+ * Sin side effects.
  */
-export function mapAosRuntimeStatus(raw: RawAosSnapshot | null | undefined): DataState<AosServiceRuntimeSummary[]> {
+export function mapAosRuntimeStatus(raw: RawAosSnapshot | null | undefined): {
+  services: DataState<AosServiceRuntimeSummary[]>
+  endpoints: DataState<AosEndpointSummary[]>
+} {
   if (!raw) {
-    return { status: 'UNAVAILABLE', reason: 'AOS no disponible (el backend local no pudo ejecutar aos status --json)' }
+    const unavailable: DataState<never> = { status: 'UNAVAILABLE', reason: 'AOS no disponible (el backend local no pudo ejecutar aos status --json)' }
+    return { services: unavailable, endpoints: unavailable }
   }
   if (raw.status === 'UNAVAILABLE') {
-    return { status: 'UNAVAILABLE', reason: raw.reason ?? 'AOS CLI no disponible en este entorno' }
+    const unavailable: DataState<never> = { status: 'UNAVAILABLE', reason: raw.reason ?? 'AOS CLI no disponible en este entorno' }
+    return { services: unavailable, endpoints: unavailable }
   }
   if (raw.status === 'ERROR') {
-    return { status: 'ERROR', message: raw.reason ?? 'Fallo al consultar aos status --json' }
+    const error: DataState<never> = { status: 'ERROR', message: raw.reason ?? 'Fallo al consultar aos status --json' }
+    return { services: error, endpoints: error }
   }
   if (raw.schemaVersion !== null && !SUPPORTED_SCHEMA_VERSIONS.includes(raw.schemaVersion)) {
-    return {
+    const error: DataState<never> = {
       status: 'ERROR',
       message: `Schema AOS no soportado: ${raw.schemaVersion} (soportados: ${SUPPORTED_SCHEMA_VERSIONS.join(', ')})`,
     }
+    return { services: error, endpoints: error }
   }
   if (!Array.isArray(raw.services)) {
-    return { status: 'ERROR', message: 'Contrato AOS malformado: `services` no es un array' }
+    const error: DataState<never> = { status: 'ERROR', message: 'Contrato AOS malformado: `services` no es un array' }
+    return { services: error, endpoints: error }
   }
   if (raw.services.length === 0) {
-    return { status: 'EMPTY' }
+    return { services: { status: 'EMPTY' }, endpoints: { status: 'EMPTY' } }
   }
-  return { status: 'READY', data: raw.services.map(toUiService) }
+  // endpoints es aditivo en 1.1: tolerar ausencia (contrato 1.0) sin romper.
+  const endpointsReady: DataState<AosEndpointSummary[]> = Array.isArray(raw.endpoints)
+    ? { status: 'READY', data: raw.endpoints.map(toUiEndpoint) }
+    : { status: 'EMPTY' }
+  return {
+    services: { status: 'READY', data: raw.services.map(toUiService) },
+    endpoints: endpointsReady,
+  }
 }
 
 // ================================================================ PROXY (async)
@@ -90,7 +136,11 @@ export function getAosSnapshot(): RawAosSnapshot | null | undefined {
 }
 
 export function getAosRuntimeStatus(): DataState<AosServiceRuntimeSummary[]> {
-  return mapAosRuntimeStatus(currentAos)
+  return mapAosRuntimeStatus(currentAos).services
+}
+
+export function getAosEndpointsStatus(): DataState<AosEndpointSummary[]> {
+  return mapAosRuntimeStatus(currentAos).endpoints
 }
 
 export function getAosSnapshotAge(): string | null {

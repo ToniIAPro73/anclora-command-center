@@ -42,7 +42,7 @@ const KNOWLEDGE_MODEL = join(
   'anclora-infrastructure/knowledge/generated/knowledge-model.json',
 )
 
-const MIN_AOS_SCHEMA = '1.0'
+const SUPPORTED_AOS_SCHEMAS = ['1.0', '1.1'] // 1.1 = + service.state + endpoints
 const HOST = '127.0.0.1'
 
 // Knowledge cache: se relee solo cuando cambia el mtime (Knowledge cambia poco).
@@ -77,10 +77,10 @@ function runAosStatus(cb) {
       cb({ status: 'ERROR', reason: `Salida de aos status --json no es JSON valido: ${parseErr.message}`, schemaVersion: null, services: [] })
       return
     }
-    if (!contract || contract.schemaVersion !== MIN_AOS_SCHEMA) {
+    if (!contract || !SUPPORTED_AOS_SCHEMAS.includes(contract.schemaVersion)) {
       cb({
         status: 'ERROR',
-        reason: `Contrato AOS no soportado: schemaVersion=${contract?.schemaVersion ?? 'missing'} (soportado: ${MIN_AOS_SCHEMA})`,
+        reason: `Contrato AOS no soportado: ${contract?.schemaVersion ?? 'missing'} (soportados: ${SUPPORTED_AOS_SCHEMAS.join(', ')})`,
         schemaVersion: contract?.schemaVersion ?? null,
         services: [],
       })
@@ -97,6 +97,8 @@ function runAosStatus(cb) {
       generatedAt: contract.generatedAt,
       summary: contract.summary,
       services: contract.services,
+      // aditivo en 1.1; tolerar ausencia (contrato 1.0)
+      endpoints: Array.isArray(contract.endpoints) ? contract.endpoints : [],
     })
   })
 }

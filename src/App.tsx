@@ -164,6 +164,7 @@ function App() {
           loadingInitial: operational.loadingInitial,
           aosLastUpdatedAt: operational.aosLastUpdatedAt,
           aos: operational.aos,
+          aosEndpoints: operational.aosEndpoints,
           knowledgeHealth: operational.knowledgeHealth,
           repositories: operational.repositories,
           products: operational.products,

@@ -117,6 +117,20 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
 
   const entities = raw.entities ?? {}
 
+  // Labels humanas de business units: Knowledge es la fuente (entity.name);
+  // la UI muestra la label y conserva el ID canonico (bu:x) intacto en el
+  // contrato. Sin diccionario hardcodeado (BUSINESS_UNIT_IDS_HUMANIZED).
+  const businessUnitLabels = new Map<string, string>()
+  if (Array.isArray(entities['business-units'])) {
+    for (const bu of entities['business-units']) {
+      if (typeof bu.id === 'string' && typeof bu.name === 'string') {
+        businessUnitLabels.set(bu.id, bu.name)
+      }
+    }
+  }
+  const businessUnitLabelOf = (id: string | null): string | null =>
+    id === null ? null : (businessUnitLabels.get(id) ?? null)
+
   const repositories: DataState<RepositorySummary[]> = Array.isArray(entities.repositories)
     ? withFreshness(
         raw.metadata,
@@ -141,16 +155,20 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
   const products: DataState<ProductSummary[]> = Array.isArray(entities.products)
     ? withFreshness(
         raw.metadata,
-        entities.products.map((p) => ({
-          id: p.id,
-          name: p.name,
-          businessUnitId: field(p, 'business_unit_id'),
-          repoId: field(p, 'repo_id'),
-          productStatus: statusField(p, 'product_status'),
-          domain: field(p, 'domain'),
-          source: 'knowledge' as const,
-          sourceId: p.id,
-        })),
+        entities.products.map((p) => {
+          const businessUnitId = field<string>(p, 'business_unit_id')
+          return {
+            id: p.id,
+            name: p.name,
+            businessUnitId,
+            businessUnitLabel: businessUnitLabelOf(businessUnitId),
+            repoId: field(p, 'repo_id'),
+            productStatus: statusField(p, 'product_status'),
+            domain: field(p, 'domain'),
+            source: 'knowledge' as const,
+            sourceId: p.id,
+          }
+        }),
         entities.products.length === 0,
       )
     : unavailable

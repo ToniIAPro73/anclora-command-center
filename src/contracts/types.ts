@@ -37,6 +37,7 @@ export interface ProductSummary extends SourceMetadata {
   id: string
   name: string
   businessUnitId: string | null
+  businessUnitLabel: string | null
   repoId: string | null
   productStatus: string
   domain: string | null
@@ -75,20 +76,36 @@ export interface RelationshipSummary extends SourceMetadata {
 }
 
 // Contrato UI del runtime AOS: mapeo plano del contrato machine-readable de
-// `aos status --json` (schemaVersion 1.0). El adapter (aosAdapter.ts) es la
-// unica frontera: traduce el JSON de AOS a esta forma, la UI nunca ve el CLI.
+// `aos status --json` (schemaVersion 1.0 y 1.1). El adapter (aosAdapter.ts) es
+// la unica frontera: traduce el JSON de AOS a esta forma, la UI nunca ve el CLI.
 // Vocabulario (cerrado, del contrato AOS):
 //   processState: running | stopped | starting | stale_pid | unknown
+//   state:        running | stopped | unhealthy | starting | not_configured | unknown
 //   health:       ok | failed | not_configured | unknown
 export interface AosServiceRuntimeSummary {
   service: string
   port: number | null
   processState: string
+  state: string
   health: string
   pid: number | null
   managed: 'aos' | 'external' | null
   localUrl: string | null
   publicUrl: string | null
+}
+
+// Endpoint publico reconciliado (contrato AOS v1.1): deseado (dev-endpoints.yaml)
+// + observado (DNS/HTTPS/auth/backend). Sin credenciales en el contrato.
+export interface AosEndpointSummary {
+  domain: string | null
+  service: string | null
+  configured: boolean
+  authRequired: boolean
+  reachable: boolean
+  https: boolean
+  authProtected: boolean
+  backendReachable: boolean | null
+  status: string
 }
 
 export interface SystemHealth {

@@ -24,7 +24,7 @@ const AOS_BIN = resolve(WORKSPACE_ROOT, 'anclora-infrastructure/aos-runtime/bin/
 const OUTPUT_PATH = resolve(REPO_ROOT, 'src/generated/aos-status-snapshot.json')
 
 // Version minima del contrato AOS que este script sabe consumir.
-const MIN_SCHEMA_VERSION = '1.0'
+const SUPPORTED_SCHEMA_VERSIONS = ['1.0', '1.1'] // 1.1 = + service.state + endpoints
 
 function main() {
   const generatedAt = new Date().toISOString()
@@ -50,9 +50,9 @@ function main() {
       timeout: 15_000,
     })
     const contract = JSON.parse(stdout)
-    if (!contract || contract.schemaVersion !== MIN_SCHEMA_VERSION) {
+    if (!contract || !SUPPORTED_SCHEMA_VERSIONS.includes(contract.schemaVersion)) {
       throw new Error(
-        `contrato AOS no soportado: schemaVersion=${contract?.schemaVersion ?? 'missing'}`
+        `contrato AOS no soportado: schemaVersion=${contract?.schemaVersion ?? 'missing'} (soportados: ${SUPPORTED_SCHEMA_VERSIONS.join(', ')})`
       )
     }
     const snapshot = {
@@ -63,6 +63,8 @@ function main() {
       generatedByAos: contract.generatedAt,
       summary: contract.summary,
       services: contract.services,
+      // aditivo en 1.1; tolerar ausencia (contrato 1.0)
+      endpoints: Array.isArray(contract.endpoints) ? contract.endpoints : [],
     }
     mkdirSync(dirname(OUTPUT_PATH), { recursive: true })
     writeFileSync(OUTPUT_PATH, JSON.stringify(snapshot, null, 2) + '\n', 'utf-8')

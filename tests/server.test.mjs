@@ -41,7 +41,7 @@ function nextPort() {
 const FAKE_AOS = join(fakeAosDir, 'aos')
 const FAKE_KM = join(fakeKnowledgeDir, 'knowledge-model.json')
 
-// AOS bin fake: imprime un contrato valido v1.0 o falla segun env FAKE_MODE
+// AOS bin fake: imprime un contrato valido v1.0/v1.1 o falla segun env FAKE_MODE
 writeFileSync(
   FAKE_AOS,
   `#!/usr/bin/env bash
@@ -49,6 +49,7 @@ if [ "$FAKE_MODE" = "badjson" ]; then echo "not-json"; exit 0; fi
 if [ "$FAKE_MODE" = "wrongschema" ]; then echo '{"schemaVersion":"2.0","services":[]}'; exit 0; fi
 if [ "$FAKE_MODE" = "noservices" ]; then echo '{"schemaVersion":"1.0","generatedAt":"2026-08-17T00:00:00Z","services":null}'; exit 0; fi
 if [ "$FAKE_MODE" = "fail" ]; then echo "boom" >&2; exit 2; fi
+if [ "$FAKE_MODE" = "v11" ]; then echo '{"schemaVersion":"1.1","generatedAt":"2026-08-17T00:00:00Z","summary":{"total":1,"running":1,"stopped":0},"services":[{"id":"fake-svc","status":"running","state":"running","health":"ok","pid":42,"managed":"aos","port":3999,"bindHost":"127.0.0.1","localUrl":"http://127.0.0.1:3999","publicUrl":"https://fake-svc.dev.anclora.com"}],"endpoints":[{"domain":"fake-svc.dev.anclora.com","service":"fake-svc","configured":true,"authRequired":true,"reachable":true,"https":true,"authProtected":true,"backendReachable":true,"status":"auth_protected"}]}'; exit 0; fi
 echo '{"schemaVersion":"1.0","generatedAt":"2026-08-17T00:00:00Z","summary":{"total":1,"running":1,"stopped":0},"services":[{"id":"fake-svc","status":"running","health":"ok","pid":42,"managed":"aos","port":3999,"bindHost":"127.0.0.1","localUrl":"http://127.0.0.1:3999","publicUrl":null}]}'
 `,
   { mode: 0o755 },
@@ -219,6 +220,21 @@ test('services ausente/malformado -> /api/status ERROR (regresion guard)', async
   const res = await fetch(`${base}/api/status`)
   const j = await res.json()
   assert.equal(j.status, 'ERROR')
+})
+
+test('contrato v1.1 -> /api/status READY con state y endpoints reconciliados', async () => {
+  // AOS_OPERATIONAL_TRUTH_RECONCILIATION: el backend pasa el bloque
+  // endpoints (deseado vs observado) y el state de cada servicio.
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'v11' }))
+  const res = await fetch(`${base}/api/status`)
+  const j = await res.json()
+  assert.equal(j.status, 'READY')
+  assert.equal(j.schemaVersion, '1.1')
+  assert.equal(j.services[0].state, 'running')
+  assert.equal(j.endpoints.length, 1)
+  assert.equal(j.endpoints[0].status, 'auth_protected')
+  assert.equal(j.endpoints[0].authProtected, true)
 })
 
 // --- knowledge missing ---

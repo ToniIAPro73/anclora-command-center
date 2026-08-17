@@ -15,6 +15,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   fetchAosStatusFromApi,
+  getAosEndpointsStatus,
   getAosRuntimeStatus,
   setAosSnapshot,
 } from '../adapters/aosAdapter'
@@ -30,6 +31,7 @@ import {
 } from '../adapters/knowledgeAdapter'
 import type { DataState } from '../contracts/types'
 import type {
+  AosEndpointSummary,
   EndpointSummary,
   ProductSummary,
   RelationshipSummary,
@@ -42,6 +44,7 @@ export interface OperationalDataState {
   loadingInitial: boolean
   aosLastUpdatedAt: Date | null
   aos: DataState<import('../contracts/types').AosServiceRuntimeSummary[]>
+  aosEndpoints: DataState<AosEndpointSummary[]>
   knowledgeHealth: DataState<SystemHealth>
   repositories: DataState<RepositorySummary[]>
   products: DataState<ProductSummary[]>
@@ -96,6 +99,7 @@ export function useOperationalData(): OperationalDataState {
     loadingInitial,
     aosLastUpdatedAt,
     aos: getAosRuntimeStatus(),
+    aosEndpoints: getAosEndpointsStatus(),
     knowledgeHealth: getSystemHealth(),
     repositories: getRepositories(),
     products: getProducts(),

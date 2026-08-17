@@ -1,5 +1,6 @@
 import type { DashboardLanguage } from '../../shell/dashboard-shell.types'
 import type {
+  AosEndpointSummary,
   AosServiceRuntimeSummary,
   DataState,
   EndpointSummary,
@@ -44,6 +45,42 @@ interface Copy {
   noSourceOfTruth: string
   refresh: string
   lastUpdated: string
+  managedExternal: string
+  httpsAuthProtected: string
+  backendDown: string
+  runtime: string
+  endpointState: (status: string) => string
+  serviceState: (state: string) => string
+  healthState: (health: string) => string
+}
+
+// Vocabulario UI de estados: labels humanas ESTABLES (mayusculas) para los
+// enums del contrato AOS (service.state / endpoint.status / health). Mantener
+// sincronizado con aos-runtime/schema/status.schema.json. Sin nueva paleta:
+// el color se mapea a clases con tokens existentes (ver operational-view.css).
+const SERVICE_STATE_LABELS: Record<string, string> = {
+  running: 'RUNNING',
+  stopped: 'STOPPED',
+  unhealthy: 'UNHEALTHY',
+  starting: 'STARTING',
+  not_configured: 'NOT CONFIGURED',
+  unknown: 'UNKNOWN',
+}
+
+const ENDPOINT_STATE_LABELS: Record<string, string> = {
+  not_configured: 'NOT CONFIGURED',
+  configured: 'CONFIGURED',
+  exposed: 'EXPOSED',
+  auth_protected: 'AUTH PROTECTED',
+  unreachable: 'UNREACHABLE',
+  unknown: 'UNKNOWN',
+}
+
+const HEALTH_LABELS: Record<string, string> = {
+  ok: 'OK',
+  failed: 'FAILED',
+  not_configured: 'NOT CONFIGURED',
+  unknown: 'UNKNOWN',
 }
 
 const copy: Record<DashboardLanguage, Copy> = {
@@ -74,10 +111,17 @@ const copy: Record<DashboardLanguage, Copy> = {
     repo: 'repo',
     port: 'puerto',
     health: 'salud',
-    runtimeState: 'estado runtime',
+    runtimeState: 'runtime',
     noSourceOfTruth: 'No es fuente de verdad local',
     refresh: 'Actualizar',
     lastUpdated: 'Actualizado',
+    managedExternal: 'EXTERNAL',
+    httpsAuthProtected: 'HTTPS: auth protected',
+    backendDown: '(backend caído)',
+    runtime: 'runtime',
+    endpointState: (status: string) => ENDPOINT_STATE_LABELS[status] ?? 'UNKNOWN',
+    serviceState: (state: string) => SERVICE_STATE_LABELS[state] ?? 'UNKNOWN',
+    healthState: (health: string) => HEALTH_LABELS[health] ?? 'UNKNOWN',
   },
   en: {
     loading: 'Loading…',
@@ -106,10 +150,17 @@ const copy: Record<DashboardLanguage, Copy> = {
     repo: 'repo',
     port: 'port',
     health: 'health',
-    runtimeState: 'runtime state',
+    runtimeState: 'runtime',
     noSourceOfTruth: 'Not a local source of truth',
     refresh: 'Refresh',
     lastUpdated: 'Updated',
+    managedExternal: 'EXTERNAL',
+    httpsAuthProtected: 'HTTPS: auth protected',
+    backendDown: '(backend down)',
+    runtime: 'runtime',
+    endpointState: (status: string) => ENDPOINT_STATE_LABELS[status] ?? 'UNKNOWN',
+    serviceState: (state: string) => SERVICE_STATE_LABELS[state] ?? 'UNKNOWN',
+    healthState: (health: string) => HEALTH_LABELS[health] ?? 'UNKNOWN',
   },
   de: {
     loading: 'Wird geladen…',
@@ -142,6 +193,13 @@ const copy: Record<DashboardLanguage, Copy> = {
     noSourceOfTruth: 'Keine lokale Quelle der Wahrheit',
     refresh: 'Aktualisieren',
     lastUpdated: 'Aktualisiert',
+    managedExternal: 'EXTERNAL',
+    httpsAuthProtected: 'HTTPS: Auth geschützt',
+    backendDown: '(Backend ausgefallen)',
+    runtime: 'Laufzeit',
+    endpointState: (status: string) => ENDPOINT_STATE_LABELS[status] ?? 'UNKNOWN',
+    serviceState: (state: string) => SERVICE_STATE_LABELS[state] ?? 'UNKNOWN',
+    healthState: (health: string) => HEALTH_LABELS[health] ?? 'UNKNOWN',
   },
 }
 
@@ -151,6 +209,7 @@ export interface OperationalDataProps {
   loadingInitial: boolean
   aosLastUpdatedAt: Date | null
   aos: DataState<AosServiceRuntimeSummary[]>
+  aosEndpoints: DataState<AosEndpointSummary[]>
   knowledgeHealth: DataState<SystemHealth>
   repositories: DataState<RepositorySummary[]>
   products: DataState<ProductSummary[]>
@@ -173,7 +232,7 @@ export function OperationalView({
   if (section === 'overview') return <OverviewSection t={t} {...data} />
   if (section === 'products') return <ProductsSection t={t} data={data.products} />
   if (section === 'repositories') return <RepositoriesSection t={t} data={data.repositories} />
-  if (section === 'services') return <ServicesSection t={t} services={data.services} endpoints={data.endpoints} />
+  if (section === 'services') return <ServicesSection t={t} aos={data.aos} aosEndpoints={data.aosEndpoints} />
   return <KnowledgeSection t={t} health={data.knowledgeHealth} />
 }
 
@@ -193,6 +252,36 @@ function RefreshButton({ t, onRefresh }: { t: Copy; onRefresh: () => void }) {
       {t.refresh}
     </button>
   )
+}
+
+// Badge de estado semantico. Mapeo de color (sin paleta nueva, tokens del
+// theme): running/exposed/auth_protected -> success; stopped -> neutral;
+// unhealthy/unreachable -> danger; starting/unknown -> warning;
+// not_configured/configured -> muted.
+function statusClass(state: string): string {
+  switch (state) {
+    case 'running':
+    case 'exposed':
+    case 'auth_protected':
+      return 'ok'
+    case 'stopped':
+      return 'neutral'
+    case 'unhealthy':
+    case 'unreachable':
+      return 'danger'
+    case 'starting':
+    case 'unknown':
+      return 'warning'
+    case 'not_configured':
+    case 'configured':
+      return 'muted'
+    default:
+      return 'warning'
+  }
+}
+
+function StatusBadge({ state, label }: { state: string; label: string }) {
+  return <span className={`op-state-badge op-state-badge--${statusClass(state)}`}>{label}</span>
 }
 
 function OverviewSection(props: OperationalDataProps & { t: Copy }) {
@@ -261,7 +350,7 @@ function ProductsSection({ t, data }: { t: Copy; data: DataState<ProductSummary[
               <li key={p.id} className="op-list__item">
                 <span className="op-list__name">{p.name}</span>
                 <span className="op-list__meta">
-                  {t.status}: {p.productStatus} · {t.businessUnit}: {p.businessUnitId ?? t.unknownField}
+                  {t.status}: {p.productStatus} · {t.businessUnit}: {p.businessUnitLabel ?? p.businessUnitId ?? t.unknownField}
                   {p.repoId ? ` · ${t.repo}: ${p.repoId.replace('repo:ToniIAPro73/', '')}` : ''}
                 </span>
                 <span className="op-list__source">
@@ -306,32 +395,44 @@ function RepositoriesSection({ t, data }: { t: Copy; data: DataState<RepositoryS
   )
 }
 
+// ServicesSection (AOS_OPERATIONAL_TRUTH_RECONCILIATION):
+// la fuente de la vista es el RUNTIME AOS (aos status --json v1.1), no el
+// catalogo estatico de Knowledge (que no observa procesos y producia UNKNOWN /
+// NOT_CONFIGURED falsos). Los endpoints son los reconciliados por AOS
+// (desired vs observed: DNS/HTTPS/auth/backend), no el status estatico del YAML.
 function ServicesSection({
   t,
-  services,
-  endpoints,
+  aos,
+  aosEndpoints,
 }: {
   t: Copy
-  services: DataState<ServiceSummary[]>
-  endpoints: DataState<EndpointSummary[]>
+  aos: DataState<AosServiceRuntimeSummary[]>
+  aosEndpoints: DataState<AosEndpointSummary[]>
 }) {
   return (
     <section className="op-section" aria-labelledby="services-heading">
       <h2 id="services-heading" className="op-section__title">
         {t.servicesTitle}
       </h2>
-      <DataStateView state={services} labels={stateLabels(t)}>
+      <DataStateView state={aos} labels={stateLabels(t)}>
         {(items) => (
           <ul className="op-list">
             {items.map((s) => (
-              <li key={s.id} className="op-list__item">
-                <span className="op-list__name">{s.name}</span>
+              <li key={s.service} className="op-list__item">
+                <span className="op-list__name">{s.service}</span>
+                <StatusBadge state={s.state} label={t.serviceState(s.state)} />
+                {s.managed === 'external' && <span className="op-badge">{t.managedExternal}</span>}
                 <span className="op-list__meta">
-                  {t.status}: {s.serviceStatus}
-                  {s.port ? ` · ${t.port}: ${s.port}` : ''}
+                  {s.localUrl ?? (s.port ? `${s.port}` : '')}
                 </span>
+                <span className="op-list__meta">
+                  {t.health}: {t.healthState(s.health)}
+                </span>
+                {s.publicUrl && s.health === 'ok' && (
+                  <span className="op-list__meta">HTTPS: {s.publicUrl}</span>
+                )}
                 <span className="op-list__source">
-                  {t.source}: {s.source}
+                  {t.source}: aos · {t.runtime}
                 </span>
               </li>
             ))}
@@ -340,13 +441,22 @@ function ServicesSection({
       </DataStateView>
 
       <h3 className="op-section__subtitle">Endpoints</h3>
-      <DataStateView state={endpoints} labels={stateLabels(t)}>
+      <DataStateView state={aosEndpoints} labels={stateLabels(t)}>
         {(items) => (
           <ul className="op-list">
             {items.map((e) => (
-              <li key={e.id} className="op-list__item">
-                <span className="op-list__name">{e.host}</span>
-                <span className="op-list__meta">{t.status}: {e.endpointStatus}</span>
+              <li key={e.domain ?? e.service ?? e.status} className="op-list__item">
+                <span className="op-list__name">{e.domain ?? t.unknownField}</span>
+                <StatusBadge state={e.status} label={t.endpointState(e.status)} />
+                <span className="op-list__meta">
+                  {e.authProtected && e.https ? t.httpsAuthProtected : ''}
+                  {e.backendReachable === false && e.configured ? ` ${t.backendDown}` : ''}
+                </span>
+                {e.service && (
+                  <span className="op-list__source">
+                    {t.source}: aos · {e.service}
+                  </span>
+                )}
               </li>
             ))}
           </ul>

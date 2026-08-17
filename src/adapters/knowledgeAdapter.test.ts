@@ -142,6 +142,56 @@ describe('knowledgeAdapter (mapper puro)', () => {
     }
     expect(m.relationshipsFor('product:does-not-exist')).toEqual([])
   })
+
+  it('businessUnitLabel resuelto desde Knowledge (bu:premium → Premium)', () => {
+    // BUSINESS_UNIT_IDS_HUMANIZED: el ID canonico se conserva y la label
+    // humana sale de las entidades business-units del propio Knowledge.
+    const raw = rawSnapshot({
+      entities: {
+        repositories: [],
+        products: [
+          {
+            id: 'product:fs',
+            type: 'product',
+            name: 'FileStudio',
+            status: { product_status: 'ACTIVE' },
+            fields: { business_unit_id: 'bu:premium' },
+          },
+          {
+            id: 'product:zzz',
+            type: 'product',
+            name: 'Zzz',
+            status: { product_status: 'ACTIVE' },
+            fields: { business_unit_id: 'bu:no-existe' },
+          },
+        ],
+        services: [],
+        endpoints: [],
+        standards: [],
+        technologies: [],
+        'business-units': [
+          {
+            id: 'bu:premium',
+            type: 'BusinessUnit',
+            name: 'Premium',
+            status: { unit_status: 'active' },
+            fields: {},
+          },
+        ],
+      },
+    })
+    const m = mapKnowledgeSnapshot(raw)
+    expect(m.products.status).toBe('READY')
+    if (m.products.status !== 'READY') return
+    const fs = m.products.data.find((p) => p.id === 'product:fs')
+    // ID canonico intacto (RAW_INTERNAL_IDS_PRESERVED) + label resuelta
+    expect(fs?.businessUnitId).toBe('bu:premium')
+    expect(fs?.businessUnitLabel).toBe('Premium')
+    // UNKNOWN_IDS_GRACEFUL: id sin label -> null (la UI muestra el id crudo)
+    const zzz = m.products.data.find((p) => p.id === 'product:zzz')
+    expect(zzz?.businessUnitId).toBe('bu:no-existe')
+    expect(zzz?.businessUnitLabel).toBeNull()
+  })
 })
 
 // Smoke de los proxies sync (getters alimentados por setKnowledgeSnapshot)
