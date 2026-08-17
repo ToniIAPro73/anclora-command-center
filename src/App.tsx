@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { OperationalView } from './modules/operational/OperationalView'
+import { EntityDrawer } from './modules/operational/EntityDrawer'
+import { GlobalSearch } from './modules/operational/GlobalSearch'
 import { useOperationalData } from './api/useOperationalData'
 import { DashboardShell } from './shell/DashboardShell'
 import type {
@@ -9,12 +11,31 @@ import type {
   DashboardTheme,
 } from './shell/dashboard-shell.types'
 
+const ENTITY_QUERY_PARAM = 'entity'
+
+function readEntityFromUrl(): string | null {
+  if (typeof window === 'undefined') return null
+  return new URLSearchParams(window.location.search).get(ENTITY_QUERY_PARAM)
+}
+
+// V1 limitation (Seccion 31): solo la entidad activa (tope de la pila) se
+// refleja en la URL para deep-linking al recargar. La pila de "Back" dentro
+// del drawer vive solo en memoria — no hay historial multi-nivel en la URL.
+function writeEntityToUrl(id: string | null): void {
+  if (typeof window === 'undefined') return
+  const url = new URL(window.location.href)
+  if (id) url.searchParams.set(ENTITY_QUERY_PARAM, id)
+  else url.searchParams.delete(ENTITY_QUERY_PARAM)
+  window.history.replaceState(window.history.state, '', url)
+}
+
 const shellMessages = {
   es: {
     backToGroup: 'VOLVER A ANCLORA GROUP',
     brandLine: 'Interfaz operacional sobre AOS + Anclora Knowledge + AKG',
     topbarThemeAria: 'Selector de tema',
     topbarLanguageAria: 'Selector de idioma',
+    searchLabel: 'Buscar',
     moduleNavigationAria: 'Navegación interna del dashboard',
     themeDark: 'Tema oscuro',
     themeLight: 'Tema claro',
@@ -30,6 +51,7 @@ const shellMessages = {
     brandLine: 'Operational interface over AOS + Anclora Knowledge + AKG',
     topbarThemeAria: 'Theme switcher',
     topbarLanguageAria: 'Language switcher',
+    searchLabel: 'Search',
     moduleNavigationAria: 'Dashboard internal navigation',
     themeDark: 'Dark theme',
     themeLight: 'Light theme',
@@ -45,6 +67,7 @@ const shellMessages = {
     brandLine: 'Operative Schnittstelle über AOS + Anclora Knowledge + AKG',
     topbarThemeAria: 'Themenauswahl',
     topbarLanguageAria: 'Sprachauswahl',
+    searchLabel: 'Suche',
     moduleNavigationAria: 'Interne Dashboard-Navigation',
     themeDark: 'Dunkles Thema',
     themeLight: 'Helles Thema',
@@ -84,7 +107,40 @@ function App() {
     if (typeof window === 'undefined') return 'overview'
     return resolveSection(window.location.pathname)
   })
+  const [entityStack, setEntityStack] = useState<string[]>(() => {
+    const fromUrl = readEntityFromUrl()
+    return fromUrl ? [fromUrl] : []
+  })
+  const [searchOpen, setSearchOpen] = useState(false)
   const operational = useOperationalData()
+
+  const activeEntity = entityStack.length > 0 ? entityStack[entityStack.length - 1] : null
+
+  useEffect(() => {
+    writeEntityToUrl(activeEntity)
+  }, [activeEntity])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const onKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setSearchOpen(true)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
+
+  function openEntity(id: string) {
+    setEntityStack((stack) => (stack[stack.length - 1] === id ? stack : [...stack, id]))
+  }
+  function closeEntity() {
+    setEntityStack([])
+  }
+  function backEntity() {
+    setEntityStack((stack) => (stack.length > 1 ? stack.slice(0, -1) : stack))
+  }
 
   useEffect(() => {
     const root = document.documentElement
@@ -147,6 +203,8 @@ function App() {
       navAriaLabel={t.moduleNavigationAria}
       navItems={navItems}
       onNavigate={handleNavigate}
+      onOpenSearch={() => setSearchOpen(true)}
+      searchLabel={t.searchLabel}
       setLanguage={setLanguage}
       setTheme={setTheme}
       theme={theme}
@@ -174,8 +232,27 @@ function App() {
           issues: operational.issues,
           globalStatus: operational.globalStatus,
           onRefresh: () => void operational.refresh(),
+          onOpenEntity: openEntity,
         }}
       />
+      <EntityDrawer
+        entityId={activeEntity}
+        language={language}
+        aos={operational.aos}
+        onClose={closeEntity}
+        onBack={entityStack.length > 1 ? backEntity : undefined}
+        onNavigate={openEntity}
+      />
+      {searchOpen && (
+        <GlobalSearch
+          onClose={() => setSearchOpen(false)}
+          onSelect={openEntity}
+          language={language}
+          products={operational.products}
+          repositories={operational.repositories}
+          aos={operational.aos}
+        />
+      )}
     </DashboardShell>
   )
 }

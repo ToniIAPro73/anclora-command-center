@@ -19,8 +19,11 @@ import type {
   ConflictSummary,
   DataState,
   EndpointSummary,
+  EntityDetail,
+  EntityRef,
   ProductSummary,
   RelationshipSummary,
+  RelationshipView,
   RepositorySummary,
   ServiceSummary,
   SystemHealth,
@@ -285,6 +288,134 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
       )
 
   return { repositories, products, services, endpoints, health, conflicts, relationshipsFor }
+}
+
+// ================================================================ ENTITY NAVIGATION
+// Indice plano de todas las entidades del snapshot (COMMAND_CENTER_ENTITY_
+// NAVIGATION_AND_SEARCH). No duplica Knowledge como estado propio: se
+// reconstruye a partir de `raw` cada vez que se invoca — el unico estado
+// mutable de este modulo sigue siendo `currentKnowledge` (via
+// setKnowledgeSnapshot), igual que antes de esta fase.
+
+// Prefijos de id que aparecen SOLO como extremo de relacion (contract/doc/
+// release/org/env/app...) sin tener registro propio en `entities.*` — Knowledge
+// referencia estas entidades pero no las modela todavia. Fallback de tipo
+// legible sin inventar datos que Knowledge no tiene.
+const ID_PREFIX_TYPE_LABELS: Record<string, string> = {
+  repo: 'Repository',
+  product: 'Product',
+  service: 'Service',
+  endpoint: 'Endpoint',
+  bu: 'Business Unit',
+  std: 'Standard',
+  tech: 'Technology',
+  contract: 'Contract',
+  doc: 'Document',
+  release: 'Release',
+  org: 'Organization',
+  env: 'Environment',
+  app: 'Application',
+}
+
+function typeLabelFromId(id: string): string {
+  const prefix = id.split(':')[0] ?? ''
+  return ID_PREFIX_TYPE_LABELS[prefix] ?? (prefix ? prefix[0].toUpperCase() + prefix.slice(1) : 'Entity')
+}
+
+function buildEntityIndex(raw: RawSnapshot): Map<string, RawEntity> {
+  const index = new Map<string, RawEntity>()
+  for (const group of Object.values(raw.entities ?? {})) {
+    if (!Array.isArray(group)) continue
+    for (const entity of group) index.set(entity.id, entity)
+  }
+  return index
+}
+
+/**
+ * Resuelve un id a una referencia liviana con label humana. `found=false`
+ * cuando el id solo existe como extremo de relacion (Seccion 8/15): jamas se
+ * inventa un nombre — se muestra el id crudo como label.
+ */
+export function resolveEntityRef(id: string, raw: RawSnapshot | null | undefined = currentKnowledge): EntityRef {
+  const entity = raw ? buildEntityIndex(raw).get(id) : undefined
+  if (entity) {
+    return { id, type: entity.type, label: entity.name, source: 'knowledge', found: true }
+  }
+  return { id, type: typeLabelFromId(id), label: id, source: 'knowledge', found: false }
+}
+
+/** Enumera todas las entidades del snapshot (Knowledge explorer + indice de busqueda). */
+export function listKnowledgeEntities(): EntityRef[] {
+  if (!currentKnowledge) return []
+  const out: EntityRef[] = []
+  for (const group of Object.values(currentKnowledge.entities ?? {})) {
+    if (!Array.isArray(group)) continue
+    for (const entity of group) {
+      out.push({ id: entity.id, type: entity.type, label: entity.name, source: 'knowledge', found: true })
+    }
+  }
+  return out
+}
+
+// Campos tecnicos que no aportan valor operacional en el detalle generico —
+// se omiten del bloque "properties" (siguen disponibles via /api/knowledge
+// para quien inspeccione la fuente cruda directamente).
+const PROPERTY_DENYLIST = new Set(['aos_adoption', 'no_source_of_truth_for', 'groups'])
+
+function flattenProperties(fields: Record<string, unknown>): Record<string, string | number | boolean | null> {
+  const out: Record<string, string | number | boolean | null> = {}
+  for (const [key, value] of Object.entries(fields)) {
+    if (PROPERTY_DENYLIST.has(key)) continue
+    if (value === null || typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+      out[key] = value
+    }
+  }
+  return out
+}
+
+/** Detalle completo de una entidad: propiedades + relaciones entrantes/salientes con labels resueltas. */
+export function getEntityDetail(id: string): EntityDetail | null {
+  const raw = currentKnowledge
+  if (!raw) return null
+
+  const ref = resolveEntityRef(id, raw)
+  const entity = buildEntityIndex(raw).get(id)
+
+  const relationships: RelationshipView[] = (raw.relationships ?? [])
+    .filter((r) => r.from === id || r.to === id)
+    .map((r) => {
+      const direction: 'incoming' | 'outgoing' = r.to === id ? 'incoming' : 'outgoing'
+      const counterpartId = direction === 'incoming' ? r.from : r.to
+      return {
+        id: r.id,
+        type: r.type,
+        direction,
+        counterpart: resolveEntityRef(counterpartId, raw),
+      }
+    })
+
+  // Un id sin entidad propia pero con relaciones sigue siendo navegable
+  // (Seccion 15: fallback grazioso, no crash) — found=false, sin properties/status.
+  if (!entity) {
+    if (relationships.length === 0) return null
+    return { id, type: ref.type, label: ref.label, source: ref.source, found: false, status: {}, properties: {}, relationships }
+  }
+
+  const status: Record<string, string> = {}
+  for (const [key, value] of Object.entries(entity.status ?? {})) {
+    if (typeof value === 'string') status[key] = value
+  }
+
+  return {
+    id,
+    type: entity.type,
+    label: entity.name,
+    source: 'knowledge',
+    found: true,
+    status,
+    properties: flattenProperties(entity.fields ?? {}),
+    relationships,
+  }
 }
 
 // ================================================================ PROXY (async)

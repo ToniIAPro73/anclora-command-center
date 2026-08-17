@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import {
+  getEntityDetail,
+  listKnowledgeEntities,
   mapKnowledgeSnapshot,
+  resolveEntityRef,
+  setKnowledgeSnapshot,
 } from './knowledgeAdapter'
 import type {
   DataState,
@@ -221,5 +225,100 @@ describe('knowledgeAdapter (proxies sync)', () => {
     expect((getProducts() as DataState<ProductSummary[]>).status).toBe('READY')
     expect((getServices() as DataState<ServiceSummary[]>).status).toBe('READY')
     setKnowledgeSnapshot(null)
+  })
+})
+
+// Entity navigation (COMMAND_CENTER_ENTITY_NAVIGATION_AND_SEARCH):
+// resolveEntityRef / getEntityDetail / listKnowledgeEntities.
+describe('knowledgeAdapter (entity navigation)', () => {
+  it('resolveEntityRef: entidad conocida usa el name real de Knowledge, found=true', () => {
+    setKnowledgeSnapshot(rawSnapshot() as never)
+    const ref = resolveEntityRef('service:filestudio')
+    expect(ref).toEqual({ id: 'service:filestudio', type: 'service', label: 'filestudio', source: 'knowledge', found: true })
+    setKnowledgeSnapshot(null)
+  })
+
+  it('resolveEntityRef: id sin entidad propia (solo extremo de relacion) → found=false, label=id crudo (nunca inventado)', () => {
+    setKnowledgeSnapshot(rawSnapshot() as never)
+    const ref = resolveEntityRef('contract:ANCLORA_BRAND_CONTRACT')
+    expect(ref.found).toBe(false)
+    expect(ref.label).toBe('contract:ANCLORA_BRAND_CONTRACT')
+    expect(ref.type).toBe('Contract')
+    setKnowledgeSnapshot(null)
+  })
+
+  it('resolveEntityRef sin snapshot → found=false, sin crash', () => {
+    setKnowledgeSnapshot(null)
+    const ref = resolveEntityRef('product:whatever')
+    expect(ref.found).toBe(false)
+  })
+
+  it('getEntityDetail: entidad conocida trae properties, status y relaciones con direccion correcta', () => {
+    setKnowledgeSnapshot(rawSnapshot() as never)
+    const detail = getEntityDetail('service:filestudio')
+    expect(detail).not.toBeNull()
+    expect(detail?.found).toBe(true)
+    expect(detail?.label).toBe('filestudio')
+    expect(detail?.status.service_status).toBe('running')
+    expect(detail?.properties.port).toBe(3000)
+    expect(detail?.relationships).toHaveLength(1)
+    expect(detail?.relationships[0]).toMatchObject({ direction: 'outgoing', type: 'DEPENDS_ON' })
+    expect(detail?.relationships[0]?.counterpart).toMatchObject({ id: 'product:command-center', label: 'Command Center', found: true })
+    setKnowledgeSnapshot(null)
+  })
+
+  it('getEntityDetail: entidad receptora de la relacion la ve como incoming', () => {
+    setKnowledgeSnapshot(rawSnapshot() as never)
+    const detail = getEntityDetail('product:command-center')
+    expect(detail?.relationships[0]).toMatchObject({ direction: 'incoming', type: 'DEPENDS_ON' })
+    expect(detail?.relationships[0]?.counterpart.id).toBe('service:filestudio')
+    setKnowledgeSnapshot(null)
+  })
+
+  it('getEntityDetail: entidad sin relaciones → relationships=[] (no null, no crash)', () => {
+    setKnowledgeSnapshot(rawSnapshot() as never)
+    const detail = getEntityDetail('endpoint:filestudio')
+    expect(detail).not.toBeNull()
+    expect(detail?.relationships).toEqual([])
+    setKnowledgeSnapshot(null)
+  })
+
+  it('getEntityDetail: id desconocido sin relaciones → null (fallback grazioso, no fabricar entidad)', () => {
+    setKnowledgeSnapshot(rawSnapshot() as never)
+    expect(getEntityDetail('product:does-not-exist')).toBeNull()
+    setKnowledgeSnapshot(null)
+  })
+
+  it('getEntityDetail: id sin entidad propia pero CON relaciones → sigue siendo navegable (found=false)', () => {
+    const raw = rawSnapshot({
+      relationships: [
+        { id: 'rel-2', type: 'APPLIES_TO', from: 'contract:ANCLORA_BRAND_CONTRACT', to: 'repo:ToniIAPro73/anclora-command-center', confidence: 'confirmed' },
+      ],
+    })
+    setKnowledgeSnapshot(raw as never)
+    const detail = getEntityDetail('contract:ANCLORA_BRAND_CONTRACT')
+    expect(detail).not.toBeNull()
+    expect(detail?.found).toBe(false)
+    expect(detail?.relationships).toHaveLength(1)
+    expect(detail?.relationships[0]?.direction).toBe('outgoing')
+    setKnowledgeSnapshot(null)
+  })
+
+  it('getEntityDetail sin snapshot → null', () => {
+    setKnowledgeSnapshot(null)
+    expect(getEntityDetail('service:filestudio')).toBeNull()
+  })
+
+  it('listKnowledgeEntities: enumera todas las entidades de todos los grupos', () => {
+    setKnowledgeSnapshot(rawSnapshot() as never)
+    const all = listKnowledgeEntities()
+    expect(all.length).toBe(4) // 1 repo + 1 product + 1 service + 1 endpoint en el fixture
+    expect(all.every((e) => e.found)).toBe(true)
+    setKnowledgeSnapshot(null)
+  })
+
+  it('listKnowledgeEntities sin snapshot → []', () => {
+    setKnowledgeSnapshot(null)
+    expect(listKnowledgeEntities()).toEqual([])
   })
 })

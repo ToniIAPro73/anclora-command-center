@@ -81,6 +81,24 @@
   color: var(--text-primary);
 }
 
+.op-list__name--link {
+  border: none;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+}
+
+.op-list__name--link:hover,
+.op-list__name--link:focus-visible {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
 .op-list__meta {
   color: var(--text-secondary);
   font-size: 0.85rem;

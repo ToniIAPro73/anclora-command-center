@@ -123,6 +123,50 @@ export interface ConflictSummary extends SourceMetadata {
   reviewRequired: boolean
 }
 
+// ================================================================ ENTITY NAVIGATION
+// Contratos para drill-down/relaciones (COMMAND_CENTER_ENTITY_NAVIGATION_AND_SEARCH).
+// Derivados de Knowledge en el momento de consulta — nunca duplican el
+// snapshot como estado local independiente.
+
+/** Referencia liviana a una entidad, resoluble o no (relationship target sin registro propio). */
+export interface EntityRef {
+  id: string
+  type: string
+  label: string
+  source: SourceSystem
+  /** false cuando el id solo existe como extremo de relacion, sin entidad propia en Knowledge. */
+  found: boolean
+}
+
+export interface RelationshipView {
+  id: string
+  type: string
+  direction: 'incoming' | 'outgoing'
+  counterpart: EntityRef
+}
+
+export interface EntityDetail {
+  id: string
+  type: string
+  label: string
+  source: SourceSystem
+  found: boolean
+  /** Campos status.* del snapshot (p.ej. product_status), ya como texto. */
+  status: Record<string, string>
+  /** Campos fields.* del snapshot, filtrados a valores simples mostrables. */
+  properties: Record<string, string | number | boolean | null>
+  relationships: RelationshipView[]
+}
+
+export interface SearchResult {
+  id: string
+  entityType: string
+  label: string
+  secondary: string | null
+  source: SourceSystem
+  score: number
+}
+
 export interface SystemHealth {
   ecosystemRepoCount: number
   productCount: number

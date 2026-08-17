@@ -13,6 +13,7 @@ import type {
 } from '../../contracts/types'
 import type { GlobalOperationalStatus, OperationalIssue } from '../../domain/types'
 import { postServiceAction, type ServiceActionOp } from '../../adapters/aosAdapter'
+import { listKnowledgeEntities } from '../../adapters/knowledgeAdapter'
 import { DataStateView } from './DataStateView'
 import { Button } from '../../ui/Button'
 import { StatusBadge, type StatusTone } from '../../ui/StatusBadge'
@@ -352,6 +353,7 @@ export interface OperationalDataProps {
   issues: OperationalIssue[]
   globalStatus: GlobalOperationalStatus
   onRefresh: () => void
+  onOpenEntity: (id: string) => void
 }
 
 export function OperationalView({
@@ -366,11 +368,22 @@ export function OperationalView({
   const t = copy[language]
 
   if (section === 'overview') return <OverviewSection t={t} {...data} />
-  if (section === 'products') return <ProductsSection t={t} data={data.products} />
-  if (section === 'repositories') return <RepositoriesSection t={t} data={data.repositories} />
+  if (section === 'products') return <ProductsSection t={t} data={data.products} onOpenEntity={data.onOpenEntity} />
+  if (section === 'repositories')
+    return <RepositoriesSection t={t} data={data.repositories} onOpenEntity={data.onOpenEntity} />
   if (section === 'services')
-    return <ServicesSection t={t} aos={data.aos} aosEndpoints={data.aosEndpoints} onRefresh={data.onRefresh} />
-  return <KnowledgeSection t={t} health={data.knowledgeHealth} conflicts={data.conflicts} />
+    return (
+      <ServicesSection
+        t={t}
+        aos={data.aos}
+        aosEndpoints={data.aosEndpoints}
+        onRefresh={data.onRefresh}
+        onOpenEntity={data.onOpenEntity}
+      />
+    )
+  return (
+    <KnowledgeSection t={t} health={data.knowledgeHealth} conflicts={data.conflicts} onOpenEntity={data.onOpenEntity} />
+  )
 }
 
 function stateLabels(t: Copy) {
@@ -510,7 +523,15 @@ function Metric({ label, value, mono }: { label: string; value: string | number;
   )
 }
 
-function ProductsSection({ t, data }: { t: Copy; data: DataState<ProductSummary[]> }) {
+function ProductsSection({
+  t,
+  data,
+  onOpenEntity,
+}: {
+  t: Copy
+  data: DataState<ProductSummary[]>
+  onOpenEntity: (id: string) => void
+}) {
   return (
     <section className="op-section" aria-labelledby="products-heading">
       <h2 id="products-heading" className="op-section__title">
@@ -521,7 +542,9 @@ function ProductsSection({ t, data }: { t: Copy; data: DataState<ProductSummary[
           <ul className="op-list">
             {items.map((p) => (
               <li key={p.id} className="op-list__item">
-                <span className="op-list__name">{p.name}</span>
+                <button type="button" className="op-list__name op-list__name--link" onClick={() => onOpenEntity(p.id)}>
+                  {p.name}
+                </button>
                 <span className="op-list__meta">
                   {t.status}: {p.productStatus} · {t.businessUnit}: {p.businessUnitLabel ?? p.businessUnitId ?? t.unknownField}
                   {p.repoId ? ` · ${t.repo}: ${p.repoId.replace('repo:ToniIAPro73/', '')}` : ''}
@@ -538,7 +561,15 @@ function ProductsSection({ t, data }: { t: Copy; data: DataState<ProductSummary[
   )
 }
 
-function RepositoriesSection({ t, data }: { t: Copy; data: DataState<RepositorySummary[]> }) {
+function RepositoriesSection({
+  t,
+  data,
+  onOpenEntity,
+}: {
+  t: Copy
+  data: DataState<RepositorySummary[]>
+  onOpenEntity: (id: string) => void
+}) {
   return (
     <section className="op-section" aria-labelledby="repos-heading">
       <h2 id="repos-heading" className="op-section__title">
@@ -549,7 +580,9 @@ function RepositoriesSection({ t, data }: { t: Copy; data: DataState<RepositoryS
           <ul className="op-list">
             {items.map((r) => (
               <li key={r.id} className="op-list__item">
-                <span className="op-list__name">{r.name}</span>
+                <button type="button" className="op-list__name op-list__name--link" onClick={() => onOpenEntity(r.id)}>
+                  {r.name}
+                </button>
                 <span className="op-list__meta">
                   {t.status}: {r.portfolioStatus} · {t.visibility}: {r.githubVisibility}
                 </span>
@@ -586,11 +619,13 @@ function ServicesSection({
   aos,
   aosEndpoints,
   onRefresh,
+  onOpenEntity,
 }: {
   t: Copy
   aos: DataState<AosServiceRuntimeSummary[]>
   aosEndpoints: DataState<AosEndpointSummary[]>
   onRefresh: () => void
+  onOpenEntity: (id: string) => void
 }) {
   const [pending, setPending] = useState<PendingAction | null>(null)
   const [busy, setBusy] = useState(false)
@@ -640,7 +675,13 @@ function ServicesSection({
               const isRunning = s.state === 'running' || s.state === 'starting'
               return (
                 <li key={s.service} className="op-list__item">
-                  <span className="op-list__name">{s.service}</span>
+                  <button
+                    type="button"
+                    className="op-list__name op-list__name--link"
+                    onClick={() => onOpenEntity(`service:${s.service}`)}
+                  >
+                    {s.service}
+                  </button>
                   <StatusBadge tone={stateTone(s.state)} label={t.serviceState(s.state)} />
                   {isExternal && <StatusBadge tone="muted" label={t.managedExternal} />}
                   <span className="op-list__meta">{s.localUrl ?? (s.port ? `${s.port}` : '')}</span>
@@ -732,15 +773,29 @@ function ServicesSection({
   )
 }
 
+// Tipos ya explorables en secciones dedicadas (Products/Repositories/Services)
+// — el explorador de Knowledge muestra el resto (Standard/Technology/
+// BusinessUnit/Endpoint/...) sin duplicar esas vistas operacionales.
+const KNOWLEDGE_EXPLORER_EXCLUDED_TYPES = new Set(['Repository', 'Product', 'Service'])
+
 function KnowledgeSection({
   t,
   health,
   conflicts,
+  onOpenEntity,
 }: {
   t: Copy
   health: DataState<SystemHealth>
   conflicts: DataState<ConflictSummary[]>
+  onOpenEntity: (id: string) => void
 }) {
+  const explorerEntities = listKnowledgeEntities().filter((e) => !KNOWLEDGE_EXPLORER_EXCLUDED_TYPES.has(e.type))
+  const explorerGroups = new Map<string, typeof explorerEntities>()
+  for (const entity of explorerEntities) {
+    if (!explorerGroups.has(entity.type)) explorerGroups.set(entity.type, [])
+    explorerGroups.get(entity.type)!.push(entity)
+  }
+
   return (
     <section className="op-section" aria-labelledby="knowledge-heading">
       <h2 id="knowledge-heading" className="op-section__title">
@@ -759,6 +814,24 @@ function KnowledgeSection({
       <p className="op-note">
         anclora-infrastructure/knowledge — {t.noSourceOfTruth.toLowerCase()}.
       </p>
+
+      {[...explorerGroups.entries()].map(([type, entities]) => (
+        <div key={type}>
+          <h3 className="op-section__subtitle">{type}</h3>
+          <ul className="op-list">
+            {entities.map((entity) => (
+              <li key={entity.id} className="op-list__item">
+                <button type="button" className="op-list__name op-list__name--link" onClick={() => onOpenEntity(entity.id)}>
+                  {entity.label}
+                </button>
+                <span className="op-list__source">
+                  {t.source}: {entity.source}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
 
       <h3 className="op-section__subtitle">{t.conflictsTitle}</h3>
       <DataStateView state={conflicts} labels={stateLabels(t)}>
