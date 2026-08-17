@@ -1,15 +1,20 @@
-// Adapter: unica frontera entre el snapshot JSON de Anclora Knowledge/AKG y los contratos UI.
+// Adapter: unica frontera entre la fuente Knowledge/AKG (local backend) y los contratos UI.
 //
-// Ningun componente React debe importar `src/generated/knowledge-snapshot.json` directamente
-// ni recorrer su estructura interna (entities/fields/relationships crudos). Todo pasa por aqui.
+// COMMAND_CENTER_VPS_NATIVE_DEPLOYMENT (2026-08-17): la fuente deja de ser un
+// snapshot estático importado en build-time (src/generated/) y pasa a ser el
+// endpoint local `/api/knowledge` servido por server/server.mjs, que lee el
+// knowledge-model.json derivado real (Knowledge/AKG) con cache por mtime.
 //
-// Fuente: src/generated/knowledge-snapshot.json, copiado en build/dev time desde
-// anclora-infrastructure/knowledge/generated/knowledge-model.json por
-// scripts/sync-knowledge-data.mjs. Ver Seccion 8 de COMMAND_CENTER_REBUILD: implementacion
-// inicial minima por filesystem, encapsulada aqui para poder sustituirse despues por una API
-// sin tocar los componentes.
+// Este adapter expone un MAPPER PURO (mapKnowledgeSnapshot) —dado el payload
+// del API— que devuelve los contratos UI (DataState). El hook
+// useOperationalData (src/api) es quien hace el fetch y alimenta el mapper.
+//
+// Ningun componente React debe importar `src/generated/knowledge-snapshot.json`
+// ni recorrer la estructura cruda. Todo pasa por aqui.
+//
+// Boundary: source -> adapter -> contracts -> UI.
+// Solo lectura: no expone ninguna operacion de escritura.
 
-import snapshot from '../generated/knowledge-snapshot.json'
 import type {
   DataState,
   EndpointSummary,
@@ -56,8 +61,6 @@ interface RawSnapshot {
   conflicts: unknown[]
 }
 
-const raw = snapshot as unknown as RawSnapshot
-
 /** Umbral de frescura del snapshot antes de considerarlo STALE (Seccion 17). */
 const STALE_AFTER_MS = 1000 * 60 * 60 * 24 * 30 // 30 dias
 
@@ -71,10 +74,10 @@ function statusField(entity: RawEntity, key: string): string {
   return typeof value === 'string' ? value : 'UNKNOWN'
 }
 
-function withFreshness<T>(data: T, isEmpty: boolean): DataState<T> {
+function withFreshness<T>(meta: RawSnapshot['metadata'] | undefined, data: T, isEmpty: boolean): DataState<T> {
   if (isEmpty) return { status: 'EMPTY' }
 
-  const generatedAt = raw.metadata?.generated_at
+  const generatedAt = meta?.generated_at
   if (generatedAt) {
     const ageMs = Date.now() - new Date(generatedAt).getTime()
     if (Number.isFinite(ageMs) && ageMs > STALE_AFTER_MS) {
@@ -84,105 +87,181 @@ function withFreshness<T>(data: T, isEmpty: boolean): DataState<T> {
   return { status: 'READY', data }
 }
 
+/**
+ * MAPPER PURO — dado el payload del endpoint /api/knowledge (o un snapshot
+ * equivalente), devuelve los contratos UI. Sin side effects.
+ */
+export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
+  repositories: DataState<RepositorySummary[]>
+  products: DataState<ProductSummary[]>
+  services: DataState<ServiceSummary[]>
+  endpoints: DataState<EndpointSummary[]>
+  health: DataState<SystemHealth>
+  relationshipsFor: (entityId: string) => RelationshipSummary[]
+} {
+  const unavailable: DataState<never> = {
+    status: 'UNAVAILABLE',
+    reason: 'Knowledge no disponible (el backend local no pudo leer el modelo)',
+  }
+
+  if (!raw) {
+    return {
+      repositories: unavailable,
+      products: unavailable,
+      services: unavailable,
+      endpoints: unavailable,
+      health: unavailable,
+      relationshipsFor: () => [],
+    }
+  }
+
+  const entities = raw.entities ?? {}
+
+  const repositories: DataState<RepositorySummary[]> = Array.isArray(entities.repositories)
+    ? withFreshness(
+        raw.metadata,
+        entities.repositories.map((r) => ({
+          id: r.id,
+          name: r.name,
+          githubOwner: field(r, 'github_owner'),
+          githubVisibility: field<string>(r, 'github_visibility') ?? 'unknown',
+          repositoryStatus: statusField(r, 'repository_status'),
+          portfolioStatus: statusField(r, 'portfolio_status'),
+          defaultBranch: field<string>(r, 'default_branch') ?? 'main',
+          productId: null,
+          targetRole: field(r, 'target_role'),
+          sourceOfTruthLocal: field(r, 'source_of_truth_local'),
+          source: 'knowledge' as const,
+          sourceId: r.id,
+        })),
+        entities.repositories.length === 0,
+      )
+    : unavailable
+
+  const products: DataState<ProductSummary[]> = Array.isArray(entities.products)
+    ? withFreshness(
+        raw.metadata,
+        entities.products.map((p) => ({
+          id: p.id,
+          name: p.name,
+          businessUnitId: field(p, 'business_unit_id'),
+          repoId: field(p, 'repo_id'),
+          productStatus: statusField(p, 'product_status'),
+          domain: field(p, 'domain'),
+          source: 'knowledge' as const,
+          sourceId: p.id,
+        })),
+        entities.products.length === 0,
+      )
+    : unavailable
+
+  const services: DataState<ServiceSummary[]> = Array.isArray(entities.services)
+    ? withFreshness(
+        raw.metadata,
+        entities.services.map((s) => ({
+          id: s.id,
+          name: s.name,
+          port: field(s, 'port'),
+          bindHost: field(s, 'bind_host'),
+          serviceStatus: statusField(s, 'service_status'),
+          repoId: field(s, 'repo_id'),
+          productId: field(s, 'product_id'),
+          publicHost: field(s, 'public_host'),
+          source: 'aos' as const,
+          sourceId: s.id,
+        })),
+        entities.services.length === 0,
+      )
+    : unavailable
+
+  const endpoints: DataState<EndpointSummary[]> = Array.isArray(entities.endpoints)
+    ? withFreshness(
+        raw.metadata,
+        entities.endpoints.map((e) => ({
+          id: e.id,
+          host: field<string>(e, 'host') ?? e.name,
+          port: field(e, 'port'),
+          endpointStatus: statusField(e, 'endpoint_status'),
+          source: 'aos' as const,
+          sourceId: e.id,
+        })),
+        entities.endpoints.length === 0,
+      )
+    : unavailable
+
+  const health: DataState<SystemHealth> = raw.metadata
+    ? withFreshness(
+        raw.metadata,
+        {
+          ecosystemRepoCount: entities.repositories?.length ?? 0,
+          productCount: entities.products?.length ?? 0,
+          serviceCount: entities.services?.length ?? 0,
+          akgEntityCount: raw.metadata.counts?.entities ?? 0,
+          akgRelationshipCount: raw.metadata.counts?.relationships ?? raw.relationships?.length ?? 0,
+          akgConflictCount: raw.metadata.counts?.conflicts ?? raw.conflicts?.length ?? 0,
+          knowledgeBuildId: raw.metadata.rebuild_id ?? null,
+          knowledgeGeneratedAt: raw.metadata.generated_at ?? null,
+        },
+        false,
+      )
+    : unavailable
+
+  const relationshipsFor = (entityId: string): RelationshipSummary[] =>
+    (raw.relationships ?? [])
+      .filter((r) => r.from === entityId || r.to === entityId)
+      .map((r) => ({
+        id: r.id,
+        type: r.type,
+        from: r.from,
+        to: r.to,
+        confidence: r.confidence,
+        source: 'akg' as const,
+        sourceId: r.id,
+      }))
+
+  return { repositories, products, services, endpoints, health, relationshipsFor }
+}
+
+// ================================================================ PROXY (async)
+// Compatibilidad con la firma anterior (componentes viejos) y acceso directo:
+// el fetch de la fuente local se hace via hook (src/api/useOperationalData.ts);
+// estas funciones exponen el snapshot actual al hook y permiten tests.
+
+let currentKnowledge: RawSnapshot | null | undefined
+
+export function setKnowledgeSnapshot(raw: RawSnapshot | null | undefined): void {
+  currentKnowledge = raw
+}
+
+export function getKnowledgeSnapshot(): RawSnapshot | null | undefined {
+  return currentKnowledge
+}
+
+// Contratos UI — la fuente se actualiza via setKnowledgeSnapshot() tras fetch.
 export function getRepositories(): DataState<RepositorySummary[]> {
-  if (!raw?.entities?.repositories) {
-    return { status: 'UNAVAILABLE', reason: 'Snapshot de Knowledge no disponible (sin sincronizar)' }
-  }
-  const items: RepositorySummary[] = raw.entities.repositories.map((r) => ({
-    id: r.id,
-    name: r.name,
-    githubOwner: field(r, 'github_owner'),
-    githubVisibility: field<string>(r, 'github_visibility') ?? 'unknown',
-    repositoryStatus: statusField(r, 'repository_status'),
-    portfolioStatus: statusField(r, 'portfolio_status'),
-    defaultBranch: field<string>(r, 'default_branch') ?? 'main',
-    productId: null,
-    targetRole: field(r, 'target_role'),
-    sourceOfTruthLocal: field(r, 'source_of_truth_local'),
-    source: 'knowledge',
-    sourceId: r.id,
-  }))
-  return withFreshness(items, items.length === 0)
+  return mapKnowledgeSnapshot(currentKnowledge).repositories
 }
-
 export function getProducts(): DataState<ProductSummary[]> {
-  if (!raw?.entities?.products) {
-    return { status: 'UNAVAILABLE', reason: 'Snapshot de Knowledge no disponible (sin sincronizar)' }
-  }
-  const items: ProductSummary[] = raw.entities.products.map((p) => ({
-    id: p.id,
-    name: p.name,
-    businessUnitId: field(p, 'business_unit_id'),
-    repoId: field(p, 'repo_id'),
-    productStatus: statusField(p, 'product_status'),
-    domain: field(p, 'domain'),
-    source: 'knowledge',
-    sourceId: p.id,
-  }))
-  return withFreshness(items, items.length === 0)
+  return mapKnowledgeSnapshot(currentKnowledge).products
 }
-
 export function getServices(): DataState<ServiceSummary[]> {
-  if (!raw?.entities?.services) {
-    return { status: 'UNAVAILABLE', reason: 'Snapshot de Knowledge no disponible (sin sincronizar)' }
-  }
-  const items: ServiceSummary[] = raw.entities.services.map((s) => ({
-    id: s.id,
-    name: s.name,
-    port: field(s, 'port'),
-    bindHost: field(s, 'bind_host'),
-    serviceStatus: statusField(s, 'service_status'),
-    repoId: field(s, 'repo_id'),
-    productId: field(s, 'product_id'),
-    publicHost: field(s, 'public_host'),
-    source: 'aos',
-    sourceId: s.id,
-  }))
-  return withFreshness(items, items.length === 0)
+  return mapKnowledgeSnapshot(currentKnowledge).services
 }
-
 export function getEndpoints(): DataState<EndpointSummary[]> {
-  if (!raw?.entities?.endpoints) {
-    return { status: 'UNAVAILABLE', reason: 'Snapshot de Knowledge no disponible (sin sincronizar)' }
-  }
-  const items: EndpointSummary[] = raw.entities.endpoints.map((e) => ({
-    id: e.id,
-    host: field<string>(e, 'host') ?? e.name,
-    port: field(e, 'port'),
-    endpointStatus: statusField(e, 'endpoint_status'),
-    source: 'aos',
-    sourceId: e.id,
-  }))
-  return withFreshness(items, items.length === 0)
+  return mapKnowledgeSnapshot(currentKnowledge).endpoints
 }
-
-export function getRelationshipsFor(entityId: string): RelationshipSummary[] {
-  return raw.relationships
-    .filter((r) => r.from === entityId || r.to === entityId)
-    .map((r) => ({
-      id: r.id,
-      type: r.type,
-      from: r.from,
-      to: r.to,
-      confidence: r.confidence,
-      source: 'akg',
-      sourceId: r.id,
-    }))
-}
-
 export function getSystemHealth(): DataState<SystemHealth> {
-  if (!raw?.metadata) {
-    return { status: 'UNAVAILABLE', reason: 'Snapshot de Knowledge no disponible (sin sincronizar)' }
-  }
-  const health: SystemHealth = {
-    ecosystemRepoCount: raw.entities.repositories.length,
-    productCount: raw.entities.products.length,
-    serviceCount: raw.entities.services.length,
-    akgEntityCount: raw.metadata.counts?.entities ?? 0,
-    akgRelationshipCount: raw.metadata.counts?.relationships ?? raw.relationships.length,
-    akgConflictCount: raw.metadata.counts?.conflicts ?? raw.conflicts.length,
-    knowledgeBuildId: raw.metadata.rebuild_id ?? null,
-    knowledgeGeneratedAt: raw.metadata.generated_at ?? null,
-  }
-  return withFreshness(health, false)
+  return mapKnowledgeSnapshot(currentKnowledge).health
+}
+export function getRelationshipsFor(entityId: string): RelationshipSummary[] {
+  return mapKnowledgeSnapshot(currentKnowledge).relationshipsFor(entityId)
+}
+
+/** Carga la fuente Knowledge del backend local. Usado por el hook y por tests de integracion. */
+export async function fetchKnowledgeFromApi(): Promise<RawSnapshot | null> {
+  const res = await fetch('/api/knowledge')
+  if (!res.ok) return null
+  const payload = await res.json()
+  if (payload?.status !== 'READY') return null
+  return payload
 }

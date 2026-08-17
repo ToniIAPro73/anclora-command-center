@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { OperationalView } from './modules/operational/OperationalView'
+import { useOperationalData } from './api/useOperationalData'
 import { DashboardShell } from './shell/DashboardShell'
 import type {
   DashboardLanguage,
@@ -83,6 +84,7 @@ function App() {
     if (typeof window === 'undefined') return 'overview'
     return resolveSection(window.location.pathname)
   })
+  const operational = useOperationalData()
 
   useEffect(() => {
     const root = document.documentElement
@@ -155,7 +157,21 @@ function App() {
         system: t.themeSystem,
       }}
     >
-      <OperationalView section={section} language={language} />
+      <OperationalView
+        section={section}
+        language={language}
+        data={{
+          loadingInitial: operational.loadingInitial,
+          aosLastUpdatedAt: operational.aosLastUpdatedAt,
+          aos: operational.aos,
+          knowledgeHealth: operational.knowledgeHealth,
+          repositories: operational.repositories,
+          products: operational.products,
+          services: operational.services,
+          endpoints: operational.endpoints,
+          onRefresh: () => void operational.refresh(),
+        }}
+      />
     </DashboardShell>
   )
 }

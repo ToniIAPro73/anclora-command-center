@@ -1,6 +1,13 @@
 import type { DashboardLanguage } from '../../shell/dashboard-shell.types'
-import { getEndpoints, getProducts, getRepositories, getServices, getSystemHealth } from '../../adapters/knowledgeAdapter'
-import { getAosRuntimeStatus } from '../../adapters/aosAdapter'
+import type {
+  AosServiceRuntimeSummary,
+  DataState,
+  EndpointSummary,
+  ProductSummary,
+  RepositorySummary,
+  ServiceSummary,
+  SystemHealth,
+} from '../../contracts/types'
 import { DataStateView } from './DataStateView'
 import './operational-view.css'
 
@@ -35,6 +42,8 @@ interface Copy {
   health: string
   runtimeState: string
   noSourceOfTruth: string
+  refresh: string
+  lastUpdated: string
 }
 
 const copy: Record<DashboardLanguage, Copy> = {
@@ -67,6 +76,8 @@ const copy: Record<DashboardLanguage, Copy> = {
     health: 'salud',
     runtimeState: 'estado runtime',
     noSourceOfTruth: 'No es fuente de verdad local',
+    refresh: 'Actualizar',
+    lastUpdated: 'Actualizado',
   },
   en: {
     loading: 'Loading…',
@@ -97,6 +108,8 @@ const copy: Record<DashboardLanguage, Copy> = {
     health: 'health',
     runtimeState: 'runtime state',
     noSourceOfTruth: 'Not a local source of truth',
+    refresh: 'Refresh',
+    lastUpdated: 'Updated',
   },
   de: {
     loading: 'Wird geladen…',
@@ -127,23 +140,41 @@ const copy: Record<DashboardLanguage, Copy> = {
     health: 'Zustand',
     runtimeState: 'Laufzeitstatus',
     noSourceOfTruth: 'Keine lokale Quelle der Wahrheit',
+    refresh: 'Aktualisieren',
+    lastUpdated: 'Aktualisiert',
   },
+}
+
+export interface OperationalDataProps {
+  // Datos inyectados por useOperationalData (COMMAND_CENTER_VPS_NATIVE_DEPLOYMENT):
+  // los componentes jamas hacen fetch ni tocan adapters directamente.
+  loadingInitial: boolean
+  aosLastUpdatedAt: Date | null
+  aos: DataState<AosServiceRuntimeSummary[]>
+  knowledgeHealth: DataState<SystemHealth>
+  repositories: DataState<RepositorySummary[]>
+  products: DataState<ProductSummary[]>
+  services: DataState<ServiceSummary[]>
+  endpoints: DataState<EndpointSummary[]>
+  onRefresh: () => void
 }
 
 export function OperationalView({
   section,
   language,
+  data,
 }: {
   section: OperationalSection
   language: DashboardLanguage
+  data: OperationalDataProps
 }) {
   const t = copy[language]
 
-  if (section === 'overview') return <OverviewSection t={t} />
-  if (section === 'products') return <ProductsSection t={t} />
-  if (section === 'repositories') return <RepositoriesSection t={t} />
-  if (section === 'services') return <ServicesSection t={t} />
-  return <KnowledgeSection t={t} />
+  if (section === 'overview') return <OverviewSection t={t} {...data} />
+  if (section === 'products') return <ProductsSection t={t} data={data.products} />
+  if (section === 'repositories') return <RepositoriesSection t={t} data={data.repositories} />
+  if (section === 'services') return <ServicesSection t={t} services={data.services} endpoints={data.endpoints} />
+  return <KnowledgeSection t={t} health={data.knowledgeHealth} />
 }
 
 function stateLabels(t: Copy) {
@@ -156,16 +187,28 @@ function stateLabels(t: Copy) {
   }
 }
 
-function OverviewSection({ t }: { t: Copy }) {
-  const health = getSystemHealth()
-  const aos = getAosRuntimeStatus()
+function RefreshButton({ t, onRefresh }: { t: Copy; onRefresh: () => void }) {
+  return (
+    <button type="button" className="op-refresh" onClick={onRefresh}>
+      {t.refresh}
+    </button>
+  )
+}
 
+function OverviewSection(props: OperationalDataProps & { t: Copy }) {
+  const { t } = props
   return (
     <section className="op-section" aria-labelledby="overview-heading">
       <h2 id="overview-heading" className="op-section__title">
         {t.overviewTitle}
       </h2>
-      <DataStateView state={health} labels={stateLabels(t)}>
+      <RefreshButton t={t} onRefresh={props.onRefresh} />
+      {!props.loadingInitial && props.aosLastUpdatedAt && (
+        <p className="op-note">
+          {t.lastUpdated}: {props.aosLastUpdatedAt.toLocaleTimeString()}
+        </p>
+      )}
+      <DataStateView state={props.knowledgeHealth} labels={stateLabels(t)}>
         {(data) => (
           <dl className="op-metric-grid">
             <Metric label={t.repos} value={data.ecosystemRepoCount} />
@@ -184,7 +227,7 @@ function OverviewSection({ t }: { t: Copy }) {
       </DataStateView>
 
       <h3 className="op-section__subtitle">AOS Runtime</h3>
-      <DataStateView state={aos} labels={stateLabels(t)}>
+      <DataStateView state={props.aos} labels={stateLabels(t)}>
         {(services) => (
           <p className="op-note">
             {services.filter((s) => s.processState !== 'stopped').length} / {services.length}{' '}
@@ -205,14 +248,13 @@ function Metric({ label, value, mono }: { label: string; value: string | number;
   )
 }
 
-function ProductsSection({ t }: { t: Copy }) {
-  const products = getProducts()
+function ProductsSection({ t, data }: { t: Copy; data: DataState<ProductSummary[]> }) {
   return (
     <section className="op-section" aria-labelledby="products-heading">
       <h2 id="products-heading" className="op-section__title">
         {t.productsTitle}
       </h2>
-      <DataStateView state={products} labels={stateLabels(t)}>
+      <DataStateView state={data} labels={stateLabels(t)}>
         {(items) => (
           <ul className="op-list">
             {items.map((p) => (
@@ -234,14 +276,13 @@ function ProductsSection({ t }: { t: Copy }) {
   )
 }
 
-function RepositoriesSection({ t }: { t: Copy }) {
-  const repos = getRepositories()
+function RepositoriesSection({ t, data }: { t: Copy; data: DataState<RepositorySummary[]> }) {
   return (
     <section className="op-section" aria-labelledby="repos-heading">
       <h2 id="repos-heading" className="op-section__title">
         {t.reposTitle}
       </h2>
-      <DataStateView state={repos} labels={stateLabels(t)}>
+      <DataStateView state={data} labels={stateLabels(t)}>
         {(items) => (
           <ul className="op-list">
             {items.map((r) => (
@@ -265,9 +306,15 @@ function RepositoriesSection({ t }: { t: Copy }) {
   )
 }
 
-function ServicesSection({ t }: { t: Copy }) {
-  const services = getServices()
-  const endpoints = getEndpoints()
+function ServicesSection({
+  t,
+  services,
+  endpoints,
+}: {
+  t: Copy
+  services: DataState<ServiceSummary[]>
+  endpoints: DataState<EndpointSummary[]>
+}) {
   return (
     <section className="op-section" aria-labelledby="services-heading">
       <h2 id="services-heading" className="op-section__title">
@@ -309,8 +356,7 @@ function ServicesSection({ t }: { t: Copy }) {
   )
 }
 
-function KnowledgeSection({ t }: { t: Copy }) {
-  const health = getSystemHealth()
+function KnowledgeSection({ t, health }: { t: Copy; health: DataState<SystemHealth> }) {
   return (
     <section className="op-section" aria-labelledby="knowledge-heading">
       <h2 id="knowledge-heading" className="op-section__title">

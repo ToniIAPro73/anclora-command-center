@@ -11,8 +11,10 @@
     "dev": "npm run sync:all && vite",
     "build": "npm run sync:all && tsc -b && vite build",
     "lint": "eslint .",
-    "test": "npm run sync:all && vitest run",
-    "preview": "vite preview"
+    "test": "npm run sync:all && vitest run src && node tests/server.test.mjs",
+    "preview": "vite preview",
+    "serve": "node server/server.mjs",
+    "test:server": "node tests/server.test.mjs"
   },
   "dependencies": {
     "react": "^19.2.4",
