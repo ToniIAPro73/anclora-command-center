@@ -1,0 +1,12 @@
+/* App-shell overlay layer shared by every fixed-position modal surface in
+   Command Center (entity modal, global search, confirmation dialog mount).
+   Position/z-index only — all shell styling lives on DS ac-* classes.
+   overscroll-behavior: contain keeps modal-body scroll chains from moving
+   the page behind it (COMMAND_CENTER_ADAPTIVE_DETAIL_MODALS, Seccion 27). */
+
+.op-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  overscroll-behavior: contain;
+}

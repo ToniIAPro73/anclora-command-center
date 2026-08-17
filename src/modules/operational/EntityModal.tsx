@@ -1,12 +1,16 @@
-// EntityDrawer — generic entity detail + relationship navigation
-// (COMMAND_CENTER_ENTITY_NAVIGATION_AND_SEARCH, Seccion 9/13/14/15).
+// EntityModal — generic entity detail + relationship navigation
+// (COMMAND_CENTER_ENTITY_NAVIGATION_AND_SEARCH, Seccion 9/13/14/15;
+// COMMAND_CENTER_ADAPTIVE_DETAIL_MODALS: centered adaptive modal instead of
+// right-side drawer).
 //
-// Domain-specific composition on top of the DS-canonical Drawer (src/ui/
-// Drawer.tsx -> ac-drawer). Renders ANY Knowledge entity type generically
-// (Seccion 7: no hardcoded type list) — Product/Repository/Service get one
-// extra cross-reference (live AOS runtime state) when resolvable, everything
-// else (Standard/Technology/BusinessUnit/Endpoint/unresolved refs) uses the
-// same properties+relationships layout.
+// Domain-specific composition on top of the DS-canonical Modal (src/ui/
+// Modal.tsx -> ac-modal, sized ac-modal--compact|--medium|--wide|--large).
+// Renders ANY Knowledge entity type generically (Seccion 7: no hardcoded
+// type list) — Product/Repository/Service get one extra cross-reference (live
+// AOS runtime state) when resolvable, everything else
+// (Standard/Technology/BusinessUnit/Endpoint/unresolved refs) uses the
+// same properties+relationships layout. Size class is deterministic via
+// getEntityModalSize() (type-first, content-density fallback).
 //
 // Never fabricates data: relationships come only from getEntityDetail()
 // (Knowledge/AKG), unresolved targets are shown with their raw id and a
@@ -15,6 +19,7 @@ import { useEffect, useState } from 'react'
 import { getEntityDetail } from '../../adapters/knowledgeAdapter'
 import { fetchRepositoryRuntimeFromApi, getRepositoryRuntimeById } from '../../adapters/repositoryRuntimeAdapter'
 import { classifyEndpointStatus } from '../../domain/endpointReconciliation'
+import { getEntityModalSize } from '../../domain/entityModalSize'
 import type { DashboardLanguage } from '../../shell/dashboard-shell.types'
 import type {
   AosEndpointSummary,
@@ -25,11 +30,11 @@ import type {
   RelationshipView,
   RepositoryRuntimeState,
 } from '../../contracts/types'
-import { Drawer } from '../../ui/Drawer'
+import { Modal } from '../../ui/Modal'
 import { Button } from '../../ui/Button'
 import { StatusBadge, type StatusTone } from '../../ui/StatusBadge'
 import { EmptyState } from '../../ui/EmptyState'
-import './entity-drawer.css'
+import './entity-modal.css'
 
 interface EntityDrawerCopy {
   type: string
@@ -568,7 +573,7 @@ function OperationalEndpointView({ match, t, onNavigate }: { match: EndpointMatc
   )
 }
 
-export function EntityDrawer({
+export function EntityModal({
   entityId,
   language,
   aos,
@@ -630,9 +635,22 @@ export function EntityDrawer({
 
   const operationalTitle = endpointMatch?.aos.domain ?? endpointMatch?.aos.service ?? entityId ?? ''
 
+  // Deterministic adaptive size (COMMAND_CENTER_ADAPTIVE_DETAIL_MODALS,
+  // Seccion 18/43): type-first, content-density fallback, no per-entity
+  // magic numbers. A Technology stays compact; a Repository goes wide.
+  const modalSize = getEntityModalSize({
+    type: isOperationalEndpoint ? 'Endpoint' : detail?.type,
+    propertyCount: propertyEntries.length,
+    statusCount: statusEntries.length,
+    relationshipCount: incoming.length + outgoing.length,
+    liveAos: Boolean(endpointMatch),
+    runtimePresent: Boolean(runtime),
+  })
+
   return (
-    <Drawer
+    <Modal
       open={entityId !== null}
+      size={modalSize}
       title={isOperationalEndpoint ? operationalTitle : (detail?.label ?? entityId ?? '')}
       eyebrow={isOperationalEndpoint ? t.endpointOperationalTitle : detail?.type}
       onClose={onClose}
@@ -728,6 +746,6 @@ export function EntityDrawer({
           </div>
         </>
       )}
-    </Drawer>
+    </Modal>
   )
 }

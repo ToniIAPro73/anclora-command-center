@@ -22,6 +22,7 @@ import type {
 import { listKnowledgeEntities } from '../../adapters/knowledgeAdapter'
 import { buildEndpointSearchEntries } from '../../domain/endpointReconciliation'
 import { buildSearchIndex, rankSearch } from '../../domain/search'
+import '../../ui/overlay.css'
 import './global-search.css'
 
 interface Copy {

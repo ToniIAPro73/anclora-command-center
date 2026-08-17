@@ -1,4 +1,6 @@
-/* EntityDrawer — domain-specific composition over DS tokens (Seccion 4/9). */
+/* EntityModal — domain-specific composition over DS tokens (Seccion 4/9).
+   Generic modal geometry (centering, size classes, scroll, viewport safety)
+   lives in the Design System modal.css — no duplication here. */
 
 .op-entity-meta {
   display: grid;
@@ -6,6 +8,16 @@
   margin: 0;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Wide/large modals: canonical ID + source as a compact horizontal metadata
+   row (COMMAND_CENTER_ADAPTIVE_DETAIL_MODALS, Seccion 34: technical
+   evidence, not primary content — stays visible but does not dominate). */
+.ac-modal--wide .op-entity-meta,
+.ac-modal--large .op-entity-meta {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem 2rem;
+  align-items: baseline;
 }
 
 .op-entity-meta dt {

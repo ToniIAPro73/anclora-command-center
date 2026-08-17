@@ -17,7 +17,7 @@
     "test:server": "node tests/server.test.mjs"
   },
   "dependencies": {
-    "@anclora/design-system": "https://codeload.github.com/ToniIAPro73/anclora-design-system/tar.gz/ffbae16f1582a5646b951aea76ab16f4bd476cc4",
+    "@anclora/design-system": "https://codeload.github.com/ToniIAPro73/anclora-design-system/tar.gz/96c6d2c9c7a76b5523d64d3a05856e4ee33d1688",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },

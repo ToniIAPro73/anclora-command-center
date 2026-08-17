@@ -1,0 +1,17 @@
+/* App-shell integration layer for .ac-modal-backdrop: DS ships the backdrop
+   as position:relative (host decides how it's mounted). Fixed positioning
+   (.op-overlay), z-index and the header title-row are layout-only — zero
+   duplicated DS styling (colors/spacing/radius all stay on ac-* classes).
+   The adaptive size/scroll/centering geometry is 100% DS (modal.css). */
+
+.op-modal__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3, 12px);
+}
+
+.op-modal__scroll {
+  min-width: 0;
+  min-height: 0;
+}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { OperationalView } from './modules/operational/OperationalView'
-import { EntityDrawer } from './modules/operational/EntityDrawer'
+import { EntityModal } from './modules/operational/EntityModal'
 import { GlobalSearch } from './modules/operational/GlobalSearch'
 import { useOperationalData } from './api/useOperationalData'
 import { DashboardShell } from './shell/DashboardShell'
@@ -237,7 +237,7 @@ function App() {
           onOpenEntity: openEntity,
         }}
       />
-      <EntityDrawer
+      <EntityModal
         entityId={activeEntity}
         language={language}
         aos={operational.aos}

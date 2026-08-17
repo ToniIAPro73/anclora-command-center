@@ -1,10 +1,21 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react'
-import { EntityDrawer } from './EntityDrawer'
+import { EntityModal } from './EntityModal'
 import { setKnowledgeSnapshot } from '../../adapters/knowledgeAdapter'
 import { setRepositoriesRuntimeSnapshot } from '../../adapters/repositoryRuntimeAdapter'
 import type { RepositoryRuntimeState } from '../../contracts/types'
+
+
+// COMMAND_CENTER_ADAPTIVE_DETAIL_MODALS — Seccion 48: the modal shell must
+// carry the deterministic size modifier for each entity (Repository -> wide,
+// simple Technology -> compact, Product -> medium, rich Endpoint -> wide).
+function modalSizeClassFor(entityId: string, extra?: Parameters<typeof EntityModal>[0]) {
+  const { container } = render(
+    <EntityModal entityId={entityId} language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} {...extra} />,
+  )
+  return container.querySelector('[role="dialog"]')?.className ?? ''
+}
 
 function rawSnapshot() {
   return {
@@ -40,7 +51,15 @@ function rawSnapshot() {
       ],
       endpoints: [],
       standards: [],
-      technologies: [],
+      technologies: [
+        {
+          id: 'tech:docker',
+          type: 'Technology',
+          name: 'Docker',
+          status: { tech_status: 'active' },
+          fields: { category: 'tool' },
+        },
+      ],
       'business-units': [],
     },
     relationships: [
@@ -54,18 +73,18 @@ function idleAos() {
   return { status: 'READY' as const, data: [{ service: 'fiscal-api', port: 4001, processState: 'running', state: 'running', health: 'ok', pid: 1, managed: 'aos' as const, localUrl: null, publicUrl: null }] }
 }
 
-describe('EntityDrawer', () => {
+describe('EntityModal', () => {
   beforeEach(() => {
     setKnowledgeSnapshot(rawSnapshot() as never)
   })
 
   it('renders nothing when entityId is null', () => {
-    render(<EntityDrawer entityId={null} language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    render(<EntityModal entityId={null} language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
     expect(screen.queryByRole('dialog')).toBeNull()
   })
 
   it('opens a known product: shows label, properties, status, and outgoing/incoming relationships', () => {
-    render(<EntityDrawer entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    render(<EntityModal entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
     expect(screen.getByRole('dialog')).toBeInTheDocument()
     expect(screen.getByText('Anclora Fiscal')).toBeInTheDocument()
     expect(screen.getByText('ACTIVE')).toBeInTheDocument()
@@ -76,7 +95,7 @@ describe('EntityDrawer', () => {
   })
 
   it('opens a known service: shows outgoing relationship and cross-referenced live AOS runtime state', () => {
-    render(<EntityDrawer entityId="service:fiscal-api" language="en" aos={idleAos()} onClose={() => {}} onNavigate={() => {}} />)
+    render(<EntityModal entityId="service:fiscal-api" language="en" aos={idleAos()} onClose={() => {}} onNavigate={() => {}} />)
     expect(screen.getByText('Outgoing')).toBeInTheDocument()
     expect(screen.getByText('Anclora Fiscal')).toBeInTheDocument()
     expect(screen.getByText('Live runtime status (AOS)')).toBeInTheDocument()
@@ -85,7 +104,7 @@ describe('EntityDrawer', () => {
   })
 
   it('unknown id with no relationships -> not-found empty state, no crash', () => {
-    render(<EntityDrawer entityId="product:does-not-exist" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    render(<EntityModal entityId="product:does-not-exist" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
     expect(screen.getByText('Entity not found in Knowledge.')).toBeInTheDocument()
   })
 
@@ -94,7 +113,7 @@ describe('EntityDrawer', () => {
       ...rawSnapshot(),
       relationships: [],
     } as never)
-    render(<EntityDrawer entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    render(<EntityModal entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
     expect(screen.getByText('No relationships available')).toBeInTheDocument()
   })
 
@@ -105,7 +124,7 @@ describe('EntityDrawer', () => {
         { id: 'rel-2', type: 'APPLIES_TO', from: 'contract:FOO', to: 'product:fiscal', confidence: 'confirmed' },
       ],
     } as never)
-    render(<EntityDrawer entityId="contract:FOO" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    render(<EntityModal entityId="contract:FOO" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
     expect(screen.getByText('This entity only exists as a relationship target — Knowledge has no record of its own for it.')).toBeInTheDocument()
     // still shows its one outgoing relationship, resolvable target is clickable
     expect(screen.getByRole('button', { name: 'Anclora Fiscal' })).toBeInTheDocument()
@@ -113,7 +132,7 @@ describe('EntityDrawer', () => {
 
   it('clicking a resolvable relationship target calls onNavigate with its id', () => {
     const onNavigate = vi.fn()
-    render(<EntityDrawer entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={onNavigate} />)
+    render(<EntityModal entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={onNavigate} />)
     fireEvent.click(screen.getByRole('button', { name: 'fiscal-api' }))
     expect(onNavigate).toHaveBeenCalledWith('service:fiscal-api')
   })
@@ -121,12 +140,12 @@ describe('EntityDrawer', () => {
   it('shows a Back button only when onBack is provided, and calls it', () => {
     const onBack = vi.fn()
     const { rerender } = render(
-      <EntityDrawer entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />,
+      <EntityModal entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />,
     )
     expect(screen.queryByRole('button', { name: /Back/ })).toBeNull()
 
     rerender(
-      <EntityDrawer entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onBack={onBack} onNavigate={() => {}} />,
+      <EntityModal entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onBack={onBack} onNavigate={() => {}} />,
     )
     fireEvent.click(screen.getByRole('button', { name: /Back/ }))
     expect(onBack).toHaveBeenCalledTimes(1)
@@ -134,9 +153,28 @@ describe('EntityDrawer', () => {
 
   it('calls onClose on Escape', () => {
     const onClose = vi.fn()
-    render(<EntityDrawer entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={onClose} onNavigate={() => {}} />)
+    render(<EntityModal entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={onClose} onNavigate={() => {}} />)
     fireEvent.keyDown(document, { key: 'Escape' })
     expect(onClose).toHaveBeenCalledTimes(1)
+  })
+
+  it('Repository opens wide (ac-modal--wide), Technology opens compact, Product medium', () => {
+    // stub the live runtime probe so the repository render never fetches
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => ({ status: 200, json: async () => ({ status: 'READY', repository: runtimeState() }) })),
+    )
+    expect(modalSizeClassFor('repo:ToniIAPro73/anclora-fiscal')).toContain('ac-modal--wide')
+    vi.unstubAllGlobals()
+    expect(modalSizeClassFor('tech:docker')).toContain('ac-modal--compact')
+    expect(modalSizeClassFor('product:fiscal')).toContain('ac-modal--medium')
+  })
+
+  it('modal shell is centered DS modal, never the right-side drawer', () => {
+    const cls = modalSizeClassFor('product:fiscal')
+    expect(cls).toContain('ac-modal')
+    expect(cls).toContain('ac-modal--detail')
+    expect(cls).not.toContain('ac-drawer')
   })
 })
 
@@ -167,7 +205,7 @@ function runtimeState(overrides: Partial<RepositoryRuntimeState> = {}): Reposito
   }
 }
 
-describe('EntityDrawer (repository Git/CBM section)', () => {
+describe('EntityModal (repository Git/CBM section)', () => {
   beforeEach(() => {
     setKnowledgeSnapshot(rawSnapshot() as never)
     setRepositoriesRuntimeSnapshot(null)
@@ -182,7 +220,7 @@ describe('EntityDrawer (repository Git/CBM section)', () => {
       'fetch',
       vi.fn(async () => ({ status: 200, json: async () => ({ status: 'READY', repository: runtimeState() }) })),
     )
-    render(<EntityDrawer entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    render(<EntityModal entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
 
     await waitFor(() => expect(screen.getByText(/bbbbbbb/)).toBeInTheDocument())
     expect(screen.getByText('main')).toBeInTheDocument()
@@ -197,7 +235,7 @@ describe('EntityDrawer (repository Git/CBM section)', () => {
   it('paints the batch-loaded runtime immediately, before the live fetch resolves', () => {
     setRepositoriesRuntimeSnapshot([runtimeState({ branch: 'batch-branch' })])
     vi.stubGlobal('fetch', vi.fn(() => new Promise(() => {}))) // never resolves
-    render(<EntityDrawer entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    render(<EntityModal entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
     expect(screen.getByText('batch-branch')).toBeInTheDocument()
   })
 
@@ -206,7 +244,7 @@ describe('EntityDrawer (repository Git/CBM section)', () => {
       'fetch',
       vi.fn(async () => ({ status: 200, json: async () => ({ status: 'READY', repository: runtimeState({ detached: true, branch: null, divergence: 'NO_UPSTREAM', upstream: null, ahead: null, behind: null }) }) })),
     )
-    render(<EntityDrawer entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    render(<EntityModal entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
     await waitFor(() => expect(screen.getByText('Detached HEAD')).toBeInTheDocument())
   })
 
@@ -221,7 +259,7 @@ describe('EntityDrawer (repository Git/CBM section)', () => {
         }),
       })),
     )
-    render(<EntityDrawer entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    render(<EntityModal entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
     await waitFor(() => expect(screen.getByText('Git unavailable: git status fallo: boom')).toBeInTheDocument())
   })
 
@@ -230,14 +268,14 @@ describe('EntityDrawer (repository Git/CBM section)', () => {
       'fetch',
       vi.fn(async () => ({ status: 200, json: async () => ({ status: 'READY', repository: runtimeState({ cbm: { available: false } }) }) })),
     )
-    render(<EntityDrawer entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    render(<EntityModal entityId="repo:ToniIAPro73/anclora-fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
     await waitFor(() => expect(screen.getByText('Not indexed')).toBeInTheDocument())
   })
 
   it('non-repository entities never trigger a repository runtime fetch', () => {
     const fetchMock = vi.fn()
     vi.stubGlobal('fetch', fetchMock)
-    render(<EntityDrawer entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
+    render(<EntityModal entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
     expect(fetchMock).not.toHaveBeenCalled()
   })
 })
@@ -288,7 +326,7 @@ function aosEndpoint(overrides: Partial<import('../../contracts/types').AosEndpo
   }
 }
 
-describe('EntityDrawer (endpoint reconciliation)', () => {
+describe('EntityModal (endpoint reconciliation)', () => {
   beforeEach(() => {
     setKnowledgeSnapshot(endpointSnapshot() as never)
   })
@@ -304,7 +342,7 @@ describe('EntityDrawer (endpoint reconciliation)', () => {
       evidence: 'Matched by exact domain: fiscal.dev.anclora.com',
     }
     render(
-      <EntityDrawer entityId="endpoint:fiscal.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[matched]} onClose={() => {}} onNavigate={() => {}} />,
+      <EntityModal entityId="endpoint:fiscal.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[matched]} onClose={() => {}} onNavigate={() => {}} />,
     )
     expect(screen.getByRole('heading', { name: 'fiscal.dev.anclora.com' })).toBeInTheDocument() // entity title
     const liveSection = screen.getByText('Live status (AOS)').closest('.op-entity-section') as HTMLElement
@@ -325,7 +363,7 @@ describe('EntityDrawer (endpoint reconciliation)', () => {
     }
     const onNavigate = vi.fn()
     render(
-      <EntityDrawer entityId="endpoint:fiscal.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[matched]} onClose={() => {}} onNavigate={onNavigate} />,
+      <EntityModal entityId="endpoint:fiscal.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[matched]} onClose={() => {}} onNavigate={onNavigate} />,
     )
     const liveSection = screen.getByText('Live status (AOS)').closest('.op-entity-section') as HTMLElement
     fireEvent.click(within(liveSection).getByRole('button', { name: 'fiscal-web' }))
@@ -334,7 +372,7 @@ describe('EntityDrawer (endpoint reconciliation)', () => {
 
   it('Knowledge Endpoint with no AOS match shows "no live runtime mapping", never crashes', () => {
     render(
-      <EntityDrawer entityId="endpoint:fiscal.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[]} onClose={() => {}} onNavigate={() => {}} />,
+      <EntityModal entityId="endpoint:fiscal.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[]} onClose={() => {}} onNavigate={() => {}} />,
     )
     expect(screen.getByText('Semantic only / No live runtime mapping')).toBeInTheDocument()
   })
@@ -350,7 +388,7 @@ describe('EntityDrawer (endpoint reconciliation)', () => {
       evidence: 'No deterministic Knowledge match found',
     }
     render(
-      <EntityDrawer entityId="aos-endpoint:command-center.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[unmatched]} onClose={() => {}} onNavigate={() => {}} />,
+      <EntityModal entityId="aos-endpoint:command-center.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[unmatched]} onClose={() => {}} onNavigate={() => {}} />,
     )
     expect(screen.getByText('Endpoint (AOS only)')).toBeInTheDocument()
     expect(screen.getByText('This endpoint has no corresponding Knowledge entity — operational view only.')).toBeInTheDocument()
@@ -368,7 +406,7 @@ describe('EntityDrawer (endpoint reconciliation)', () => {
       evidence: 'No domain or service identity available from AOS (local-only / not configured)',
     }
     render(
-      <EntityDrawer entityId="aos-endpoint:unconfigured-0" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[notApplicable]} onClose={() => {}} onNavigate={() => {}} />,
+      <EntityModal entityId="aos-endpoint:unconfigured-0" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[notApplicable]} onClose={() => {}} onNavigate={() => {}} />,
     )
     expect(screen.getByText('Local only / Not configured')).toBeInTheDocument()
     expect(screen.getByText('No associated service')).toBeInTheDocument()
@@ -386,7 +424,7 @@ describe('EntityDrawer (endpoint reconciliation)', () => {
     }
     const onNavigate = vi.fn()
     render(
-      <EntityDrawer entityId="aos-endpoint:fiscal.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[ambiguous]} onClose={() => {}} onNavigate={onNavigate} />,
+      <EntityModal entityId="aos-endpoint:fiscal.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[ambiguous]} onClose={() => {}} onNavigate={onNavigate} />,
     )
     expect(screen.getByText('Ambiguous semantic match — 2 candidate Knowledge entities.')).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'endpoint:a' }))
