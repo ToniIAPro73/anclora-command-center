@@ -14,8 +14,17 @@
 import { useEffect, useState } from 'react'
 import { getEntityDetail } from '../../adapters/knowledgeAdapter'
 import { fetchRepositoryRuntimeFromApi, getRepositoryRuntimeById } from '../../adapters/repositoryRuntimeAdapter'
+import { classifyEndpointStatus } from '../../domain/endpointReconciliation'
 import type { DashboardLanguage } from '../../shell/dashboard-shell.types'
-import type { AosServiceRuntimeSummary, DataState, RelationshipView, RepositoryRuntimeState } from '../../contracts/types'
+import type {
+  AosEndpointSummary,
+  AosServiceRuntimeSummary,
+  DataState,
+  EndpointMatch,
+  EndpointStatusClass,
+  RelationshipView,
+  RepositoryRuntimeState,
+} from '../../contracts/types'
 import { Drawer } from '../../ui/Drawer'
 import { Button } from '../../ui/Button'
 import { StatusBadge, type StatusTone } from '../../ui/StatusBadge'
@@ -62,6 +71,22 @@ interface EntityDrawerCopy {
   cbmFreshness: string
   cbmIndexedHead: string
   cbmWorkingTree: string
+  endpointSection: string
+  endpointDomain: string
+  endpointStatusClass: (cls: EndpointStatusClass) => string
+  endpointHttps: string
+  endpointAuthRequired: string
+  endpointService: string
+  endpointNoService: string
+  endpointObserved: string
+  endpointNoLiveMapping: string
+  endpointOperationalTitle: string
+  endpointOperationalNotice: string
+  endpointAmbiguousNotice: (n: number) => string
+  endpointAmbiguousCandidates: string
+  endpointEvidence: string
+  yes: string
+  no: string
 }
 
 const COPY: Record<DashboardLanguage, EntityDrawerCopy> = {
@@ -105,6 +130,30 @@ const COPY: Record<DashboardLanguage, EntityDrawerCopy> = {
     cbmFreshness: 'Frescura',
     cbmIndexedHead: 'HEAD indexado',
     cbmWorkingTree: 'Árbol de trabajo (CBM)',
+    endpointSection: 'Estado en vivo (AOS)',
+    endpointDomain: 'Dominio',
+    endpointStatusClass: (cls) => ({
+      protected: 'PROTEGIDO',
+      'app-authenticated': 'AUTENTICADO POR LA APP',
+      'local-only': 'SOLO LOCAL / NO CONFIGURADO',
+      unreachable: 'INALCANZABLE',
+      exposed: 'EXPUESTO',
+      configured: 'CONFIGURADO',
+      unknown: 'DESCONOCIDO',
+    })[cls],
+    endpointHttps: 'HTTPS',
+    endpointAuthRequired: 'Auth requerida',
+    endpointService: 'Servicio',
+    endpointNoService: 'Sin servicio asociado',
+    endpointObserved: 'Observado',
+    endpointNoLiveMapping: 'Solo semántico / sin runtime en vivo',
+    endpointOperationalTitle: 'Endpoint (solo AOS)',
+    endpointOperationalNotice: 'Este endpoint no tiene una entidad Knowledge correspondiente — vista operacional únicamente.',
+    endpointAmbiguousNotice: (n) => `Coincidencia semántica ambigua — ${n} entidades Knowledge candidatas.`,
+    endpointAmbiguousCandidates: 'Candidatos',
+    endpointEvidence: 'Evidencia de coincidencia',
+    yes: 'Sí',
+    no: 'No',
   },
   en: {
     type: 'Type',
@@ -146,6 +195,30 @@ const COPY: Record<DashboardLanguage, EntityDrawerCopy> = {
     cbmFreshness: 'Freshness',
     cbmIndexedHead: 'Indexed HEAD',
     cbmWorkingTree: 'Working tree (CBM)',
+    endpointSection: 'Live status (AOS)',
+    endpointDomain: 'Domain',
+    endpointStatusClass: (cls) => ({
+      protected: 'Protected',
+      'app-authenticated': 'App authenticated',
+      'local-only': 'Local only / Not configured',
+      unreachable: 'Unreachable',
+      exposed: 'Exposed',
+      configured: 'Configured',
+      unknown: 'Unknown',
+    })[cls],
+    endpointHttps: 'HTTPS',
+    endpointAuthRequired: 'Auth required',
+    endpointService: 'Service',
+    endpointNoService: 'No associated service',
+    endpointObserved: 'Observed',
+    endpointNoLiveMapping: 'Semantic only / No live runtime mapping',
+    endpointOperationalTitle: 'Endpoint (AOS only)',
+    endpointOperationalNotice: 'This endpoint has no corresponding Knowledge entity — operational view only.',
+    endpointAmbiguousNotice: (n) => `Ambiguous semantic match — ${n} candidate Knowledge entities.`,
+    endpointAmbiguousCandidates: 'Candidates',
+    endpointEvidence: 'Match evidence',
+    yes: 'Yes',
+    no: 'No',
   },
   de: {
     type: 'Typ',
@@ -187,6 +260,30 @@ const COPY: Record<DashboardLanguage, EntityDrawerCopy> = {
     cbmFreshness: 'Aktualität',
     cbmIndexedHead: 'Indizierter HEAD',
     cbmWorkingTree: 'Arbeitsverzeichnis (CBM)',
+    endpointSection: 'Live-Status (AOS)',
+    endpointDomain: 'Domain',
+    endpointStatusClass: (cls) => ({
+      protected: 'Geschützt',
+      'app-authenticated': 'App-authentifiziert',
+      'local-only': 'Nur lokal / Nicht konfiguriert',
+      unreachable: 'Nicht erreichbar',
+      exposed: 'Exponiert',
+      configured: 'Konfiguriert',
+      unknown: 'Unbekannt',
+    })[cls],
+    endpointHttps: 'HTTPS',
+    endpointAuthRequired: 'Auth erforderlich',
+    endpointService: 'Dienst',
+    endpointNoService: 'Kein zugehöriger Dienst',
+    endpointObserved: 'Beobachtet',
+    endpointNoLiveMapping: 'Nur semantisch / keine Live-Laufzeitzuordnung',
+    endpointOperationalTitle: 'Endpoint (nur AOS)',
+    endpointOperationalNotice: 'Dieser Endpoint hat keine entsprechende Knowledge-Entität — nur operative Ansicht.',
+    endpointAmbiguousNotice: (n) => `Mehrdeutige semantische Zuordnung — ${n} Kandidaten-Entitäten.`,
+    endpointAmbiguousCandidates: 'Kandidaten',
+    endpointEvidence: 'Zuordnungsnachweis',
+    yes: 'Ja',
+    no: 'Nein',
   },
 }
 
@@ -352,10 +449,130 @@ function RepositoryGitSection({ runtime: rt, t }: { runtime: RepositoryRuntimeSt
   )
 }
 
+function endpointStatusTone(cls: EndpointStatusClass): StatusTone {
+  switch (cls) {
+    case 'protected':
+    case 'app-authenticated':
+      return 'success'
+    case 'exposed':
+    case 'configured':
+      return 'info'
+    case 'unreachable':
+      return 'danger'
+    case 'local-only':
+      return 'muted'
+    default:
+      return 'warning'
+  }
+}
+
+// Live AOS fields shared by both paths (Knowledge Endpoint matched + AOS-only
+// operational reference) — Seccion 14/18: LIVE AOS block, source-labeled,
+// never merged into an ambiguous field.
+function EndpointLiveFields({ aos, t, onOpenService }: { aos: AosEndpointSummary; t: EntityDrawerCopy; onOpenService: () => void }) {
+  const cls = classifyEndpointStatus(aos)
+  return (
+    <dl className="op-entity-props">
+      <div>
+        <dt>{t.endpointDomain}</dt>
+        <dd>{aos.domain ?? '—'}</dd>
+      </div>
+      <div>
+        <dt>{t.status}</dt>
+        <dd>
+          <StatusBadge tone={endpointStatusTone(cls)} label={t.endpointStatusClass(cls)} />
+        </dd>
+      </div>
+      <div>
+        <dt>{t.endpointHttps}</dt>
+        <dd>{aos.https ? t.yes : t.no}</dd>
+      </div>
+      <div>
+        <dt>{t.endpointAuthRequired}</dt>
+        <dd>{aos.authRequired ? t.yes : t.no}</dd>
+      </div>
+      <div>
+        <dt>{t.endpointService}</dt>
+        <dd>
+          {aos.service ? (
+            <button type="button" className="op-rel-item__target" onClick={onOpenService}>
+              {aos.service}
+            </button>
+          ) : (
+            t.endpointNoService
+          )}
+        </dd>
+      </div>
+    </dl>
+  )
+}
+
+// Endpoint reconciliado con Knowledge Endpoint (Seccion 18): entidad
+// generica normal + este bloque LIVE AOS extra.
+function EndpointKnowledgeLiveSection({ match, t, onNavigate }: { match: EndpointMatch; t: EntityDrawerCopy; onNavigate: (id: string) => void }) {
+  return (
+    <div className="op-entity-section">
+      <h3 className="op-entity-section__title">{t.endpointSection}</h3>
+      <EndpointLiveFields aos={match.aos} t={t} onOpenService={() => onNavigate(`service:${match.aos.service}`)} />
+    </div>
+  )
+}
+
+// Endpoint SOLO-AOS sin entidad Knowledge (Seccion 16): view model de
+// Command Center, nunca escrito a Knowledge. Cubre UNMATCHED, AMBIGUOUS
+// (con lista de candidatos, sin auto-elegir) y NOT_APPLICABLE (local-only).
+function OperationalEndpointView({ match, t, onNavigate }: { match: EndpointMatch; t: EntityDrawerCopy; onNavigate: (id: string) => void }) {
+  return (
+    <>
+      <dl className="op-entity-meta">
+        <div>
+          <dt>{t.canonicalId}</dt>
+          <dd className="op-entity-meta__mono">{match.id}</dd>
+        </div>
+        <div>
+          <dt>{t.source}</dt>
+          <dd>aos</dd>
+        </div>
+      </dl>
+
+      {/* NOT_APPLICABLE (local-only) ya queda claro via el badge "Local only /
+          Not configured" en Live AOS abajo — no hace falta un aviso extra. */}
+      {match.result === 'UNMATCHED' && <EmptyState title={t.endpointOperationalNotice} />}
+
+      {match.result === 'AMBIGUOUS' && (
+        <div className="op-entity-section">
+          <EmptyState title={t.endpointAmbiguousNotice(match.candidateIds.length)} />
+          <h4 className="op-rel-group__title">{t.endpointAmbiguousCandidates}</h4>
+          <ul className="op-rel-list">
+            {match.candidateIds.map((id) => (
+              <li key={id} className="op-rel-item">
+                <button type="button" className="op-rel-item__target" onClick={() => onNavigate(id)}>
+                  {id}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="op-entity-section">
+        <h3 className="op-entity-section__title">{t.endpointSection}</h3>
+        <EndpointLiveFields aos={match.aos} t={t} onOpenService={() => onNavigate(`service:${match.aos.service}`)} />
+      </div>
+
+      <div className="op-entity-section">
+        <h3 className="op-entity-section__title">{t.endpointEvidence}</h3>
+        <p className="op-entity-props">{match.evidence}</p>
+      </div>
+    </>
+  )
+}
+
 export function EntityDrawer({
   entityId,
   language,
   aos,
+  endpointMatches = [],
   onClose,
   onBack,
   onNavigate,
@@ -363,12 +580,24 @@ export function EntityDrawer({
   entityId: string | null
   language: DashboardLanguage
   aos: DataState<AosServiceRuntimeSummary[]>
+  endpointMatches?: EndpointMatch[]
   onClose: () => void
   onBack?: () => void
   onNavigate: (id: string) => void
 }) {
   const t = COPY[language]
   const detail = entityId ? getEntityDetail(entityId) : null
+
+  // Endpoint reconciliation (COMMAND_CENTER_ENDPOINT_CROSS_NAVIGATION):
+  // "endpoint:*" ids that resolved to a real Knowledge entity get a Live AOS
+  // section added; "aos-endpoint:*" synthetic ids (no Knowledge entity)
+  // render the operational-only view below instead of the not-found state.
+  const isOperationalEndpoint = entityId?.startsWith('aos-endpoint:') ?? false
+  const endpointMatch = isOperationalEndpoint
+    ? endpointMatches.find((m) => m.id === entityId)
+    : detail?.type === 'Endpoint'
+      ? endpointMatches.find((m) => m.knowledgeId === entityId)
+      : undefined
 
   const runtime =
     detail && detail.type === 'Service' && aos.status === 'READY'
@@ -399,11 +628,13 @@ export function EntityDrawer({
   const propertyEntries = detail ? Object.entries(detail.properties) : []
   const statusEntries = detail ? Object.entries(detail.status) : []
 
+  const operationalTitle = endpointMatch?.aos.domain ?? endpointMatch?.aos.service ?? entityId ?? ''
+
   return (
     <Drawer
       open={entityId !== null}
-      title={detail?.label ?? entityId ?? ''}
-      eyebrow={detail?.type}
+      title={isOperationalEndpoint ? operationalTitle : (detail?.label ?? entityId ?? '')}
+      eyebrow={isOperationalEndpoint ? t.endpointOperationalTitle : detail?.type}
       onClose={onClose}
       footer={
         <>
@@ -418,7 +649,13 @@ export function EntityDrawer({
         </>
       }
     >
-      {!detail ? (
+      {isOperationalEndpoint ? (
+        endpointMatch ? (
+          <OperationalEndpointView match={endpointMatch} t={t} onNavigate={onNavigate} />
+        ) : (
+          <EmptyState title={t.notFound} />
+        )
+      ) : !detail ? (
         <EmptyState title={t.notFound} />
       ) : (
         <>
@@ -436,6 +673,9 @@ export function EntityDrawer({
           {!detail.found && <EmptyState title={t.unresolvedNotice} />}
 
           {repoRuntime && <RepositoryGitSection runtime={repoRuntime} t={t} />}
+
+          {endpointMatch && <EndpointKnowledgeLiveSection match={endpointMatch} t={t} onNavigate={onNavigate} />}
+          {detail.type === 'Endpoint' && !endpointMatch && <EmptyState title={t.endpointNoLiveMapping} />}
 
           {runtime && (
             <div className="op-entity-section">

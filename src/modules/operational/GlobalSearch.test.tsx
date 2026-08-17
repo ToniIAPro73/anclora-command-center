@@ -3,7 +3,7 @@ import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { GlobalSearch } from './GlobalSearch'
 import { setKnowledgeSnapshot } from '../../adapters/knowledgeAdapter'
-import type { DataState, ProductSummary, RepositorySummary, AosServiceRuntimeSummary } from '../../contracts/types'
+import type { DataState, ProductSummary, RepositorySummary, AosServiceRuntimeSummary, EndpointSummary, EndpointMatch, AosEndpointSummary } from '../../contracts/types'
 
 function rawSnapshot() {
   return {
@@ -36,7 +36,34 @@ const repositories: DataState<RepositorySummary[]> = {
 const aosService: AosServiceRuntimeSummary = { service: 'fiscal-api', port: 4001, processState: 'running', state: 'running', health: 'ok', pid: 1, managed: 'aos', localUrl: null, publicUrl: null }
 const aos: DataState<AosServiceRuntimeSummary[]> = { status: 'READY', data: [aosService] }
 
-function setup(overrides: Partial<{ products: DataState<ProductSummary[]>; repositories: DataState<RepositorySummary[]>; aos: DataState<AosServiceRuntimeSummary[]> }> = {}) {
+const aosEp: AosEndpointSummary = {
+  domain: 'fiscal.dev.anclora.com',
+  service: 'fiscal-web',
+  configured: true,
+  authRequired: true,
+  reachable: true,
+  https: true,
+  authProtected: true,
+  backendReachable: true,
+  status: 'auth_protected',
+}
+const endpoints: DataState<EndpointSummary[]> = {
+  status: 'READY',
+  data: [{ id: 'endpoint:fiscal.dev.anclora.com', host: 'fiscal.dev.anclora.com', port: 3013, endpointStatus: 'configured_not_exposed_auth_required', appKey: 'fiscal-web', source: 'aos', sourceId: 'endpoint:fiscal.dev.anclora.com' }],
+}
+const endpointMatches: EndpointMatch[] = [
+  { id: 'endpoint:fiscal.dev.anclora.com', aos: aosEp, knowledgeId: 'endpoint:fiscal.dev.anclora.com', candidateIds: ['endpoint:fiscal.dev.anclora.com'], result: 'MATCHED', method: 'exact-domain', evidence: 'x' },
+]
+
+function setup(
+  overrides: Partial<{
+    products: DataState<ProductSummary[]>
+    repositories: DataState<RepositorySummary[]>
+    aos: DataState<AosServiceRuntimeSummary[]>
+    endpoints: DataState<EndpointSummary[]>
+    endpointMatches: EndpointMatch[]
+  }> = {},
+) {
   const onClose = vi.fn()
   const onSelect = vi.fn()
   render(
@@ -47,6 +74,8 @@ function setup(overrides: Partial<{ products: DataState<ProductSummary[]>; repos
       products={overrides.products ?? products}
       repositories={overrides.repositories ?? repositories}
       aos={overrides.aos ?? aos}
+      endpoints={overrides.endpoints ?? endpoints}
+      endpointMatches={overrides.endpointMatches ?? endpointMatches}
     />,
   )
   return { onClose, onSelect }
@@ -141,5 +170,84 @@ describe('GlobalSearch', () => {
     // no special handling, and it simply fails to match (substring search).
     expect(screen.getByText('No matching entities.')).toBeInTheDocument()
     expect(onSelect).not.toHaveBeenCalled()
+  })
+
+  // COMMAND_CENTER_ENDPOINT_CROSS_NAVIGATION
+  it('a MATCHED endpoint appears exactly once (deduplicated, uses the Knowledge id)', () => {
+    setup()
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'fiscal.dev.anclora.com' } })
+    const options = screen.getAllByRole('option', { name: /fiscal\.dev\.anclora\.com/ })
+    expect(options).toHaveLength(1)
+    expect(options[0]).toHaveAttribute('id', 'search-option-endpoint:fiscal.dev.anclora.com')
+  })
+
+  it('endpoint result secondary shows domain, status and service — never the raw id as primary text', () => {
+    setup()
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'fiscal.dev.anclora.com' } })
+    const option = screen.getByRole('option', { name: /fiscal\.dev\.anclora\.com/ })
+    expect(option).not.toHaveTextContent('endpoint:fiscal.dev.anclora.com')
+    expect(option).toHaveTextContent('protected')
+    expect(option).toHaveTextContent('fiscal-web')
+  })
+
+  it('an AOS-only unmatched endpoint is searchable via its operational id', () => {
+    setup({
+      endpointMatches: [
+        {
+          id: 'aos-endpoint:command-center.dev.anclora.com',
+          aos: { ...aosEp, domain: 'command-center.dev.anclora.com', service: 'command-center' },
+          knowledgeId: null,
+          candidateIds: [],
+          result: 'UNMATCHED',
+          method: 'none',
+          evidence: 'x',
+        },
+      ],
+    })
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'command-center.dev.anclora.com' } })
+    expect(screen.getByRole('option', { name: /command-center\.dev\.anclora\.com/ })).toBeInTheDocument()
+  })
+
+  it('a Knowledge-only endpoint (no AOS runtime counterpart) is still searchable', () => {
+    setup({
+      endpointMatches: [],
+      endpoints: {
+        status: 'READY',
+        data: [{ id: 'endpoint:orphan.dev.anclora.com', host: 'orphan.dev.anclora.com', port: null, endpointStatus: 'unknown', appKey: 'orphan', source: 'aos', sourceId: 'endpoint:orphan.dev.anclora.com' }],
+      },
+    })
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'orphan.dev.anclora.com' } })
+    expect(screen.getByRole('option', { name: /orphan\.dev\.anclora\.com/ })).toBeInTheDocument()
+  })
+
+  it('endpoint service search (query matches the service, not the domain)', () => {
+    setup()
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'fiscal-web' } })
+    expect(screen.getByRole('option', { name: /fiscal\.dev\.anclora\.com/ })).toBeInTheDocument()
+  })
+
+  it('Ctrl+K -> type -> Enter opens the matched endpoint (dedicated palette navigation, no service action exposed)', () => {
+    const { onSelect } = setup()
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'fiscal.dev.anclora.com' } })
+    fireEvent.keyDown(screen.getByRole('combobox'), { key: 'Enter' })
+    expect(onSelect).toHaveBeenCalledWith('endpoint:fiscal.dev.anclora.com')
+  })
+
+  it('NOT_APPLICABLE (local-only) endpoints are omitted from search — nothing useful to find', () => {
+    setup({
+      endpointMatches: [
+        {
+          id: 'aos-endpoint:unconfigured-0',
+          aos: { domain: null, service: null, configured: false, authRequired: false, reachable: false, https: false, authProtected: false, backendReachable: null, status: 'not_configured' },
+          knowledgeId: null,
+          candidateIds: [],
+          result: 'NOT_APPLICABLE',
+          method: 'none',
+          evidence: 'x',
+        },
+      ],
+    })
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'unconfigured' } })
+    expect(screen.getByText('No matching entities.')).toBeInTheDocument()
   })
 })

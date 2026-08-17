@@ -5,6 +5,8 @@ import type {
   AosServiceRuntimeSummary,
   ConflictSummary,
   DataState,
+  EndpointMatch,
+  EndpointStatusClass,
   EndpointSummary,
   ProductSummary,
   RepositoryRuntimeState,
@@ -15,6 +17,7 @@ import type {
 import type { GlobalOperationalStatus, OperationalIssue } from '../../domain/types'
 import { postServiceAction, type ServiceActionOp } from '../../adapters/aosAdapter'
 import { listKnowledgeEntities } from '../../adapters/knowledgeAdapter'
+import { classifyEndpointStatus } from '../../domain/endpointReconciliation'
 import { DataStateView } from './DataStateView'
 import { Button } from '../../ui/Button'
 import { StatusBadge, type StatusTone } from '../../ui/StatusBadge'
@@ -94,6 +97,11 @@ interface Copy {
   repoUnavailableState: string
   repoCbmNotIndexed: string
   repoCbmAvailable: (freshness: string) => string
+  endpointStatusClass: (cls: EndpointStatusClass) => string
+  serviceEndpointLabel: string
+  openEndpoint: string
+  noEndpoint: string
+  knowledgeOnlyEndpointBadge: string
 }
 
 // Vocabulario UI de estados: labels humanas ESTABLES (mayusculas) para los
@@ -144,6 +152,25 @@ function stateTone(state: string): StatusTone {
       return 'warning'
     case 'not_configured':
     case 'configured':
+      return 'muted'
+    default:
+      return 'warning'
+  }
+}
+
+// Endpoint status -> tono semantico (Seccion 24): mapeo generico via
+// classifyEndpointStatus, nunca un color especifico de app.
+function endpointStatusTone(cls: EndpointStatusClass): StatusTone {
+  switch (cls) {
+    case 'protected':
+    case 'app-authenticated':
+      return 'success'
+    case 'exposed':
+    case 'configured':
+      return 'info'
+    case 'unreachable':
+      return 'danger'
+    case 'local-only':
       return 'muted'
     default:
       return 'warning'
@@ -240,6 +267,19 @@ const copy: Record<DashboardLanguage, Copy> = {
     repoUnavailableState: 'NO DISPONIBLE',
     repoCbmNotIndexed: 'sin indexar',
     repoCbmAvailable: (freshness) => freshness,
+    endpointStatusClass: (cls) => ({
+      protected: 'PROTEGIDO',
+      'app-authenticated': 'AUTENTICADO POR LA APP',
+      'local-only': 'SOLO LOCAL / NO CONFIGURADO',
+      unreachable: 'INALCANZABLE',
+      exposed: 'EXPUESTO',
+      configured: 'CONFIGURADO',
+      unknown: 'DESCONOCIDO',
+    })[cls],
+    serviceEndpointLabel: 'Endpoint',
+    openEndpoint: 'Abrir endpoint',
+    noEndpoint: 'Sin endpoint',
+    knowledgeOnlyEndpointBadge: 'Solo semántico / sin runtime en vivo',
   },
   en: {
     loading: 'Loading…',
@@ -311,6 +351,19 @@ const copy: Record<DashboardLanguage, Copy> = {
     repoUnavailableState: 'UNAVAILABLE',
     repoCbmNotIndexed: 'not indexed',
     repoCbmAvailable: (freshness) => freshness,
+    endpointStatusClass: (cls) => ({
+      protected: 'Protected',
+      'app-authenticated': 'App authenticated',
+      'local-only': 'Local only / Not configured',
+      unreachable: 'Unreachable',
+      exposed: 'Exposed',
+      configured: 'Configured',
+      unknown: 'Unknown',
+    })[cls],
+    serviceEndpointLabel: 'Endpoint',
+    openEndpoint: 'Open endpoint',
+    noEndpoint: 'No endpoint',
+    knowledgeOnlyEndpointBadge: 'Semantic only / No live runtime mapping',
   },
   de: {
     loading: 'Wird geladen…',
@@ -382,6 +435,19 @@ const copy: Record<DashboardLanguage, Copy> = {
     repoUnavailableState: 'NICHT VERFÜGBAR',
     repoCbmNotIndexed: 'nicht indiziert',
     repoCbmAvailable: (freshness) => freshness,
+    endpointStatusClass: (cls) => ({
+      protected: 'Geschützt',
+      'app-authenticated': 'App-authentifiziert',
+      'local-only': 'Nur lokal / Nicht konfiguriert',
+      unreachable: 'Nicht erreichbar',
+      exposed: 'Exponiert',
+      configured: 'Konfiguriert',
+      unknown: 'Unbekannt',
+    })[cls],
+    serviceEndpointLabel: 'Endpoint',
+    openEndpoint: 'Endpoint öffnen',
+    noEndpoint: 'Kein Endpoint',
+    knowledgeOnlyEndpointBadge: 'Nur semantisch / keine Live-Laufzeitzuordnung',
   },
 }
 
@@ -399,6 +465,7 @@ export interface OperationalDataProps {
   products: DataState<ProductSummary[]>
   services: DataState<ServiceSummary[]>
   endpoints: DataState<EndpointSummary[]>
+  endpointMatches: EndpointMatch[]
   conflicts: DataState<ConflictSummary[]>
   issues: OperationalIssue[]
   globalStatus: GlobalOperationalStatus
@@ -435,6 +502,7 @@ export function OperationalView({
         t={t}
         aos={data.aos}
         aosEndpoints={data.aosEndpoints}
+        endpointMatches={data.endpointMatches}
         onRefresh={data.onRefresh}
         onOpenEntity={data.onOpenEntity}
       />
@@ -768,12 +836,14 @@ function ServicesSection({
   t,
   aos,
   aosEndpoints,
+  endpointMatches,
   onRefresh,
   onOpenEntity,
 }: {
   t: Copy
   aos: DataState<AosServiceRuntimeSummary[]>
   aosEndpoints: DataState<AosEndpointSummary[]>
+  endpointMatches: EndpointMatch[]
   onRefresh: () => void
   onOpenEntity: (id: string) => void
 }) {
@@ -823,6 +893,7 @@ function ServicesSection({
               const isExternal = s.managed === 'external'
               const isSelf = s.service === SELF_SERVICE_ID
               const isRunning = s.state === 'running' || s.state === 'starting'
+              const endpointMatch = endpointMatches.find((m) => m.aos.service === s.service)
               return (
                 <li key={s.service} className="op-list__item">
                   <button
@@ -839,6 +910,19 @@ function ServicesSection({
                     {t.health}: {t.healthState(s.health)}
                   </span>
                   {s.publicUrl && s.health === 'ok' && <span className="op-list__meta">HTTPS: {s.publicUrl}</span>}
+                  {endpointMatch?.aos.domain ? (
+                    <span className="op-list__meta">
+                      {t.serviceEndpointLabel}:{' '}
+                      <button type="button" className="op-list__name--link" onClick={() => onOpenEntity(endpointMatch.id)}>
+                        {endpointMatch.aos.domain}
+                      </button>{' '}
+                      <StatusBadge tone={endpointStatusTone(classifyEndpointStatus(endpointMatch.aos))} label={t.endpointStatusClass(classifyEndpointStatus(endpointMatch.aos))} />
+                    </span>
+                  ) : (
+                    <span className="op-list__meta">
+                      {t.serviceEndpointLabel}: {t.noEndpoint}
+                    </span>
+                  )}
                   <span className="op-list__source">
                     {t.source}: aos · {t.runtime}
                   </span>
@@ -882,21 +966,31 @@ function ServicesSection({
       <DataStateView state={aosEndpoints} labels={stateLabels(t)}>
         {(items) => (
           <ul className="op-list">
-            {items.map((e) => (
-              <li key={e.domain ?? e.service ?? e.status} className="op-list__item">
-                <span className="op-list__name">{e.domain ?? t.unknownField}</span>
-                <StatusBadge tone={stateTone(e.status)} label={t.endpointState(e.status)} />
-                <span className="op-list__meta">
-                  {e.authProtected && e.https ? t.httpsAuthProtected : ''}
-                  {e.backendReachable === false && e.configured ? ` ${t.backendDown}` : ''}
-                </span>
-                {e.service && (
-                  <span className="op-list__source">
-                    {t.source}: aos · {e.service}
+            {items.map((e) => {
+              const match = endpointMatches.find((m) => m.aos === e) ?? endpointMatches.find((m) => m.aos.domain === e.domain && m.aos.service === e.service)
+              const cls = classifyEndpointStatus(e)
+              return (
+                <li key={e.domain ?? e.service ?? e.status} className="op-list__item">
+                  {match ? (
+                    <button type="button" className="op-list__name--link" onClick={() => onOpenEntity(match.id)}>
+                      {e.domain ?? t.unknownField}
+                    </button>
+                  ) : (
+                    <span className="op-list__name">{e.domain ?? t.unknownField}</span>
+                  )}
+                  <StatusBadge tone={endpointStatusTone(cls)} label={t.endpointStatusClass(cls)} />
+                  <span className="op-list__meta">
+                    {e.authProtected && e.https ? t.httpsAuthProtected : ''}
+                    {e.backendReachable === false && e.configured ? ` ${t.backendDown}` : ''}
                   </span>
-                )}
-              </li>
-            ))}
+                  {e.service && (
+                    <span className="op-list__source">
+                      {t.source}: aos · {e.service}
+                    </span>
+                  )}
+                </li>
+              )
+            })}
           </ul>
         )}
       </DataStateView>

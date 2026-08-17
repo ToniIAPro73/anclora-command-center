@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor, within } from '@testing-library/react'
 import { EntityDrawer } from './EntityDrawer'
 import { setKnowledgeSnapshot } from '../../adapters/knowledgeAdapter'
 import { setRepositoriesRuntimeSnapshot } from '../../adapters/repositoryRuntimeAdapter'
@@ -239,5 +239,157 @@ describe('EntityDrawer (repository Git/CBM section)', () => {
     vi.stubGlobal('fetch', fetchMock)
     render(<EntityDrawer entityId="product:fiscal" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} onClose={() => {}} onNavigate={() => {}} />)
     expect(fetchMock).not.toHaveBeenCalled()
+  })
+})
+
+// COMMAND_CENTER_ENDPOINT_CROSS_NAVIGATION
+function endpointSnapshot() {
+  return {
+    schema_version: '1.0',
+    metadata: { generated_at: new Date().toISOString(), rebuild_id: 'test' },
+    entities: {
+      repositories: [],
+      products: [],
+      services: [
+        { id: 'service:fiscal-web', type: 'Service', name: 'fiscal-web', status: { service_status: 'RUNNING' }, fields: { port: 3013 } },
+      ],
+      endpoints: [
+        {
+          id: 'endpoint:fiscal.dev.anclora.com',
+          type: 'Endpoint',
+          name: 'fiscal.dev.anclora.com',
+          status: { endpoint_status: 'configured_not_exposed_auth_required' },
+          fields: { host: 'fiscal.dev.anclora.com', port: 3013, app_key: 'fiscal-web' },
+        },
+      ],
+      standards: [],
+      technologies: [],
+      'business-units': [],
+    },
+    relationships: [
+      { id: 'rel-1', type: 'HAS_ENDPOINT', from: 'service:fiscal-web', to: 'endpoint:fiscal.dev.anclora.com', confidence: 'confirmed' },
+    ],
+    conflicts: [],
+  }
+}
+
+function aosEndpoint(overrides: Partial<import('../../contracts/types').AosEndpointSummary> = {}): import('../../contracts/types').AosEndpointSummary {
+  return {
+    domain: 'fiscal.dev.anclora.com',
+    service: 'fiscal-web',
+    configured: true,
+    authRequired: true,
+    reachable: true,
+    https: true,
+    authProtected: true,
+    backendReachable: true,
+    status: 'auth_protected',
+    ...overrides,
+  }
+}
+
+describe('EntityDrawer (endpoint reconciliation)', () => {
+  beforeEach(() => {
+    setKnowledgeSnapshot(endpointSnapshot() as never)
+  })
+
+  it('matched Knowledge Endpoint shows the generic entity view PLUS a Live AOS (status/https/auth/service) section', () => {
+    const matched: import('../../contracts/types').EndpointMatch = {
+      id: 'endpoint:fiscal.dev.anclora.com',
+      aos: aosEndpoint(),
+      knowledgeId: 'endpoint:fiscal.dev.anclora.com',
+      candidateIds: ['endpoint:fiscal.dev.anclora.com'],
+      result: 'MATCHED',
+      method: 'exact-domain',
+      evidence: 'Matched by exact domain: fiscal.dev.anclora.com',
+    }
+    render(
+      <EntityDrawer entityId="endpoint:fiscal.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[matched]} onClose={() => {}} onNavigate={() => {}} />,
+    )
+    expect(screen.getByRole('heading', { name: 'fiscal.dev.anclora.com' })).toBeInTheDocument() // entity title
+    const liveSection = screen.getByText('Live status (AOS)').closest('.op-entity-section') as HTMLElement
+    expect(within(liveSection).getByText('Protected')).toBeInTheDocument()
+    expect(within(liveSection).getAllByText('Yes')).toHaveLength(2) // https + authRequired
+    expect(within(liveSection).getByRole('button', { name: 'fiscal-web' })).toBeInTheDocument()
+  })
+
+  it('clicking the Live AOS service link navigates to the Service entity', () => {
+    const matched: import('../../contracts/types').EndpointMatch = {
+      id: 'endpoint:fiscal.dev.anclora.com',
+      aos: aosEndpoint(),
+      knowledgeId: 'endpoint:fiscal.dev.anclora.com',
+      candidateIds: ['endpoint:fiscal.dev.anclora.com'],
+      result: 'MATCHED',
+      method: 'exact-domain',
+      evidence: 'x',
+    }
+    const onNavigate = vi.fn()
+    render(
+      <EntityDrawer entityId="endpoint:fiscal.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[matched]} onClose={() => {}} onNavigate={onNavigate} />,
+    )
+    const liveSection = screen.getByText('Live status (AOS)').closest('.op-entity-section') as HTMLElement
+    fireEvent.click(within(liveSection).getByRole('button', { name: 'fiscal-web' }))
+    expect(onNavigate).toHaveBeenCalledWith('service:fiscal-web')
+  })
+
+  it('Knowledge Endpoint with no AOS match shows "no live runtime mapping", never crashes', () => {
+    render(
+      <EntityDrawer entityId="endpoint:fiscal.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[]} onClose={() => {}} onNavigate={() => {}} />,
+    )
+    expect(screen.getByText('Semantic only / No live runtime mapping')).toBeInTheDocument()
+  })
+
+  it('AOS-only UNMATCHED endpoint (aos-endpoint: synthetic id) opens an operational-only view, not a fake Knowledge entity', () => {
+    const unmatched: import('../../contracts/types').EndpointMatch = {
+      id: 'aos-endpoint:command-center.dev.anclora.com',
+      aos: aosEndpoint({ domain: 'command-center.dev.anclora.com', service: 'command-center' }),
+      knowledgeId: null,
+      candidateIds: [],
+      result: 'UNMATCHED',
+      method: 'none',
+      evidence: 'No deterministic Knowledge match found',
+    }
+    render(
+      <EntityDrawer entityId="aos-endpoint:command-center.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[unmatched]} onClose={() => {}} onNavigate={() => {}} />,
+    )
+    expect(screen.getByText('Endpoint (AOS only)')).toBeInTheDocument()
+    expect(screen.getByText('This endpoint has no corresponding Knowledge entity — operational view only.')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'command-center.dev.anclora.com' })).toBeInTheDocument()
+  })
+
+  it('NOT_APPLICABLE (local-only / not_configured) endpoint shows the Local-only badge, no forced semantic match', () => {
+    const notApplicable: import('../../contracts/types').EndpointMatch = {
+      id: 'aos-endpoint:unconfigured-0',
+      aos: aosEndpoint({ domain: null, service: null, configured: false, status: 'not_configured', authProtected: false, backendReachable: null }),
+      knowledgeId: null,
+      candidateIds: [],
+      result: 'NOT_APPLICABLE',
+      method: 'none',
+      evidence: 'No domain or service identity available from AOS (local-only / not configured)',
+    }
+    render(
+      <EntityDrawer entityId="aos-endpoint:unconfigured-0" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[notApplicable]} onClose={() => {}} onNavigate={() => {}} />,
+    )
+    expect(screen.getByText('Local only / Not configured')).toBeInTheDocument()
+    expect(screen.getByText('No associated service')).toBeInTheDocument()
+  })
+
+  it('AMBIGUOUS endpoint shows the ambiguous notice AND a candidate list — never auto-picks one', () => {
+    const ambiguous: import('../../contracts/types').EndpointMatch = {
+      id: 'aos-endpoint:fiscal.dev.anclora.com',
+      aos: aosEndpoint(),
+      knowledgeId: null,
+      candidateIds: ['endpoint:a', 'endpoint:b'],
+      result: 'AMBIGUOUS',
+      method: 'exact-domain',
+      evidence: '2 Knowledge endpoints share domain fiscal.dev.anclora.com',
+    }
+    const onNavigate = vi.fn()
+    render(
+      <EntityDrawer entityId="aos-endpoint:fiscal.dev.anclora.com" language="en" aos={{ status: 'UNAVAILABLE', reason: 'x' }} endpointMatches={[ambiguous]} onClose={() => {}} onNavigate={onNavigate} />,
+    )
+    expect(screen.getByText('Ambiguous semantic match — 2 candidate Knowledge entities.')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'endpoint:a' }))
+    expect(onNavigate).toHaveBeenCalledWith('endpoint:a')
   })
 })

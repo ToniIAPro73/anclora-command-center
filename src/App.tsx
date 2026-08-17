@@ -229,6 +229,7 @@ function App() {
           products: operational.products,
           services: operational.services,
           endpoints: operational.endpoints,
+          endpointMatches: operational.endpointMatches,
           conflicts: operational.conflicts,
           issues: operational.issues,
           globalStatus: operational.globalStatus,
@@ -240,6 +241,7 @@ function App() {
         entityId={activeEntity}
         language={language}
         aos={operational.aos}
+        endpointMatches={operational.endpointMatches}
         onClose={closeEntity}
         onBack={entityStack.length > 1 ? backEntity : undefined}
         onNavigate={openEntity}
@@ -252,6 +254,8 @@ function App() {
           products={operational.products}
           repositories={operational.repositories}
           aos={operational.aos}
+          endpoints={operational.endpoints}
+          endpointMatches={operational.endpointMatches}
         />
       )}
     </DashboardShell>

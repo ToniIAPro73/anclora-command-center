@@ -10,8 +10,17 @@
 // zero new bespoke chrome beyond layout.
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { DashboardLanguage } from '../../shell/dashboard-shell.types'
-import type { AosServiceRuntimeSummary, DataState, ProductSummary, RepositorySummary, SearchResult } from '../../contracts/types'
+import type {
+  AosServiceRuntimeSummary,
+  DataState,
+  EndpointMatch,
+  EndpointSummary,
+  ProductSummary,
+  RepositorySummary,
+  SearchResult,
+} from '../../contracts/types'
 import { listKnowledgeEntities } from '../../adapters/knowledgeAdapter'
+import { buildEndpointSearchEntries } from '../../domain/endpointReconciliation'
 import { buildSearchIndex, rankSearch } from '../../domain/search'
 import './global-search.css'
 
@@ -38,6 +47,8 @@ export function GlobalSearch({
   products,
   repositories,
   aos,
+  endpoints,
+  endpointMatches,
 }: {
   onClose: () => void
   onSelect: (id: string) => void
@@ -45,6 +56,8 @@ export function GlobalSearch({
   products: DataState<ProductSummary[]>
   repositories: DataState<RepositorySummary[]>
   aos: DataState<AosServiceRuntimeSummary[]>
+  endpoints: DataState<EndpointSummary[]>
+  endpointMatches: EndpointMatch[]
 }) {
   const t = COPY[language]
   const [query, setQuery] = useState('')
@@ -74,13 +87,22 @@ export function GlobalSearch({
       aos.status === 'READY' || aos.status === 'STALE'
         ? aos.data.map((s) => ({ id: `service:${s.service}`, name: s.service, serviceStatus: s.state }))
         : []
+    const knowledgeEndpointList = endpoints.status === 'READY' || endpoints.status === 'STALE' ? endpoints.data : []
+    const endpointEntries = buildEndpointSearchEntries(
+      endpointMatches,
+      knowledgeEndpointList.map((e) => ({ id: e.id, host: e.host, appKey: e.appKey })),
+    )
+    // Endpoint ya cubierto por buildEndpointSearchEntries — se excluye el
+    // tipo generico 'Endpoint' de listKnowledgeEntities() para no duplicar
+    // (Seccion 21: un endpoint MATCHED aparece una sola vez).
     return buildSearchIndex({
       products: productList.map((p) => ({ id: p.id, name: p.name, businessUnitLabel: p.businessUnitLabel })),
       repositories: repoList.map((r) => ({ id: r.id, name: r.name, portfolioStatus: r.portfolioStatus })),
       services: serviceList,
-      knowledgeEntities: listKnowledgeEntities(),
+      endpoints: endpointEntries,
+      knowledgeEntities: listKnowledgeEntities().filter((e) => e.type !== 'Endpoint'),
     })
-  }, [products, repositories, aos])
+  }, [products, repositories, aos, endpoints, endpointMatches])
 
   const results: SearchResult[] = useMemo(() => rankSearch(index, query), [index, query])
 
