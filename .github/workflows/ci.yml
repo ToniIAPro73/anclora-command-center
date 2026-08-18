@@ -28,8 +28,9 @@ jobs:
       - name: Type check
         run: npx tsc --noEmit -p tsconfig.app.json
 
-      - name: Test
-        run: npm run -s test
-
       - name: Build
         run: npm run -s build
+
+      # Server tests serve the SPA from dist/, so they must run after Build.
+      - name: Test
+        run: npm run -s test
