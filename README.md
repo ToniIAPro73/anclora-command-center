@@ -98,12 +98,19 @@ compatibilidad con Vercel legacy; en producción VPS la UI consulta el backend.
 
 ```bash
 npm install
-npm run dev      # sincroniza Knowledge/AOS y arranca Vite (datos via backend)
+npm run dev      # sincroniza Knowledge/AOS y arranca Vite (HMR; proxea /api y /health al backend)
 npm run build    # typecheck + build de producción (dist/)
 npm run serve    # backend VPS-native: sirve dist/ + /api/* + /health (default :3024)
 npm test         # vitest (adapters/mappers) + node:test (backend)
 npm run lint
 ```
+
+`npm run dev` solo arranca el frontend (Vite): la SPA llama a `/api/*` con rutas
+relativas y Vite las proxea al backend VPS-native (`vite.config.ts`,
+`server.proxy` → `http://127.0.0.1:$COMMAND_CENTER_PORT`, default 3024). Para
+desarrollo con HMR hay que tener `npm run serve` corriendo en otra terminal; sin
+backend, las llamadas `/api/*` fallan. `npm run serve` por sí solo sirve la app
+completa (SPA compilada en `dist/` + API) — es el modo operativo validado.
 
 Configuración (env, opcional — defaults derivados del workspace):
 `ANCLORA_WORKSPACE` · `COMMAND_CENTER_PORT` (default 3024) ·
