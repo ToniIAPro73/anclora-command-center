@@ -48,7 +48,7 @@ Rebuilt in `COMMAND_CENTER_REBUILD` (2026-08-17) to remove its historical role a
 | Category | Premium |
 | Brand accent | `#6C63FF` |
 | Canonical repository | `anclora-command-center` |
-| Location | `/home/toni/workspace/anclora/anclora-command-center` (independent checkout) |
+| Location | `workspace/anclora/anclora-command-center` (independent checkout) |
 
 ## Architecture
 
