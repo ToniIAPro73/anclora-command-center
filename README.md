@@ -48,7 +48,7 @@ Reconstruido en `COMMAND_CENTER_REBUILD` (2026-08-17) para eliminar su papel his
 | Categoría | Premium |
 | Acento de marca | `#6C63FF` |
 | Repositorio canónico | `anclora-command-center` |
-| Ubicación | `/home/toni/workspace/anclora/anclora-command-center` (checkout independiente) |
+| Ubicación | `workspace/anclora/anclora-command-center` (checkout independiente) |
 
 ## Arquitectura
 
