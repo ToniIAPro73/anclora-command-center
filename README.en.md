@@ -72,6 +72,18 @@ React components never read `src/generated/*.json` directly nor traverse the int
 
 Both snapshots are regenerable and gitignored — never versioned as local canonical data.
 
+## Canonical runtime: VPS + AOS
+
+The only supported operational runtime is:
+
+**https://command-center.dev.anclora.com/**
+
+It runs as the AOS `command-center` service on the VPS. `server/server.mjs`
+serves `dist/` and exposes live `/health`, `/api/status`, `/api/knowledge`, and
+`/api/repositories/runtime` endpoints. Vercel is retired and is not a deploy,
+runtime, fallback, or acceptance target. The owner will delete the
+`anclora-command-center` Vercel project manually.
+
 ## Local setup
 
 ```bash

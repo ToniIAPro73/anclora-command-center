@@ -63,12 +63,15 @@ src/
 
 Los componentes React nunca leen `src/generated/*.json` directamente ni recorren el schema interno de Knowledge/AKG — siempre pasan por `src/adapters/` (mappers puros + proxy async alimentado por `src/api/useOperationalData.ts`). Ver `anclora-infrastructure/audit/command-center-rebuild/04-adapter-architecture.md` y `anclora-infrastructure/audit/command-center-vps-native/`.
 
-## Deployment: VPS-native (primario) vs Vercel (legacy)
+## Runtime canónico: VPS + AOS
 
-Desde `COMMAND_CENTER_VPS_NATIVE_DEPLOYMENT` (2026-08-17), el deployment
-operacional primario es **VPS-native** dentro de AOS: un backend local mínimo
+La única runtime operacional soportada es:
+
+**https://command-center.dev.anclora.com/**
+
+Se ejecuta como servicio `command-center` de AOS en el VPS. El backend local
 (`server/server.mjs`, Node nativo, sin dependencias) sirve la SPA (`dist/`) y
-expone los datos operacionales REALES:
+expone los datos operacionales reales:
 
 | Endpoint | Fuente | Caducidad |
 |---|---|---|
@@ -106,7 +109,10 @@ un búfer circular en memoria de 200 entradas.
 - Sin ejecución arbitraria: solo `aos status --json` en lecturas y `aos up|down|restart <serviceId>` en la ruta S2S autenticada.
 - `/api/audit` no es público: requiere la misma credencial Bearer cuando está configurada y devuelve `503 DISABLED` sin ella.
 - Registrado como servicio AOS: `manifest.yaml` → `aos up command-center`.
-- Vercel/legacy y cualquier entorno serverless permanecen en SOLO LECTURA.
+- La URL operativa canónica es `https://command-center.dev.anclora.com/`.
+- Vercel está RETIRADO y no es un destino de despliegue, runtime, fallback ni
+  criterio de aceptación. El proyecto `anclora-command-center` será eliminado
+  manualmente por el propietario desde el dashboard de Vercel.
 
 ## Fuentes de datos
 
@@ -116,14 +122,14 @@ un búfer circular en memoria de 200 entradas.
 | AOS Runtime | backend local ejecuta `aos status --json` → `/api/status` → `aosAdapter` | Las acciones S2S autorizadas son la única excepción (`aos up/down/restart`) |
 
 Los `scripts/sync-*.mjs` y `src/generated/` quedan para desarrollo local y
-compatibilidad con Vercel legacy; en producción VPS la UI consulta el backend.
+builds aislados; en el runtime VPS la UI consulta el backend y sus APIs en vivo.
 
 ### Contrato de lectura de repos hermanos (acoplamiento por ruta de fichero)
 
 El backend y los scripts `sync-*` leen `anclora-infrastructure` vía ruta de
 fichero relativa (`../anclora-infrastructure/...` bajo `ANCLORA_WORKSPACE`),
 no vía API/paquete versionado — frágil fuera del layout físico exacto del
-workspace local (p. ej. Vercel, donde solo se clona este repositorio).
+workspace local o de un host que no tenga el workspace completo.
 
 Contrato explícito ya implementado (no silencioso): si el artefacto de
 `anclora-infrastructure` no existe o es ilegible, tanto el backend

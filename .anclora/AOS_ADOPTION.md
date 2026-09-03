@@ -16,16 +16,21 @@ Declaración de adopción AOS para `anclora-command-center`.
 
 `anclora-command-center` es la interfaz operacional del ecosistema Anclora: un shell Vite + React 19 + TypeScript que lee, en solo lectura, snapshots generados en build/dev time desde `anclora-infrastructure/knowledge` (Knowledge/AKG) y desde el CLI `aos status` (AOS Runtime), y los presenta en 5 vistas operacionales (Overview, Products, Repositories, Services, Knowledge). Ya **no** depende de ningún vault personal externo.
 
-Estado actual: `HOLD` (portfolio_status; el rol pasa de "dataset local" a "interfaz operacional", pero el repo sigue sin runtime real gestionado por AOS — ver EX-CC-001). El repo fue saneado de PII (`VAULT_PII_REVIEW`, `COMMAND_CENTER_PII_REMEDIATION`): `REAL_PII_IN_HEAD=0`, `REAL_PII_IN_HISTORY=0`, reconfirmado tras `COMMAND_CENTER_REBUILD` (0 secretos, 0 PII en el código y datos añadidos).
+Estado actual: `HOLD` (portfolio_status; el rol es interfaz operacional). El
+runtime canónico es el servicio AOS `command-center` en el VPS, expuesto en
+`https://command-center.dev.anclora.com/`. El repo fue saneado de PII
+(`VAULT_PII_REVIEW`, `COMMAND_CENTER_PII_REMEDIATION`): `REAL_PII_IN_HEAD=0`,
+`REAL_PII_IN_HISTORY=0`, reconfirmado tras `COMMAND_CENTER_REBUILD` (0 secretos,
+0 PII en el código y datos añadidos).
 
 ## Excepción principal de esta adopción
 
 El checkout local de `anclora-infrastructure` sí contiene una entrada
 `command-center` en `aos-runtime/manifest.yaml` con bind loopback, puerto 3024
 y health `/health` (verificado en el commit externo `40b6f1d`). La existencia de
-esa declaración no prueba por sí sola el estado del VPS desplegado. Este repo
+esa declaración no sustituye la comprobación operativa del servicio. Este repo
 consume AOS/Knowledge en el backend VPS-native y conserva snapshots regenerables
-solo para compatibilidad local/Vercel; no es fuente de verdad de esos sistemas.
+solo para desarrollo y builds aislados; no es fuente de verdad de esos sistemas.
 
 ## Arquitectura implementada y límites
 

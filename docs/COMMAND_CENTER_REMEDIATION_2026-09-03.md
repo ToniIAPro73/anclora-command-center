@@ -4,7 +4,7 @@ Fecha: 2026-09-03
 Repositorio: `/home/toni/workspace/anclora/anclora-command-center`
 Rama: `development`
 Commit base: `a1cd8f2fe8fa43d2a93888477f90026dc6ebf886`
-Estado de entrega: cambios locales sin commit, push, promoción ni despliegue.
+Estado de entrega: remediación integrada en `development`; runtime canónico VPS/AOS.
 
 ## Resumen ejecutivo
 
@@ -48,10 +48,10 @@ repositorio.
 
 | Hallazgo | Estado | Evidencia y conclusión |
 |---|---|---|
-| R-02: exposición/control de acceso de dev endpoints | BLOQUEADO | `anclora-infrastructure/config/dev-endpoints.yaml` en el checkout externo mantiene `security.status: blocked`; `docs/DEV_ENDPOINTS.md` declara Command Center configurado pero no expuesto. No se modificó Infrastructure. |
+| R-02: exposición/control de acceso de dev endpoints | CORREGIDO EN RUNTIME | `command-center.dev.anclora.com` responde detrás de Caddy con autenticación Basic; `aos status command-center` confirma el proceso y health. La configuración AOS/Caddy permanece sin cambios. |
 | R-03: POST de acciones sin autenticación | CORREGIDO | `server/server.mjs`, `handleServiceAction()`: flag/token antes de consultar servicio, Bearer estricto, comparación SHA-256 + `timingSafeEqual`, `401`/`403`, `execFile` sin shell. Tests de `tests/server.test.mjs`. |
 | R-04: acoplamiento filesystem/fallos silenciosos | PENDIENTE | Los errores locales de AOS, Knowledge y Git ahora están higienizados y explícitos; el acoplamiento físico a `anclora-infrastructure` sigue siendo un contrato arquitectónico pendiente. README y `.anclora/AOS_ADOPTION.md` lo declaran. |
-| R-09: límites operativos/documentación insuficientes | CORREGIDO | README, `.env.example`, `.anclora/AOS_ADOPTION.md` y este informe distinguen local, VPS, Vercel/legacy, observabilidad, S2S y límites de responsabilidad. |
+| R-09: límites operativos/documentación insuficientes | CORREGIDO | README, `.env.example`, `.anclora/AOS_ADOPTION.md` y este informe distinguen el runtime VPS/AOS, builds aislados, observabilidad, S2S y límites de responsabilidad. |
 | RM-03: flag booleano sin credencial | CORREGIDO | Se exige `COMMAND_CENTER_WRITE_ACTIONS_ENABLED === 'true'` y token no vacío; serverless fuerza `DISABLED`. |
 | RM-04: contrato frontend/backend incoherente | CORREGIDO | `writeActionsUiAvailable` está separado de la capacidad S2S; la UI no renderiza controles operativos ni envía token. Tests de `aosAdapter` y `OperationalView`. |
 | RM-05: fuga de secretos/rutas/stderr | CORREGIDO | Errores de AOS, Knowledge, Git y acciones no incluyen rutas ni stderr; startup tampoco registra rutas absolutas. Tests verifican token, `stderr`, `boom` y rutas ausentes de respuestas. |
@@ -85,7 +85,7 @@ El navegador nunca conoce `COMMAND_CENTER_ACTIONS_TOKEN`; por eso
 `writeActionsUiAvailable` es falso. Las acciones directas S2S solo pasan si:
 
 1. `COMMAND_CENTER_WRITE_ACTIONS_ENABLED` es exactamente `true`.
-2. No es Vercel/Lambda/serverless.
+2. No es un runtime serverless/no-AOS.
 3. `COMMAND_CENTER_ACTIONS_TOKEN` existe y no está vacío.
 4. La petición lleva únicamente `Authorization: Bearer <token>`.
 5. La operación es `start`, `stop` o `restart`, el `serviceId` coincide con el
@@ -147,7 +147,7 @@ para no convertir la ruta en un canal de enumeración.
   100–120 000 ms vuelven al default.
 - `ANCLORA_WORKSPACE` y `COMMAND_CENTER_DIST`: rutas configurables del proceso;
   no provienen de la petición.
-- Vercel/Lambda/serverless: escrituras siempre deshabilitadas.
+- Runtime serverless/no-AOS: escrituras siempre deshabilitadas.
 
 ## Tests y resultados reales
 
@@ -338,14 +338,14 @@ disponible; los tokens de ambos tonos sí quedan medidos en
 3. Si se habilita S2S, configurar el token solo en el entorno del backend,
    probar `401`, `403`, `503`, `409`, `504` y `200`, y comprobar que `/api/audit`
    nunca sea accesible sin Bearer.
-4. No habilitar escrituras en Vercel/legacy/serverless.
+4. No habilitar escrituras fuera del runtime VPS/AOS.
 5. Reejecutar `npm test`, `npm run lint`, `npm run build` y `git diff --check`.
 
 ## Release
 
 - commit realizado: SÍ — `fix(a11y): remediate command center contrast`.
 - push realizado: SÍ — `development` → `origin/development`.
-- preview Vercel: `https://anclora-command-center-ggtiyi9m3-pmi140979-6354s-projects.vercel.app` — `Ready`.
-- promote realizado: SÍ — deployment de producción `Ready`.
-- producción: `https://anclora-command-center.vercel.app` — protegido por SSO de Vercel; la comprobación HTTP anónima devuelve `403`.
-- verificación visual externa: BLOQUEADA por el SSO; la matriz visual local y la auditoría axe documentadas sí se ejecutaron.
+- Vercel: RETIRADO / UNSUPPORTED; no forma parte del runtime ni de la aceptación.
+- proyecto Vercel `anclora-command-center`: OWNER_DELETE_PENDING.
+- runtime canónico: `https://command-center.dev.anclora.com/`.
+- verificación visual: la matriz local y la auditoría axe documentadas siguen siendo la evidencia válida.
