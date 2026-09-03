@@ -61,7 +61,7 @@ function LanguageToggle({
   onChange: (language: DashboardLanguage) => void
 }) {
   return (
-    <div className="topbar__toggle-group" aria-label={label}>
+    <div className="topbar__toggle-group" role="group" aria-label={label}>
       {(['es', 'en', 'de'] as const).map((item) => (
         <button
           key={item}
@@ -113,7 +113,7 @@ export function DashboardShell({
             alt="Logo Anclora Command Center"
           />
           <div>
-            <p className="topbar__brand-name">ANCLORA COMMAND CENTER</p>
+            <h1 className="topbar__brand-name">ANCLORA COMMAND CENTER</h1>
             <p className="topbar__brand-line">{brandLine}</p>
           </div>
         </div>
@@ -124,7 +124,7 @@ export function DashboardShell({
             <span>{searchLabel}</span>
           </button>
 
-          <div className="topbar__toggle-group" aria-label={themeAriaLabel}>
+          <div className="topbar__toggle-group" role="group" aria-label={themeAriaLabel}>
             {(['dark', 'light', 'system'] as const).map((item) => {
               const Icon = themeIcons[item]
               return (

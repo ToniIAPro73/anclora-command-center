@@ -49,6 +49,8 @@ interface RawAosSnapshot {
   schemaVersion: string | null
   services: RawAosService[]
   endpoints?: RawAosEndpoint[]
+  writeActionsEnabled?: boolean
+  writeActionsUiAvailable?: boolean
 }
 
 // Versiones del contrato AOS que este adapter sabe consumir.
@@ -155,6 +157,19 @@ export function getAosSchemaVersion(): string | null {
   return currentAos?.schemaVersion ?? null
 }
 
+export function getAosWriteActionsEnabled(): boolean {
+  return Boolean(currentAos?.writeActionsEnabled)
+}
+
+/**
+ * La SPA no dispone de una sesión server-side ni de una credencial segura.
+ * El backend expone esta capacidad explícitamente para impedir que una
+ * bandera de API convierta la UI en un control operativo falso.
+ */
+export function getAosWriteActionsUiAvailable(): boolean {
+  return Boolean(currentAos?.writeActionsUiAvailable)
+}
+
 /** Carga el estado AOS en vivo del backend local. Usado por el hook y tests. */
 export async function fetchAosStatusFromApi(): Promise<RawAosSnapshot | null> {
   const res = await fetch('/api/status')
@@ -177,10 +192,13 @@ export interface ServiceActionResult {
 
 /**
  * Unica operacion de escritura: POST /api/services/:id/action { op }.
- * El backend valida allowlist/managed/self-stop — este adapter solo
- * traduce la respuesta HTTP a un resultado tipado, nunca asume exito.
+ * El backend valida allowlist/managed/self-stop y autorizacion Bearer.
+ * Este adapter solo traduce la respuesta HTTP a un resultado tipado, nunca asume exito.
  */
-export async function postServiceAction(serviceId: string, op: ServiceActionOp): Promise<ServiceActionResult> {
+export async function postServiceAction(
+  serviceId: string,
+  op: ServiceActionOp
+): Promise<ServiceActionResult> {
   const res = await fetch(`/api/services/${encodeURIComponent(serviceId)}/action`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

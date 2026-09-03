@@ -16,6 +16,7 @@ import { mkdtempSync, writeFileSync, mkdirSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { randomBytes } from 'node:crypto'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const REPO = resolve(__dirname, '..')
@@ -52,6 +53,8 @@ if [ "$FAKE_MODE" = "fail" ]; then echo "boom" >&2; exit 2; fi
 if [ "$FAKE_MODE" = "v11" ]; then echo '{"schemaVersion":"1.1","generatedAt":"2026-08-17T00:00:00Z","summary":{"total":1,"running":1,"stopped":0},"services":[{"id":"fake-svc","status":"running","state":"running","health":"ok","pid":42,"managed":"aos","port":3999,"bindHost":"127.0.0.1","localUrl":"http://127.0.0.1:3999","publicUrl":"https://fake-svc.dev.anclora.com"}],"endpoints":[{"domain":"fake-svc.dev.anclora.com","service":"fake-svc","configured":true,"authRequired":true,"reachable":true,"https":true,"authProtected":true,"backendReachable":true,"status":"auth_protected"}]}'; exit 0; fi
 if [ "$1" = "up" ] || [ "$1" = "down" ] || [ "$1" = "restart" ]; then
   if [ "$FAKE_ACTION_MODE" = "fail" ]; then echo "boom" >&2; exit 1; fi
+  if [ "$FAKE_ACTION_MODE" = "sleep" ]; then sleep 0.6; echo "ok: $1 $2"; exit 0; fi
+  if [ "$FAKE_ACTION_MODE" = "timeout" ]; then sleep 5; echo "ok: $1 $2"; exit 0; fi
   echo "ok: $1 $2"
   exit 0
 fi
@@ -199,12 +202,21 @@ writeFileSync(
   }),
 )
 
-const spawnEnv = (extra = {}) => ({
-  ...process.env,
-  ANCLORA_WORKSPACE: fakeWs,
-  COMMAND_CENTER_DIST: join(REPO, 'dist'),
-  ...extra,
-})
+const spawnEnv = (extra = {}) => {
+  const env = { ...process.env }
+  delete env.COMMAND_CENTER_WRITE_ACTIONS_ENABLED
+  delete env.COMMAND_CENTER_ACTIONS_TOKEN
+  delete env.COMMAND_CENTER_ACTION_TIMEOUT_MS
+  delete env.VERCEL
+  delete env.AWS_LAMBDA_FUNCTION_NAME
+  delete env.FUNCTIONS_VERSION
+  return {
+    ...env,
+    ANCLORA_WORKSPACE: fakeWs,
+    COMMAND_CENTER_DIST: join(REPO, 'dist'),
+    ...extra,
+  }
+}
 
 let serverPid = null
 let base = null
@@ -256,6 +268,8 @@ test('GET /health -> proceso vivo', async () => {
   const j = await res.json()
   assert.equal(j.status, 'ok')
   assert.equal(j.service, 'anclora-command-center')
+  assert.equal(j.writeActionsEnabled, false)
+  assert.equal(j.writeActionsUiAvailable, false)
 })
 
 test('GET /api/status -> READY con contrato v1.0 y servicio fake', async () => {
@@ -266,6 +280,7 @@ test('GET /api/status -> READY con contrato v1.0 y servicio fake', async () => {
   assert.equal(j.schemaVersion, '1.0')
   assert.equal(j.services.length, 1)
   assert.equal(j.services[0].id, 'fake-svc')
+  assert.equal(j.writeActionsUiAvailable, false)
 })
 
 test('GET /api/knowledge -> READY con subconjunto normalizado', async () => {
@@ -396,13 +411,175 @@ test('knowledge-model.json malformado -> /api/knowledge ERROR (503)', async () =
   assert.equal(j.status, 'ERROR')
 })
 
-// --- POST /api/services/:id/action (COMMAND_CENTER_OPERATIONAL_CONSOLE_V1) ---
-test('action: known AOS-managed service -> allowed (200 OK)', async () => {
+// --- fail-closed: escritura deshabilitada por defecto y autenticacion ---
+const TEST_ACTIONS_TOKEN = randomBytes(32).toString('hex')
+const AUTH_HEADERS = {
+  'Content-Type': 'application/json',
+  Authorization: `Bearer ${TEST_ACTIONS_TOKEN}`,
+}
+
+test('action: sin COMMAND_CENTER_WRITE_ACTIONS_ENABLED -> 503 DISABLED, no ejecuta nada', async () => {
   stopServer()
   await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
   const res = await fetch(`${base}/api/services/fake-svc/action`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 503)
+  const j = await res.json()
+  assert.equal(j.status, 'DISABLED')
+  assert.ok(j.reason.length > 0)
+  assert.ok(!/token|password|secret/i.test(j.reason), 'no debe filtrar credenciales en el error')
+  // ni siquiera un service id invalido revela mas: el flag se comprueba primero
+  const res2 = await fetch(`${base}/api/services/${encodeURIComponent('; rm -rf /')}/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res2.status, 503)
+})
+
+test('action: COMMAND_CENTER_WRITE_ACTIONS_ENABLED vacio -> 503 DISABLED', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions', COMMAND_CENTER_WRITE_ACTIONS_ENABLED: '', COMMAND_CENTER_ACTIONS_TOKEN: TEST_ACTIONS_TOKEN }))
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: AUTH_HEADERS,
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 503)
+  const j = await res.json()
+  assert.equal(j.code, 'DISABLED')
+})
+
+test('action: COMMAND_CENTER_WRITE_ACTIONS_ENABLED=false explicito -> 503 DISABLED', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions', COMMAND_CENTER_WRITE_ACTIONS_ENABLED: 'false' }))
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 503)
+  const j = await res.json()
+  assert.equal(j.status, 'DISABLED')
+})
+
+test('action: flag true pero sin COMMAND_CENTER_ACTIONS_TOKEN -> 503 DISABLED (fail-closed)', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions', COMMAND_CENTER_WRITE_ACTIONS_ENABLED: 'true' }))
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 503)
+  const j = await res.json()
+  assert.equal(j.status, 'DISABLED')
+  assert.ok(!/token|password|secret/i.test(j.reason), 'no debe filtrar credenciales en el error')
+})
+
+test('action: flag true pero COMMAND_CENTER_ACTIONS_TOKEN vacio -> 503 DISABLED', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions', COMMAND_CENTER_WRITE_ACTIONS_ENABLED: 'true', COMMAND_CENTER_ACTIONS_TOKEN: '   ' }))
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 503)
+  const j = await res.json()
+  assert.equal(j.status, 'DISABLED')
+})
+
+test('action: Vercel/serverless permanece fail-closed aunque tenga flag y token', async () => {
+  stopServer()
+  await startServer(spawnEnv({
+    FAKE_MODE: 'actions',
+    VERCEL: '1',
+    COMMAND_CENTER_WRITE_ACTIONS_ENABLED: 'true',
+    COMMAND_CENTER_ACTIONS_TOKEN: TEST_ACTIONS_TOKEN,
+  }))
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: AUTH_HEADERS,
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 503)
+  assert.equal((await res.json()).code, 'DISABLED')
+})
+
+// --- Autenticacion Bearer y resistencia a ataques ---
+test('action: con token configurado, peticion sin Authorization -> 401 UNAUTHORIZED', async () => {
+  stopServer()
+  await startServer(spawnEnv({
+    FAKE_MODE: 'actions',
+    COMMAND_CENTER_WRITE_ACTIONS_ENABLED: 'true',
+    COMMAND_CENTER_ACTIONS_TOKEN: TEST_ACTIONS_TOKEN,
+  }))
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 401)
+  const j = await res.json()
+  assert.equal(j.status, 'UNAUTHORIZED')
+  assert.ok(!/token|password|secret/i.test(j.reason))
+})
+
+test('action: esquema no Bearer (p. ej. Basic) -> 401 UNAUTHORIZED', async () => {
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Basic ${Buffer.from('user:pass').toString('base64')}`,
+    },
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 401)
+  const j = await res.json()
+  assert.equal(j.status, 'UNAUTHORIZED')
+})
+
+test('action: token Bearer invalido -> 403 FORBIDDEN', async () => {
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${randomBytes(32).toString('hex')}`,
+    },
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 403)
+  const j = await res.json()
+  assert.equal(j.status, 'FORBIDDEN')
+})
+
+test('action: token en query string ignorado -> 401 UNAUTHORIZED', async () => {
+  const res = await fetch(`${base}/api/services/fake-svc/action?token=${TEST_ACTIONS_TOKEN}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 401)
+})
+
+test('action: token en body ignorado -> 401 UNAUTHORIZED', async () => {
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ op: 'restart', token: TEST_ACTIONS_TOKEN }),
+  })
+  assert.equal(res.status, 401)
+})
+
+// --- POST /api/services/:id/action autorizado ---
+test('action: known AOS-managed service -> allowed (200 OK)', async () => {
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: AUTH_HEADERS,
     body: JSON.stringify({ op: 'restart' }),
   })
   assert.equal(res.status, 200)
@@ -410,83 +587,86 @@ test('action: known AOS-managed service -> allowed (200 OK)', async () => {
   assert.equal(j.status, 'OK')
   assert.equal(j.service, 'fake-svc')
   assert.equal(j.op, 'restart')
+  assert.ok(j.correlationId, 'debe incluir correlationId')
 })
 
-test('action: known AOS-managed service, aos verb fails -> 500', async () => {
+test('action: known AOS-managed service, aos verb fails -> 500 higienizado', async () => {
   stopServer()
-  await startServer(spawnEnv({ FAKE_MODE: 'actions', FAKE_ACTION_MODE: 'fail' }))
+  await startServer(spawnEnv({
+    FAKE_MODE: 'actions',
+    FAKE_ACTION_MODE: 'fail',
+    COMMAND_CENTER_WRITE_ACTIONS_ENABLED: 'true',
+    COMMAND_CENTER_ACTIONS_TOKEN: TEST_ACTIONS_TOKEN,
+  }))
   const res = await fetch(`${base}/api/services/fake-svc/action`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ op: 'start' }),
+    headers: AUTH_HEADERS,
+    body: JSON.stringify({ op: 'restart' }),
   })
   assert.equal(res.status, 500)
   const j = await res.json()
   assert.equal(j.status, 'ERROR')
+  assert.ok(!/(\/home|\/etc|\/usr|stderr|boom)/i.test(j.reason), 'no debe filtrar rutas internas ni salida de shell')
+  assert.ok(j.correlationId, 'debe incluir correlationId')
 })
 
 test('action: external-managed service -> rejected (403)', async () => {
   stopServer()
-  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+  await startServer(spawnEnv({
+    FAKE_MODE: 'actions',
+    COMMAND_CENTER_WRITE_ACTIONS_ENABLED: 'true',
+    COMMAND_CENTER_ACTIONS_TOKEN: TEST_ACTIONS_TOKEN,
+  }))
   const res = await fetch(`${base}/api/services/ninerouter/action`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: AUTH_HEADERS,
     body: JSON.stringify({ op: 'restart' }),
   })
   assert.equal(res.status, 403)
 })
 
 test('action: unknown service -> rejected (404)', async () => {
-  stopServer()
-  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
   const res = await fetch(`${base}/api/services/does-not-exist/action`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: AUTH_HEADERS,
     body: JSON.stringify({ op: 'start' }),
   })
   assert.equal(res.status, 404)
 })
 
 test('action: unsupported op -> rejected (400)', async () => {
-  stopServer()
-  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
   const res = await fetch(`${base}/api/services/fake-svc/action`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: AUTH_HEADERS,
     body: JSON.stringify({ op: 'delete' }),
   })
   assert.equal(res.status, 400)
 })
 
-test('action: self-stop policy blocks stop/restart of command-center (409)', async () => {
-  stopServer()
-  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+test('action: self-stop policy blocks stop/restart and repeated start of command-center (409)', async () => {
   for (const op of ['stop', 'restart']) {
     const res = await fetch(`${base}/api/services/command-center/action`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: AUTH_HEADERS,
       body: JSON.stringify({ op }),
     })
     assert.equal(res.status, 409, `op=${op}`)
   }
-  // start no esta bloqueado por la self-stop policy (ya esta corriendo, pero
-  // la politica solo restringe stop/restart, no start).
   const startRes = await fetch(`${base}/api/services/command-center/action`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: AUTH_HEADERS,
     body: JSON.stringify({ op: 'start' }),
   })
-  assert.equal(startRes.status, 200)
+  assert.equal(startRes.status, 409)
+  assert.equal((await startRes.json()).code, 'CONFLICT')
 })
 
 test('action: command injection payloads in service id -> always rejected (400)', async () => {
-  stopServer()
-  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
   const payloads = ['; rm -rf /', '&&', '|', '$(whoami)', '`whoami`', '../../../etc/passwd', 'foo;bar', 'foo|bar']
   for (const payload of payloads) {
     const res = await fetch(`${base}/api/services/${encodeURIComponent(payload)}/action`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: AUTH_HEADERS,
       body: JSON.stringify({ op: 'start' }),
     })
     assert.equal(res.status, 400, `payload=${payload} got ${res.status}`)
@@ -494,32 +674,32 @@ test('action: command injection payloads in service id -> always rejected (400)'
 })
 
 test('action: malformed body -> rejected (400)', async () => {
-  stopServer()
-  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
   const res = await fetch(`${base}/api/services/fake-svc/action`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: AUTH_HEADERS,
     body: 'not-json',
   })
   assert.equal(res.status, 400)
+  assert.equal((await res.clone().json()).code, 'INVALID_ACTION')
 })
 
 test('action: GET on action route -> 405', async () => {
-  stopServer()
-  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
   const res = await fetch(`${base}/api/services/fake-svc/action`)
   assert.equal(res.status, 405)
 })
 
-test('action: successful action is recorded in /api/audit', async () => {
-  stopServer()
-  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+test('api/audit sin credencial -> 401 y con token válido expone solo auditoría acotada', async () => {
+  const unauthenticated = await fetch(`${base}/api/audit`)
+  assert.equal(unauthenticated.status, 401)
+  assert.equal((await unauthenticated.json()).code, 'UNAUTHORIZED')
+
   await fetch(`${base}/api/services/fake-svc/action`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: AUTH_HEADERS,
     body: JSON.stringify({ op: 'restart' }),
   })
-  const res = await fetch(`${base}/api/audit`)
+  const res = await fetch(`${base}/api/audit`, { headers: { Authorization: AUTH_HEADERS.Authorization } })
+  assert.equal(res.status, 200)
   const j = await res.json()
   assert.equal(j.status, 'READY')
   const entry = j.entries.find((e) => e.service === 'fake-svc' && e.operation === 'restart')
@@ -527,6 +707,73 @@ test('action: successful action is recorded in /api/audit', async () => {
   assert.equal(entry.result, 'OK')
   assert.ok(typeof entry.durationMs === 'number')
   assert.ok(entry.timestamp)
+  assert.ok(entry.correlationId)
+  assert.equal(JSON.stringify(j).includes(TEST_ACTIONS_TOKEN), false, 'token NUNCA debe registrarse en auditoria')
+})
+
+test('api/audit token inválido -> 403 y no revela entradas', async () => {
+  const res = await fetch(`${base}/api/audit`, { headers: { Authorization: `Bearer ${randomBytes(32).toString('hex')}` } })
+  assert.equal(res.status, 403)
+  const j = await res.json()
+  assert.equal(j.code, 'FORBIDDEN')
+  assert.equal(j.entries, undefined)
+})
+
+test('api/audit sin token configurado -> 503 DISABLED', async () => {
+  stopServer()
+  await startServer(spawnEnv({ FAKE_MODE: 'actions' }))
+  const res = await fetch(`${base}/api/audit`)
+  assert.equal(res.status, 503)
+  assert.equal((await res.json()).code, 'DISABLED')
+})
+
+test('action: ejecucion concurrente sobre el mismo servicio -> 409 CONFLICT', async () => {
+  stopServer()
+  await startServer(spawnEnv({
+    FAKE_MODE: 'actions',
+    FAKE_ACTION_MODE: 'sleep',
+    COMMAND_CENTER_WRITE_ACTIONS_ENABLED: 'true',
+    COMMAND_CENTER_ACTIONS_TOKEN: TEST_ACTIONS_TOKEN,
+  }))
+
+  const p1 = fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: AUTH_HEADERS,
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  const p2 = fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: AUTH_HEADERS,
+    body: JSON.stringify({ op: 'restart' }),
+  })
+
+  const [res1, res2] = await Promise.all([p1, p2])
+  const statuses = [res1.status, res2.status].sort()
+  assert.deepEqual(statuses, [200, 409], 'uno debe tener exito y el concurrente debe recibir 409 CONFLICT')
+  const conflictRes = res1.status === 409 ? res1 : res2
+  const conflictJson = await conflictRes.json()
+  assert.equal(conflictJson.code, 'CONFLICT')
+})
+
+test('action: timeout en ejecucion de verbo aos -> 504 TIMEOUT', async () => {
+  stopServer()
+  await startServer(spawnEnv({
+    FAKE_MODE: 'actions',
+    FAKE_ACTION_MODE: 'timeout',
+    COMMAND_CENTER_WRITE_ACTIONS_ENABLED: 'true',
+    COMMAND_CENTER_ACTIONS_TOKEN: TEST_ACTIONS_TOKEN,
+    COMMAND_CENTER_ACTION_TIMEOUT_MS: '200',
+  }))
+
+  const res = await fetch(`${base}/api/services/fake-svc/action`, {
+    method: 'POST',
+    headers: AUTH_HEADERS,
+    body: JSON.stringify({ op: 'restart' }),
+  })
+  assert.equal(res.status, 504)
+  const j = await res.json()
+  assert.equal(j.status, 'TIMEOUT')
+  assert.ok(j.correlationId)
 })
 
 test('cache por mtime: knowledge READY repetido usa cache', async () => {

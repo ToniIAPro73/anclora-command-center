@@ -95,8 +95,14 @@
 
 .op-list__name--link:hover,
 .op-list__name--link:focus-visible {
-  color: var(--accent);
+  color: var(--text-link);
   text-decoration-color: currentColor;
+}
+
+.op-list__name--link:focus-visible,
+.op-refresh:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
 }
 
 .op-list__meta {
@@ -140,11 +146,26 @@
 .op-state--unavailable,
 .op-state--error {
   color: var(--text-primary);
-  background: rgba(255, 99, 99, 0.1);
-  border: 1px solid rgba(255, 99, 99, 0.3);
+  background: var(--state-error-surface);
+  border: 1px solid var(--status-danger-border);
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+}
+
+.op-state--success {
+  color: var(--text-primary);
+  background: var(--state-success-surface);
+  border: 1px solid var(--status-success-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.op-state--readonly {
+  color: var(--text-secondary);
+  background: var(--secondary-soft);
+  border: 1px solid var(--secondary-border);
 }
 
 .op-state__detail {
@@ -169,7 +190,7 @@
 .op-refresh:hover {
   background: var(--accent-soft);
   border-color: var(--accent-border);
-  color: var(--secondary);
+  color: var(--text-link);
 }
 
 .op-refresh:disabled {
@@ -256,5 +277,5 @@
 .op-issue__action {
   margin: 0;
   font-size: 0.82rem;
-  color: var(--accent, var(--text-secondary));
+  color: var(--text-link);
 }

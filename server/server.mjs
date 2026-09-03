@@ -6,7 +6,7 @@
 //   GET  /health                      -> proceso vivo (healthcheck de AOS/systemd)
 //   GET  /api/status                  -> contrato `aos status --json` (schemaVersion 1.x) ejecutado en vivo
 //   GET  /api/knowledge               -> knowledge-model.json derivado (Knowledge/AKG) con cache por mtime
-//   GET  /api/audit                   -> ultimas operaciones de escritura (en memoria, no persistente)
+//   GET  /api/audit                   -> ultimas operaciones autenticadas (en memoria, no persistente)
 //   POST /api/services/:id/action     -> UNICA operacion de escritura (COMMAND_CENTER_OPERATIONAL_CONSOLE_V1)
 //
 // Principios:
@@ -22,7 +22,7 @@
 //   - command-center NUNCA puede pararse/reiniciarse desde su propia UI
 //     (self-stop policy, Seccion 38) -> 409.
 //   - Sin acceso arbitrario a filesystem: rutas fijas desde config/env, nunca del request.
-//   - Sin secretos: solo rutas y estado operativo; nunca se lee .env del workspace.
+//   - Sin secretos: solo estado operativo; nunca se lee .env del workspace.
 //   - Sin LLM, sin deps externas: Node nativo (node:http / node:fs / node:child_process).
 //
 // Configuracion (env, con defaults derivados del workspace local):
@@ -38,6 +38,7 @@ import { execFile } from 'node:child_process'
 import { readFile, stat, existsSync } from 'node:fs'
 import { dirname, join, resolve, extname } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { createHash, timingSafeEqual, randomUUID } from 'node:crypto'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const REPO_ROOT = resolve(__dirname, '..')
@@ -54,6 +55,11 @@ const KNOWLEDGE_MODEL = join(
 
 const SUPPORTED_AOS_SCHEMAS = ['1.0', '1.1'] // 1.1 = + service.state + endpoints
 const HOST = '127.0.0.1'
+const IS_SERVERLESS = process.env.VERCEL === '1' || Boolean(process.env.AWS_LAMBDA_FUNCTION_NAME) || Boolean(process.env.FUNCTIONS_VERSION)
+// No existe todavía una sesión server-side ni un proxy aprobado que pueda
+// transportar la credencial sin exponerla al navegador. La SPA, por diseño,
+// permanece en SOLO LECTURA aunque el endpoint S2S esté habilitado.
+const UI_WRITE_ACTIONS_AVAILABLE = false
 
 // Repository runtime (COMMAND_CENTER_REPOSITORY_RUNTIME_OBSERVABILITY):
 // STRICTLY READ-ONLY. repositoryId es SIEMPRE un census_id validado contra el
@@ -72,19 +78,109 @@ const SERVICE_ID_PATTERN = /^[a-z0-9][a-z0-9-]*$/
 const ALLOWED_OPS = new Set(['start', 'stop', 'restart'])
 const OP_TO_AOS_VERB = { start: 'up', stop: 'down', restart: 'restart' }
 const MAX_ACTION_BODY_BYTES = 2048
+const DEFAULT_ACTION_TIMEOUT_MS = 20_000
+const MAX_ACTION_TIMEOUT_MS = 120_000
+
+// Security configuration: Write actions policy (COMMAND_CENTER_WRITE_ACTIONS_ENABLED)
+// Default is strictly FAIL-CLOSED.
+const RAW_WRITE_ACTIONS_FLAG = process.env.COMMAND_CENTER_WRITE_ACTIONS_ENABLED
+const ACTIONS_TOKEN =
+  typeof process.env.COMMAND_CENTER_ACTIONS_TOKEN === 'string'
+    ? process.env.COMMAND_CENTER_ACTIONS_TOKEN.trim()
+    : ''
+function parseActionTimeout(rawValue) {
+  const value = Number(rawValue)
+  return Number.isInteger(value) && value >= 100 && value <= MAX_ACTION_TIMEOUT_MS ? value : DEFAULT_ACTION_TIMEOUT_MS
+}
+
+const ACTION_TIMEOUT_MS = parseActionTimeout(process.env.COMMAND_CENTER_ACTION_TIMEOUT_MS)
+
+// Actions are ONLY enabled if explicitly 'true' AND a non-empty token is configured.
+const WRITE_ACTIONS_ENABLED =
+  RAW_WRITE_ACTIONS_FLAG === 'true' && ACTIONS_TOKEN.length > 0
+
+function evaluateWriteActionsPolicy() {
+  if (IS_SERVERLESS || RAW_WRITE_ACTIONS_FLAG !== 'true') {
+    return {
+      allowed: false,
+      status: 'DISABLED',
+      reason: 'Las acciones de escritura están deshabilitadas en este entorno.',
+    }
+  }
+  if (ACTIONS_TOKEN.length === 0) {
+    return {
+      allowed: false,
+      status: 'DISABLED',
+      reason: 'Las acciones de escritura están deshabilitadas porque falta una credencial autorizada.',
+    }
+  }
+  return { allowed: true }
+}
+
+function safeCompareTokens(provided, expected) {
+  if (typeof provided !== 'string' || typeof expected !== 'string' || provided.length === 0 || expected.length === 0) {
+    return false
+  }
+  const hashA = createHash('sha256').update(provided).digest()
+  const hashB = createHash('sha256').update(expected).digest()
+  return timingSafeEqual(hashA, hashB)
+}
+
+function authenticateWriteRequest(req) {
+  const authHeader = req.headers['authorization']
+  if (!authHeader || typeof authHeader !== 'string') {
+    return {
+      ok: false,
+      statusCode: 401,
+      status: 'UNAUTHORIZED',
+      reason: 'Cabecera de autorizacion requerida con esquema Bearer.',
+    }
+  }
+  const match = authHeader.match(/^Bearer\s+(\S+)$/)
+  if (!match) {
+    return {
+      ok: false,
+      statusCode: 401,
+      status: 'UNAUTHORIZED',
+      reason: 'Formato de autorizacion invalido. Formato esperado: Bearer <credencial>.',
+    }
+  }
+  const provided = match[1]
+  if (!safeCompareTokens(provided, ACTIONS_TOKEN)) {
+    return {
+      ok: false,
+      statusCode: 403,
+      status: 'FORBIDDEN',
+      reason: 'Credencial de autorizacion invalida.',
+    }
+  }
+  return { ok: true }
+}
+
+function newCorrelationId() {
+  return typeof randomUUID === 'function' ? randomUUID() : Math.random().toString(36).slice(2, 10)
+}
+
+function sendActionError(res, statusCode, code, reason, correlationId = newCorrelationId()) {
+  sendJson(res, statusCode, { status: 'ERROR', code, reason, correlationId })
+}
+
+// In-flight actions mutex: evita condiciones de carrera sobre el mismo servicio.
+const inFlightServiceActions = new Set()
 
 // Knowledge cache: se relee solo cuando cambia el mtime (Knowledge cambia poco).
 let knowledgeCache = { mtimeMs: 0, payload: null }
 
-// Audit log en memoria (Seccion 40): timestamp/operation/service/result/duration.
-// Sin persistencia, sin secretos, sin PII. Se pierde al reiniciar el proceso
-// (aceptable para esta fase — no es un sistema de auditoria de cumplimiento).
+// Audit log en memoria (Seccion 40): timestamp/correlationId/operation/service/result/duration.
+// Sin persistencia, sin secretos, sin PII. Se pierde al reiniciar el proceso.
 const AUDIT_MAX_ENTRIES = 200
 const auditLog = []
 
 function recordAudit(entry) {
-  auditLog.unshift({ timestamp: new Date().toISOString(), ...entry })
+  const { correlationId = newCorrelationId(), ...safeEntry } = entry
+  auditLog.unshift(Object.freeze({ timestamp: new Date().toISOString(), correlationId, ...safeEntry }))
   if (auditLog.length > AUDIT_MAX_ENTRIES) auditLog.length = AUDIT_MAX_ENTRIES
+  return correlationId
 }
 
 function sendJson(res, statusCode, payload) {
@@ -92,6 +188,8 @@ function sendJson(res, statusCode, payload) {
   res.writeHead(statusCode, {
     'Content-Type': 'application/json; charset=utf-8',
     'Cache-Control': 'no-store, max-age=0',
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'no-referrer',
   })
   res.end(body)
 }
@@ -103,17 +201,16 @@ function sendMethodNotAllowed(res) {
 
 // ------------------------------------------------------------------ endpoints
 function runAosStatus(cb) {
-  execFile(AOS_BIN, ['status', '--json'], { timeout: 20_000, encoding: 'utf-8' }, (err, stdout) => {
+  execFile(AOS_BIN, ['status', '--json'], { timeout: DEFAULT_ACTION_TIMEOUT_MS, shell: false, encoding: 'utf-8', maxBuffer: 1_000_000 }, (err, stdout) => {
     if (err) {
-      const reason = `aos CLI no disponible o fallo al ejecutar: ${AOS_BIN} (${err.message})`
-      cb({ status: 'ERROR', reason, schemaVersion: null, services: [] })
+      cb({ status: 'ERROR', reason: 'AOS no está disponible o no pudo devolver su contrato.', schemaVersion: null, services: [], writeActionsEnabled: WRITE_ACTIONS_ENABLED, writeActionsUiAvailable: UI_WRITE_ACTIONS_AVAILABLE })
       return
     }
     let contract = null
     try {
       contract = JSON.parse(stdout)
-    } catch (parseErr) {
-      cb({ status: 'ERROR', reason: `Salida de aos status --json no es JSON valido: ${parseErr.message}`, schemaVersion: null, services: [] })
+    } catch {
+      cb({ status: 'ERROR', reason: 'AOS devolvió un contrato no válido.', schemaVersion: null, services: [], writeActionsEnabled: WRITE_ACTIONS_ENABLED, writeActionsUiAvailable: UI_WRITE_ACTIONS_AVAILABLE })
       return
     }
     if (!contract || !SUPPORTED_AOS_SCHEMAS.includes(contract.schemaVersion)) {
@@ -122,11 +219,13 @@ function runAosStatus(cb) {
         reason: `Contrato AOS no soportado: ${contract?.schemaVersion ?? 'missing'} (soportados: ${SUPPORTED_AOS_SCHEMAS.join(', ')})`,
         schemaVersion: contract?.schemaVersion ?? null,
         services: [],
+        writeActionsEnabled: WRITE_ACTIONS_ENABLED,
+        writeActionsUiAvailable: UI_WRITE_ACTIONS_AVAILABLE,
       })
       return
     }
     if (!Array.isArray(contract.services)) {
-      cb({ status: 'ERROR', reason: 'Contrato AOS malformado: services no es un array', schemaVersion: contract.schemaVersion, services: [] })
+      cb({ status: 'ERROR', reason: 'AOS devolvió un contrato malformado.', schemaVersion: contract.schemaVersion, services: [], writeActionsEnabled: WRITE_ACTIONS_ENABLED, writeActionsUiAvailable: UI_WRITE_ACTIONS_AVAILABLE })
       return
     }
     cb({
@@ -138,6 +237,8 @@ function runAosStatus(cb) {
       services: contract.services,
       // aditivo en 1.1; tolerar ausencia (contrato 1.0)
       endpoints: Array.isArray(contract.endpoints) ? contract.endpoints : [],
+      writeActionsEnabled: WRITE_ACTIONS_ENABLED,
+      writeActionsUiAvailable: UI_WRITE_ACTIONS_AVAILABLE,
     })
   })
 }
@@ -145,32 +246,59 @@ function runAosStatus(cb) {
 // ------------------------------------------------------------------ write action
 function readJsonBody(req, cb) {
   let size = 0
+  let tooLarge = false
+  let settled = false
   const chunks = []
+  const finish = (error, body) => {
+    if (settled) return
+    settled = true
+    cb(error, body)
+  }
   req.on('data', (chunk) => {
+    if (settled) return
     size += chunk.length
-    if (size > MAX_ACTION_BODY_BYTES) {
-      req.destroy()
-      cb(new Error('body too large'), null)
-      return
-    }
-    chunks.push(chunk)
+    if (size <= MAX_ACTION_BODY_BYTES) chunks.push(chunk)
+    else tooLarge = true
   })
   req.on('end', () => {
+    if (tooLarge) {
+      finish(new Error('body too large'), null)
+      return
+    }
     try {
       const raw = Buffer.concat(chunks).toString('utf-8')
-      cb(null, raw ? JSON.parse(raw) : {})
+      finish(null, raw ? JSON.parse(raw) : {})
     } catch (err) {
-      cb(err, null)
+      finish(err, null)
     }
   })
-  req.on('error', (err) => cb(err, null))
+  req.on('error', (err) => finish(err, null))
 }
 
 function runAosVerb(verb, serviceId, cb) {
   const startedAt = Date.now()
-  execFile(AOS_BIN, [verb, serviceId], { timeout: 20_000, encoding: 'utf-8' }, (err, stdout, stderr) => {
-    cb({ ok: !err, durationMs: Date.now() - startedAt, message: err ? (stderr || err.message) : stdout })
-  })
+  execFile(
+    AOS_BIN,
+    [verb, serviceId],
+    { timeout: ACTION_TIMEOUT_MS, shell: false, encoding: 'utf-8', maxBuffer: 64 * 1024 },
+    (err) => {
+      const durationMs = Date.now() - startedAt
+      if (err) {
+        const isTimeout = Boolean(
+          err.killed ||
+          err.signal === 'SIGTERM' ||
+          /timed? ?out/i.test(err.message || '')
+        )
+        cb({ ok: false, timeout: isTimeout, durationMs })
+        return
+      }
+      cb({
+        ok: true,
+        timeout: false,
+        durationMs,
+      })
+    }
+  )
 }
 
 // ------------------------------------------------------------------ repository runtime (read-only)
@@ -192,7 +320,7 @@ function buildRepositoryRegistry(knowledgePayload) {
 }
 
 function execGit(args, cwd, cb) {
-  execFile('git', args, { cwd, timeout: GIT_TIMEOUT_MS, encoding: 'utf-8', maxBuffer: 2_000_000 }, cb)
+  execFile('git', args, { cwd, timeout: GIT_TIMEOUT_MS, shell: false, encoding: 'utf-8', maxBuffer: 2_000_000 }, cb)
 }
 
 // Parsea la primera linea de `git status --porcelain=v1 --branch` — formato
@@ -281,7 +409,7 @@ function probeRepository(repositoryId, entry, cb) {
         knowledgeId: entry.knowledgeId,
         available: false,
         observedAt,
-        errors: [`git status fallo: ${String(err.message).split('\n')[0]}`],
+        errors: ['git status no disponible para este repositorio.'],
         branch: null,
         detached: false,
         head: null,
@@ -426,49 +554,123 @@ function cbmForRepo(cbmPayload, repositoryId) {
 // antes de tocar el runtime. Ningun valor del request llega a un shell —
 // execFile con argument array, nunca interpolacion de string.
 function handleServiceAction(req, res, serviceId) {
-  if (!SERVICE_ID_PATTERN.test(serviceId)) {
-    sendJson(res, 400, { status: 'ERROR', reason: `service id invalido: ${JSON.stringify(serviceId)}` })
+  // 1. Politica fail-closed de acciones
+  const policy = evaluateWriteActionsPolicy()
+  if (!policy.allowed) {
+    sendJson(res, 503, {
+      status: 'DISABLED',
+      code: 'DISABLED',
+      reason: policy.reason,
+      correlationId: newCorrelationId(),
+    })
     return
   }
+
+  // 2. Autenticacion Bearer con comparacion resistente a timing attacks
+  const auth = authenticateWriteRequest(req)
+  if (!auth.ok) {
+    sendJson(res, auth.statusCode, {
+      status: auth.status,
+      code: auth.status,
+      reason: auth.reason,
+      correlationId: newCorrelationId(),
+    })
+    return
+  }
+
+  // 3. Validacion estricta de serviceId (allowlist de formato)
+  if (!SERVICE_ID_PATTERN.test(serviceId)) {
+    sendActionError(res, 400, 'INVALID_SERVICE', 'El servicio solicitado no es válido.')
+    return
+  }
+
+  // 4. Parseo y validacion de body
   readJsonBody(req, (bodyErr, body) => {
     if (bodyErr) {
-      sendJson(res, 400, { status: 'ERROR', reason: 'body invalido (JSON esperado)' })
+      sendActionError(res, 400, 'INVALID_ACTION', 'La solicitud de acción no es válida.')
       return
     }
     const op = body && typeof body.op === 'string' ? body.op : null
     if (!op || !ALLOWED_OPS.has(op)) {
-      sendJson(res, 400, { status: 'ERROR', reason: `op invalida: ${JSON.stringify(op)} (permitidas: start, stop, restart)` })
+      sendActionError(res, 400, 'INVALID_ACTION', 'La operación solicitada no está permitida.')
       return
     }
+
+    // 5. Self-stop policy (command-center jamas se para/reinicia desde su UI)
     if (serviceId === SELF_SERVICE_ID && (op === 'stop' || op === 'restart')) {
-      sendJson(res, 409, {
-        status: 'BLOCKED',
-        reason: `command-center no puede ${op === 'stop' ? 'pararse' : 'reiniciarse'} desde su propia UI (self-stop policy).`,
-      })
+      sendActionError(res, 409, 'BLOCKED', 'Command Center no puede detenerse ni reiniciarse desde esta interfaz.')
       return
     }
+
+    // 6. Mutex por servicio: evita carreras entre acciones concurrentes sobre el mismo servicio
+    if (inFlightServiceActions.has(serviceId)) {
+      sendActionError(res, 409, 'CONFLICT', 'Ya hay una acción en curso para ese servicio.')
+      return
+    }
+    inFlightServiceActions.add(serviceId)
+
+    // 7. Validacion contra el runtime AOS en vivo antes de ejecutar
     runAosStatus((statusPayload) => {
       if (statusPayload.status !== 'READY') {
-        sendJson(res, 503, { status: 'ERROR', reason: 'AOS no disponible: no se puede validar el servicio antes de actuar.' })
+        inFlightServiceActions.delete(serviceId)
+        sendActionError(res, 503, 'INTERNAL_ERROR', 'AOS no está disponible para validar la acción.')
         return
       }
       const svc = (statusPayload.services || []).find((s) => s.id === serviceId)
       if (!svc) {
-        sendJson(res, 404, { status: 'ERROR', reason: `Servicio desconocido en el runtime AOS: ${serviceId}` })
+        inFlightServiceActions.delete(serviceId)
+        sendActionError(res, 404, 'NOT_FOUND', 'El servicio solicitado no existe en el runtime AOS.')
         return
       }
       if (svc.managed !== 'aos') {
-        sendJson(res, 403, { status: 'ERROR', reason: `Servicio managed=${svc.managed ?? 'unknown'}: solo servicios AOS-managed aceptan acciones.` })
+        inFlightServiceActions.delete(serviceId)
+        sendActionError(res, 403, 'FORBIDDEN', 'El servicio no es gestionable por AOS.')
         return
       }
+
+      const currentState = svc.state ?? svc.status
+      if ((op === 'start' && (currentState === 'running' || currentState === 'starting')) ||
+          (op === 'stop' && (currentState === 'stopped' || currentState === 'stopping'))) {
+        inFlightServiceActions.delete(serviceId)
+        sendActionError(res, 409, 'CONFLICT', 'La operación ya coincide con el estado actual del servicio.')
+        return
+      }
+
+      if (op === 'restart' && currentState !== 'running' && currentState !== 'stopped') {
+        inFlightServiceActions.delete(serviceId)
+        sendActionError(res, 409, 'CONFLICT', 'El servicio está en una transición y no admite esta operación ahora.')
+        return
+      }
+
+      // 8. Ejecucion segura de proceso (shell: false, timeout acotado, salida higienizada)
       const verb = OP_TO_AOS_VERB[op]
-      runAosVerb(verb, serviceId, ({ ok, durationMs, message }) => {
-        recordAudit({ operation: op, service: serviceId, result: ok ? 'OK' : 'FAILED', durationMs })
-        if (!ok) {
-          sendJson(res, 500, { status: 'ERROR', reason: `aos ${verb} ${serviceId} fallo: ${message}` })
+      runAosVerb(verb, serviceId, ({ ok, timeout, durationMs }) => {
+        inFlightServiceActions.delete(serviceId)
+        const resultStatus = ok ? 'OK' : (timeout ? 'TIMEOUT' : 'FAILED')
+        const correlationId = recordAudit({ operation: op, service: serviceId, result: resultStatus, durationMs })
+
+        if (timeout) {
+          sendJson(res, 504, {
+            status: 'TIMEOUT',
+            code: 'TIMEOUT',
+            reason: 'La acción superó el tiempo máximo permitido.',
+            correlationId,
+          })
           return
         }
-        sendJson(res, 200, { status: 'OK', service: serviceId, op, durationMs })
+
+        if (!ok) {
+          console.error(`[action:${correlationId}] AOS action failed`)
+          sendJson(res, 500, {
+            status: 'ERROR',
+            code: 'INTERNAL_ERROR',
+            reason: 'No se pudo completar la acción.',
+            correlationId,
+          })
+          return
+        }
+
+        sendJson(res, 200, { status: 'OK', code: 'OK', service: serviceId, op, durationMs, correlationId })
       })
     })
   })
@@ -479,7 +681,7 @@ function loadKnowledgeModel(cb) {
     if (statErr) {
       cb({
         status: 'UNAVAILABLE',
-        reason: `knowledge-model.json no encontrado en ${KNOWLEDGE_MODEL}. Ejecuta el build de anclora-infrastructure/knowledge.`,
+        reason: 'Knowledge no está disponible en este entorno.',
         payload: null,
       })
       return
@@ -490,15 +692,15 @@ function loadKnowledgeModel(cb) {
     }
     readFile(KNOWLEDGE_MODEL, 'utf-8', (readErr, raw) => {
       if (readErr) {
-        cb({ status: 'ERROR', reason: `No se pudo leer knowledge-model.json: ${readErr.message}`, payload: null })
+        cb({ status: 'ERROR', reason: 'Knowledge no pudo leerse.', payload: null })
         return
       }
       try {
         const parsed = JSON.parse(raw)
         knowledgeCache = { mtimeMs: st.mtimeMs, payload: parsed }
         cb({ status: 'READY', reason: null, payload: parsed, mtimeMs: st.mtimeMs })
-      } catch (parseErr) {
-        cb({ status: 'ERROR', reason: `knowledge-model.json no es JSON valido: ${parseErr.message}`, payload: null })
+      } catch {
+        cb({ status: 'ERROR', reason: 'Knowledge devolvió un documento no válido.', payload: null })
       }
     })
   })
@@ -518,10 +720,11 @@ const CONTENT_TYPES = {
 }
 
 function serveStatic(req, res, urlPath) {
-  let filePath = resolve(join(DIST_DIR, urlPath === '/' ? 'index.html' : urlPath))
+  const distRoot = resolve(DIST_DIR)
+  let filePath = resolve(join(distRoot, urlPath === '/' ? 'index.html' : urlPath))
   // nunca servir fuera de dist (path traversal) — el resolve anterior ya queda
   // acotado por join normalizado; verificacion extra por seguridad:
-  if (!filePath.startsWith(resolve(DIST_DIR))) {
+  if (filePath !== distRoot && !filePath.startsWith(`${distRoot}/`)) {
     res.writeHead(403)
     res.end('Forbidden')
     return
@@ -543,6 +746,14 @@ function serveStatic(req, res, urlPath) {
 const SERVICE_ACTION_ROUTE = /^\/api\/services\/([^/]+)\/action$/
 const REPO_RUNTIME_ROUTE = /^\/api\/repositories\/([^/]+)\/runtime$/
 
+function decodeRouteSegment(value) {
+  try {
+    return { value: decodeURIComponent(value), ok: true }
+  } catch {
+    return { value: null, ok: false }
+  }
+}
+
 const server = createServer((req, res) => {
   const url = new URL(req.url, `http://${HOST}:${PORT}`)
   const path = url.pathname
@@ -555,7 +766,12 @@ const server = createServer((req, res) => {
       res.end('Method Not Allowed\n')
       return
     }
-    handleServiceAction(req, res, decodeURIComponent(actionMatch[1]))
+    const decoded = decodeRouteSegment(actionMatch[1])
+    if (!decoded.ok) {
+      sendActionError(res, 400, 'INVALID_SERVICE', 'El servicio solicitado no es válido.')
+      return
+    }
+    handleServiceAction(req, res, decoded.value)
     return
   }
 
@@ -565,7 +781,14 @@ const server = createServer((req, res) => {
   }
 
   if (path === '/health') {
-    sendJson(res, 200, { status: 'ok', service: 'anclora-command-center', port: PORT, uptimeSeconds: Math.round(process.uptime()) })
+    sendJson(res, 200, {
+      status: 'ok',
+      service: 'anclora-command-center',
+      port: PORT,
+      uptimeSeconds: Math.round(process.uptime()),
+      writeActionsEnabled: WRITE_ACTIONS_ENABLED,
+      writeActionsUiAvailable: UI_WRITE_ACTIONS_AVAILABLE,
+    })
     return
   }
   if (path === '/api/status') {
@@ -573,7 +796,26 @@ const server = createServer((req, res) => {
     return
   }
   if (path === '/api/audit') {
-    sendJson(res, 200, { status: 'READY', entries: auditLog })
+    if (ACTIONS_TOKEN.length === 0) {
+      sendJson(res, 503, {
+        status: 'DISABLED',
+        code: 'DISABLED',
+        reason: 'La auditoría está protegida y no está disponible sin una credencial autorizada.',
+        correlationId: newCorrelationId(),
+      })
+      return
+    }
+    const auth = authenticateWriteRequest(req)
+    if (!auth.ok) {
+      sendJson(res, auth.statusCode, {
+        status: auth.status,
+        code: auth.status,
+        reason: auth.reason,
+        correlationId: newCorrelationId(),
+      })
+      return
+    }
+    sendJson(res, 200, { status: 'READY', code: 'OK', entries: auditLog.slice(0, AUDIT_MAX_ENTRIES) })
     return
   }
   if (path === '/api/knowledge') {
@@ -668,9 +910,7 @@ server.on('error', (err) => {
 
 server.listen(PORT, HOST, () => {
   console.log(`[command-center-server] Command Center (VPS-native) escuchando en ${HOST}:${PORT}`)
-  console.log(`[command-center-server] AOS bin: ${AOS_BIN}`)
-  console.log(`[command-center-server] Knowledge model: ${KNOWLEDGE_MODEL}`)
-  console.log(`[command-center-server] Dist: ${DIST_DIR}`)
+  console.log('[command-center-server] Fuentes operativas configuradas (las rutas no se registran)')
   if (!existsSync(AOS_BIN)) console.warn('[command-center-server] WARN: aos CLI no existe — /api/status devolvera ERROR')
   if (!existsSync(KNOWLEDGE_MODEL)) console.warn('[command-center-server] WARN: knowledge-model.json no existe — /api/knowledge devolvera UNAVAILABLE')
 })

@@ -6,6 +6,9 @@ import {
   getAosEndpointsStatus,
   getAosSchemaVersion,
   getAosSnapshotAge,
+  getAosWriteActionsEnabled,
+  getAosWriteActionsUiAvailable,
+  postServiceAction,
 } from './aosAdapter'
 
 // Tests del MAPPER PURO (COMMAND_CENTER_VPS_NATIVE_DEPLOYMENT +
@@ -218,5 +221,80 @@ describe('aosAdapter (proxies sync)', () => {
     const state = getAosRuntimeStatus() as { status: string; message?: string }
     expect(state.status).toBe('ERROR')
     setAosSnapshot(null)
+  })
+
+  it('getAosWriteActionsEnabled refleja el flag del snapshot', () => {
+    expect(getAosWriteActionsEnabled()).toBe(false)
+    setAosSnapshot(rawStatus({ writeActionsEnabled: true }) as never)
+    expect(getAosWriteActionsEnabled()).toBe(true)
+    setAosSnapshot(rawStatus({ writeActionsEnabled: false }) as never)
+    expect(getAosWriteActionsEnabled()).toBe(false)
+    setAosSnapshot(null)
+    expect(getAosWriteActionsEnabled()).toBe(false)
+  })
+
+  it('la UI solo puede operar si el backend expone un canal seguro explícito', () => {
+    setAosSnapshot(rawStatus({ writeActionsEnabled: true }) as never)
+    expect(getAosWriteActionsUiAvailable()).toBe(false)
+    setAosSnapshot(rawStatus({ writeActionsEnabled: true, writeActionsUiAvailable: true }) as never)
+    expect(getAosWriteActionsUiAvailable()).toBe(true)
+    setAosSnapshot(null)
+  })
+})
+
+describe('postServiceAction', () => {
+  it('envia POST a /api/services/:id/action sin credenciales de navegador', async () => {
+    const originalFetch = globalThis.fetch
+    let capturedUrl = ''
+    let capturedInit: RequestInit | undefined
+    globalThis.fetch = (async (url: string | URL | Request, init?: RequestInit) => {
+      capturedUrl = String(url)
+      capturedInit = init
+      return {
+        ok: true,
+        status: 200,
+        json: async () => ({ status: 'OK', service: 'fake-svc', op: 'restart' }),
+      } as Response
+    }) as typeof fetch
+
+    try {
+      const res = await postServiceAction('fake-svc', 'restart')
+      expect(res.ok).toBe(true)
+      expect(res.status).toBe(200)
+      expect(res.service).toBe('fake-svc')
+      expect(res.op).toBe('restart')
+      expect(capturedUrl).toBe('/api/services/fake-svc/action')
+      expect(capturedInit?.method).toBe('POST')
+      const headers = capturedInit?.headers as Record<string, string>
+      expect(headers['Content-Type']).toBe('application/json')
+      expect(headers['Authorization']).toBeUndefined()
+      expect(JSON.parse(capturedInit?.body as string)).toEqual({ op: 'restart' })
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('mapea un rechazo del backend sin inventar un éxito', async () => {
+    const originalFetch = globalThis.fetch
+    let capturedInit: RequestInit | undefined
+    globalThis.fetch = (async (_url: string | URL | Request, init?: RequestInit) => {
+      capturedInit = init
+      return {
+        ok: false,
+        status: 401,
+        json: async () => ({ status: 'UNAUTHORIZED', reason: 'Auth required' }),
+      } as Response
+    }) as typeof fetch
+
+    try {
+      const res = await postServiceAction('fake-svc', 'start')
+      expect(res.ok).toBe(false)
+      expect(res.status).toBe(401)
+      expect(res.reason).toBe('Auth required')
+      const headers = capturedInit?.headers as Record<string, string>
+      expect(headers['Authorization']).toBeUndefined()
+    } finally {
+      globalThis.fetch = originalFetch
+    }
   })
 })
