@@ -343,7 +343,9 @@ disponible; los tokens de ambos tonos sí quedan medidos en
 
 ## Release
 
-- commit realizado: NO
-- push realizado: NO
-- promote realizado: NO
-- despliegue realizado: NO
+- commit realizado: SÍ — `fix(a11y): remediate command center contrast`.
+- push realizado: SÍ — `development` → `origin/development`.
+- preview Vercel: `https://anclora-command-center-ggtiyi9m3-pmi140979-6354s-projects.vercel.app` — `Ready`.
+- promote realizado: SÍ — deployment de producción `Ready`.
+- producción: `https://anclora-command-center.vercel.app` — protegido por SSO de Vercel; la comprobación HTTP anónima devuelve `403`.
+- verificación visual externa: BLOQUEADA por el SSO; la matriz visual local y la auditoría axe documentadas sí se ejecutaron.
