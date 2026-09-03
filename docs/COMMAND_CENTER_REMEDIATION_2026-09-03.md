@@ -346,6 +346,8 @@ disponible; los tokens de ambos tonos sí quedan medidos en
 - commit realizado: SÍ — `fix(a11y): remediate command center contrast`.
 - push realizado: SÍ — `development` → `origin/development`.
 - Vercel: RETIRADO / UNSUPPORTED; no forma parte del runtime ni de la aceptación.
-- proyecto Vercel `anclora-command-center`: OWNER_DELETE_PENDING.
+- proyecto Vercel `anclora-command-center`: DELETED por el propietario.
+- acción del propietario completada: Vercel dashboard → proyecto
+  `anclora-command-center` → Settings → Delete Project.
 - runtime canónico: `https://command-center.dev.anclora.com/`.
 - verificación visual: la matriz local y la auditoría axe documentadas siguen siendo la evidencia válida.

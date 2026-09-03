@@ -111,7 +111,7 @@ un búfer circular en memoria de 200 entradas.
 - Registrado como servicio AOS: `manifest.yaml` → `aos up command-center`.
 - La URL operativa canónica es `https://command-center.dev.anclora.com/`.
 - Vercel está RETIRADO y no es un destino de despliegue, runtime, fallback ni
-  criterio de aceptación. El proyecto `anclora-command-center` será eliminado
+  criterio de aceptación. El proyecto `anclora-command-center` fue eliminado
   manualmente por el propietario desde el dashboard de Vercel.
 
 ## Fuentes de datos

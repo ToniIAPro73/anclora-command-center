@@ -82,7 +82,8 @@ It runs as the AOS `command-center` service on the VPS. `server/server.mjs`
 serves `dist/` and exposes live `/health`, `/api/status`, `/api/knowledge`, and
 `/api/repositories/runtime` endpoints. Vercel is retired and is not a deploy,
 runtime, fallback, or acceptance target. The owner will delete the
-`anclora-command-center` Vercel project manually.
+`anclora-command-center` Vercel project manually. The project has now been
+deleted.
 
 ## Local setup
 
