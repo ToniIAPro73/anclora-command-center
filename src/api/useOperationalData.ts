@@ -17,6 +17,7 @@ import {
   fetchAosStatusFromApi,
   getAosEndpointsStatus,
   getAosRuntimeStatus,
+  getAosWriteActionsUiAvailable,
   setAosSnapshot,
 } from '../adapters/aosAdapter'
 import {
@@ -58,6 +59,7 @@ export interface OperationalDataState {
   aosLastUpdatedAt: Date | null
   aos: DataState<import('../contracts/types').AosServiceRuntimeSummary[]>
   aosEndpoints: DataState<AosEndpointSummary[]>
+  writeActionsUiAvailable: boolean
   knowledgeHealth: DataState<SystemHealth>
   repositories: DataState<RepositorySummary[]>
   repositoriesRuntime: DataState<RepositoryRuntimeState[]>
@@ -145,6 +147,7 @@ export function useOperationalData(): OperationalDataState {
     aosLastUpdatedAt,
     aos,
     aosEndpoints,
+    writeActionsUiAvailable: getAosWriteActionsUiAvailable(),
     knowledgeHealth,
     repositories: getRepositories(),
     repositoriesRuntime,

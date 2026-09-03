@@ -130,14 +130,19 @@
   background: none;
   padding: 0;
   font: inherit;
-  color: var(--secondary);
+  color: var(--text-link);
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .op-rel-item__target:hover {
-  color: var(--accent);
+  color: var(--text-link);
+}
+
+.op-rel-item__target:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
 }
 
 .op-rel-item__target--unresolved {

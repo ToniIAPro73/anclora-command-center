@@ -9,23 +9,53 @@
   --accent-dim: #4B45C8;
   --accent-soft: rgba(108, 99, 255, 0.14);
   --accent-glow: rgba(95, 168, 255, 0.18);
-  --accent-border: rgba(138, 124, 255, 0.34);
+  --accent-border: #A79DFF;
   --secondary: #5FA8FF;
   --secondary-soft: rgba(95, 168, 255, 0.14);
-  --secondary-border: rgba(95, 168, 255, 0.26);
+  --secondary-border: #6EAFFF;
   --sidebar: #0B0A18;
-  --sidebar-border: rgba(138, 124, 255, 0.18);
+  --sidebar-border: #706A9B;
   --sidebar-active: rgba(108, 99, 255, 0.18);
   --text-primary: #EAE8F5;
   --text-secondary: #C7C2EA;
   --text-muted: #8F89C6;
-  --text-on-accent: #FFFFFF;
+  --text-on-accent: #050B18;
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-default: rgba(255, 255, 255, 0.12);
-  --border-strong: rgba(255, 255, 255, 0.20);
+  --border-default: #706A9B;
+  --border-strong: #A79DFF;
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.22);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.30);
   --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.38);
+
+  /* DS semantic aliases. Keep imported components on the same surfaces as
+     this app shell; otherwise empty states and data tables keep dark defaults
+     when the page switches to light mode. */
+  --bg: var(--background);
+  --bg-raised: var(--surface);
+  --bg-strong: var(--elevated);
+  --fg1: var(--text-primary);
+  --fg2: var(--text-secondary);
+  --fg3: #B8B2E4;
+  --border: #706A9B;
+  --line-soft: rgba(199, 194, 234, 0.16);
+  --line-strong: #706A9B;
+  --text-link: #B1A7FF;
+  --focus-ring: #B1A7FF;
+  --focus-ring-offset: #121021;
+  --status-success-surface: #153C2A;
+  --status-success-text: #A9EFB7;
+  --status-success-border: #4FBD7E;
+  --status-review-surface: #153743;
+  --status-review-text: #A4DCE1;
+  --status-review-border: #66BFC8;
+  --status-warning-surface: #443619;
+  --status-warning-text: #F5D891;
+  --status-warning-border: #D0A83A;
+  --status-danger-surface: #4B2228;
+  --status-danger-text: #FFB8B9;
+  --status-danger-border: #E06A76;
+  --state-error-surface: #4B2228;
+  --state-success-surface: #153C2A;
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
@@ -49,17 +79,59 @@ html[data-theme='light'] {
   --card: #F8FAFF;
   --elevated: #EEF2FF;
   --hover: #E7ECFF;
-  --accent: #6C63FF;
+  --accent: #4F47D8;
   --accent-hover: #4F47D8;
   --accent-soft: rgba(108, 99, 255, 0.10);
-  --secondary: #2F8BEF;
+  --secondary: #1D66B3;
+  --secondary-soft: #E4F0FF;
+  --secondary-border: #5F7FAE;
+  --accent-border: #4F47D8;
   --sidebar: #EEF3FF;
   --text-primary: #15142A;
   --text-secondary: #3D3A68;
-  --text-muted: #6E6A98;
+  --text-muted: #5B587F;
   --text-on-accent: #FFFFFF;
+  --sidebar-border: #77759B;
+  --bg: var(--background);
+  --bg-raised: var(--surface);
+  --bg-strong: var(--elevated);
+  --fg1: var(--text-primary);
+  --fg2: var(--text-secondary);
+  --fg3: #4F47D8;
+  --border-subtle: #D8D9E8;
+  --border-default: #77759B;
+  --border-strong: #4F47D8;
+  --border: #77759B;
+  --line-soft: rgba(61, 58, 104, 0.16);
+  --line-strong: #77759B;
+  --text-link: #4F47D8;
+  --focus-ring: #4F47D8;
+  --focus-ring-offset: #FFFFFF;
+  --status-success-surface: #D8F5E5;
+  --status-success-text: #075B38;
+  --status-success-border: #388B61;
+  --status-review-surface: #E4F2FF;
+  --status-review-text: #14507D;
+  --status-review-border: #4F91C4;
+  --status-warning-surface: #FFF0C7;
+  --status-warning-text: #714600;
+  --status-warning-border: #B47900;
+  --status-danger-surface: #FFE1E5;
+  --status-danger-text: #9F1930;
+  --status-danger-border: #C94A60;
+  --state-error-surface: #FFE1E5;
+  --state-success-surface: #D8F5E5;
   color-scheme: light;
 }
+
+/* Status badges carry their own visual boundary. This keeps success,
+   warning, info and danger identifiable without relying on hue alone. */
+.ac-status-badge--success { border-color: var(--status-success-border); }
+.ac-status-badge--info { border-color: var(--status-review-border); }
+.ac-status-badge--warning { border-color: var(--status-warning-border); }
+.ac-status-badge--danger { border-color: var(--status-danger-border); }
+.ac-status-badge--neutral { border-color: var(--border-default); }
+.ac-status-badge--muted { border-color: var(--border-default); }
 
 * {
   box-sizing: border-box;

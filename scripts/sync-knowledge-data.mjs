@@ -11,8 +11,8 @@
 // solo lectura del dataset ya normalizado, tomada tal cual, sin reinterpretar campos.
 //
 // Patron tolerante (igual que sync-aos-status.mjs): si el artefacto no existe — p.ej. en
-// un entorno de build aislado como Vercel, donde SOLO se clona este repositorio y no
-// existe el workspace con anclora-infrastructure — se escribe un snapshot VACIO marcado
+// un entorno de build aislado, donde SOLO se clona este repositorio y no existe
+// el workspace con anclora-infrastructure — se escribe un snapshot VACIO marcado
 // como tal y el script termina con exit 0. El adapter devuelve EMPTY/UNAVAILABLE a la UI
 // en lugar de romper el deploy. En desarrollo/local el artefacto real se copia tal cual.
 
@@ -56,7 +56,7 @@ function main() {
   const generatedAt = new Date().toISOString()
 
   if (!existsSync(KNOWLEDGE_MODEL_PATH)) {
-    // Entorno sin workspace (Vercel/CI aislado): no fallar el build, escribir
+    // Entorno sin workspace (CI/build aislado): no fallar el build, escribir
     // snapshot vacio explícitamente marcado. La UI muestra EMPTY/UNAVAILABLE.
     mkdirSync(dirname(OUTPUT_PATH), { recursive: true })
     writeFileSync(
