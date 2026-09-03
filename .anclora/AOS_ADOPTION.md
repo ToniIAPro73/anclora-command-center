@@ -9,28 +9,41 @@ Declaración de adopción AOS para `anclora-command-center`.
 - Adoption Status: Adopted With Exceptions
 - AOS Version: v0.2.0
 - Adoption Date: 2026-08-17
-- Last Reviewed: 2026-08-17 (post `COMMAND_CENTER_REBUILD`)
+- Last Reviewed: 2026-09-03 (security remediation)
 - Governance Level: GL-1
 
 ## Propósito del repositorio
 
 `anclora-command-center` es la interfaz operacional del ecosistema Anclora: un shell Vite + React 19 + TypeScript que lee, en solo lectura, snapshots generados en build/dev time desde `anclora-infrastructure/knowledge` (Knowledge/AKG) y desde el CLI `aos status` (AOS Runtime), y los presenta en 5 vistas operacionales (Overview, Products, Repositories, Services, Knowledge). Ya **no** depende de ningún vault personal externo.
 
-Estado actual: `HOLD` (portfolio_status; el rol pasa de "dataset local" a "interfaz operacional", pero el repo sigue sin runtime real gestionado por AOS — ver EX-CC-001). El repo fue saneado de PII (`VAULT_PII_REVIEW`, `COMMAND_CENTER_PII_REMEDIATION`): `REAL_PII_IN_HEAD=0`, `REAL_PII_IN_HISTORY=0`, reconfirmado tras `COMMAND_CENTER_REBUILD` (0 secretos, 0 PII en el código y datos añadidos).
+Estado actual: `HOLD` (portfolio_status; el rol es interfaz operacional). El
+runtime canónico es el servicio AOS `command-center` en el VPS, expuesto en
+`https://command-center.dev.anclora.com/`. El repo fue saneado de PII
+(`VAULT_PII_REVIEW`, `COMMAND_CENTER_PII_REMEDIATION`): `REAL_PII_IN_HEAD=0`,
+`REAL_PII_IN_HISTORY=0`, reconfirmado tras `COMMAND_CENTER_REBUILD` (0 secretos,
+0 PII en el código y datos añadidos).
 
 ## Excepción principal de esta adopción
 
-Este repositorio **no está todavía runtime-managed por AOS**: no existe una entrada de servicio en `anclora-infrastructure/aos-runtime/manifest.yaml` para Command Center, y no se añade automáticamente una en esta declaración — el repo no tiene hoy un runtime operativo integrado con AOS. Esta declaración reconoce a Command Center como **repo reconocido por el ecosistema AOS** (en scope de `anclora-infrastructure/knowledge`, con checkout local verificado), pendiente de `COMMAND_CENTER_REBUILD` para pasar a gestión de runtime real.
+El checkout local de `anclora-infrastructure` sí contiene una entrada
+`command-center` en `aos-runtime/manifest.yaml` con bind loopback, puerto 3024
+y health `/health` (verificado en el commit externo `40b6f1d`). La existencia de
+esa declaración no sustituye la comprobación operativa del servicio. Este repo
+consume AOS/Knowledge en el backend VPS-native y conserva snapshots regenerables
+solo para desarrollo y builds aislados; no es fuente de verdad de esos sistemas.
 
-## Arquitectura objetivo (target, no implementada aún)
+## Arquitectura implementada y límites
 
-Tras `COMMAND_CENTER_REBUILD`, Command Center debe operar como interfaz operacional de consumo sobre:
+Command Center opera como interfaz operacional de consumo sobre:
 
 - **AOS**: runtime y manifest de servicios reales del ecosistema.
 - **Anclora Knowledge**: pipeline de construcción del dataset normalizado (`anclora-infrastructure/knowledge`).
 - **AKG v0.1**: grafo de conocimiento consultable (`anclora_knowledge.query`).
 
-Esta relación es de **target arquitectónico**, no de consumo actual verificado — no se registran relaciones `USES` en el AKG hacia AOS/Knowledge/AKG hasta que exista integración real (ver gap semántico documentado en `anclora-infrastructure/audit/ecosystem-core-onboarding/01_COMMAND_CENTER_ONBOARDING.md`, sección de relaciones).
+En VPS-native el backend ejecuta `aos status --json` y lee el artefacto
+Knowledge por ruta configurada. La UI no escribe en esas fuentes. El acoplamiento
+de filesystem sigue siendo un límite arquitectónico pendiente de un contrato
+versionado/API y no se declara resuelto desde este repo.
 
 ## Estado tras COMMAND_CENTER_REBUILD (2026-08-17)
 
@@ -70,9 +83,9 @@ Una decisión local debe elevarse a AOS cuando:
 
 | ID | Regla afectada | Razón | Owner | Status | Creada | Trigger de revisión | Resolución |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| EX-CC-001 | No hay servicio AOS runtime-managed para este repo en `manifest.yaml`. | El repo sigue en `HOLD`; ahora es interfaz operacional pero no tiene runtime propio que registrar. | AOS Chief Architect | OPEN | 2026-08-17 | Se resuelve cuando exista un runtime real desplegado y se registre en `manifest.yaml`. | — |
+| EX-CC-001 | El estado desplegado del servicio AOS no puede probarse solo desde este checkout. | El contrato local sí contiene `command-center`; falta evidencia del estado efectivo del VPS. | AOS Chief Architect | PENDIENTE | 2026-08-17 | Se revisa con evidencia del host, systemd/AOS y health operativo. | — |
 | EX-CC-002 | `src/generated/` contenía datasets locales de products/repos/contracts/services/endpoints que duplicaban fuentes canónicas (Vault, AOS, Knowledge). | Arquitectura legacy previa a esta adopción. | AOS Chief Architect | **RESOLVED** | 2026-08-17 | — | Resuelta 2026-08-17 (`COMMAND_CENTER_REBUILD`): `src/generated/vault-data.json`, `src/generated/dataset.json` y los scripts que los generaban (`sync-vault-data.mjs`, `watch-notes-and-sync.mjs`, `sync-real-estate-dataset.mjs`, `generate-workbook-from-notes.mjs`) eliminados. `src/generated/` ahora solo contiene snapshots de solo lectura regenerables, gitignored. |
-| EX-CC-003 | AOS Runtime v2 es un CLI de texto plano sin API HTTP ni salida `--json`; `scripts/sync-aos-status.mjs` parsea la salida de `aos status` con un parser de ancho fijo sin contrato estable. | Limitación real de AOS Runtime v2 en esta fecha, no decisión de Command Center. | AOS Chief Architect | **RESOLVED** | 2026-08-17 | Trigger de la excepción eliminado por `AOS_OPERATIONAL_INTERFACE` (2026-08-17): AOS Runtime expone `aos status --json` (schemaVersion 1.0, contrato estructurado versionado en `aos-runtime/schema/status.schema.json`). `scripts/sync-aos-status.mjs` consume el contrato JSON y el parseo de salida humana de ancho fijo fue eliminado (`HUMAN_CLI_PARSER=0`). | Resuelta 2026-08-17 (`AOS_OPERATIONAL_INTERFACE`). |
+| EX-CC-003 | AOS Runtime v2 era un CLI de texto plano sin API HTTP ni salida `--json`. | Limitación histórica de AOS Runtime, no decisión de Command Center. | AOS Chief Architect | CORREGIDO | 2026-08-17 | Trigger eliminado por `AOS_OPERATIONAL_INTERFACE`: AOS Runtime expone `aos status --json` y el schema versionado. | Verificado otra vez el 2026-09-03 contra `aos-runtime/schema/status.schema.json`. |
 
 ## Política de upgrade AOS
 
@@ -89,6 +102,7 @@ Una decisión local debe elevarse a AOS cuando:
 | --- | --- | --- | --- |
 | 2026-08-17 | v0.2.0 | Declaración inicial de adopción con excepciones, tras `VAULT_PII_REVIEW`/`COMMAND_CENTER_PII_REMEDIATION` y como parte de `ECOSYSTEM_CORE_ONBOARDING`. Estado HOLD, target REBUILD documentados. | AOS Chief Architect |
 | 2026-08-17 | v0.2.0 | `COMMAND_CENTER_REBUILD`: EX-CC-002 resuelta (datasets legacy eliminados); adapters de solo lectura hacia Knowledge/AKG y AOS implementados; nueva excepción EX-CC-003 registrada (AOS CLI sin salida machine-readable estable). Adoption Status se mantiene `Adopted With Exceptions` — no se declara `Fully Adopted` (EX-CC-001 y EX-CC-003 siguen abiertas). | AOS Chief Architect |
+| 2026-09-03 | v0.2.0 | Remediación local: backend loopback con escrituras fail-closed y Bearer S2S; `/api/audit` protegido; SPA mantiene SOLO LECTURA al no existir sesión segura UI→backend. Se verificó el contrato local de `manifest.yaml`; el estado efectivo del VPS y la activación Caddy siguen pendientes. | AOS Chief Architect |
 
 ## Documentos relacionados
 

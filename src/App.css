@@ -121,6 +121,15 @@
     box-shadow 160ms ease;
 }
 
+.topbar__nav a:focus-visible,
+.topbar__search-trigger:focus-visible,
+.topbar__toggle-group button:focus-visible,
+.filter-row button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 1px var(--focus-ring-offset);
+}
+
 .topbar__nav a {
   display: inline-flex;
   align-items: center;
@@ -185,6 +194,20 @@
 .filter-row button:hover {
   color: var(--text-primary);
   transform: translateY(-1px);
+}
+
+html[data-theme='light'] .ac-button--ghost,
+html[data-theme='light'] .ac-button--secondary {
+  --ac-button-bg: #FFFFFF;
+  --ac-button-border: var(--border-default);
+}
+
+html[data-theme='light'] .ac-button--ghost:hover,
+html[data-theme='light'] .ac-button--ghost:focus-visible,
+html[data-theme='light'] .ac-button--secondary:hover,
+html[data-theme='light'] .ac-button--secondary:focus-visible {
+  --ac-button-bg: var(--elevated);
+  --ac-button-border: var(--accent);
 }
 
 .hero {
@@ -607,7 +630,7 @@ th,
 .source-item code {
   display: inline-block;
   margin-top: 8px;
-  color: var(--secondary);
+  color: var(--text-link);
   font-family: var(--font-mono);
 }
 
