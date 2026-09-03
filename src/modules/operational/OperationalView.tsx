@@ -75,6 +75,14 @@ interface Copy {
   actionStop: string
   actionRestart: string
   actionViewOnly: string
+  actionReadOnlyNote: string
+  actionSucceeded: (op: string, service: string) => string
+  actionUnauthorized: string
+  actionForbidden: string
+  actionUnavailable: string
+  actionConflict: string
+  actionTimeout: string
+  actionInternal: string
   confirmTitle: (op: string, service: string) => string
   confirmSummary: (op: string, service: string) => string
   confirmConsequenceStop: string
@@ -245,6 +253,14 @@ const copy: Record<DashboardLanguage, Copy> = {
     actionStop: 'Detener',
     actionRestart: 'Reiniciar',
     actionViewOnly: 'SOLO LECTURA',
+    actionReadOnlyNote: 'Las acciones están bloqueadas: esta interfaz no dispone de una sesión segura para operar el runtime.',
+    actionSucceeded: (op, service) => `Acción "${op}" completada en ${service}.`,
+    actionUnauthorized: 'La operación requiere una autorización válida.',
+    actionForbidden: 'La operación no está autorizada para este servicio.',
+    actionUnavailable: 'El runtime no está disponible para ejecutar la operación.',
+    actionConflict: 'El servicio está ocupado o ya se encuentra en ese estado.',
+    actionTimeout: 'La operación superó el tiempo máximo permitido.',
+    actionInternal: 'No se pudo completar la operación. Usa el identificador de correlación para investigar el incidente.',
     confirmTitle: (op, service) => `${op} ${service}`,
     confirmSummary: (op, service) => `Vas a ejecutar "${op}" sobre el servicio "${service}" gestionado por AOS.`,
     confirmConsequenceStop: 'El servicio dejará de estar disponible hasta que se inicie de nuevo.',
@@ -329,6 +345,14 @@ const copy: Record<DashboardLanguage, Copy> = {
     actionStop: 'Stop',
     actionRestart: 'Restart',
     actionViewOnly: 'VIEW ONLY',
+    actionReadOnlyNote: 'Actions are blocked: this interface has no secure session for operating the runtime.',
+    actionSucceeded: (op, service) => `Action "${op}" completed on ${service}.`,
+    actionUnauthorized: 'The operation requires valid authorization.',
+    actionForbidden: 'The operation is not authorized for this service.',
+    actionUnavailable: 'The runtime is unavailable for this operation.',
+    actionConflict: 'The service is busy or already in that state.',
+    actionTimeout: 'The operation exceeded the allowed time.',
+    actionInternal: 'The operation could not be completed. Use the correlation ID to investigate the incident.',
     confirmTitle: (op, service) => `${op} ${service}`,
     confirmSummary: (op, service) => `You are about to run "${op}" on the AOS-managed service "${service}".`,
     confirmConsequenceStop: 'The service will become unavailable until it is started again.',
@@ -413,6 +437,14 @@ const copy: Record<DashboardLanguage, Copy> = {
     actionStop: 'Stoppen',
     actionRestart: 'Neu starten',
     actionViewOnly: 'NUR ANSICHT',
+    actionReadOnlyNote: 'Aktionen sind blockiert: Diese Oberfläche besitzt keine sichere Sitzung für den Runtime-Betrieb.',
+    actionSucceeded: (op, service) => `Aktion "${op}" für ${service} abgeschlossen.`,
+    actionUnauthorized: 'Die Operation benötigt eine gültige Autorisierung.',
+    actionForbidden: 'Die Operation ist für diesen Dienst nicht autorisiert.',
+    actionUnavailable: 'Die Runtime ist für diese Operation nicht verfügbar.',
+    actionConflict: 'Der Dienst ist ausgelastet oder bereits in diesem Zustand.',
+    actionTimeout: 'Die Operation hat das zulässige Zeitlimit überschritten.',
+    actionInternal: 'Die Operation konnte nicht abgeschlossen werden. Nutze die Korrelations-ID zur Untersuchung.',
     confirmTitle: (op, service) => `${op} ${service}`,
     confirmSummary: (op, service) => `Du fuhrst "${op}" fur den AOS-verwalteten Dienst "${service}" aus.`,
     confirmConsequenceStop: 'Der Dienst ist nicht mehr verfugbar, bis er erneut gestartet wird.',
@@ -459,6 +491,7 @@ export interface OperationalDataProps {
   aosLastUpdatedAt: Date | null
   aos: DataState<AosServiceRuntimeSummary[]>
   aosEndpoints: DataState<AosEndpointSummary[]>
+  writeActionsUiAvailable?: boolean
   knowledgeHealth: DataState<SystemHealth>
   repositories: DataState<RepositorySummary[]>
   repositoriesRuntime: DataState<RepositoryRuntimeState[]>
@@ -503,6 +536,7 @@ export function OperationalView({
         aos={data.aos}
         aosEndpoints={data.aosEndpoints}
         endpointMatches={data.endpointMatches}
+        writeActionsUiAvailable={data.writeActionsUiAvailable}
         onRefresh={data.onRefresh}
         onOpenEntity={data.onOpenEntity}
       />
@@ -602,7 +636,7 @@ function OverviewSection(props: OperationalDataProps & { t: Copy }) {
 
 function AttentionList({ t, issues }: { t: Copy; issues: OperationalIssue[] }) {
   return (
-    <div className="op-attention" aria-labelledby="attention-heading">
+    <section className="op-attention" aria-labelledby="attention-heading">
       <h3 id="attention-heading" className="op-section__subtitle">
         {t.attentionTitle}
       </h3>
@@ -636,7 +670,7 @@ function AttentionList({ t, issues }: { t: Copy; issues: OperationalIssue[] }) {
           ))}
         </ul>
       )}
-    </div>
+    </section>
   )
 }
 
@@ -837,6 +871,7 @@ function ServicesSection({
   aos,
   aosEndpoints,
   endpointMatches,
+  writeActionsUiAvailable,
   onRefresh,
   onOpenEntity,
 }: {
@@ -844,15 +879,19 @@ function ServicesSection({
   aos: DataState<AosServiceRuntimeSummary[]>
   aosEndpoints: DataState<AosEndpointSummary[]>
   endpointMatches: EndpointMatch[]
+  writeActionsUiAvailable?: boolean
   onRefresh: () => void
   onOpenEntity: (id: string) => void
 }) {
   const [pending, setPending] = useState<PendingAction | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
 
   function requestAction(serviceId: string, op: ServiceActionOp) {
+    if (!writeActionsUiAvailable) return
     setError(null)
+    setSuccess(null)
     if (op === 'start') {
       void runAction(serviceId, op)
       return
@@ -861,19 +900,31 @@ function ServicesSection({
   }
 
   async function runAction(serviceId: string, op: ServiceActionOp) {
+    if (!writeActionsUiAvailable) return
     setBusy(true)
     setError(null)
+    setSuccess(null)
     const result = await postServiceAction(serviceId, op)
     setBusy(false)
     if (!result.ok) {
-      setError(t.actionFailed(result.reason ?? `HTTP ${result.status}`))
+      const statusMessage = result.status === 401 ? t.actionUnauthorized
+        : result.status === 403 ? t.actionForbidden
+          : result.status === 503 ? t.actionUnavailable
+            : result.status === 409 ? t.actionConflict
+              : result.status === 504 ? t.actionTimeout
+                : t.actionInternal
+      setError(t.actionFailed(result.reason ?? statusMessage))
       return
     }
     setPending(null)
+    setSuccess(t.actionSucceeded(op, serviceId))
     onRefresh()
     // Estado terminal no siempre es inmediato (STARTING/STOPPING) — un
     // segundo refresh corto tras la accion, sin polling agresivo (Seccion 39/65).
-    setTimeout(() => onRefresh(), 2000)
+    setTimeout(() => {
+      setSuccess(null)
+      onRefresh()
+    }, 2500)
   }
 
   return (
@@ -886,9 +937,20 @@ function ServicesSection({
           {error}
         </p>
       )}
+      {success && (
+        <p className="op-state op-state--success" role="status">
+          {success}
+        </p>
+      )}
       <DataStateView state={aos} labels={stateLabels(t)}>
         {(items) => (
-          <ul className="op-list">
+          <>
+            {!writeActionsUiAvailable && (
+              <p className="op-state op-state--readonly" role="status">
+                {t.actionReadOnlyNote}
+              </p>
+            )}
+            <ul className="op-list">
             {items.map((s) => {
               const isExternal = s.managed === 'external'
               const isSelf = s.service === SELF_SERVICE_ID
@@ -927,17 +989,24 @@ function ServicesSection({
                     {t.source}: aos · {t.runtime}
                   </span>
                   <div className="op-list__actions">
-                    {isExternal ? (
+                    {isExternal || !writeActionsUiAvailable ? (
                       <StatusBadge tone="muted" label={t.actionViewOnly} />
                     ) : (
                       <>
-                        <Button variant="secondary" size="sm" disabled={isRunning || busy} onClick={() => requestAction(s.service, 'start')}>
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          disabled={isRunning || busy}
+                          aria-busy={busy}
+                          onClick={() => requestAction(s.service, 'start')}
+                        >
                           {t.actionStart}
                         </Button>
                         <Button
                           variant="ghost"
                           size="sm"
                           disabled={busy || isSelf || !isRunning}
+                          aria-busy={busy}
                           title={isSelf ? t.selfStopBlocked : undefined}
                           onClick={() => requestAction(s.service, 'stop')}
                         >
@@ -947,6 +1016,7 @@ function ServicesSection({
                           variant="ghost"
                           size="sm"
                           disabled={busy || isSelf}
+                          aria-busy={busy}
                           title={isSelf ? t.selfStopBlocked : undefined}
                           onClick={() => requestAction(s.service, 'restart')}
                         >
@@ -958,7 +1028,8 @@ function ServicesSection({
                 </li>
               )
             })}
-          </ul>
+            </ul>
+          </>
         )}
       </DataStateView>
 
