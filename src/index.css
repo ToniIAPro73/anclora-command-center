@@ -1,3 +1,34 @@
+/* Theme ownership as of the Wave 2 / Pilot 2 migration (design-system 0.7.0):
+   this file now owns Command Center's PRODUCT layer only (surfaces, brand
+   accent/secondary, text hierarchy tinted to the brand, sidebar, and the
+   three exceptions below) -- analogous to .product-anclora-command-center
+   in the DS's own themes/product.css. focus-ring/focus-ring-offset and
+   status-*-surface/text ARE dropped from here and inherited from
+   @anclora/design-system/tokens/semantic.css -- see main.tsx import order
+   (DS tokens import before this file, so removing an override here means
+   the DS's own [data-theme] value applies).
+
+   Three exceptions kept local, all evidence-based (measured, not assumed --
+   see src/a11y/contrast.test.ts, which now resolves tokens through the
+   real DS-then-app cascade and would fail if any of these were wrong):
+   - --border / --line-soft / --line-strong: tried migrating these to the
+     DS's neutral --group-border(-light) default and the app's own
+     contrast test caught a real regression -- 1.63:1 dark / 1.29:1 light
+     against this app's --surface, both below the 3:1 non-text minimum.
+     DS's border was tuned against DS's own neutral canvas, not this app's
+     purple-toned one. Restored to this app's original, measured-safe
+     values.
+   - --text-link: the DS's dark-theme formula (--text-link: var(--accent))
+     resolves this app's own accent to 4.34:1 against this app's dark
+     canvas -- BELOW the 4.5:1 AA minimum for text. Kept local in both
+     themes so the value stays consistent between them.
+   - --status-*-border: the DS does not define a border tier for status
+     tokens (only -surface/-text). This app's status badges rely on a
+     visible border specifically so success/warning/danger/review stay
+     distinguishable without relying on hue alone (see the .ac-status-badge
+     rules below) -- kept because there is nothing to inherit, not because
+     of a preference. Reported as Design System feedback, not duplicated
+     silently. */
 :root {
   --background: #121021;
   --surface: #171426;
@@ -20,42 +51,29 @@
   --text-secondary: #C7C2EA;
   --text-muted: #8F89C6;
   --text-on-accent: #050B18;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-default: #706A9B;
-  --border-strong: #A79DFF;
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.22);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.30);
   --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.38);
 
-  /* DS semantic aliases. Keep imported components on the same surfaces as
-     this app shell; otherwise empty states and data tables keep dark defaults
-     when the page switches to light mode. */
+  /* DS semantic aliases: only the roles this app's product layer legitimately
+     owns (canvas/surface/text). border/line/focus-ring/status-*-surface/text
+     are intentionally absent here -- see comment above the :root selector. */
   --bg: var(--background);
   --bg-raised: var(--surface);
   --bg-strong: var(--elevated);
   --fg1: var(--text-primary);
   --fg2: var(--text-secondary);
   --fg3: #B8B2E4;
-  --border: #706A9B;
+  --border: #706A9B; /* kept -- measured regression, see file header comment */
   --line-soft: rgba(199, 194, 234, 0.16);
   --line-strong: #706A9B;
-  --text-link: #B1A7FF;
-  --focus-ring: #B1A7FF;
-  --focus-ring-offset: #121021;
-  --status-success-surface: #153C2A;
-  --status-success-text: #A9EFB7;
-  --status-success-border: #4FBD7E;
-  --status-review-surface: #153743;
-  --status-review-text: #A4DCE1;
+  --text-link: #B1A7FF; /* kept -- see file header comment */
+  --status-success-border: #4FBD7E; /* kept -- DS has no -border tier, see file header comment */
   --status-review-border: #66BFC8;
-  --status-warning-surface: #443619;
-  --status-warning-text: #F5D891;
   --status-warning-border: #D0A83A;
-  --status-danger-surface: #4B2228;
-  --status-danger-text: #FFB8B9;
   --status-danger-border: #E06A76;
-  --state-error-surface: #4B2228;
-  --state-success-surface: #153C2A;
+  --state-error-surface: var(--status-danger-surface);
+  --state-success-surface: var(--status-success-surface);
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
@@ -98,29 +116,16 @@ html[data-theme='light'] {
   --fg1: var(--text-primary);
   --fg2: var(--text-secondary);
   --fg3: #4F47D8;
-  --border-subtle: #D8D9E8;
-  --border-default: #77759B;
-  --border-strong: #4F47D8;
-  --border: #77759B;
+  --border: #77759B; /* kept -- measured regression, see file header comment */
   --line-soft: rgba(61, 58, 104, 0.16);
   --line-strong: #77759B;
-  --text-link: #4F47D8;
-  --focus-ring: #4F47D8;
-  --focus-ring-offset: #FFFFFF;
-  --status-success-surface: #D8F5E5;
-  --status-success-text: #075B38;
+  --text-link: #4F47D8; /* kept -- see file header comment (consistency with dark, which genuinely needs the override) */
   --status-success-border: #388B61;
-  --status-review-surface: #E4F2FF;
-  --status-review-text: #14507D;
   --status-review-border: #4F91C4;
-  --status-warning-surface: #FFF0C7;
-  --status-warning-text: #714600;
   --status-warning-border: #B47900;
-  --status-danger-surface: #FFE1E5;
-  --status-danger-text: #9F1930;
   --status-danger-border: #C94A60;
-  --state-error-surface: #FFE1E5;
-  --state-success-surface: #D8F5E5;
+  --state-error-surface: var(--status-danger-surface);
+  --state-success-surface: var(--status-success-surface);
   color-scheme: light;
 }
 

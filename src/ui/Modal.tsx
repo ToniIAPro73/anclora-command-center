@@ -56,8 +56,8 @@ export function Modal({ open, title, eyebrow, size = 'medium', onClose, footer, 
             <h2 id="entity-modal-title" className="ac-modal__title">
               {title}
             </h2>
-            <Button ref={closeRef} variant="ghost" size="sm" aria-label="Close" onClick={onClose}>
-              ✕
+            <Button ref={closeRef} variant="ghost" size="compact" icon aria-label="Close" onClick={onClose}>
+              <span className="ac-button__icon" aria-hidden="true">✕</span>
             </Button>
           </div>
         </div>
