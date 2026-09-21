@@ -1,34 +1,25 @@
-/* Theme ownership as of the Wave 2 / Pilot 2 migration (design-system 0.7.0):
+/* Theme ownership as of the Wave 2.2 reconciliation (design-system 0.8.0):
    this file now owns Command Center's PRODUCT layer only (surfaces, brand
    accent/secondary, text hierarchy tinted to the brand, sidebar, and the
-   three exceptions below) -- analogous to .product-anclora-command-center
+   product-specific border/line bridge below) -- analogous to .product-anclora-command-center
    in the DS's own themes/product.css. focus-ring/focus-ring-offset and
-   status-*-surface/text ARE dropped from here and inherited from
+   status-*-surface/text/border and text-link ARE dropped from here and inherited from
    @anclora/design-system/tokens/semantic.css -- see main.tsx import order
    (DS tokens import before this file, so removing an override here means
    the DS's own [data-theme] value applies).
 
-   Three exceptions kept local, all evidence-based (measured, not assumed --
+   The remaining local border/line bridge is evidence-based (measured, not assumed --
    see src/a11y/contrast.test.ts, which now resolves tokens through the
    real DS-then-app cascade and would fail if any of these were wrong):
-   - --border / --line-soft / --line-strong: tried migrating these to the
+   - --border / --line-strong: tried migrating these to the
      DS's neutral --group-border(-light) default and the app's own
      contrast test caught a real regression -- 1.63:1 dark / 1.29:1 light
      against this app's --surface, both below the 3:1 non-text minimum.
      DS's border was tuned against DS's own neutral canvas, not this app's
      purple-toned one. Restored to this app's original, measured-safe
      values.
-   - --text-link: the DS's dark-theme formula (--text-link: var(--accent))
-     resolves this app's own accent to 4.34:1 against this app's dark
-     canvas -- BELOW the 4.5:1 AA minimum for text. Kept local in both
-     themes so the value stays consistent between them.
-   - --status-*-border: the DS does not define a border tier for status
-     tokens (only -surface/-text). This app's status badges rely on a
-     visible border specifically so success/warning/danger/review stay
-     distinguishable without relying on hue alone (see the .ac-status-badge
-     rules below) -- kept because there is nothing to inherit, not because
-     of a preference. Reported as Design System feedback, not duplicated
-     silently. */
+   - --line-soft had zero references in this app and was removed as a dead
+     local duplicate; the canonical DS token remains available if needed. */
 :root {
   --background: #121021;
   --surface: #171426;
@@ -65,13 +56,7 @@
   --fg2: var(--text-secondary);
   --fg3: #B8B2E4;
   --border: #706A9B; /* kept -- measured regression, see file header comment */
-  --line-soft: rgba(199, 194, 234, 0.16);
   --line-strong: #706A9B;
-  --text-link: #B1A7FF; /* kept -- see file header comment */
-  --status-success-border: #4FBD7E; /* kept -- DS has no -border tier, see file header comment */
-  --status-review-border: #66BFC8;
-  --status-warning-border: #D0A83A;
-  --status-danger-border: #E06A76;
   --state-error-surface: var(--status-danger-surface);
   --state-success-surface: var(--status-success-surface);
   --radius-sm: 6px;
@@ -117,26 +102,11 @@ html[data-theme='light'] {
   --fg2: var(--text-secondary);
   --fg3: #4F47D8;
   --border: #77759B; /* kept -- measured regression, see file header comment */
-  --line-soft: rgba(61, 58, 104, 0.16);
   --line-strong: #77759B;
-  --text-link: #4F47D8; /* kept -- see file header comment (consistency with dark, which genuinely needs the override) */
-  --status-success-border: #388B61;
-  --status-review-border: #4F91C4;
-  --status-warning-border: #B47900;
-  --status-danger-border: #C94A60;
   --state-error-surface: var(--status-danger-surface);
   --state-success-surface: var(--status-success-surface);
   color-scheme: light;
 }
-
-/* Status badges carry their own visual boundary. This keeps success,
-   warning, info and danger identifiable without relying on hue alone. */
-.ac-status-badge--success { border-color: var(--status-success-border); }
-.ac-status-badge--info { border-color: var(--status-review-border); }
-.ac-status-badge--warning { border-color: var(--status-warning-border); }
-.ac-status-badge--danger { border-color: var(--status-danger-border); }
-.ac-status-badge--neutral { border-color: var(--border-default); }
-.ac-status-badge--muted { border-color: var(--border-default); }
 
 * {
   box-sizing: border-box;

@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+artifacts/qa
 *.local
 
 # Snapshots regenerados en build/dev time desde Knowledge/AOS (COMMAND_CENTER_REBUILD).

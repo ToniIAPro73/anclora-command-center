@@ -3,8 +3,8 @@ import { describe, expect, it } from 'vitest'
 import { blendOver, contrastRatio, parseCssColor } from './contrast'
 
 // Since the Wave 2 / Pilot 2 design-system migration, this app's own
-// index.css only defines its PRODUCT layer (surfaces, accent, text-link,
-// status borders) — structural semantic roles (--focus-ring,
+// index.css only defines its PRODUCT layer (surfaces, accent, product text
+// hierarchy) — structural semantic roles (--focus-ring,
 // --status-*-text/surface, --border, --line-*) now come from
 // @anclora/design-system's tokens/semantic.css. Resolving tokens from
 // index.css alone (as this test previously did) would fail on those roles
@@ -47,19 +47,31 @@ const appLightTokens = parseTokenBlock(appCss, "html[data-theme='light']")
 // tokens actually use) into a literal rgb() this file's own parseCssColor
 // can read — named "white"/"black" operands included, since the DS's
 // formulas use those directly.
-const NAMED_COLORS: Record<string, string> = { white: '#ffffff', black: '#000000' }
+const NAMED_COLORS: Record<string, string> = { white: '#ffffff', black: '#000000', transparent: 'rgba(0, 0, 0, 0)' }
 
 function resolveColorMix(value: string): string {
   const match = value.match(
-    /^color-mix\(in srgb,\s*([^,]+?)\s+(\d+(?:\.\d+)?)%,\s*([^,]+?)\s+(\d+(?:\.\d+)?)%\)$/,
+    /^color-mix\(in srgb,\s*([^,]+?)\s+(\d+(?:\.\d+)?)%,\s*([^,)]+?)(?:\s+(\d+(?:\.\d+)?)%)?\)$/,
   )
   if (!match) return value
   const [, colorA, pctA, colorB, pctB] = match
   const a = parseCssColor(NAMED_COLORS[colorA.trim()] ?? colorA.trim())
   const b = parseCssColor(NAMED_COLORS[colorB.trim()] ?? colorB.trim())
-  const total = Number(pctA) + Number(pctB)
-  const mix = (x: number, y: number) => Math.round((x * Number(pctA) + y * Number(pctB)) / total)
-  return `rgb(${mix(a.r, b.r)}, ${mix(a.g, b.g)}, ${mix(a.b, b.b)})`
+  const weightA = Number(pctA)
+  const weightB = pctB === undefined ? 100 - weightA : Number(pctB)
+  const total = weightA + weightB
+  // CSS color-mix() keeps the interpolated RGB channels separate from the
+  // resulting alpha. This matters for `text 50%, transparent`: it becomes
+  // the text colour at 50% alpha, not a premultiplied half-dark RGB value.
+  const mix = (x: number, y: number) => {
+    if (b.a === 0) return x
+    if (a.a === 0) return y
+    return Math.round((x * weightA + y * weightB) / total)
+  }
+  const alpha = (a.a * weightA + b.a * weightB) / total
+  return alpha === 1
+    ? `rgb(${mix(a.r, b.r)}, ${mix(a.g, b.g)}, ${mix(a.b, b.b)})`
+    : `rgba(${mix(a.r, b.r)}, ${mix(a.g, b.g)}, ${mix(a.b, b.b)}, ${alpha})`
 }
 
 function resolveToken(tokens: Record<string, string>, name: string): string {
@@ -153,6 +165,12 @@ describe('Command Center contrast tokens', () => {
     }
     expect(contrastRatio(color(tokens, '--focus-ring'), color(tokens, '--background'))).toBeGreaterThanOrEqual(3)
     expect(contrastRatio(color(tokens, '--border'), color(tokens, '--surface'))).toBeGreaterThanOrEqual(3)
+    for (const background of ['--surface', '--card']) {
+      expect(
+        contrastRatio(color(tokens, '--border-control'), color(tokens, background)),
+        `borde de control sobre ${background}`,
+      ).toBeGreaterThanOrEqual(3)
+    }
   })
 
   it.each(themes)('$name mantiene AA al componer transparencias sobre superficies reales', ({ tokens }) => {
