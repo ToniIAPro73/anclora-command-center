@@ -71,13 +71,22 @@ Autoridad delegada relevante:
 | Snapshots regenerables (no versionados, `.gitignore`) | [`../src/generated/`](../src/generated/) | AOS Chief Architect | **No es fuente de verdad**: copia de solo lectura de Knowledge/AKG y `aos status`, regenerada en cada build/dev/test — nunca commiteada. |
 | Package metadata | [`../package.json`](../package.json) | AOS Chief Architect | Fuente técnica local para scripts, dependencias y versión. `chokidar`/`exceljs`/`gray-matter` eliminados (dependían del vault externo). |
 
-## Adopción de Gobernanza QA Proporcional
+## Adopción de Gobernanza QA Proporcional y Economía Adaptativa
 
 - PROPORTIONAL_QA_CONTRACT_ADOPTED=true
 - BATCHED_VALIDATION_CONTRACT_ADOPTED=true
 - QA_MODE_DEFAULT=AUTO
 - QA_OVERRIDE_MODEL_ADOPTED=true
-- WORKSPACE_QA_POLICY_AUTHORITY=ANCLORA_WORKSPACE_AGENT_POLICY.md
+- FAST_MINIMUM_SUFFICIENT_TESTING_ADOPTED=true
+- FAST_FULL_SUITE_PROHIBITION_ADOPTED=true
+- STOP_WHEN_SUFFICIENT_EVIDENCE_ADOPTED=true
+
+- ADAPTIVE_TOKEN_ECONOMY_CONTRACT_ADOPTED=true
+- CAVEMAN_MODE_DEFAULT=AUTO
+- CAVEMAN_TASK_LEVEL_REEVALUATION=true
+- CAVEMAN_OVERRIDE_MODEL_ADOPTED=true
+
+- WORKSPACE_POLICY_AUTHORITY=ANCLORA_WORKSPACE_AGENT_POLICY.md
 
 ## Política de decisiones locales
 
@@ -112,6 +121,7 @@ Una decisión local debe elevarse a AOS cuando:
 | 2026-08-17 | v0.2.0 | `COMMAND_CENTER_REBUILD`: EX-CC-002 resuelta (datasets legacy eliminados); adapters de solo lectura hacia Knowledge/AKG y AOS implementados; nueva excepción EX-CC-003 registrada (AOS CLI sin salida machine-readable estable). Adoption Status se mantiene `Adopted With Exceptions` — no se declara `Fully Adopted` (EX-CC-001 y EX-CC-003 siguen abiertas). | AOS Chief Architect |
 | 2026-09-03 | v0.2.0 | Remediación local: backend loopback con escrituras fail-closed y Bearer S2S; `/api/audit` protegido; SPA mantiene SOLO LECTURA al no existir sesión segura UI→backend. Se verificó el contrato local de `manifest.yaml`; el estado efectivo del VPS y la activación Caddy siguen pendientes. | AOS Chief Architect |
 | 2026-09-25 | v2.0 | Adopción de política canónica de QA proporcional, cadencia de puertas por lotes (BATCHED) y modelo de overrides explícitos. | ToniIAPro73 |
+| 2026-09-25 | v2.1 | Adopción de economía adaptativa (CAVEMAN_MODE=AUTO) y endurecimiento FAST QA (sin suites completas por defecto, mínimo suficiente, detención ante evidencia suficiente). | ToniIAPro73 |
 
 ## Documentos relacionados
 
