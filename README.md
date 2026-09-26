@@ -15,7 +15,7 @@ Panel operativo que lee, en solo lectura, datos derivados de AOS, Anclora Knowle
 <br />
 
 ![Anclora](https://img.shields.io/badge/Anclora-ecosystem-111827)
-![Categoría](https://img.shields.io/badge/categoría-Premium-6C63FF)
+![Categoría](https://img.shields.io/badge/categoría-Internal-1DAB89)
 ![Idiomas](https://img.shields.io/badge/idiomas-ES%20%7C%20EN%20%7C%20DE-047857)
 
 </div>
@@ -35,7 +35,7 @@ Reconstruido en `COMMAND_CENTER_REBUILD` (2026-08-17) para eliminar su papel his
 
 | Campo | Valor |
 |---|---|
-| Current status | `HOLD` |
+| Current status | `ACTIVE` — uso interno |
 | Role | Operational UI — interfaz operacional de consumo, no fuente de datos |
 | Data sources | AOS (CLI `aos status`) · Anclora Knowledge · AKG v0.1 |
 | Source of truth local | **NO**, para: products, repositories, contracts, services, endpoints — consumidos vía `src/adapters/` desde snapshots regenerables (`src/generated/`, gitignored, nunca fuente) |
@@ -45,7 +45,7 @@ Reconstruido en `COMMAND_CENTER_REBUILD` (2026-08-17) para eliminar su papel his
 
 | Campo | Valor |
 |---|---|
-| Categoría | Premium |
+| Categoría | Internal |
 | Acento de marca | `#6C63FF` |
 | Repositorio canónico | `anclora-command-center` |
 | Ubicación | `workspace/anclora/anclora-command-center` (checkout independiente) |
@@ -113,6 +113,9 @@ un búfer circular en memoria de 200 entradas.
 - Vercel está RETIRADO y no es un destino de despliegue, runtime, fallback ni
   criterio de aceptación. El proyecto `anclora-command-center` fue eliminado
   manualmente por el propietario desde el dashboard de Vercel.
+
+Command Center no es un producto público y no debe aparecer en landings o
+catálogos públicos salvo autorización explícita.
 
 ## Fuentes de datos
 

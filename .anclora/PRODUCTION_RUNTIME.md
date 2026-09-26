@@ -19,8 +19,8 @@ FRAMEWORK=Vite + React
 ## 2. Runtime Topology
 
 FRONTEND_PROVIDER=Node.js / Self-Hosted
-BACKEND_PROVIDER=Vercel Serverless Functions
-PRODUCTION_DOMAIN=anclora-command-center.anclora.com
+BACKEND_PROVIDER=Node.js / Self-Hosted (AOS-managed)
+PRODUCTION_DOMAIN=command-center.dev.anclora.com
 PRODUCTION_DEPLOYMENT_PROVIDER=Node.js / Self-Hosted
 
 ```text
@@ -68,7 +68,7 @@ AUTH_SCOPE=production
 
 ## 7. External Services & Integrations
 
-EXTERNAL_SERVICES=Vercel API, Production Database, Email/Notifications
+EXTERNAL_SERVICES=AOS Runtime, Anclora Knowledge/AKG
 
 ## 8. Environment Files & Loading Order
 
