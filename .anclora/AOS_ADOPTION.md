@@ -16,7 +16,7 @@ Declaración de adopción AOS para `anclora-command-center`.
 
 `anclora-command-center` es la interfaz operacional del ecosistema Anclora: un shell Vite + React 19 + TypeScript que lee, en solo lectura, snapshots generados en build/dev time desde `anclora-infrastructure/knowledge` (Knowledge/AKG) y desde el CLI `aos status` (AOS Runtime), y los presenta en 5 vistas operacionales (Overview, Products, Repositories, Services, Knowledge). Ya **no** depende de ningún vault personal externo.
 
-Estado actual: `HOLD` (portfolio_status; el rol es interfaz operacional). El
+Estado actual: `ACTIVE` (portfolio_status; tier `internal`; el rol es interfaz operacional interna). El
 runtime canónico es el servicio AOS `command-center` en el VPS, expuesto en
 `https://command-center.dev.anclora.com/`. El repo fue saneado de PII
 (`VAULT_PII_REVIEW`, `COMMAND_CENTER_PII_REMEDIATION`): `REAL_PII_IN_HEAD=0`,
@@ -66,7 +66,7 @@ Autoridad delegada relevante:
 
 | Tipo de conocimiento | Ruta local | Owner | Relación con AOS |
 | --- | --- | --- | --- |
-| Identidad del producto | [`../README.md`](../README.md) | AOS Chief Architect | Fuente local subordinada a AOS; actualizada en esta adopción para reflejar HOLD/REBUILD. |
+| Identidad del producto | [`../README.md`](../README.md) | AOS Chief Architect | Fuente local subordinada a Vault; actualizada por CHG-0019 para reflejar Internal/ACTIVE. |
 | Implementación actual (shell Vite/React + adapters) | [`../src/`](../src/) | AOS Chief Architect | Fuente técnica local. Shell (`shell/`) reutilizado del pre-rebuild; `adapters/`, `contracts/`, `modules/operational/` nuevos de esta fase. |
 | Snapshots regenerables (no versionados, `.gitignore`) | [`../src/generated/`](../src/generated/) | AOS Chief Architect | **No es fuente de verdad**: copia de solo lectura de Knowledge/AKG y `aos status`, regenerada en cada build/dev/test — nunca commiteada. |
 | Package metadata | [`../package.json`](../package.json) | AOS Chief Architect | Fuente técnica local para scripts, dependencias y versión. `chokidar`/`exceljs`/`gray-matter` eliminados (dependían del vault externo). |
@@ -122,6 +122,7 @@ Una decisión local debe elevarse a AOS cuando:
 | 2026-09-03 | v0.2.0 | Remediación local: backend loopback con escrituras fail-closed y Bearer S2S; `/api/audit` protegido; SPA mantiene SOLO LECTURA al no existir sesión segura UI→backend. Se verificó el contrato local de `manifest.yaml`; el estado efectivo del VPS y la activación Caddy siguen pendientes. | AOS Chief Architect |
 | 2026-09-25 | v2.0 | Adopción de política canónica de QA proporcional, cadencia de puertas por lotes (BATCHED) y modelo de overrides explícitos. | ToniIAPro73 |
 | 2026-09-25 | v2.1 | Adopción de economía adaptativa (CAVEMAN_MODE=AUTO) y endurecimiento FAST QA (sin suites completas por defecto, mínimo suficiente, detención ante evidencia suficiente). | ToniIAPro73 |
+| 2026-09-27 | v2.2 | CHG-0019: Command Center pasa a `internal/ACTIVE`; se confirma AOS/VPS como único runtime, operación `aos up/down command-center`, sin proyecto Vercel y sin catálogo público. | Toni (Bóveda Maintainer) |
 
 ## Documentos relacionados
 
