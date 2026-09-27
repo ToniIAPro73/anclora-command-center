@@ -46,11 +46,12 @@ interface RawRelationship {
 }
 
 interface RawSnapshot {
-  schema_version: string
-  metadata: {
+  schema_version?: string
+  metadata?: {
     generated_at: string
     rebuild_id: string
     counts?: { entities?: number; relationships?: number; conflicts?: number }
+    unavailable_reason?: string
   }
   entities: {
     repositories: RawEntity[]
@@ -139,6 +140,36 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
     }
   }
 
+  if (raw.schema_version === 'unavailable') {
+    const reason = raw.metadata?.unavailable_reason ?? 'Knowledge no disponible (snapshot no generado)'
+    const unavailableState: DataState<never> = { status: 'UNAVAILABLE', reason }
+    return {
+      repositories: unavailableState,
+      products: unavailableState,
+      services: unavailableState,
+      endpoints: unavailableState,
+      health: unavailableState,
+      conflicts: unavailableState,
+      relationshipsFor: () => [],
+    }
+  }
+
+  if (!raw.metadata) {
+    const unavailableState: DataState<never> = {
+      status: 'UNAVAILABLE',
+      reason: 'Knowledge no disponible (falta metadata de frescura y procedencia)',
+    }
+    return {
+      repositories: unavailableState,
+      products: unavailableState,
+      services: unavailableState,
+      endpoints: unavailableState,
+      health: unavailableState,
+      conflicts: unavailableState,
+      relationshipsFor: () => [],
+    }
+  }
+
   const entities = raw.entities ?? {}
 
   // Labels humanas de business units: Knowledge es la fuente (entity.name);
@@ -155,6 +186,10 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
   const businessUnitLabelOf = (id: string | null): string | null =>
     id === null ? null : (businessUnitLabels.get(id) ?? null)
 
+  const repositoriesById = new Map(
+    (Array.isArray(entities.repositories) ? entities.repositories : []).map((repo) => [repo.id, repo]),
+  )
+
   const repositories: DataState<RepositorySummary[]> = Array.isArray(entities.repositories)
     ? withFreshness(
         raw.metadata,
@@ -165,7 +200,7 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
           githubVisibility: field<string>(r, 'github_visibility') ?? 'unknown',
           repositoryStatus: statusField(r, 'repository_status'),
           portfolioStatus: statusField(r, 'portfolio_status'),
-          defaultBranch: field<string>(r, 'default_branch') ?? 'main',
+          defaultBranch: field<string>(r, 'default_branch'),
           productId: null,
           targetRole: field(r, 'target_role'),
           sourceOfTruthLocal: field(r, 'source_of_truth_local'),
@@ -190,6 +225,10 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
             repoId: field(p, 'repo_id'),
             productStatus: statusField(p, 'product_status'),
             domain: field(p, 'domain'),
+            tier: field<string>(repositoriesById.get(field<string>(p, 'repo_id') ?? '') ?? p, 'tier'),
+            canonicalUrl: field<string>(p, 'exposed_at') ?? field<string>(repositoriesById.get(field<string>(p, 'repo_id') ?? '') ?? p, 'exposed_at'),
+            visibility: field<string>(repositoriesById.get(field<string>(p, 'repo_id') ?? '') ?? p, 'github_visibility'),
+            runtime: field<string>(p, 'deployed_on') ?? field<string>(repositoriesById.get(field<string>(p, 'repo_id') ?? '') ?? p, 'deployed_on'),
             source: 'knowledge' as const,
             sourceId: p.id,
           }
@@ -210,7 +249,7 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
           repoId: field(s, 'repo_id'),
           productId: field(s, 'product_id'),
           publicHost: field(s, 'public_host'),
-          source: 'aos' as const,
+          source: 'knowledge' as const,
           sourceId: s.id,
         })),
         entities.services.length === 0,
@@ -226,7 +265,7 @@ export function mapKnowledgeSnapshot(raw: RawSnapshot | null | undefined): {
           port: field(e, 'port'),
           endpointStatus: statusField(e, 'endpoint_status'),
           appKey: field<string>(e, 'app_key'),
-          source: 'aos' as const,
+          source: 'knowledge' as const,
           sourceId: e.id,
         })),
         entities.endpoints.length === 0,

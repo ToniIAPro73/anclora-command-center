@@ -74,6 +74,10 @@ function main() {
 
   const raw = JSON.parse(readFileSync(KNOWLEDGE_MODEL_PATH, 'utf-8'))
 
+  if (!raw || raw.schema_version !== '0.1.0' || !raw.metadata || !raw.entities) {
+    throw new Error('[sync-knowledge-data] El artefacto Knowledge no cumple el contrato esperado')
+  }
+
   const snapshot = {
     schema_version: raw.schema_version,
     metadata: raw.metadata,

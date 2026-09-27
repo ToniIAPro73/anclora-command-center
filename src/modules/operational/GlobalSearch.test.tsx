@@ -27,7 +27,7 @@ function rawSnapshot() {
 
 const products: DataState<ProductSummary[]> = {
   status: 'READY',
-  data: [{ id: 'product:fiscal', name: 'Anclora Fiscal', businessUnitId: null, businessUnitLabel: 'Independent', repoId: null, productStatus: 'ACTIVE', domain: null, source: 'knowledge', sourceId: 'product:fiscal' }],
+  data: [{ id: 'product:fiscal', name: 'Anclora Fiscal', businessUnitId: null, businessUnitLabel: 'Independent', repoId: null, productStatus: 'ACTIVE', domain: null, tier: null, canonicalUrl: null, visibility: null, runtime: null, source: 'knowledge', sourceId: 'product:fiscal' }],
 }
 const repositories: DataState<RepositorySummary[]> = {
   status: 'READY',

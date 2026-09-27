@@ -7,6 +7,7 @@
     "sync:knowledge": "node ./scripts/sync-knowledge-data.mjs",
     "sync:aos": "node ./scripts/sync-aos-status.mjs",
     "sync:all": "npm run sync:knowledge && npm run sync:aos",
+    "validate:contracts": "node scripts/validate-canonical-sync.mjs",
     "dev:vite": "vite",
     "dev": "npm run sync:all && vite",
     "build": "npm run sync:all && tsc -b && vite build",

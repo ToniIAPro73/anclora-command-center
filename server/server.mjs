@@ -697,6 +697,18 @@ function loadKnowledgeModel(cb) {
       }
       try {
         const parsed = JSON.parse(raw)
+        if (parsed?.schema_version === 'unavailable') {
+          cb({
+            status: 'UNAVAILABLE',
+            reason: parsed?.metadata?.unavailable_reason ?? 'Knowledge no está disponible en este entorno.',
+            payload: null,
+          })
+          return
+        }
+        if (!['0.1.0', '1.0'].includes(parsed?.schema_version) || !parsed?.metadata || !parsed?.entities) {
+          cb({ status: 'ERROR', reason: 'Knowledge devolvió un contrato no soportado.', payload: null })
+          return
+        }
         knowledgeCache = { mtimeMs: st.mtimeMs, payload: parsed }
         cb({ status: 'READY', reason: null, payload: parsed, mtimeMs: st.mtimeMs })
       } catch {

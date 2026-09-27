@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import type { DashboardLanguage } from '../../shell/dashboard-shell.types'
 import type {
   AosEndpointSummary,
@@ -15,13 +14,11 @@ import type {
   SystemHealth,
 } from '../../contracts/types'
 import type { GlobalOperationalStatus, OperationalIssue } from '../../domain/types'
-import { postServiceAction, type ServiceActionOp } from '../../adapters/aosAdapter'
 import { listKnowledgeEntities } from '../../adapters/knowledgeAdapter'
 import { classifyEndpointStatus } from '../../domain/endpointReconciliation'
 import { DataStateView } from './DataStateView'
 import { Button } from '../../ui/Button'
 import { StatusBadge, type StatusTone } from '../../ui/StatusBadge'
-import { ConfirmationDialog } from '../../ui/ConfirmationDialog'
 import { EmptyState } from '../../ui/EmptyState'
 import './operational-view.css'
 
@@ -50,6 +47,8 @@ interface Copy {
   source: string
   status: string
   visibility: string
+  tier: string
+  canonicalUrl: string
   businessUnit: string
   repo: string
   port: string
@@ -228,6 +227,8 @@ const copy: Record<DashboardLanguage, Copy> = {
     source: 'fuente',
     status: 'estado',
     visibility: 'visibilidad',
+    tier: 'tier',
+    canonicalUrl: 'URL canónica',
     businessUnit: 'business unit',
     repo: 'repo',
     port: 'puerto',
@@ -320,6 +321,8 @@ const copy: Record<DashboardLanguage, Copy> = {
     source: 'source',
     status: 'status',
     visibility: 'visibility',
+    tier: 'tier',
+    canonicalUrl: 'canonical URL',
     businessUnit: 'business unit',
     repo: 'repo',
     port: 'port',
@@ -412,6 +415,8 @@ const copy: Record<DashboardLanguage, Copy> = {
     source: 'Quelle',
     status: 'Status',
     visibility: 'Sichtbarkeit',
+    tier: 'Tier',
+    canonicalUrl: 'Kanonische URL',
     businessUnit: 'Business Unit',
     repo: 'Repo',
     port: 'Port',
@@ -485,12 +490,12 @@ const copy: Record<DashboardLanguage, Copy> = {
 
 export interface OperationalDataProps {
   // Datos inyectados por useOperationalData (COMMAND_CENTER_VPS_NATIVE_DEPLOYMENT):
-  // los componentes jamas hacen fetch ni tocan adapters directamente (salvo la
-  // unica accion de escritura, postServiceAction, disparada desde ServicesSection).
+  // Los componentes jamás hacen fetch ni ejecutan operaciones mutantes del runtime.
   loadingInitial: boolean
   aosLastUpdatedAt: Date | null
   aos: DataState<AosServiceRuntimeSummary[]>
   aosEndpoints: DataState<AosEndpointSummary[]>
+  /** Deprecated compatibility field; Services remains strictly read-only. */
   writeActionsUiAvailable?: boolean
   knowledgeHealth: DataState<SystemHealth>
   repositories: DataState<RepositorySummary[]>
@@ -536,8 +541,6 @@ export function OperationalView({
         aos={data.aos}
         aosEndpoints={data.aosEndpoints}
         endpointMatches={data.endpointMatches}
-        writeActionsUiAvailable={data.writeActionsUiAvailable}
-        onRefresh={data.onRefresh}
         onOpenEntity={data.onOpenEntity}
       />
     )
@@ -707,7 +710,11 @@ function ProductsSection({
                 </button>
                 <span className="op-list__meta">
                   {t.status}: {p.productStatus} · {t.businessUnit}: {p.businessUnitLabel ?? p.businessUnitId ?? t.unknownField}
+                  {` · ${t.tier}: ${p.tier ?? t.unknownField}`}
                   {p.repoId ? ` · ${t.repo}: ${p.repoId.replace('repo:ToniIAPro73/', '')}` : ''}
+                </span>
+                <span className="op-list__meta">
+                  {t.canonicalUrl}: {p.canonicalUrl ?? t.unknownField}
                 </span>
                 <span className="op-list__source">
                   {t.source}: {p.source}
@@ -856,105 +863,36 @@ function RepositoriesSection({
 // ================================================================ SERVICES
 // ServicesSection (AOS_OPERATIONAL_TRUTH_RECONCILIATION):
 // la fuente de la vista es el RUNTIME AOS (aos status --json v1.1), no el
-// catalogo estatico de Knowledge. Ademas de la vista, expone las acciones
-// seguras START/STOP/RESTART (Seccion 32) solo para managed=aos; external
-// queda VIEW ONLY. command-center bloquea stop/restart (self-stop policy).
-const SELF_SERVICE_ID = 'command-center'
-
-interface PendingAction {
-  serviceId: string
-  op: ServiceActionOp
-}
+// catálogo estático de Knowledge. Command Center es una consola de
+// observabilidad: la UI nunca inicia, detiene ni reinicia servicios.
 
 function ServicesSection({
   t,
   aos,
   aosEndpoints,
   endpointMatches,
-  writeActionsUiAvailable,
-  onRefresh,
   onOpenEntity,
 }: {
   t: Copy
   aos: DataState<AosServiceRuntimeSummary[]>
   aosEndpoints: DataState<AosEndpointSummary[]>
   endpointMatches: EndpointMatch[]
-  writeActionsUiAvailable?: boolean
-  onRefresh: () => void
   onOpenEntity: (id: string) => void
 }) {
-  const [pending, setPending] = useState<PendingAction | null>(null)
-  const [busy, setBusy] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
-
-  function requestAction(serviceId: string, op: ServiceActionOp) {
-    if (!writeActionsUiAvailable) return
-    setError(null)
-    setSuccess(null)
-    if (op === 'start') {
-      void runAction(serviceId, op)
-      return
-    }
-    setPending({ serviceId, op })
-  }
-
-  async function runAction(serviceId: string, op: ServiceActionOp) {
-    if (!writeActionsUiAvailable) return
-    setBusy(true)
-    setError(null)
-    setSuccess(null)
-    const result = await postServiceAction(serviceId, op)
-    setBusy(false)
-    if (!result.ok) {
-      const statusMessage = result.status === 401 ? t.actionUnauthorized
-        : result.status === 403 ? t.actionForbidden
-          : result.status === 503 ? t.actionUnavailable
-            : result.status === 409 ? t.actionConflict
-              : result.status === 504 ? t.actionTimeout
-                : t.actionInternal
-      setError(t.actionFailed(result.reason ?? statusMessage))
-      return
-    }
-    setPending(null)
-    setSuccess(t.actionSucceeded(op, serviceId))
-    onRefresh()
-    // Estado terminal no siempre es inmediato (STARTING/STOPPING) — un
-    // segundo refresh corto tras la accion, sin polling agresivo (Seccion 39/65).
-    setTimeout(() => {
-      setSuccess(null)
-      onRefresh()
-    }, 2500)
-  }
-
   return (
     <section className="op-section" aria-labelledby="services-heading">
       <h2 id="services-heading" className="op-section__title">
         {t.servicesTitle}
       </h2>
-      {error && (
-        <p className="op-state op-state--error" role="alert">
-          {error}
-        </p>
-      )}
-      {success && (
-        <p className="op-state op-state--success" role="status">
-          {success}
-        </p>
-      )}
       <DataStateView state={aos} labels={stateLabels(t)}>
         {(items) => (
           <>
-            {!writeActionsUiAvailable && (
-              <p className="op-state op-state--readonly" role="status">
-                {t.actionReadOnlyNote}
-              </p>
-            )}
+            <p className="op-state op-state--readonly" role="status">
+              {t.actionReadOnlyNote}
+            </p>
             <ul className="op-list">
             {items.map((s) => {
               const isExternal = s.managed === 'external'
-              const isSelf = s.service === SELF_SERVICE_ID
-              const isRunning = s.state === 'running' || s.state === 'starting'
               const endpointMatch = endpointMatches.find((m) => m.aos.service === s.service)
               return (
                 <li key={s.service} className="op-list__item">
@@ -989,41 +927,7 @@ function ServicesSection({
                     {t.source}: aos · {t.runtime}
                   </span>
                   <div className="op-list__actions">
-                    {isExternal || !writeActionsUiAvailable ? (
-                      <StatusBadge tone="muted" label={t.actionViewOnly} />
-                    ) : (
-                      <>
-                        <Button
-                          variant="secondary"
-                          size="sm"
-                          disabled={isRunning || busy}
-                          aria-busy={busy}
-                          onClick={() => requestAction(s.service, 'start')}
-                        >
-                          {t.actionStart}
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          disabled={busy || isSelf || !isRunning}
-                          aria-busy={busy}
-                          title={isSelf ? t.selfStopBlocked : undefined}
-                          onClick={() => requestAction(s.service, 'stop')}
-                        >
-                          {t.actionStop}
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          disabled={busy || isSelf}
-                          aria-busy={busy}
-                          title={isSelf ? t.selfStopBlocked : undefined}
-                          onClick={() => requestAction(s.service, 'restart')}
-                        >
-                          {t.actionRestart}
-                        </Button>
-                      </>
-                    )}
+                    <StatusBadge tone="muted" label={t.actionViewOnly} />
                   </div>
                 </li>
               )
@@ -1066,24 +970,6 @@ function ServicesSection({
         )}
       </DataStateView>
 
-      {pending && (
-        <ConfirmationDialog
-          open
-          title={t.confirmTitle(pending.op, pending.serviceId)}
-          summary={t.confirmSummary(pending.op, pending.serviceId)}
-          consequence={pending.op === 'stop' ? t.confirmConsequenceStop : t.confirmConsequenceRestart}
-          confirmLabel={t.confirmConfirm(pending.op === 'stop' ? t.actionStop : t.actionRestart)}
-          cancelLabel={t.confirmCancel}
-          busy={busy}
-          error={error}
-          destructive={pending.op === 'stop'}
-          onConfirm={() => void runAction(pending.serviceId, pending.op)}
-          onCancel={() => {
-            setPending(null)
-            setError(null)
-          }}
-        />
-      )}
     </section>
   )
 }

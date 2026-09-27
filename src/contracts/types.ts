@@ -27,7 +27,7 @@ export interface RepositorySummary extends SourceMetadata {
   githubVisibility: string
   repositoryStatus: string
   portfolioStatus: string
-  defaultBranch: string
+  defaultBranch: string | null
   productId: string | null
   targetRole: string | null
   sourceOfTruthLocal: boolean | null
@@ -90,6 +90,10 @@ export interface ProductSummary extends SourceMetadata {
   repoId: string | null
   productStatus: string
   domain: string | null
+  tier: string | null
+  canonicalUrl: string | null
+  visibility: string | null
+  runtime: string | null
 }
 
 export interface ServiceSummary extends SourceMetadata {

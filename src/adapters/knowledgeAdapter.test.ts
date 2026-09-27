@@ -96,12 +96,12 @@ describe('knowledgeAdapter (mapper puro)', () => {
 
     expect(m.services.status).toBe('READY')
     if (m.services.status === 'READY') {
-      for (const svc of m.services.data) expect(svc.source).toBe('aos')
+      for (const svc of m.services.data) expect(svc.source).toBe('knowledge')
     }
 
     expect(m.endpoints.status).toBe('READY')
     if (m.endpoints.status === 'READY') {
-      for (const ep of m.endpoints.data) expect(ep.source).toBe('aos')
+      for (const ep of m.endpoints.data) expect(ep.source).toBe('knowledge')
     }
 
     expect(m.health.status === 'READY' || m.health.status === 'STALE').toBe(true)
@@ -123,6 +123,15 @@ describe('knowledgeAdapter (mapper puro)', () => {
 
   it('metadata ausente → health UNAVAILABLE (no inventar counts)', () => {
     const m = mapKnowledgeSnapshot(rawSnapshot({ metadata: undefined }))
+    expect(m.health.status).toBe('UNAVAILABLE')
+  })
+
+  it('snapshot marcado como unavailable → todos los dominios UNAVAILABLE', () => {
+    const m = mapKnowledgeSnapshot(rawSnapshot({
+      schema_version: 'unavailable',
+      metadata: { generated_at: new Date().toISOString(), rebuild_id: null, unavailable_reason: 'artefacto ausente' },
+    }))
+    expect(m.products).toEqual({ status: 'UNAVAILABLE', reason: 'artefacto ausente' })
     expect(m.health.status).toBe('UNAVAILABLE')
   })
 
