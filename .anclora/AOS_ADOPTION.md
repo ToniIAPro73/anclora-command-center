@@ -129,3 +129,8 @@ Una decisión local debe elevarse a AOS cuando:
 - [`../README.md`](../README.md)
 - [`../../anclora-infrastructure/audit/ecosystem-core-onboarding/01_COMMAND_CENTER_ONBOARDING.md`](../../anclora-infrastructure/audit/ecosystem-core-onboarding/01_COMMAND_CENTER_ONBOARDING.md)
 - [`../../anclora-infrastructure/audit/ecosystem-core-onboarding/03_COMMAND_CENTER_REBUILD_READINESS.md`](../../anclora-infrastructure/audit/ecosystem-core-onboarding/03_COMMAND_CENTER_REBUILD_READINESS.md)
+
+<!-- ANCLORA-MODS:START -->
+ANCLORA_MODS_COMMON_CONTRACT_VERSION=1.0.0
+Canonical shared rules: [Anclora Common Agent Contract](../anclora-mods/contracts/ANCLORA_COMMON_AGENT_CONTRACT_V1.md) and [Flow Amendment v2](../anclora-mods/ANCLORA_FLUJO_UNICO_V2.md). Repository-specific facts remain in this repository's `.anclora/` contracts.
+<!-- ANCLORA-MODS:END -->
