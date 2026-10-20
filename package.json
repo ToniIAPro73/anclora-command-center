@@ -9,7 +9,7 @@
     "sync:all": "npm run sync:knowledge && npm run sync:aos",
     "validate:contracts": "node scripts/validate-canonical-sync.mjs",
     "dev:vite": "vite",
-    "dev": "npm run sync:all && vite",
+    "dev": "node ../anclora-infrastructure/scripts/free-port.mjs && npm run sync:all && vite --port 3024 --strictPort",
     "build": "npm run sync:all && tsc -b && vite build",
     "lint": "eslint .",
     "test": "npm run sync:all && vitest run src && node tests/server.test.mjs",
