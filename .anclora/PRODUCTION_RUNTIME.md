@@ -62,7 +62,7 @@ manifest override generic agent defaults or home-directory agent policies.
 
 APPLICATION_NAME=Anclora Command Center
 REPOSITORY=anclora-command-center
-APPLICATION_TYPE=fullstack_or_application
+APPLICATION_TYPE=fullstack
 FRAMEWORK=Vite + React
 
 ## 2. Runtime Topology
